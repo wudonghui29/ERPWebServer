@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/ERPWebServer?useUnicode=true&amp;characterEncoding=UTF-8</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password"></property>
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        
+        <property name="connection.useUnicode">true</property>
+        <property name="connection.characterEncoding">UTF-8</property>
+        <property name="query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
+    
+  		<!--
+        <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+        <property name="connection.url">jdbc:oracle:thin:@localhost:1521:SXT</property>
+        <property name="connection.username">scott</property>
+        <property name="connection.password">tiger</property>
+      	<property name="dialect">org.hibernate.dialect.OracleDialect</property>
+       
+
+ 		<property name="connection.driver_class">com.microsoft.jdbc.sqlserver.SQLServerDriver</property>
+        <property name="connection.url">jdbc:microsoft:sqlserver://localhost:1433;DatabaseName=hibernate</property>
+        <property name="connection.username">sa</property>
+        <property name="connection.password">sa</property>
+      	<property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
+		-->
+
+        <!-- JDBC connection pool (use the built-in) -->
+        <property name="connection.pool_size">20</property>
+
+        
+        <!-- Enable Hibernate's automatic session context management -->
+        <property name="current_session_context_class">thread</property>
+
+        <!-- Disable the second-level cache  -->
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+
+        <!-- Echo all executed SQL to stdout -->
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+
+        <!-- Drop and re-create the database schema on startup -->
+        <property name="hbm2ddl.auto">update</property>  <!-- create/update -->
+
+		<!-- ORM -->
+        <mapping class="com.xinyuan.model.User"/>
+        
+        <mapping class="com.xinyuan.model.HumanResource.Employee"/>
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeAttendanceOrder"/>
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeBusinessMealOrder"/>
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeDailyWorkOrder"/>
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeDormitoryOrder"/>
+        
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeLeaveOrder"/>
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeMonthlyExamineOrder"/>
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeOutOrder"/>
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeOverTimeOrder"/>
+        
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeQuitOrder"/>
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeQuitPassOrder"/>
+        
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeRepairAttendanceOrder"/>
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeSecurityMealOrder"/>
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeSecurityDetailOrder"/>
+        
+        
+        <mapping class="com.xinyuan.model.HumanResource.Department"/>
+
+        
+    </session-factory>
+
+</hibernate-configuration>

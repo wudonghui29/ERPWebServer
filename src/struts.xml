@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	
+	
+	<!-- main package , as well as default package -->
+	<package name="main" extends="struts-default" namespace="/">
+	
+        <interceptors>
+	        <interceptor name="post-request" class="com.xinyuan.interceptor.PostRequestInterceptor"/>
+	        <interceptor name="user-agent" class="com.xinyuan.interceptor.UserAgentInterceptor" />
+	        <interceptor name="write-message" class="com.xinyuan.interceptor.WriteMessageInterceptor" />
+	        <interceptor-stack name="defaultInterceptorsStack">
+	           <interceptor-ref name="post-request"/>
+	           <interceptor-ref name="user-agent"/>
+	           <interceptor-ref name="write-message"/>
+	        </interceptor-stack>
+    	</interceptors>
+        <default-interceptor-ref name="defaultInterceptorsStack" />
+        
+        
+	    <default-action-ref name="index" />
+	    
+	    
+        <global-results>
+            <result name="error">/error.jsp</result>
+            <result name="success">/success.jsp</result>
+        </global-results>
+        
+    	<global-exception-mappings>  
+            <exception-mapping result="error" exception="java.lang.Exception" />
+    	</global-exception-mappings> 
+        
+	</package>
+	
+	
+	<!-- user package -->
+	<package name="user" extends="main" namespace="/user">
+	
+		<interceptors>
+			<interceptor name="admin-check" class="com.xinyuan.interceptor.AdministratorInterceptor"></interceptor>
+			<interceptor-stack name="user-admin-check-stack">
+				<interceptor-ref name="defaultInterceptorsStack" />
+				<interceptor-ref name="admin-check" />
+			</interceptor-stack>		
+		</interceptors>
+	
+		<action name="connect" class="com.xinyuan.action.UserAction" method="connect"/>
+		<action name="signin" class="com.xinyuan.action.UserAction" method="signin"/>
+		<action name="signout" class="com.xinyuan.action.UserAction" method="signout"/>
+		
+		
+		<action name="signup" class="com.xinyuan.action.UserAction" method="signup">
+			<interceptor-ref name="user-admin-check-stack"></interceptor-ref>
+		</action>
+		<action name="update" class="com.xinyuan.action.UserAction" method="update">
+			<interceptor-ref name="user-admin-check-stack"></interceptor-ref>
+		</action>
+		<action name="read" class="com.xinyuan.action.UserAction" method="read">
+			<interceptor-ref name="user-admin-check-stack"></interceptor-ref>
+		</action>
+		
+	</package>
+	
+	
+	<!-- logic package -->
+	<package name="logic" extends="main" namespace="/logic">
+	
+		<interceptors>
+			<interceptor name="authorize-check" class="com.xinyuan.interceptor.AuthorizeInterceptor" />
+			<interceptor name="permission-check" class="com.xinyuan.interceptor.PermissionInterceptor" />
+			<interceptor-stack name="logicIntercepterStack">
+				<interceptor-ref name="defaultInterceptorsStack" />
+				<interceptor-ref name="authorize-check" />
+				<interceptor-ref name="permission-check" />
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="logicIntercepterStack" />
+		
+	</package>
+	
+	
+	<!-- human resource package -->
+	<package name="specific" extends="logic">
+	
+		<action name="*__*" class="com.xinyuan.action.{1}Action" method="{2}"></action>
+	
+	</package>
+
+</struts>
