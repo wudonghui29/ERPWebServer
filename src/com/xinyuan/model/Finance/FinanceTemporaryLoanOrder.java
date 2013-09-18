@@ -9,7 +9,7 @@ import com.xinyuan.model.Level_Four_Approve;
  * 临时借据单
  *
  */
-public class TemporaryLoanOrder extends Level_Four_Approve {
+public class FinanceTemporaryLoanOrder extends Level_Four_Approve {
 
 	private String employeeNO ; //借款人
 	

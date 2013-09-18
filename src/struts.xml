@@ -86,7 +86,6 @@
 	</package>
 	
 	
-	<!-- human resource package -->
 	<package name="specific" extends="logic">
 	
 		<action name="*__*" class="com.xinyuan.action.{1}Action" method="{2}"></action>

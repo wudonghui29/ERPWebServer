@@ -34,28 +34,9 @@ public class HumanResourceAction extends BaseAction {
 			boolean isSuccess = dao.create(object);
 			
 			if (!isSuccess) message.description = MessageConstants.USER.UserCreateFailed ;
+			
+			// TODO, check the username == employeeNO
 		}
-		
-		/**
-		 
-		String json = request.getParameter(MessageConstants.JSON);
-		JsonObject jsonObject = (JsonObject) (new JsonParser()).parse(json);
-
-		JsonArray modelsArray = (JsonArray) jsonObject.get(MessageConstants.MODELS);
-		JsonArray objectsArray = (JsonArray) jsonObject.get(MessageConstants.OBJECTS);
-		
-		for (int i = 0; i < modelsArray.size(); i++) {
-			JsonElement modelElement = modelsArray.get(i);
-			JsonElement objectElement = objectsArray.get(i);
-
-			String model = modelElement.getAsString();
-			String objectString = new Gson().toJson(objectElement);
-
-			Class<?> modelClass = Class.forName(MessageConstants.COM_MODEL + "." + ActionBase.getActionNamePrefix() + model);
-			Object object = new GsonBuilder().setDateFormat(MessageConstants.DATE_FORMAT).create().fromJson(objectString, modelClass);		// TODO, check the username == employeeNO
-		}
-		
-		**/
 		
 		return Action.NONE;
 	}

@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.xinyuan.model.Level_Five_Approve;
 
 @Entity
-@Table(name="Employees")
+@Table
 public class Employee extends Level_Five_Approve {
 	
 	private String name ;

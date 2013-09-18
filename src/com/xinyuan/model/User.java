@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 
 @Entity
-@Table(name="User")
+@Table
 public class User implements Serializable{
 	
 	private int uid ; 		// primary id , id == 1 is administrator for now

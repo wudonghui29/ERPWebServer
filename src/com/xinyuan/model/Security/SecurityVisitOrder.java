@@ -12,7 +12,7 @@ import com.xinyuan.model.Level_Two_Approve;
  */
 
 @Entity
-@Table(name="VisitOrder")
+@Table
 public class SecurityVisitOrder extends Level_Two_Approve {
 
 	private String visitorCompany;  // 拜访人公司
@@ -23,6 +23,7 @@ public class SecurityVisitOrder extends Level_Two_Approve {
 	private String employeeNO;		// 拜访人员(即拜访本公司的谁)
 	private String agentEmployeeNO;	// 转接人员
 	private String visitReason;		// 事由
+	
 	public String getVisitorCompany() {
 		return visitorCompany;
 	}
