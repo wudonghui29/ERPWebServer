@@ -48,7 +48,10 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>  <!-- create/update -->
 
+
 		<!-- ORM -->
+		
+		<!-- HumanResource Models -->
         <mapping class="com.xinyuan.model.User"/>
         
         <mapping class="com.xinyuan.model.HumanResource.Employee"/>
@@ -69,9 +72,10 @@
         <mapping class="com.xinyuan.model.HumanResource.EmployeeSecurityMealOrder"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeSecurityDetailOrder"/>
         
-        
         <mapping class="com.xinyuan.model.HumanResource.Department"/>
 
+        <!-- Security Models -->
+        <mapping class="com.xinyuan.model.Security.SecurityVisitOrder"/>
         
     </session-factory>
 
