@@ -60,8 +60,8 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 	}
 	
 	@Override
-	public <E> boolean create(E object) throws Exception {
-		return super.saveObject(object);
+	public <E> Integer create(E object) throws Exception {
+		return (Integer)super.saveObject(object);
 	}
 
 	@Override

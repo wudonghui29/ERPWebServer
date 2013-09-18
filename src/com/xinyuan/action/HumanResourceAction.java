@@ -28,14 +28,11 @@ public class HumanResourceAction extends BaseAction {
 			JsonElement objectElement = jsonObject.get(MessageConstants.USERS);
 			String objectString = new Gson().toJson(objectElement);
 			
-			Class<?> modelClass = Class.forName(MessageConstants.COM_MODEL + ".User");
+			Class<?> modelClass = Class.forName(MessageConstants.MODELPACKAGE + ".User");
 			Object object = new GsonBuilder().setDateFormat(MessageConstants.DATE_FORMAT).create().fromJson(objectString, modelClass);
 
-			boolean isSuccess = dao.create(object);
-			
-			if (!isSuccess) message.description = MessageConstants.USER.UserCreateFailed ;
-			
 			// TODO, check the username == employeeNO
+			dao.create(object);
 		}
 		
 		return Action.NONE;

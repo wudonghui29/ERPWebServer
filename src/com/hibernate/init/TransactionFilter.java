@@ -23,16 +23,18 @@ public class TransactionFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-			
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		Transaction transaction = session.beginTransaction();
+		Transaction transaction = null;	
 		try {
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			transaction = session.beginTransaction();
 			chain.doFilter(request, response);
 			transaction.commit();
-		} catch (HibernateException e) {
-			transaction.rollback();
+		} catch (RuntimeException e) {
+			if (transaction != null){
+				transaction.rollback();
+				DLog.log("Transaction ---> Roll Back , so the operation before transaction.commit() will not persiste to DB");
+			}
 			e.printStackTrace();
-			DLog.log("transaction ---> Roll Back");
 			throw e;
 		}
 		finally{

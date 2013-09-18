@@ -7,13 +7,14 @@ import org.hibernate.NonUniqueResultException;
 import com.xinyuan.dao.UserDAO;
 import com.xinyuan.model.User;
 
-public class UserDAOIMP extends BaseDAOIMP implements UserDAO {
+public class UserDAOIMP extends HibernateDAO implements UserDAO {
 
 	public boolean isSignup(String username) {
 		return this.getUser(username) != null;
 	}
 
 	public void modify(User user) {
+		super.updateObject(user);
 	}
 
 	public void delete(User user) {
@@ -29,8 +30,8 @@ public class UserDAOIMP extends BaseDAOIMP implements UserDAO {
 		return super.getObjects(hqlString);
 	}
 
-	public boolean saveUser(User user) {
-		return this.isSignup(user.getUsername()) ? false : super.saveObject(user);
+	public boolean createUser(User user) {
+		return this.isSignup(user.getUsername()) ? false : (Integer)super.saveObject(user) > 0;
 	}
 
 }

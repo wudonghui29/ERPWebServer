@@ -19,10 +19,6 @@ import com.xinyuan.message.ResponseMessage;
 import com.xinyuan.model.User;
 
 public class UserAction extends ActionBase {
-
-	private static final String VERIFYCODE = "verify-code";
-	private static final String USERNAME = "username";
-	private static final String PASSWORD = "password";
 	
 	private UserDAO userDAO = new UserDAOIMP();
 	
@@ -43,10 +39,10 @@ public class UserAction extends ActionBase {
 		String verifyCode = randomBool ? VerifyCode.generateCode(6) : SecurityCode.getSecurityCode();
 		byte[] imageBytes = randomBool ? VerifyCode.generateImageBytes(verifyCode) : SecurityCode.getImageAsBytes(verifyCode);
 
-		this.sessionPut(VERIFYCODE, verifyCode);
+		this.sessionPut(MessageConstants.VERIFYCODE, verifyCode);
 		ResponseWriter.write(imageBytes);
 		message.status = ResponseMessage.STATUS_SUCCESS;
-		DLog.log(VERIFYCODE + " : " + verifyCode);
+		DLog.log(MessageConstants.VERIFYCODE + " : " + verifyCode);
 
 		return Action.NONE;
 	}
@@ -54,20 +50,31 @@ public class UserAction extends ActionBase {
 	public String signin() throws Exception {
 		if (! this.isVerifyCodeError()) {
 
-			String username = request.getParameter(USERNAME);
-			String password = request.getParameter(PASSWORD);
+			String username = request.getParameter(MessageConstants.USERNAME);
+			String password = request.getParameter(MessageConstants.PASSWORD);
+			String apnsToken = request.getParameter(MessageConstants.APNS_TOKEN);
 
 			User user = userDAO.getUser(username);
 			if (user == null) {
 				message.description = MessageConstants.USER.UserNotExist;
 			} else if (password.equals(user.getPassword())) {
 				message.status = ResponseMessage.STATUS_SUCCESS;
+				message.description = MessageConstants.USER.UserLoginSuccess;
 				
+				// put the permission in session
 				String perssionStr = user.getPermissions();
 				this.sessionPut(MessageConstants.PERMISSIONS, perssionStr.split(","));
 				this.sessionPut(MessageConstants.SIGNIN_USER, user);
+				
+				// update the apnsToken in db
+				String userToken = user.getApnsToken();
+				if (apnsToken != null && !apnsToken.equals(userToken)) {	// TODO: when update token , logout first and clear auto login
+					user.setApnsToken(apnsToken);
+					userDAO.modify(user);
+				}
+				
 			} else {
-				message.description = MessageConstants.USER.UserNamePasswordError;
+				message.description = MessageConstants.USER.UserPasswordError;
 			}
 		}
 		return Action.NONE;
@@ -105,7 +112,7 @@ public class UserAction extends ActionBase {
 				if (userDAO.isSignup(username)) {
 					message.description = MessageConstants.USER.UserNameExisted;
 				} else {
-					if (userDAO.saveUser(user)) message.status = ResponseMessage.STATUS_SUCCESS;
+					if (userDAO.createUser(user)) message.status = ResponseMessage.STATUS_SUCCESS;
 				}
 			}
 		}

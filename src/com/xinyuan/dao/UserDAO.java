@@ -9,42 +9,15 @@ import com.xinyuan.model.User;
  */
 public interface UserDAO {
 
-	/**
-	 * check if this username had signed up
-	 * @param username
-	 * @return
-	 */
 	boolean isSignup(String username); 
 
-	/**
-	 * 
-	 * @param user
-	 */
-	boolean saveUser(User user);
-	
-	/**
-	 * modify the user profile
-	 * @param user
-	 */
+	public boolean createUser(User user) ;
+
 	void modify(User user);
 
-	/**
-	 * delete the user
-	 * @param user
-	 */
 	void delete(User user);
 
-	/**
-	 * get user by user name
-	 * @param username
-	 * @return
-	 */
 	User getUser(String username);
 
-	/**
-	 * 
-	 * @param hql
-	 * @return
-	 */
 	List getUsers();
 }

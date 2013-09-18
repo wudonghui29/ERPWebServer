@@ -30,7 +30,7 @@ public class SecurityAction extends BaseAction {
 			// Connect to APNs
 			String host = "gateway.sandbox.push.apple.com";
 			int port = 2195;
-			String certificatePath = "/Users/Isaacs/Downloads/work/xinyuan_develop/XinyuanDevelop.p12"; // unknow_certifiate
+			String certificatePath = "/Users/Isaacs/Downloads/work/xinyuan_develop/apnsDevelop.p12";
 			String certificatePassword = "12345";
 			pushManager.initializeConnection(host, port, certificatePath, certificatePassword, SSLConnectionHelper.KEYSTORE_TYPE_PKCS12);
 

@@ -1,8 +1,8 @@
 package com.xinyuan.dao.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
-import org.hibernate.NonUniqueResultException;
 import org.hibernate.Session;
 
 import com.hibernate.init.HibernateUtil;
@@ -12,17 +12,16 @@ public class HibernateDAO {
 	/**
 	 * 保存实体的对象
 	 * @param obj 被保存的实体对象
-	 * return 返回保存是否成功，true代表是。
+	 * @return 返回保存是否成功，true代表是。
 	 * */
-	public boolean saveObject(Object obj){
-		int i = (Integer)HibernateUtil.getSessionFactory().getCurrentSession().save(obj);
-		return i > 0 ;
+	public Serializable saveObject(Object obj){
+		return HibernateUtil.getSessionFactory().getCurrentSession().save(obj);
 	}
 	
 	/**
 	 * 修改实体的对象
 	 * @param obj 被修改的实体对象
-	 * return 修改是否成功，true代表是.
+	 * @return 修改是否成功，true代表是.
 	  */
 	public void updateObject(Object obj){
 		HibernateUtil.getSessionFactory().getCurrentSession().update(obj);

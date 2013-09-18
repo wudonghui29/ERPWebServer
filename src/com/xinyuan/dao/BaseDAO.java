@@ -12,7 +12,7 @@ public interface BaseDAO {
 	
 	<E extends BaseOrderModel> List<E> read(E object, Map<String, Object> fields) throws Exception;
 
-	<E> boolean create(E object) throws Exception;
+	<E> Integer create(E object) throws Exception;
 	
 	<E> boolean modify(E object) throws Exception;
 	

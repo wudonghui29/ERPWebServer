@@ -1,11 +1,8 @@
 package com.xinyuan.action;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.struts2.ServletActionContext;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,8 +10,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.opensymphony.xwork2.Action;
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 import com.xinyuan.dao.BaseDAO;
 import com.xinyuan.message.MessageConstants;
 import com.xinyuan.message.ResponseMessage;
@@ -41,7 +36,7 @@ public abstract class BaseAction extends ActionBase {
 		String objectString = new Gson().toJson(objectElement);
 		Map<String, Object> map = new Gson().fromJson(objectElement, Map.class);
 		
-		Class<?> modelClass = Class.forName(MessageConstants.COM_MODEL + "." + BaseAction.getActionNamePrefix() + model);
+		Class<?> modelClass = Class.forName(MessageConstants.MODELPACKAGE + "." + BaseAction.getActionNamePrefix() + model);
 		Object object = new GsonBuilder().setDateFormat(MessageConstants.DATE_FORMAT).create().fromJson(objectString, modelClass);
 		List<BaseOrderModel> results = dao.read((BaseOrderModel)object, map);
 		
@@ -62,14 +57,18 @@ public abstract class BaseAction extends ActionBase {
 		String model = modelElement.getAsString();
 		String objectString = new Gson().toJson(objectElement);
 
-		Class<?> modelClass = Class.forName(MessageConstants.COM_MODEL + "." + BaseAction.getActionNamePrefix() + model);
+		Class<?> modelClass = Class.forName(MessageConstants.MODELPACKAGE + "." + BaseAction.getActionNamePrefix() + model);
 		Object object = new GsonBuilder().setDateFormat(MessageConstants.DATE_FORMAT).create().fromJson(objectString, modelClass);
 //		BaseOrderModel orderModel = (BaseOrderModel)object;
 //		orderModel.setCreateDate(createDate);
 		
-		boolean isSuccess = dao.create(object);
+		Integer identifier = dao.create(object);
 		
-		if (isSuccess) message.status = ResponseMessage.STATUS_SUCCESS ;
+		message.status = ResponseMessage.STATUS_SUCCESS ;
+		Map map = new HashMap();
+		map.put(MessageConstants.IDENTIFIER, identifier);
+		message.object = map;
+		
 		return Action.NONE;
 	}
 	

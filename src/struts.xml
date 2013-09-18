@@ -55,9 +55,9 @@
 		<action name="signout" class="com.xinyuan.action.UserAction" method="signout"/>
 		
 		
-		<action name="signup" class="com.xinyuan.action.UserAction" method="signup">
+		<!-- <action name="signup" class="com.xinyuan.action.UserAction" method="signup">
 			<interceptor-ref name="user-admin-check-stack"></interceptor-ref>
-		</action>
+		</action> -->
 		<action name="update" class="com.xinyuan.action.UserAction" method="update">
 			<interceptor-ref name="user-admin-check-stack"></interceptor-ref>
 		</action>
