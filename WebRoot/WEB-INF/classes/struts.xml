@@ -74,10 +74,12 @@
 		<interceptors>
 			<interceptor name="authorize-check" class="com.xinyuan.interceptor.AuthorizeInterceptor" />
 			<interceptor name="permission-check" class="com.xinyuan.interceptor.PermissionInterceptor" />
+			<interceptor name="json-interpretor" class="com.xinyuan.interceptor.JsonInterpretInterceptor" />
 			<interceptor-stack name="logicIntercepterStack">
 				<interceptor-ref name="defaultInterceptorsStack" />
 				<interceptor-ref name="authorize-check" />
 				<interceptor-ref name="permission-check" />
+				<interceptor-ref name="json-interpretor" />
 			</interceptor-stack>
 		</interceptors>
 		

@@ -17,6 +17,9 @@ import com.xinyuan.model.BaseOrderModel;
 
 public abstract class BaseAction extends ActionBase {
 	
+	private JsonObject jsonObject;		// for JsonInterpretInterceptor
+	private BaseOrderModel model;		// for JsonInterpretInterceptor
+	
 	protected BaseDAO dao = getDao() ;							// for subclass initial
 	protected abstract BaseDAO getDao() ;
 	
@@ -26,19 +29,11 @@ public abstract class BaseAction extends ActionBase {
 	}
 	
 	public String read() throws Exception {
-		String json = request.getParameter(MessageConstants.JSON);
-		JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(json);
-		
-		JsonElement modelElement =  jsonObject.get(MessageConstants.MODELS);
 		JsonElement objectElement = jsonObject.get(MessageConstants.OBJECTS);
-			
-		String model = modelElement.getAsString();
 		String objectString = new Gson().toJson(objectElement);
-		Map<String, Object> map = new Gson().fromJson(objectElement, Map.class);
-		
-		Class<?> modelClass = Class.forName(MessageConstants.MODELPACKAGE + "." + BaseAction.getActionNamePrefix() + model);
-		Object object = new GsonBuilder().setDateFormat(MessageConstants.DATE_FORMAT).create().fromJson(objectString, modelClass);
-		List<BaseOrderModel> results = dao.read((BaseOrderModel)object, map);
+		Map<String, Object> map = new Gson().fromJson(objectString, Map.class);
+
+		List<BaseOrderModel> results = dao.read(model, map);
 		
 		message.object = results;
 		message.status = ResponseMessage.STATUS_SUCCESS;
@@ -47,22 +42,9 @@ public abstract class BaseAction extends ActionBase {
 	}
 	
 	public String create() throws Exception {
+//		model.setCreateDate(createDate);
 		
-		String json = request.getParameter(MessageConstants.JSON);
-		JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(json);
-		
-		JsonElement modelElement =  jsonObject.get(MessageConstants.MODELS);
-		JsonElement objectElement = jsonObject.get(MessageConstants.OBJECTS);
-			
-		String model = modelElement.getAsString();
-		String objectString = new Gson().toJson(objectElement);
-
-		Class<?> modelClass = Class.forName(MessageConstants.MODELPACKAGE + "." + BaseAction.getActionNamePrefix() + model);
-		Object object = new GsonBuilder().setDateFormat(MessageConstants.DATE_FORMAT).create().fromJson(objectString, modelClass);
-//		BaseOrderModel orderModel = (BaseOrderModel)object;
-//		orderModel.setCreateDate(createDate);
-		
-		Integer identifier = dao.create(object);
+		Integer identifier = dao.create(model);
 		
 		message.status = ResponseMessage.STATUS_SUCCESS ;
 		Map map = new HashMap();
@@ -83,6 +65,23 @@ public abstract class BaseAction extends ActionBase {
 	public String apply() throws Exception {
 		return Action.NONE;
 	}
+
 	
+	
+	public JsonObject getJsonObject() {
+		return jsonObject;
+	}
+
+	public void setJsonObject(JsonObject jsonObject) {
+		this.jsonObject = jsonObject;
+	}
+
+	public BaseOrderModel getModel() {
+		return model;
+	}
+
+	public void setModel(BaseOrderModel model) {
+		this.model = model;
+	}
 	
 }
