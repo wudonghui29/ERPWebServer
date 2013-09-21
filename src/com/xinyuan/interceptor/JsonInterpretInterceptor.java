@@ -1,7 +1,5 @@
 package com.xinyuan.interceptor;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
@@ -23,12 +21,13 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
-		DLog.log("JsonInterpretInterceptor Ready");
+//		DLog.log("JsonInterpretInterceptor Ready");
 		
 		BaseAction action = (BaseAction)invocation.getAction();
 		HttpServletRequest request = ServletActionContext.getRequest();
 		
 		String json = request.getParameter(MessageConstants.JSON);
+		DLog.log(json);
 		JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(json);
 		
 		JsonElement modelElement =  jsonObject.get(MessageConstants.MODELS);
