@@ -20,4 +20,6 @@ public interface UserDAO {
 	User getUser(String username);
 
 	List getUsers();
+	
+	public String getUserApnsToken(String username) ;
 }

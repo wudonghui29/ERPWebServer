@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.xinyuan.model.Level_Three_Approve;
+import com.xinyuan.model.LevelApp_3;
 
 
 /**
@@ -17,7 +17,7 @@ import com.xinyuan.model.Level_Three_Approve;
 
 @Entity
 @Table
-public class EmployeeDailyWorkOrder extends Level_Three_Approve{
+public class EmployeeDailyWorkOrder extends LevelApp_3{
 	
 	private Date workDate; 		// 出勤日期
 	

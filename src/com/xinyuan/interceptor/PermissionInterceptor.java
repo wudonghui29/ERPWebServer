@@ -14,7 +14,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.xinyuan.action.BaseAction;
-import com.xinyuan.message.MessageConstants;
+import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ResponseMessage;
 
 public class PermissionInterceptor extends AbstractInterceptor {
@@ -22,7 +22,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
 		
-		DLog.log("PermissionInterceptor Ready");
+		DLog.log(" Ready");
 		
 		return invocation.invoke();  // TODO: FOR TEST
 
@@ -68,9 +68,9 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	}
 
 	private String getModel() {
-		String json = ServletActionContext.getRequest().getParameter(MessageConstants.JSON);
+		String json = ServletActionContext.getRequest().getParameter(ConfigConstants.JSON);
 		JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(json);
-		JsonElement modelElement =  jsonObject.get(MessageConstants.MODELS);
+		JsonElement modelElement =  jsonObject.get(ConfigConstants.MODELS);
 		String model = modelElement.getAsString();
 		return model;
 	}

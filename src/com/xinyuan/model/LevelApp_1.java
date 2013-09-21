@@ -2,11 +2,10 @@ package com.xinyuan.model;
 
 import javax.persistence.MappedSuperclass;
 
-
 @MappedSuperclass
-public class Level_One_Approve extends BaseOrderModel {
+public class LevelApp_1 extends BaseOrderModel {
 
-	private String levelApp_1 ;		// employeeNO
+	private String levelApp_1 ;		// username , employeeNO
 
 	public String getLevelApp_1() {
 		return levelApp_1;

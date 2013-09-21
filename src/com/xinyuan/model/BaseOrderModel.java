@@ -17,6 +17,8 @@ public class BaseOrderModel {
 	protected Date createDate; 	// the date of creating this order
 	protected User createUser;	// the user of creating this order
 	
+	protected User forwardUser; // the user if forwarding to this order
+	
 	@Id
 	@GeneratedValue
 	public int getId() {
@@ -46,6 +48,12 @@ public class BaseOrderModel {
 		this.createUser = createUser;
 	}
 	
+	@OneToOne
+	public User getForwardUser() {
+		return forwardUser;
+	}
+	public void setForwardUser(User forwardUser) {
+		this.forwardUser = forwardUser;
+	}
 	
-
 }

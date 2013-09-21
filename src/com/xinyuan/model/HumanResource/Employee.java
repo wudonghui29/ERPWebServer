@@ -9,11 +9,11 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.xinyuan.model.Level_Five_Approve;
+import com.xinyuan.model.LevelAPP_5;
 
 @Entity
 @Table
-public class Employee extends Level_Five_Approve {
+public class Employee extends LevelAPP_5 {
 	
 	private String name ;
 	private String idCard ;

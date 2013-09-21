@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.xinyuan.model.Level_Four_Approve;
+import com.xinyuan.model.LevelApp_4;
 
 /**
  * 加班申请确认单
@@ -17,7 +17,7 @@ import com.xinyuan.model.Level_Four_Approve;
 
 @Entity
 @Table
-public class EmployeeOverTimeOrder extends Level_Four_Approve {
+public class EmployeeOverTimeOrder extends LevelApp_4 {
 	
 	private Date applyDate ;	 // 申请日期
 	private Date overTimeDate; 	// 加班日期

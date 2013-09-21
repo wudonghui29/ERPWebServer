@@ -14,7 +14,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.xinyuan.dao.UserDAO;
 import com.xinyuan.dao.impl.UserDAOIMP;
-import com.xinyuan.message.MessageConstants;
+import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ResponseMessage;
 import com.xinyuan.model.User;
 
@@ -39,10 +39,10 @@ public class UserAction extends ActionBase {
 		String verifyCode = randomBool ? VerifyCode.generateCode(6) : SecurityCode.getSecurityCode();
 		byte[] imageBytes = randomBool ? VerifyCode.generateImageBytes(verifyCode) : SecurityCode.getImageAsBytes(verifyCode);
 
-		this.sessionPut(MessageConstants.VERIFYCODE, verifyCode);
+		UserAction.sessionPut(ConfigConstants.VERIFYCODE, verifyCode);
 		ResponseWriter.write(imageBytes);
 		message.status = ResponseMessage.STATUS_SUCCESS;
-		DLog.log(MessageConstants.VERIFYCODE + " : " + verifyCode);
+		DLog.log(ConfigConstants.VERIFYCODE + " : " + verifyCode);
 
 		return Action.NONE;
 	}
@@ -50,21 +50,21 @@ public class UserAction extends ActionBase {
 	public String signin() throws Exception {
 		if (! this.isVerifyCodeError()) {
 
-			String username = request.getParameter(MessageConstants.USERNAME);
-			String password = request.getParameter(MessageConstants.PASSWORD);
-			String apnsToken = request.getParameter(MessageConstants.APNS_TOKEN);
+			String username = request.getParameter(ConfigConstants.USERNAME);
+			String password = request.getParameter(ConfigConstants.PASSWORD);
+			String apnsToken = request.getParameter(ConfigConstants.APNS_TOKEN);
 
 			User user = userDAO.getUser(username);
 			if (user == null) {
-				message.description = MessageConstants.USER.UserNotExist;
+				message.description = ConfigConstants.USER.UserNotExist;
 			} else if (password.equals(user.getPassword())) {
 				message.status = ResponseMessage.STATUS_SUCCESS;
-				message.description = MessageConstants.USER.UserLoginSuccess;
+				message.description = ConfigConstants.USER.UserLoginSuccess;
 				
 				// put the permission in session
 				String perssionStr = user.getPermissions();
-				this.sessionPut(MessageConstants.PERMISSIONS, perssionStr.split(","));
-				this.sessionPut(MessageConstants.SIGNIN_USER, user);
+				UserAction.sessionPut(ConfigConstants.PERMISSIONS, perssionStr.split(","));
+				UserAction.sessionPut(ConfigConstants.SIGNIN_USER, user);
 				
 				// update the apnsToken in db
 				String userToken = user.getApnsToken();
@@ -74,7 +74,7 @@ public class UserAction extends ActionBase {
 				}
 				
 			} else {
-				message.description = MessageConstants.USER.UserPasswordError;
+				message.description = ConfigConstants.USER.UserPasswordError;
 			}
 		}
 		return Action.NONE;
@@ -107,10 +107,10 @@ public class UserAction extends ActionBase {
 			String username = user.getUsername();
 			String password = user.getPassword();
 			if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
-				message.description = MessageConstants.USER.UserNamePasswordNULL;
+				message.description = ConfigConstants.USER.UserNamePasswordNULL;
 			} else {
 				if (userDAO.isSignup(username)) {
-					message.description = MessageConstants.USER.UserNameExisted;
+					message.description = ConfigConstants.USER.UserNameExisted;
 				} else {
 					if (userDAO.createUser(user)) message.status = ResponseMessage.STATUS_SUCCESS;
 				}
@@ -151,15 +151,15 @@ public class UserAction extends ActionBase {
 		**/
 	}
 	
-	private void sessionPut(String key , Object value) {
+	public static void sessionPut(String key , Object value) {
 		ActionContext.getContext().getSession().put(key, value);
 	}
 	
-	private void sessionRemove(String key) {
+	public static void sessionRemove(String key) {
 		ActionContext.getContext().getSession().remove(key);
 	}
 	
-	private Object sessionGet(String key) {
+	public static Object sessionGet(String key) {
 		return ActionContext.getContext().getSession().get(key);
 	}
 

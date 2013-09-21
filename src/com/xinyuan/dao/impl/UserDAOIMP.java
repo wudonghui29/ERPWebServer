@@ -23,6 +23,7 @@ public class UserDAOIMP extends HibernateDAO implements UserDAO {
 	public User getUser(String username) {
 		return (User)super.getObject("from User Where username= '" + username + "'");
 	}
+	
 
 	public List getUsers() {
 		String hqlString = //"select user.username , user.permissions from User as user Where id != 0";
@@ -32,6 +33,12 @@ public class UserDAOIMP extends HibernateDAO implements UserDAO {
 
 	public boolean createUser(User user) {
 		return this.isSignup(user.getUsername()) ? false : (Integer)super.saveObject(user) > 0;
+	}
+	
+	
+	public String getUserApnsToken(String username) {
+		String hqlString = "select user.apnsToken from User as user Where user.username = '" + username + "'";
+		return (String) super.getObject(hqlString);
 	}
 
 }

@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.xinyuan.model.Level_Five_Approve;
+import com.xinyuan.model.LevelAPP_5;
 
 /**
  * Employee Quit His Job Order (离职申请表)
@@ -16,7 +16,7 @@ import com.xinyuan.model.Level_Five_Approve;
 
 @Entity
 @Table
-public class EmployeeQuitOrder extends Level_Five_Approve {
+public class EmployeeQuitOrder extends LevelAPP_5 {
 
 	private Employee employee;  // the employee want to quit his job
 	

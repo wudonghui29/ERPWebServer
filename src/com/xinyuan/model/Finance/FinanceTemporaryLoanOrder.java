@@ -2,14 +2,14 @@ package com.xinyuan.model.Finance;
 
 import java.sql.Date;
 
-import com.xinyuan.model.Level_Four_Approve;
+import com.xinyuan.model.LevelApp_4;
 
 /**
  * 
  * 临时借据单
  *
  */
-public class FinanceTemporaryLoanOrder extends Level_Four_Approve {
+public class FinanceTemporaryLoanOrder extends LevelApp_4 {
 
 	private String employeeNO ; //借款人
 	

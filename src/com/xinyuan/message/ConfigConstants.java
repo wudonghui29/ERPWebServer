@@ -1,6 +1,6 @@
 package com.xinyuan.message;
 
-public class MessageConstants {
+public class ConfigConstants {
 	
 	public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	
@@ -24,6 +24,16 @@ public class MessageConstants {
 	public static final String PERMISSIONS = "PERMISSIONS";
 	public static final String SERVER_ERROR = "SERVER_ERROR";
 	
+	
+	
+	public static final String APNS = "APNS";
+	public static final String APNS_FORWARDS = "FORWARDS";
+	public static final String APNS_ALERT = "Alert";
+	public static final String APNS_Sound = "Sound";
+	public static final String APNS_Badge = "Badge";
+	
+	public static final String APNS_URL = "gateway.sandbox.push.apple.com";
+	public static final int APNS_PORT = 2195;
 	
 	public static class USER {
 		public static final String VerifyCodeError = "VerifyCode_Error";

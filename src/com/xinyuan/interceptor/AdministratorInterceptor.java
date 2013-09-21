@@ -5,7 +5,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
-import com.xinyuan.message.MessageConstants;
+import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.model.User;
 
 public class AdministratorInterceptor extends AbstractInterceptor {
@@ -13,7 +13,7 @@ public class AdministratorInterceptor extends AbstractInterceptor {
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
 		
-		DLog.log("AdministratorInterceptor Ready");
+		DLog.log(" Ready");
 		
 		if (isAdmin()) return invocation.invoke();
 		

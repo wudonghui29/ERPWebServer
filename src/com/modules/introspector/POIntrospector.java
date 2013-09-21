@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import com.xinyuan.message.MessageConstants;
+import com.xinyuan.message.ConfigConstants;
 
 public class POIntrospector {
 
@@ -70,7 +70,7 @@ public class POIntrospector {
 
 		if (classObj == java.sql.Date.class) {
 			
-			SimpleDateFormat sdf = new SimpleDateFormat(MessageConstants.DATE_FORMAT);
+			SimpleDateFormat sdf = new SimpleDateFormat(ConfigConstants.DATE_FORMAT);
 			java.util.Date util_date = (java.util.Date) sdf.parse(valueString);
 			return new java.sql.Date(util_date.getTime());
 			

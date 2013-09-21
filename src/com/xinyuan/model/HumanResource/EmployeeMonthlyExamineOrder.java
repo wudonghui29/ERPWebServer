@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.xinyuan.model.Level_Four_Approve;
+import com.xinyuan.model.LevelApp_4;
 
 /**
  * 员工月终考核表
@@ -15,7 +15,7 @@ import com.xinyuan.model.Level_Four_Approve;
 
 @Entity
 @Table
-public class EmployeeMonthlyExamineOrder extends Level_Four_Approve {
+public class EmployeeMonthlyExamineOrder extends LevelApp_4 {
 	
 	private Employee employee ; // 考核的员工
 	

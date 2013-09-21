@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.xinyuan.model.Level_Four_Approve;
+import com.xinyuan.model.LevelApp_4;
 
 /**
  * 员工考勤表
@@ -17,7 +17,7 @@ import com.xinyuan.model.Level_Four_Approve;
 
 @Entity
 @Table
-public class EmployeeAttendanceOrder extends Level_Four_Approve {
+public class EmployeeAttendanceOrder extends LevelApp_4 {
 	
 	// 考核日期的范围
 	private Date attendanceStarDate; 

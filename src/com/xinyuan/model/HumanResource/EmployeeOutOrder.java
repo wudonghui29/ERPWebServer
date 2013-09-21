@@ -7,7 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.xinyuan.model.Level_Two_Approve;
+import com.xinyuan.model.LevelApp_2;
 
 
 /**
@@ -18,7 +18,7 @@ import com.xinyuan.model.Level_Two_Approve;
 
 @Entity
 @Table
-public class EmployeeOutOrder extends Level_Two_Approve {
+public class EmployeeOutOrder extends LevelApp_2 {
 	
 	private Employee employee;  // the employee ask for going out 
 	

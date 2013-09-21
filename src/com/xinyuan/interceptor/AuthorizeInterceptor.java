@@ -8,7 +8,7 @@ import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.xinyuan.action.BaseAction;
 import com.xinyuan.action.UserAction;
-import com.xinyuan.message.MessageConstants;
+import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ResponseMessage;
 import com.xinyuan.model.User;
 
@@ -17,7 +17,7 @@ public class AuthorizeInterceptor extends AbstractInterceptor {
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
 		
-		DLog.log("AuthorizeInterceptor Ready");
+		DLog.log(" Ready");
 		
 		//TODO: For test
 		String result = invocation.invoke();

@@ -3,7 +3,7 @@ package com.xinyuan.model;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public class Level_Four_Approve extends Level_Three_Approve {
+public class LevelApp_4 extends LevelApp_3 {
 
 	private String levelApp_4 ;
 

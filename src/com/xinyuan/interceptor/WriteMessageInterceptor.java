@@ -11,7 +11,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.xinyuan.action.ActionBase;
-import com.xinyuan.message.MessageConstants;
+import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ResponseMessage;
 
 public class WriteMessageInterceptor extends AbstractInterceptor {
@@ -21,7 +21,7 @@ public class WriteMessageInterceptor extends AbstractInterceptor {
 		ActionBase action = (ActionBase)invocation.getAction();
 		ResponseMessage message = action.getMessage(invocation);
 		
-		DLog.log("WriteMessageInterceptor Ready");
+		DLog.log(" Ready");
 		
 		Exception exceptionInvoke = null;
 		try {
@@ -29,7 +29,7 @@ public class WriteMessageInterceptor extends AbstractInterceptor {
 		} catch (Exception e) {
 			exceptionInvoke = e;
 			message.status = ResponseMessage.STATUS_FAILED;
-			message.description = MessageConstants.SERVER_ERROR;
+			message.description = ConfigConstants.SERVER_ERROR;
 			message.object = null;
 			message.exception += (new Date()).toString() + ": \n" + e.toString() + "\n";
 //			StackTraceElement[] trace = e.getStackTrace();

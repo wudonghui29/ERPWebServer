@@ -4,7 +4,7 @@ import java.sql.Date;
 
 import javax.persistence.Entity;
 
-import com.xinyuan.model.Level_Five_Approve;
+import com.xinyuan.model.LevelAPP_5;
 
 /**
  * 
@@ -12,7 +12,7 @@ import com.xinyuan.model.Level_Five_Approve;
  *
  */
 
-public class FinancePayWarrantOrder extends Level_Five_Approve {
+public class FinancePayWarrantOrder extends LevelAPP_5 {
 	
 	private String catalog ; //科目
 	private Date orderDate ; //日期

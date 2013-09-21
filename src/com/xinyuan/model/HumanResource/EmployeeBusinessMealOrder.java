@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.xinyuan.model.Level_One_Approve;
+import com.xinyuan.model.LevelApp_1;
 
 
 /**
@@ -17,7 +17,7 @@ import com.xinyuan.model.Level_One_Approve;
 
 @Entity
 @Table
-public class EmployeeBusinessMealOrder extends Level_One_Approve {
+public class EmployeeBusinessMealOrder extends LevelApp_1 {
 	
 	private Date mealDate;		// 日期
 	
