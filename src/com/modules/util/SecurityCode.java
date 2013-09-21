@@ -29,8 +29,8 @@ public class SecurityCode {
      * 产生默认验证码，4位中等难度
      * @return  String 验证码
      */
-    public static String getSecurityCode(){
-        return getSecurityCode(6,SecurityCodeLevel.Hard, true);
+    public static String getSecurityCode(int count){
+        return getSecurityCode(count,SecurityCodeLevel.Hard, true);
     }
     
     /**

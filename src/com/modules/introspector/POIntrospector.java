@@ -70,7 +70,7 @@ public class POIntrospector {
 
 		if (classObj == java.sql.Date.class) {
 			
-			SimpleDateFormat sdf = new SimpleDateFormat(ConfigConstants.DATE_FORMAT);
+			SimpleDateFormat sdf = new SimpleDateFormat(ConfigConstants.STRING_TO_DATE_FORMAT);
 			java.util.Date util_date = (java.util.Date) sdf.parse(valueString);
 			return new java.sql.Date(util_date.getTime());
 			

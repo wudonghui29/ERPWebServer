@@ -2,6 +2,7 @@ package com.xinyuan.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -17,7 +18,7 @@ public class BaseOrderModel {
 	protected Date createDate; 	// the date of creating this order
 	protected User createUser;	// the user of creating this order
 	
-	protected User forwardUser; // the user if forwarding to this order
+	protected User forwardUser; // the user current forwarding to this order
 	
 	@Id
 	@GeneratedValue
@@ -27,6 +28,7 @@ public class BaseOrderModel {
 	public void setId(int id) {
 		this.id = id;
 	}
+	@Column(unique=true)
 	public String getOrderNO() {
 		return orderNO;
 	}

@@ -1,11 +1,9 @@
 package com.xinyuan.action;
 
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.opensymphony.xwork2.Action;
@@ -15,10 +13,10 @@ import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ResponseMessage;
 import com.xinyuan.model.BaseOrderModel;
-import com.xinyuan.model.LevelApp_6;
 import com.xinyuan.model.User;
 import com.xinyuan.util.ApnsPushNotificatioin;
-import com.xinyuan.util.OrderApproveHelper;
+import com.xinyuan.util.JsonHelper;
+import com.xinyuan.util.OrderHelper;
 
 public abstract class BaseAction extends ActionBase {
 	
@@ -34,9 +32,7 @@ public abstract class BaseAction extends ActionBase {
 	}
 	
 	public String read() throws Exception {
-		JsonElement objectElement = jsonObject.get(ConfigConstants.OBJECTS);
-		String objectString = new Gson().toJson(objectElement);
-		Map<String, Object> map = new Gson().fromJson(objectString, Map.class);
+		Map<String, Object> map = JsonHelper.translateElementToMap(jsonObject.get(ConfigConstants.OBJECTS));
 
 		List<BaseOrderModel> results = dao.read(model, map);
 		
@@ -47,7 +43,7 @@ public abstract class BaseAction extends ActionBase {
 	}
 	
 	public String create() throws Exception {
-		model.setCreateDate(new Date(System.currentTimeMillis()));
+		OrderHelper.setOrderBasicCreateDetail(model);
 		Integer identifier = dao.create(model);
 		
 		message.status = ResponseMessage.STATUS_SUCCESS ;
@@ -67,28 +63,30 @@ public abstract class BaseAction extends ActionBase {
 	}
 
 	public String apply() throws Exception {
+		UserDAO userDAO = new UserDAOIMP();
+		String forwardUsername = jsonObject.get(ConfigConstants.APNS_FORWARDS).getAsString();
 		
-//		int id = model.getId();
-		User user = (User)UserAction.sessionGet(ConfigConstants.SIGNIN_USER);
-		OrderApproveHelper.approve(model, "Test user"/*user.getUsername()*/);  		// TODO: replace here
+		model = dao.read(model);
+		User approveUser = userDAO.getUser("Mike"); // (User)UserAction.sessionGet(ConfigConstants.SIGNIN_USER);		// TODO for test
+		OrderHelper.approve(model, approveUser.getUsername()); 
+		
+		User forwardUser = userDAO.getUser(forwardUsername);
+		model.setForwardUser(forwardUser);
+		dao.modify(model);
+		
+		String pendingOrders = forwardUser.getPendingApprovals() == null ? model.getOrderNO() : forwardUser.getPendingApprovals() + "," + model.getOrderNO();
+		forwardUser.setPendingApprovals(pendingOrders);
+		userDAO.modify(forwardUser);
 		
 		// specified to notify who
-		JsonElement forwardElement = jsonObject.get(ConfigConstants.APNS_FORWARDS);
-		String forwards = forwardElement.getAsString();
-		JsonElement apnsContents = jsonObject.get(ConfigConstants.APNS);
-		String apnsString = new Gson().toJson(apnsContents);
-		Map<String, Object> map = new Gson().fromJson(apnsString, Map.class);
-		
-		UserDAO userDAO = new UserDAOIMP();
-		
-		String apnsToken = userDAO.getUserApnsToken(forwards);  // "9ab941ea30f5cc4db41fc0a5dbbeae2dfe6a9d0f8c3bca1b97cc5c043aff6be0"
-																// "14191179 b550d568 9692a340 95009826 67146cc6 37f5689b d360804f 8de4cd47"
+		Map<String, Object> map = JsonHelper.translateElementToMap(jsonObject.get(ConfigConstants.APNS));
+		// "9ab941ea30f5cc4db41fc0a5dbbeae2dfe6a9d0f8c3bca1b97cc5c043aff6be0","14191179 b550d568 9692a340 95009826 67146cc6 37f5689b d360804f 8de4cd47"
+		String apnsToken = userDAO.getUserApnsToken(forwardUsername);  
 		try {
 			ApnsPushNotificatioin.push(map, apnsToken);
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace();     
 		}
-		
 		
 		message.status = ResponseMessage.STATUS_SUCCESS;
 		return Action.NONE;

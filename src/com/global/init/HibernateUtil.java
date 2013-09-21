@@ -1,4 +1,4 @@
-package com.hibernate.init;
+package com.global.init;
 
 
 import javax.naming.InitialContext;
@@ -11,6 +11,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
+
+import com.modules.util.DLog;
 
 //import com.sun.org.apache.commons.logging.Log;
 //import com.sun.org.apache.commons.logging.LogFactory;
@@ -40,6 +42,7 @@ public class HibernateUtil
     static 
     {
         // 从缺省的配置文件创建SessionFactory
+    	DLog.log("--------------- Hibernate initialize ----------------");
         try 
         {
         	// 创建默认的Configuration对象的实例

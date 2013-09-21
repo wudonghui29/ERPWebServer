@@ -1,4 +1,4 @@
-package com.hibernate.init;
+package com.global.init;
 
 import java.io.IOException;
 

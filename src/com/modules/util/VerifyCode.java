@@ -58,6 +58,7 @@ public class VerifyCode {
 		// 画随机数
 		char[] chars = verifyCode.toCharArray();
 		int charsCount = chars.length;
+		int standard = (6 - charsCount) * 25/2 + 25;
 		AffineTransform transform = new AffineTransform();
 		for (int i = 0; i < charsCount; i++) {
 			String randChar = String.valueOf(chars[i]);
@@ -65,7 +66,7 @@ public class VerifyCode {
 			g2d.setColor(new Color(20 + random.nextInt(110), 20 + random .nextInt(110), 20 + random.nextInt(110)));
 			// 调用函数出来的颜色相同，可能是因为种子太接近，所以只能直接生成
 			double theta = Math.PI / (3 + Math.PI);
-			double anchorx = 25 * i + (i + 1)  * 5 ;
+			double anchorx = standard * i + (i + 1)  * 5 ;
 			double anchory = 35 ;
 			
 			transform.setToIdentity();

@@ -35,8 +35,9 @@ public class UserAction extends ActionBase {
 //		String sessionID = session.getId();
 //		DLog.log(sessionID);
 
+		int count = 4;
 		boolean randomBool = (new Random()).nextBoolean();
-		String verifyCode = randomBool ? VerifyCode.generateCode(6) : SecurityCode.getSecurityCode();
+		String verifyCode = randomBool ? VerifyCode.generateCode(count) : SecurityCode.getSecurityCode(count);
 		byte[] imageBytes = randomBool ? VerifyCode.generateImageBytes(verifyCode) : SecurityCode.getImageAsBytes(verifyCode);
 
 		UserAction.sessionPut(ConfigConstants.VERIFYCODE, verifyCode);

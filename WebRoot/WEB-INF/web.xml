@@ -8,8 +8,12 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-  
-  
+
+	
+	<listener>
+    	<description>ServletContextListener</description>
+    	<listener-class>com.global.init.ServerStartupListener</listener-class>
+	</listener>
   
     <!-- session -->
     <session-config>
@@ -19,7 +23,7 @@
     <!-- struts2 -->	
 	<filter>
 		<filter-name>TransactionFilter</filter-name>
-		<filter-class>com.hibernate.init.TransactionFilter</filter-class>
+		<filter-class>com.global.init.TransactionFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>TransactionFilter</filter-name>

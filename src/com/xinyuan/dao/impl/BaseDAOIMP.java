@@ -7,12 +7,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 
 import com.xinyuan.dao.BaseDAO;
 import com.xinyuan.model.BaseOrderModel;
 
 public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
+	
+	@Override
+	public <E extends BaseOrderModel> E read(E object) throws Exception {		//note: object contains id
+		return (E) super.getObject(object.getClass(), object.getId());
+	}
 	
 	@Override
 	public <E extends BaseOrderModel> List<E> read(E object, Map<String, Object> fields) throws Exception {
@@ -66,8 +72,14 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 
 	@Override
 	public <E> boolean modify(E object) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		boolean isSuccess = true;
+		try {
+			super.updateObject(object);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			isSuccess = false;
+		}
+		return isSuccess;
 	}
 
 	@Override

@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import com.hibernate.init.HibernateUtil;
+import com.global.init.HibernateUtil;
 
 
 public class HibernateDAO {

@@ -2,7 +2,8 @@ package com.xinyuan.message;
 
 public class ConfigConstants {
 	
-	public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	public static final String STRING_TO_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	public static final String DATE_TO_STRING_FORMAT = "yyyyMMddHHmmss";
 	
 	
 	public static final String VERIFYCODE = "verify-code";
@@ -10,7 +11,10 @@ public class ConfigConstants {
 	public static final String PASSWORD = "password";
 	public static final String APNS_TOKEN = "apnsToken";
 	
+	public static final String ORDERNO = "orderNO";
 	public static final String IDENTIFIER = "identifier";
+	
+	
 	public static final String SIGNIN_USER = "signin_user";
 	public static final String MODELPACKAGE = "com.xinyuan.model";
 	
