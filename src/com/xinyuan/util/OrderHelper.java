@@ -4,7 +4,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.xinyuan.action.UserAction;
@@ -56,8 +59,26 @@ public class OrderHelper {
 		orderNOPrefixMap.put(EmployeeSecurityMealOrder.class.getName(), "YC");
 		
 	}
+	
+	// in BaseAction Create() method
+	public static void setOrderBasicCreateDetail(BaseOrderModel model) {
+		Date date = new Date(System.currentTimeMillis());
+		model.setCreateDate(date);
+		User user = (User)UserAction.sessionGet(ConfigConstants.SIGNIN_USER);
+		model.setCreateUser(user);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat(ConfigConstants.DATE_TO_STRING_FORMAT);  
+		String dateString = sdf.format(date);
+		String orderNO = getOrderNOPrefix(model) + dateString;
+		
+		model.setOrderNO(orderNO);		// TODO: check the database if already have this no.
+	}
+	private static String getOrderNOPrefix(BaseOrderModel model) {
+		String modelClassName = model.getClass().getName();
+		return orderNOPrefixMap.get(modelClassName);
+	}
 
-	// Utility Methods
+	// in BaseAction Apply() method 
 	public static void approve(BaseOrderModel model, String username) {
 		try {
 			
@@ -101,21 +122,29 @@ public class OrderHelper {
 		}
 	}
 	
-	public static void setOrderBasicCreateDetail(BaseOrderModel model) {
-		Date date = new Date(System.currentTimeMillis());
-		model.setCreateDate(date);
-		User user = (User)UserAction.sessionGet(ConfigConstants.SIGNIN_USER);
-		model.setCreateUser(user);
-		
-		SimpleDateFormat sdf = new SimpleDateFormat(ConfigConstants.DATE_TO_STRING_FORMAT);  
-		String dateString = sdf.format(date);
-		String orderNO = getOrderNOPrefix(model) + dateString;
-		
-		model.setOrderNO(orderNO);		// TODO: check the database if already have this no.
+	// in BaseAction Apply() method
+	public static void addPendingApprove(User forwardUser, String orderNO) {
+		String forwardUserPendingOrders = forwardUser.getPendingApprovals();
+		forwardUserPendingOrders = forwardUserPendingOrders == null || forwardUserPendingOrders.isEmpty() ? orderNO : forwardUserPendingOrders + "," + orderNO;
+		forwardUser.setPendingApprovals(forwardUserPendingOrders);
 	}
-	public static String getOrderNOPrefix(BaseOrderModel model) {
-		String modelClassName = model.getClass().getName();
-		return orderNOPrefixMap.get(modelClassName);
+	
+	// in BaseAction Apply() method
+	public static void deletePendingApprove(User approveUser, String orderNO) {
+		String approveUserPendingOrders = approveUser.getPendingApprovals() ;
+		String[] pendingList = approveUserPendingOrders.split(",");
+		List<String> list = new ArrayList<String>(Arrays.asList(pendingList));
+		list.removeAll(Arrays.asList(orderNO));
+		list.toArray(pendingList);
+		
+		String result = "";
+		for (int i = 0; i < list.size(); i++) {
+			String orderString = list.get(i);
+			if (i != 0) result += ",";
+			result += orderString ;
+		}
+		approveUser.setPendingApprovals(result);	
 	}
+	
 	
 }

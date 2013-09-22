@@ -1,6 +1,8 @@
 package com.modules.util;
 
-import com.google.gson.Gson;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Test {
 
@@ -37,8 +39,31 @@ public class Test {
 	}
 	
 	public static void main(String[] args) {
-		String json = "{\"name\":\"改过\",\"dob\":1247626770406,\"inTime\":1247626770406}";  
-	    Worker w4 = (Worker) new Gson().fromJson(json,Worker.class);  
+//		String json = "{\"name\":\"改过\",\"dob\":1247626770406,\"inTime\":1247626770406}";  
+//	    Worker w4 = (Worker) new Gson().fromJson(json,Worker.class); 
+		
+//		String approveUserPendingOrder = "JH201203040506,JH201293940596,JH0002,JH0003" ;
+		String approveUserPendingOrder = null ;
+		Boolean isEmpty = approveUserPendingOrder.isEmpty();
+		String[] pendingList = approveUserPendingOrder.split(",");
+		
+		List<String> list = new ArrayList<String>(Arrays.asList(pendingList));
+		list.removeAll(Arrays.asList("JH201203040506"));
+		
+		list.toArray(pendingList);
+		
+		String result = "";
+		for (int i = 0; i < list.size(); i++) {
+			String orderString = list.get(i);
+			if (i != 0) result += ",";
+			result += orderString ;
+		}
+		
+//		String resultString = list.toString();
+		
+		
+		
+		System.out.println("dddd");
 	}
 	
 }

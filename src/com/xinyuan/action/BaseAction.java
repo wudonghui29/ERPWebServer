@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.dao.BaseDAO;
@@ -67,16 +66,20 @@ public abstract class BaseAction extends ActionBase {
 		String forwardUsername = jsonObject.get(ConfigConstants.APNS_FORWARDS).getAsString();
 		User forwardUser = userDAO.getUser(forwardUsername);
 		User approveUser = (User)UserAction.sessionGet(ConfigConstants.SIGNIN_USER);
+		String approveUsername = approveUser.getUsername();
 		
 		model = dao.read(model);
-		OrderHelper.approve(model, approveUser.getUsername()); 
-		
+		OrderHelper.approve(model, approveUsername); 
 		model.setForwardUser(forwardUser);
 		dao.modify(model);
 		
-		String pendingOrders = forwardUser.getPendingApprovals() == null ? model.getOrderNO() : forwardUser.getPendingApprovals() + "," + model.getOrderNO();
-		forwardUser.setPendingApprovals(pendingOrders);
+		String orderNO = model.getOrderNO();
+		
+		OrderHelper.addPendingApprove(forwardUser, orderNO);
 		userDAO.modify(forwardUser);
+		
+		OrderHelper.deletePendingApprove(approveUser, orderNO);
+		userDAO.modify(approveUser);
 		
 		// specified to notify who
 		Map<String, Object> map = JsonHelper.translateElementToMap(jsonObject.get(ConfigConstants.APNS));
@@ -110,8 +113,6 @@ public abstract class BaseAction extends ActionBase {
 	public void setModel(BaseOrderModel model) {
 		this.model = model;
 	}
-	
-	
 	
 	
 }

@@ -19,8 +19,8 @@ public class AuthorizeInterceptor extends AbstractInterceptor {
 	public String intercept(ActionInvocation invocation) throws Exception {
 		
 		// TODO: for test
-//		UserDAO userDAO = new UserDAOIMP();
-//		invocation.getInvocationContext().getSession().put(ConfigConstants.SIGNIN_USER, userDAO.getUser("Mike"));
+		UserDAO userDAO = new UserDAOIMP();
+		invocation.getInvocationContext().getSession().put(ConfigConstants.SIGNIN_USER, userDAO.getUser("Mike"));
 		
 		Map session = invocation.getInvocationContext().getSession();
 		User user = (User) session.get(ConfigConstants.SIGNIN_USER);
