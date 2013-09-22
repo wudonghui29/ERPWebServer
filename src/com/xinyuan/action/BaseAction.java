@@ -65,12 +65,12 @@ public abstract class BaseAction extends ActionBase {
 	public String apply() throws Exception {
 		UserDAO userDAO = new UserDAOIMP();
 		String forwardUsername = jsonObject.get(ConfigConstants.APNS_FORWARDS).getAsString();
+		User forwardUser = userDAO.getUser(forwardUsername);
+		User approveUser = (User)UserAction.sessionGet(ConfigConstants.SIGNIN_USER);
 		
 		model = dao.read(model);
-		User approveUser = userDAO.getUser("Mike"); // (User)UserAction.sessionGet(ConfigConstants.SIGNIN_USER);		// TODO for test
 		OrderHelper.approve(model, approveUser.getUsername()); 
 		
-		User forwardUser = userDAO.getUser(forwardUsername);
 		model.setForwardUser(forwardUser);
 		dao.modify(model);
 		
@@ -81,7 +81,7 @@ public abstract class BaseAction extends ActionBase {
 		// specified to notify who
 		Map<String, Object> map = JsonHelper.translateElementToMap(jsonObject.get(ConfigConstants.APNS));
 		// "9ab941ea30f5cc4db41fc0a5dbbeae2dfe6a9d0f8c3bca1b97cc5c043aff6be0","14191179 b550d568 9692a340 95009826 67146cc6 37f5689b d360804f 8de4cd47"
-		String apnsToken = userDAO.getUserApnsToken(forwardUsername);  
+		String apnsToken = userDAO.getUserApnsToken(forwardUser.getUsername());  
 		try {
 			ApnsPushNotificatioin.push(map, apnsToken);
 		} catch (Exception e) {
