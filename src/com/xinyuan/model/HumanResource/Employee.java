@@ -27,7 +27,7 @@ public class Employee extends LevelAPP_5 {
 	
 	private String phoneNO;
 	private String urgencyContact;  // his name and relationship and his phone NO. e.g. "Sam.Brother.13828899987"
-	private String education;		// e.g.  "广州美术学院.本科.2013年6月.毕业"
+	private String education;		// e.g.  "广州美术学院.本科.2013-06.毕业"
 	private String country;			// 国籍
 	private String nationality ;  // human race 民族
 	private String nativePlace;  // native place 籍贯
@@ -38,6 +38,7 @@ public class Employee extends LevelAPP_5 {
 	private Date employDate;   // entry date , sign in date
 	private boolean isEmploying; // 是否在职
 	private boolean isInVisitList; // 是否列入拜访名单
+	private String experience;	// 经历   e.g. "腾讯公司.2013-06~2013-08.CEO"
 	
 	private String departmentName; 
 	private int jobLevel;	//级别
@@ -235,6 +236,14 @@ public class Employee extends LevelAPP_5 {
 
 	public void setInVisitList(boolean isInVisitList) {
 		this.isInVisitList = isInVisitList;
+	}
+
+	public String getExperience() {
+		return experience;
+	}
+
+	public void setExperience(String experience) {
+		this.experience = experience;
 	}
 	
 }
