@@ -43,7 +43,7 @@ public class Test {
 //	    Worker w4 = (Worker) new Gson().fromJson(json,Worker.class); 
 		
 //		String approveUserPendingOrder = "JH201203040506,JH201293940596,JH0002,JH0003" ;
-		String approveUserPendingOrder = null ;
+		String approveUserPendingOrder = "" ;
 		Boolean isEmpty = approveUserPendingOrder.isEmpty();
 		String[] pendingList = approveUserPendingOrder.split(",");
 		
@@ -60,7 +60,8 @@ public class Test {
 		}
 		
 //		String resultString = list.toString();
-		
+		String className = new Test().getClass().getName();
+		String shortNameString = className.replace("com.modules.util.", "");
 		
 		
 		System.out.println("dddd");

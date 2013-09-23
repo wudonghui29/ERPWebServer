@@ -2,8 +2,6 @@ package com.xinyuan.interceptor;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.struts2.ServletActionContext;
 
 import com.google.gson.JsonElement;
@@ -13,7 +11,7 @@ import com.modules.util.DLog;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
-import com.xinyuan.action.BaseAction;
+import com.xinyuan.action.ActionBase;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ResponseMessage;
 
@@ -27,9 +25,8 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		return invocation.invoke();  // TODO: FOR TEST
 
 		
-
 		/**
-		 * 
+
 		// Get the permission needed
 		String actionPrefix = ActionBase.getActionNamePrefix();   // action
 		String actionSuffix = ActionBase.getActionNameSuffix();   // method
@@ -38,7 +35,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		
 		// Get the permission the user have
 		Map session = invocation.getInvocationContext().getSession();
-		String[] permissions = (String[]) session.get(MessageConstants.PERMISSIONS);
+		String[] permissions = (String[]) session.get(ConfigConstants.PERMISSIONS);
 		
 		// check it
 		for (String permission : permissions) {
@@ -58,12 +55,12 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		
 		// write message
 		ActionBase action = (ActionBase)invocation.getAction();
-		ResponseMessage message = action.getMessage();
-		message.description = MessageConstants.DENY;
+		ResponseMessage message = action.getMessage(invocation);
+		message.description = ConfigConstants.DENY;
 		
 		return Action.NONE;
 		
-		**/
+		 **/
 		
 	}
 
@@ -74,4 +71,5 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		String model = modelElement.getAsString();
 		return model;
 	}
+	
 }

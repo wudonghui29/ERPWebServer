@@ -74,11 +74,12 @@ public abstract class BaseAction extends ActionBase {
 		dao.modify(model);
 		
 		String orderNO = model.getOrderNO();
+		String modelType = model.getClass().getName().replace(ConfigConstants.MODELPACKAGE, "");
 		
-		OrderHelper.addPendingApprove(forwardUser, orderNO);
+		OrderHelper.addPendingApprove(forwardUser, orderNO, modelType);
 		userDAO.modify(forwardUser);
 		
-		OrderHelper.deletePendingApprove(approveUser, orderNO);
+		OrderHelper.deletePendingApprove(approveUser, orderNO, modelType);
 		userDAO.modify(approveUser);
 		
 		// specified to notify who

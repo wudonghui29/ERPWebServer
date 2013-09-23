@@ -15,8 +15,8 @@ import com.xinyuan.model.LevelAPP_5;
 @Table
 public class Employee extends LevelAPP_5 {
 	
-	private String name ;
-	private String idCard ;
+	private String name ;		// 姓名
+	private String idCard ;		// 身份证号码
 	private boolean gender;  // 0 , female ; 1 , male  // boolean respect as "true" in json
 	private Date birthday;
 	
@@ -26,20 +26,22 @@ public class Employee extends LevelAPP_5 {
 
 	
 	private String phoneNO;
-	private String urgencyContact;  // relative and his phone NO.
-	private String country;
-	private String nationality ;  // human race 
-	private String nativePlace;  // native place
-	private String homeAddress;
-	private String livingAddress;
+	private String urgencyContact;  // his name and relationship and his phone NO. e.g. "Sam.Brother.13828899987"
+	private String education;		// e.g.  "广州美术学院.本科.2013年6月.毕业"
+	private String country;			// 国籍
+	private String nationality ;  // human race 民族
+	private String nativePlace;  // native place 籍贯
+	private String homeAddress;	// 家地址
+	private String livingAddress;	//现住址
 
-	private String employeeNO; // employee NO. unique
+	private String employeeNO; // employee NO. unique  工号
 	private Date employDate;   // entry date , sign in date
-	
+	private boolean isEmploying; // 是否在职
+	private boolean isInVisitList; // 是否列入拜访名单
 	
 	private String departmentName; 
-	private int jobLevel;
-	private String jobTitle;
+	private int jobLevel;	//级别
+	private String jobTitle;	//职称
 	
 	private boolean drivingLicence ; // 0 , have ; 1 , do not have
 
@@ -211,4 +213,28 @@ public class Employee extends LevelAPP_5 {
 		this.drivingLicence = drivingLicence;
 	}
 
+	public String getEducation() {
+		return education;
+	}
+
+	public void setEducation(String education) {
+		this.education = education;
+	}
+
+	public boolean isEmploying() {
+		return isEmploying;
+	}
+
+	public void setEmploying(boolean isEmploying) {
+		this.isEmploying = isEmploying;
+	}
+
+	public boolean isInVisitList() {
+		return isInVisitList;
+	}
+
+	public void setInVisitList(boolean isInVisitList) {
+		this.isInVisitList = isInVisitList;
+	}
+	
 }

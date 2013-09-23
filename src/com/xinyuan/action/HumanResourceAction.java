@@ -26,7 +26,7 @@ public class HumanResourceAction extends BaseAction {
 			JsonElement objectElement = this.getJsonObject().get(ConfigConstants.USERS);
 			String objectString = new Gson().toJson(objectElement);
 			
-			Class<?> modelClass = Class.forName(ConfigConstants.MODELPACKAGE + ".User");
+			Class<?> modelClass = Class.forName(ConfigConstants.MODELPACKAGE + "User");
 			Object object = new GsonBuilder().setDateFormat(ConfigConstants.STRING_TO_DATE_FORMAT).create().fromJson(objectString, modelClass);
 
 			// TODO: be careful , check the username == employeeNO

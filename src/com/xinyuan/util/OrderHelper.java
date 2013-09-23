@@ -39,6 +39,9 @@ public class OrderHelper {
 	
 	private static Map<String, String> orderNOPrefixMap = new HashMap<String, String>();
 	
+	private static String ORDER_DIVIDER = ",";
+	private static String ORDER_MODEL_CONNECTOR = "_";
+	
 	static {
 		
 		orderNOPrefixMap.put(Employee.class.getName(), "YG");
@@ -123,24 +126,30 @@ public class OrderHelper {
 	}
 	
 	// in BaseAction Apply() method
-	public static void addPendingApprove(User forwardUser, String orderNO) {
+	public static void addPendingApprove(User forwardUser, String orderNO, String modelType) {
 		String forwardUserPendingOrders = forwardUser.getPendingApprovals();
-		forwardUserPendingOrders = forwardUserPendingOrders == null || forwardUserPendingOrders.isEmpty() ? orderNO : forwardUserPendingOrders + "," + orderNO;
+		
+		// orderNO + mode type
+		String orderIdentifier = orderNO + ORDER_MODEL_CONNECTOR + modelType;
+		
+		forwardUserPendingOrders = forwardUserPendingOrders == null || forwardUserPendingOrders.isEmpty() ? orderIdentifier : forwardUserPendingOrders + ORDER_DIVIDER + orderIdentifier;
 		forwardUser.setPendingApprovals(forwardUserPendingOrders);
 	}
 	
 	// in BaseAction Apply() method
-	public static void deletePendingApprove(User approveUser, String orderNO) {
+	public static void deletePendingApprove(User approveUser, String orderNO, String modelType) {
 		String approveUserPendingOrders = approveUser.getPendingApprovals() ;
-		String[] pendingList = approveUserPendingOrders.split(",");
+		String[] pendingList = approveUserPendingOrders.split(ORDER_DIVIDER);
 		List<String> list = new ArrayList<String>(Arrays.asList(pendingList));
-		list.removeAll(Arrays.asList(orderNO));
-		list.toArray(pendingList);
 		
+		// orderNO + mode type
+		String orderIdentifier = orderNO + ORDER_MODEL_CONNECTOR + modelType;
+		
+		list.removeAll(Arrays.asList(orderIdentifier));
 		String result = "";
 		for (int i = 0; i < list.size(); i++) {
 			String orderString = list.get(i);
-			if (i != 0) result += ",";
+			if (i != 0) result += ORDER_DIVIDER;
 			result += orderString ;
 		}
 		approveUser.setPendingApprovals(result);	

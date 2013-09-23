@@ -36,7 +36,7 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		String modelString = modelElement.getAsString();
 		String objectString = new Gson().toJson(objectElement);
 		
-		Class<?> modelClass = Class.forName(ConfigConstants.MODELPACKAGE + "." + ActionBase.getActionNamePrefix() + modelString);
+		Class<?> modelClass = Class.forName(ConfigConstants.MODELPACKAGE + ActionBase.getActionNamePrefix() + modelString);
 		Object model = new GsonBuilder().setDateFormat(ConfigConstants.STRING_TO_DATE_FORMAT).create().fromJson(objectString, modelClass);
 		
 		action.setJsonObject(jsonObject);

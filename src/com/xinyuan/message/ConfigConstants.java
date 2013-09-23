@@ -16,7 +16,7 @@ public class ConfigConstants {
 	
 	
 	public static final String SIGNIN_USER = "signin_user";
-	public static final String MODELPACKAGE = "com.xinyuan.model";
+	public static final String MODELPACKAGE = "com.xinyuan.model.";
 	
 	
 	public static final String DENY = "DENY";
