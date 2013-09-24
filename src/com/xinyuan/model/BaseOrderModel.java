@@ -16,9 +16,9 @@ public class BaseOrderModel {
 	protected int id ;
 	protected String orderNO ; 	// the NO. of this order
 	protected Date createDate; 	// the date of creating this order
-	protected User createUser;	// the user of creating this order
+	protected String createUser;	// the username of creating this order
 	
-	protected User forwardUser; // the user current forwarding to this order
+	protected String forwardUser; 	// the username current forwarding to this order
 	
 	@Id
 	@GeneratedValue
@@ -42,19 +42,17 @@ public class BaseOrderModel {
 		this.createDate = createDate;
 	}
 	
-	@OneToOne
-	public User getCreateUser() {
+	
+	public String getCreateUser() {
 		return createUser;
 	}
-	public void setCreateUser(User createUser) {
+	public void setCreateUser(String createUser) {
 		this.createUser = createUser;
 	}
-	
-	@OneToOne
-	public User getForwardUser() {
+	public String getForwardUser() {
 		return forwardUser;
 	}
-	public void setForwardUser(User forwardUser) {
+	public void setForwardUser(String forwardUser) {
 		this.forwardUser = forwardUser;
 	}
 	

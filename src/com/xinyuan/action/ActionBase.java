@@ -15,20 +15,8 @@ public class ActionBase extends ActionSupport {
 	protected ResponseMessage message = new ResponseMessage();					// for subclass
 	
 
-	public ResponseMessage getMessage(ActionInvocation invocation) {						// for intercepter
-		message.action = invocation.getProxy().getNamespace() + "/" + getActionName();
+	public ResponseMessage getMessage() {						// for intercepter
 		return message;
 	}
 	
-	public static String getActionName() {
-		return ActionContext.getContext().getName();
-	}
-	public static String getActionNamePrefix() {
-		String action = getActionName();
-		return action.split("__")[0];
-	}
-	public static String getActionNameSuffix() {
-		String action = getActionName();
-		return action.split("__")[1];
-	}
 }

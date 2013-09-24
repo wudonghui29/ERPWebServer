@@ -1,18 +1,19 @@
 package com.xinyuan.action;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import java.util.Map;
+
 import com.google.gson.JsonElement;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.dao.BaseDAO;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.message.ConfigConstants;
-import com.xinyuan.message.ResponseMessage;
+import com.xinyuan.model.UserApproval;
 import com.xinyuan.model.User;
 import com.xinyuan.model.HumanResource.Employee;
+import com.xinyuan.util.JsonHelper;
 
 
-public class HumanResourceAction extends BaseAction {
+public class HumanResourceAction extends SuperAction {
 	
 	@Override
 	protected BaseDAO getDao() {
@@ -21,17 +22,26 @@ public class HumanResourceAction extends BaseAction {
 	
 	public String create() throws Exception {
 		super.create();
-		if (message.status.equals(ResponseMessage.STATUS_SUCCESS)) {
+		
+		Object model = models.get(0);
+		if (model instanceof Employee) {
+			Employee newEmployee = (Employee)model;
 			
-			JsonElement objectElement = this.getJsonObject().get(ConfigConstants.USERS);
-			String objectString = new Gson().toJson(objectElement);
+			Map<String, Object> map = JsonHelper.translateElementToMap(allJsonObject);
 			
-			Class<?> modelClass = Class.forName(ConfigConstants.MODELPACKAGE + "User");
-			Object object = new GsonBuilder().setDateFormat(ConfigConstants.STRING_TO_DATE_FORMAT).create().fromJson(objectString, modelClass);
-
-			// TODO: be careful , check the username == employeeNO
-			/*if(((User)object).getUsername() == ((Employee)this.getModel()).getEmployeeNO())*/ dao.create(object);
-//			else message.description = MessageConstants.USER.UserCreateFailed;
+			String password = (String)map.get(ConfigConstants.PASSWORDS);
+			String username = newEmployee.getEmployeeNO();
+			
+			User newUser = new User();
+			newUser.setPassword(password);
+			newUser.setUsername(username);
+			
+			UserApproval approval = new UserApproval();
+			approval.setUsername(username);
+			
+			dao.create(newUser);
+			dao.create(approval);
+			
 		}
 		
 		return Action.NONE;

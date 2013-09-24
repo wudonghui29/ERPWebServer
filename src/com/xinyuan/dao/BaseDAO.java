@@ -1,7 +1,9 @@
 package com.xinyuan.dao;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.print.DocFlavor.STRING;
 
@@ -10,11 +12,39 @@ import com.xinyuan.model.BaseOrderModel;
 
 public interface BaseDAO {
 	
-	<E extends BaseOrderModel> List<E> read(E object, Map<String, Object> fields) throws Exception;
+	/**
+	 * 
+	 * @param object  BaseOrderModel vo have orderNO.
+	 * @return read the whole properties on database according to the object with id , be sure have unique result
+	 * @throws Exception
+	 */
+	<E extends BaseOrderModel> E read(E model) throws Exception;
 	
-	<E extends BaseOrderModel> E read(E object) throws Exception;
-
-	<E> Integer create(E object) throws Exception;
+	
+	
+	/**
+	 * 
+	 * @param object	vo have the unique property
+	 * @param unique
+	 * @return read the whole properties on database according to the object with a unique column value , be sure have unique result
+	 * @throws Exception
+	 */
+	<E extends Object> E read(E object, Serializable id) throws Exception;
+	
+	
+	
+	/**
+	 * 
+	 * @param object	vo have some properties
+	 * @param fields	the fields is some of all the object's properties' names , which will put into the where HQL statement
+	 * @return			read the results in the database , which have the same value as the object have
+	 * @throws Exception
+	 */
+	<E extends Object> List<E> read(E object, Set<String> keys) throws Exception ;
+	
+	
+	
+	<E> Serializable create(E object) throws Exception;
 	
 	<E> boolean modify(E object) throws Exception;
 	

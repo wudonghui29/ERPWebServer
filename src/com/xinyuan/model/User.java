@@ -24,8 +24,6 @@ public class User implements Serializable{
 	private String deviceInfo; 		// ipad or iphone or ...
 	private String deviceId;
 	
-	private String pendingApprovals ;  // the pending approval orders , split with ","
-	
 	@Id
 	@GeneratedValue
 	public int getId() {
@@ -77,13 +75,6 @@ public class User implements Serializable{
 	}
 	public void setDeviceId(String deviceId) {
 		this.deviceId = deviceId;
-	}
-	
-	public String getPendingApprovals() {
-		return pendingApprovals;
-	}
-	public void setPendingApprovals(String pendingApprovals) {
-		this.pendingApprovals = pendingApprovals;
 	}
 	
 }

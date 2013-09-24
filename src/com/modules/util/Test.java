@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.xinyuan.interceptor.PermissionInterceptor;
+
 public class Test {
 
 	private class Worker {
@@ -38,7 +43,8 @@ public class Test {
 		}
 	}
 	
-	public static void main(String[] args) {
+	// Test delete order in approve
+	public static void main__(String[] args) {
 //		String json = "{\"name\":\"改过\",\"dob\":1247626770406,\"inTime\":1247626770406}";  
 //	    Worker w4 = (Worker) new Gson().fromJson(json,Worker.class); 
 		
@@ -65,6 +71,22 @@ public class Test {
 		
 		
 		System.out.println("dddd");
+	}
+	
+	
+	// Test Permission check 
+	public static void main(String[] args) {
+		String havePermission = "H.E.read, H.E.create, H.J.*";
+		String[] has = havePermission.split(",");
+		
+		String modelsStr = ".E";
+		String[] array = modelsStr.split(",");
+		Gson gson = new GsonBuilder().create();
+		JsonArray models = gson.toJsonTree(array).getAsJsonArray();
+		
+		boolean allowed = PermissionInterceptor.checkPermission("H", "read", models, has);
+		
+		System.out.println("");
 	}
 	
 }

@@ -51,7 +51,7 @@ public class HibernateDAO {
 	 *@param id 实体对象的标识符
 	 *@return 标识符相匹配的实体对象
 	 */
-	public Object getObject(Class cls,	int id){
+	public Object getObject(Class cls,	Serializable id){
 		Object result = HibernateUtil.getSessionFactory().getCurrentSession().get(cls, id);
 		return result;
 	}

@@ -2,6 +2,7 @@ package com.xinyuan.interceptor;
 
 import java.util.Map;
 
+import com.modules.util.DLog;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
@@ -18,20 +19,28 @@ public class AuthorizeInterceptor extends AbstractInterceptor {
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
 		
+		DLog.log(" Ready");
+		
 		// TODO: for test
 		UserDAO userDAO = new UserDAOIMP();
-		invocation.getInvocationContext().getSession().put(ConfigConstants.SIGNIN_USER, userDAO.getUser("Mike"));
+		User userTest =  userDAO.getUser("mike");
+//		invocation.getInvocationContext().getSession().put(ConfigConstants.SIGNIN_USER, userTest);
+		String perssionStr = userTest.getPermissions();
+		UserAction.sessionPut(ConfigConstants.PERMISSIONS, perssionStr.split(","));
+		UserAction.sessionPut(ConfigConstants.SIGNIN_USER, userTest);
+		
+		
+		
 		
 		Map session = invocation.getInvocationContext().getSession();
 		User user = (User) session.get(ConfigConstants.SIGNIN_USER);
 		
 		if (user != null) {
-			String result = invocation.invoke();
-			return result;
+			return invocation.invoke();
 		} else {
 			
 			ActionBase action = (ActionBase)invocation.getAction();
-			ResponseMessage message = action.getMessage(invocation);
+			ResponseMessage message = action.getMessage();
 			message.description = ConfigConstants.USER.UserNotSignIn;
 			
 			return Action.NONE;

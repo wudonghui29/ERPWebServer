@@ -7,26 +7,27 @@ public class ConfigConstants {
 	
 	
 	public static final String VERIFYCODE = "verify-code";
-	public static final String USERNAME = "username";
-	public static final String PASSWORD = "password";
 	public static final String APNS_TOKEN = "apnsToken";
 	
 	public static final String ORDERNO = "orderNO";
-	public static final String IDENTIFIER = "identifier";
+	public static final String IDENTIFIER = "id";
+	public static final String USERNAME = "username";
+	public static final String PASSWORD = "password";
 	
 	
 	public static final String SIGNIN_USER = "signin_user";
 	public static final String MODELPACKAGE = "com.xinyuan.model.";
 	
+	public static final String MODELS = "MODELS";
+	public static final String OBJECTS = "OBJECTS";
+	public static final String PASSWORDS = "PASSWORDS";
 	
 	public static final String DENY = "DENY";
 	public static final String JSON = "JSON";
 	public static final String USERS = "USERS";
-	public static final String MODELS = "MODELS";
-	public static final String OBJECTS = "OBJECTS";
 	public static final String PARAMETERS = "PARAMETERS";
 	public static final String PERMISSIONS = "PERMISSIONS";
-	public static final String SERVER_ERROR = "SERVER_ERROR";
+	public static final String REQUEST_ERROR = "REQUEST_ERROR";
 	
 	
 	

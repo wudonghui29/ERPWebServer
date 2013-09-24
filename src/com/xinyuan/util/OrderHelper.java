@@ -1,13 +1,9 @@
 package com.xinyuan.util;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.xinyuan.action.UserAction;
@@ -39,9 +35,6 @@ public class OrderHelper {
 	
 	private static Map<String, String> orderNOPrefixMap = new HashMap<String, String>();
 	
-	private static String ORDER_DIVIDER = ",";
-	private static String ORDER_MODEL_CONNECTOR = "_";
-	
 	static {
 		
 		orderNOPrefixMap.put(Employee.class.getName(), "YG");
@@ -68,7 +61,7 @@ public class OrderHelper {
 		Date date = new Date(System.currentTimeMillis());
 		model.setCreateDate(date);
 		User user = (User)UserAction.sessionGet(ConfigConstants.SIGNIN_USER);
-		model.setCreateUser(user);
+		model.setCreateUser(user.getUsername());
 		
 		SimpleDateFormat sdf = new SimpleDateFormat(ConfigConstants.DATE_TO_STRING_FORMAT);  
 		String dateString = sdf.format(date);
@@ -82,7 +75,9 @@ public class OrderHelper {
 	}
 
 	// in BaseAction Apply() method 
-	public static void approve(BaseOrderModel model, String username) {
+	public static boolean approve(BaseOrderModel model, String username) throws Exception {
+		boolean isAllApproved = false;
+		
 		try {
 			
 			int level = 0;
@@ -107,53 +102,20 @@ public class OrderHelper {
 				if(value == null) {
 					Method writeMethod = model.getClass().getMethod("set" + "LevelApp_" + (i + 1) , String.class);
 					writeMethod.invoke(model, username);
+					
+					if ( i == level -1 ) isAllApproved = true;
+					
 					break;
 				}
 			}
 		
 			
-		} catch (NoSuchMethodException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			throw e;
 		}
+		
+		return isAllApproved;
 	}
-	
-	// in BaseAction Apply() method
-	public static void addPendingApprove(User forwardUser, String orderNO, String modelType) {
-		String forwardUserPendingOrders = forwardUser.getPendingApprovals();
-		
-		// orderNO + mode type
-		String orderIdentifier = orderNO + ORDER_MODEL_CONNECTOR + modelType;
-		
-		forwardUserPendingOrders = forwardUserPendingOrders == null || forwardUserPendingOrders.isEmpty() ? orderIdentifier : forwardUserPendingOrders + ORDER_DIVIDER + orderIdentifier;
-		forwardUser.setPendingApprovals(forwardUserPendingOrders);
-	}
-	
-	// in BaseAction Apply() method
-	public static void deletePendingApprove(User approveUser, String orderNO, String modelType) {
-		String approveUserPendingOrders = approveUser.getPendingApprovals() ;
-		String[] pendingList = approveUserPendingOrders.split(ORDER_DIVIDER);
-		List<String> list = new ArrayList<String>(Arrays.asList(pendingList));
-		
-		// orderNO + mode type
-		String orderIdentifier = orderNO + ORDER_MODEL_CONNECTOR + modelType;
-		
-		list.removeAll(Arrays.asList(orderIdentifier));
-		String result = "";
-		for (int i = 0; i < list.size(); i++) {
-			String orderString = list.get(i);
-			if (i != 0) result += ORDER_DIVIDER;
-			result += orderString ;
-		}
-		approveUser.setPendingApprovals(result);	
-	}
-	
 	
 }
