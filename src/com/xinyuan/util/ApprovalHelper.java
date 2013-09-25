@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.xinyuan.dao.impl.HibernateDAO;
-import com.xinyuan.model.UserApproval;
+import com.xinyuan.model.HumanResource.Approvals;
 
 public class ApprovalHelper {
 	
@@ -15,7 +15,7 @@ public class ApprovalHelper {
 	// in BaseAction Apply() method
 	public static void addPendingApprove(String forwardUserName, String orderNO, String modelType) {
 		HibernateDAO hibernateDAO = new HibernateDAO();
-		UserApproval pendingApproval = (UserApproval)hibernateDAO.getObject(UserApproval.class, forwardUserName);
+		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, forwardUserName);
 		
 		String pendingApprovals = pendingApproval.getPendingApprovals();
 		
@@ -31,7 +31,7 @@ public class ApprovalHelper {
 	// in BaseAction Apply() method
 	public static void deletePendingApprove(String approveUserName, String orderNO, String modelType) {
 		HibernateDAO hibernateDAO = new HibernateDAO();
-		UserApproval pendingApproval = (UserApproval)hibernateDAO.getObject(UserApproval.class, approveUserName);
+		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, approveUserName);
 		
 		String pendingApprovals = pendingApproval.getPendingApprovals() ;
 		String[] pendingList = pendingApprovals.split(ORDER_DIVIDER);

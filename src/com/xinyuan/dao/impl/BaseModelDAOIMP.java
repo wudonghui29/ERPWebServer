@@ -21,6 +21,10 @@ public abstract class BaseModelDAOIMP extends BaseDAOIMP implements BaseModelDAO
 		return ConfigConstants.MODELPACKAGE + superModelName;
 	}
 	
+	private boolean checkModelScope(Object object) {
+		return object.getClass().getName().indexOf(Model_Scope) == -1;
+	}
+	
 	
 	
 	// Implement BaseModelDAO Methods:
@@ -28,7 +32,7 @@ public abstract class BaseModelDAOIMP extends BaseDAOIMP implements BaseModelDAO
 	
 	@Override
 	public <E extends BaseOrderModel> E read(E model) throws Exception {
-		if (model.getClass().getName().indexOf(Model_Scope) == -1) return null;
+		if (checkModelScope(model)) return null;
 		
 		
 		Set<String> keys = new HashSet<String>();
@@ -51,35 +55,35 @@ public abstract class BaseModelDAOIMP extends BaseDAOIMP implements BaseModelDAO
 	
 	@Override
 	public <E extends Object> E read(E object, Serializable id) throws Exception {
-		if (object.getClass().getName().indexOf(Model_Scope) == -1) return null;
+		if (checkModelScope(object)) return null;
 		
 		return super.read(object, id);
 	}
 	
 	@Override
 	public <E extends Object> List<E> read(E object, Set<String> keys) throws Exception {
-		if (object.getClass().getName().indexOf(Model_Scope) == -1) return null;
+		if (checkModelScope(object)) return null;
 		
 		return super.read(object, keys);
 	}
 	
 	@Override
 	public <E> Serializable create(E object) throws Exception {
-		if (object.getClass().getName().indexOf(Model_Scope) == -1) return null;
+		if (checkModelScope(object)) return null;
 		
 		return super.saveObject(object);
 	}
 
 	@Override
 	public <E> boolean modify(E object) throws Exception {
-		if (object.getClass().getName().indexOf(Model_Scope) == -1) return false;
+		if (checkModelScope(object)) return false;
 		
 		return super.modify(object);
 	}
 
 	@Override
 	public <E> boolean delete(E object) throws Exception {
-		if (object.getClass().getName().indexOf(Model_Scope) == -1) return false;
+		if (checkModelScope(object)) return false;
 		
 		return super.delete(object);
 	}

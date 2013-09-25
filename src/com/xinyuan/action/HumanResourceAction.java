@@ -8,9 +8,9 @@ import com.xinyuan.dao.BaseDAO;
 import com.xinyuan.dao.impl.BaseDAOIMP;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.message.ConfigConstants;
-import com.xinyuan.model.UserApproval;
 import com.xinyuan.model.User;
 import com.xinyuan.model.HumanResource.Employee;
+import com.xinyuan.model.HumanResource.Approvals;
 import com.xinyuan.util.JsonHelper;
 
 
@@ -37,7 +37,7 @@ public class HumanResourceAction extends SuperAction {
 			newUser.setPassword(password);
 			newUser.setUsername(username);
 			
-			UserApproval approval = new UserApproval();
+			Approvals approval = new Approvals();
 			approval.setUsername(username);
 			
 			BaseDAO baseDAO = new BaseDAOIMP();

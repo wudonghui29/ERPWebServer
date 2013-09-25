@@ -67,7 +67,7 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 			}
 		}
 		
-		return query.list();
+		return query.list();	// if no result , will be empty list
 	}
 	
 	@Override

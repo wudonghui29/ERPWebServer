@@ -11,6 +11,4 @@ public abstract class ActionBase extends ActionSupport {
 		return message;
 	}
 	
-	
-	
 }

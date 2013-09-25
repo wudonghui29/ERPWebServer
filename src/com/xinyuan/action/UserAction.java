@@ -94,41 +94,13 @@ public class UserAction extends ActionBase {
 	
 	public String signup() throws Exception {
 		if (! this.isVerifyCodeError()) {  // verify code &  isAdmin
-			Map parameters = request.getParameterMap(); // TODO: handle MD5
-			Set keySet = parameters.keySet();
-	
-			Object[] keys = keySet.toArray();
-			int keysCount = keys.length;
 			
-			if (keysCount > 100) return Action.NONE;
-			
-			User user = new User();
-			for (int i = 0 ; i < keysCount; i ++ ) {
-				Object keyObject = keys[i];
-				String parakey = keyObject.toString();
-				String paravalue = ((String[]) parameters.get(keyObject))[0];
-				POIntrospector.setProperty(user, parakey, paravalue);
-			}
-			
-	
-			String username = user.getUsername();
-			String password = user.getPassword();
-			if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
-				message.description = ConfigConstants.USER.UserNamePasswordNULL;
-			} else {
-				if (userDAO.isSignup(username)) {
-					message.description = ConfigConstants.USER.UserNameExisted;
-				} else {
-					if (userDAO.createUser(user)) message.status = ResponseMessage.STATUS_SUCCESS;
-				}
-			}
 		}
-
 		return Action.NONE;
 	}
 	
 	public String read() throws Exception {
-		List users = userDAO.getUsers();
+		List users = userDAO.getUsers();			// TODO: read the permissions
 		for (int i = 0; i < users.size(); i++) {
 			User user = (User)users.get(i);
 			user.setPassword(null);
@@ -140,7 +112,7 @@ public class UserAction extends ActionBase {
 	}
 	
 	public String update() throws Exception {
-		// TODO: update
+		// TODO: update the permissions 
 		return Action.NONE;
 	}
 	

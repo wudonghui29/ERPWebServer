@@ -117,7 +117,7 @@ public class SuperAction extends ActionModelBase {
 		// specified to notify who
 		Map<String, Object> map = JsonHelper.translateElementToMap(allJsonObject.get(ConfigConstants.APNS));
 		// "9ab941ea30f5cc4db41fc0a5dbbeae2dfe6a9d0f8c3bca1b97cc5c043aff6be0","14191179 b550d568 9692a340 95009826 67146cc6 37f5689b d360804f 8de4cd47"
-		String apnsToken = "14191179 b550d568 9692a340 95009826 67146cc6 37f5689b d360804f 8de4cd47"; // userDAO.getUserApnsToken(forwardUser.getUsername());
+		String apnsToken = "14191179 b550d568 9692a340 95009826 67146cc6 37f5689b d360804f 8de4cd47"; // userDAO.getUserApnsToken(forwardUser.getUsername());	// TODO: Hard code now
 		
 		try {
 			ApnsHelper.push(map, apnsToken);

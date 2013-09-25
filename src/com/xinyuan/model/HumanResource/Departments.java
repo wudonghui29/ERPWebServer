@@ -1,5 +1,7 @@
 package com.xinyuan.model.HumanResource;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,12 +11,10 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(uniqueConstraints= @UniqueConstraint(columnNames = {"name", "subDepartment"}))
-public class Department {
+public class Departments implements Serializable {
 
 	private int id;
-	
 	private String name;
-	
 	private String subDepartment;
 	
 	@Id

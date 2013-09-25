@@ -51,9 +51,10 @@
 
 		<!-- ORM -->
         <mapping class="com.xinyuan.model.User"/>
-        <mapping class="com.xinyuan.model.UserApproval"/>
 		
 		<!-- HumanResource Models -->
+        <mapping class="com.xinyuan.model.HumanResource.Approvals"/>
+        <mapping class="com.xinyuan.model.HumanResource.Departments"/>
         
         <mapping class="com.xinyuan.model.HumanResource.Employee"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeAttendanceOrder"/>
@@ -73,7 +74,6 @@
         <mapping class="com.xinyuan.model.HumanResource.EmployeeSecurityMealOrder"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeSecurityDetailOrder"/>
         
-        <mapping class="com.xinyuan.model.HumanResource.Department"/>
 
         <!-- Security Models -->
         <mapping class="com.xinyuan.model.Security.SecurityVisitOrder"/>

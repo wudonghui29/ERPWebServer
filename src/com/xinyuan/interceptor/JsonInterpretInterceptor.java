@@ -31,7 +31,7 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		
 		DLog.log(" Ready");
 		
-		SuperAction action = (SuperAction)invocation.getAction();
+		SuperAction superAction = (SuperAction)invocation.getAction();
 		HttpServletRequest request = ServletActionContext.getRequest();
 		
 		String json = request.getParameter(ConfigConstants.JSON);
@@ -54,7 +54,8 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 			String modelString = modelElement.getAsString();
 			String objectString = JsonHelper.getGson().toJson(objectElement);
 			
-			Class<?> modelClass = Class.forName(ConfigConstants.MODELPACKAGE + getContextAction() + modelString);
+			String className = ConfigConstants.MODELPACKAGE + (superAction.getClass() == SuperAction.class ?  modelString : getContextAction() + modelString);
+			Class<?> modelClass = Class.forName(className);
 			Object model = JsonHelper.getGson().fromJson(objectString, modelClass);
 			
 			models.add(model);
@@ -62,9 +63,10 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		}
 		
 		
-		action.setModels(models);
-		action.setObjects(ojects);
-		action.setAllJsonObject(jsonObject);
+		superAction.setModels(models);
+		superAction.setObjects(ojects);
+		superAction.setAllJsonObject(jsonObject);
+		
 		
 		return invocation.invoke();
 	}
@@ -73,12 +75,10 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		return ActionContext.getContext().getName();
 	}
 	public static String getContextAction() {
-		String action = getContextName();
-		return action.split("__")[0];
+		return getContextName().split("__")[0];
 	}
 	public static String getContextMethod() {
-		String action = getContextName();
-		return action.split("__")[1];
+		return getContextName().split("__")[1];
 	}
 
 }

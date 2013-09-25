@@ -1,18 +1,23 @@
 package com.modules.util;
 
+import java.util.AbstractSet;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.xinyuan.action.HumanResourceAction;
+import com.xinyuan.action.SuperAction;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.interceptor.PermissionInterceptor;
+import com.xinyuan.util.JsonHelper;
 
-public class Test {
+public class Test extends HashSet {
 
-	private class Worker {
+	public class Worker  {
 		private String name;  
 		  
 		private java.sql.Date dob;  
@@ -76,25 +81,40 @@ public class Test {
 	
 	
 	// Test Permission check 
-	public static void main___(String[] args) {
+	public static void main(String[] args) {
 		String havePermission = "H.E.read, H.E.create, H.J.*";
 		String[] has = havePermission.split(",");
 		
 		String modelsStr = ".E";
 		String[] array = modelsStr.split(",");
 		Gson gson = new GsonBuilder().create();
-		JsonArray models = gson.toJsonTree(array).getAsJsonArray();
+		JsonArray jsonArray = gson.toJsonTree(array).getAsJsonArray();
+		
+		List<String> models = JsonHelper.translateJsonArrayToList(jsonArray);
 		
 		boolean allowed = PermissionInterceptor.checkPermission("H", "read", models, has);
 		
 		System.out.println("");
 	}
 	
-	public static void main(String[] args) {
+	// Test filter models
+	public static void main_(String[] args) {
 		
 		HumanResourceDAOIMP humanResourceDAOIMP = new HumanResourceDAOIMP();
 		
 		System.err.println("");
 	}
 	
+	
+	public static void main1(String[] args) {
+		SuperAction humanResourceAction = new HumanResourceAction();
+		SuperAction superAction = new SuperAction();
+		
+		
+		if (superAction.getClass() == SuperAction.class) {
+			System.err.println("OK");
+		} else {
+			System.err.println("NOT OK");
+		}
+	}
 }
