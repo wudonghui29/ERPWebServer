@@ -1,7 +1,7 @@
 package com.xinyuan.action;
 
 import com.xinyuan.dao.BaseDAO;
-import com.xinyuan.dao.SecurityDAOIMP;
+import com.xinyuan.dao.impl.SecurityDAOIMP;
 
 public class SecurityAction extends SuperAction {
 

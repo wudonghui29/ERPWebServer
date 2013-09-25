@@ -7,6 +7,7 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.interceptor.PermissionInterceptor;
 
 public class Test {
@@ -75,7 +76,7 @@ public class Test {
 	
 	
 	// Test Permission check 
-	public static void main(String[] args) {
+	public static void main___(String[] args) {
 		String havePermission = "H.E.read, H.E.create, H.J.*";
 		String[] has = havePermission.split(",");
 		
@@ -87,6 +88,13 @@ public class Test {
 		boolean allowed = PermissionInterceptor.checkPermission("H", "read", models, has);
 		
 		System.out.println("");
+	}
+	
+	public static void main(String[] args) {
+		
+		HumanResourceDAOIMP humanResourceDAOIMP = new HumanResourceDAOIMP();
+		
+		System.err.println("");
 	}
 	
 }

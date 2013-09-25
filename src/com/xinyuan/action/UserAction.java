@@ -5,6 +5,10 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.ServletActionContext;
+
 import com.modules.httpWriter.ResponseWriter;
 import com.modules.introspector.POIntrospector;
 import com.modules.util.DLog;
@@ -19,6 +23,8 @@ import com.xinyuan.message.ResponseMessage;
 import com.xinyuan.model.User;
 
 public class UserAction extends ActionBase {
+	
+	private HttpServletRequest request = ServletActionContext.getRequest();
 	
 	private UserDAO userDAO = new UserDAOIMP();
 	

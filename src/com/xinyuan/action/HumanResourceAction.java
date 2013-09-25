@@ -5,6 +5,7 @@ import java.util.Map;
 import com.google.gson.JsonElement;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.dao.BaseDAO;
+import com.xinyuan.dao.impl.BaseDAOIMP;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.model.UserApproval;
@@ -39,9 +40,9 @@ public class HumanResourceAction extends SuperAction {
 			UserApproval approval = new UserApproval();
 			approval.setUsername(username);
 			
-			dao.create(newUser);
-			dao.create(approval);
-			
+			BaseDAO baseDAO = new BaseDAOIMP();
+			baseDAO.create(newUser);
+			baseDAO.create(approval);
 		}
 		
 		return Action.NONE;

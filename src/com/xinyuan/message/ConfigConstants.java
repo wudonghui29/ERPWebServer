@@ -16,6 +16,8 @@ public class ConfigConstants {
 	
 	
 	public static final String SIGNIN_USER = "signin_user";
+	
+	public static final String DAOIMP_SUFFIX = "DAOIMP";
 	public static final String MODELPACKAGE = "com.xinyuan.model.";
 	
 	public static final String MODELS = "MODELS";
@@ -30,15 +32,9 @@ public class ConfigConstants {
 	public static final String REQUEST_ERROR = "REQUEST_ERROR";
 	
 	
-	
 	public static final String APNS = "APNS";
 	public static final String APNS_FORWARDS = "FORWARDS";
-	public static final String APNS_ALERT = "Alert";
-	public static final String APNS_Sound = "Sound";
-	public static final String APNS_Badge = "Badge";
-	
-	public static final String APNS_URL = "gateway.sandbox.push.apple.com";
-	public static final int APNS_PORT = 2195;
+
 	
 	public static class USER {
 		public static final String VerifyCodeError = "VerifyCode_Error";

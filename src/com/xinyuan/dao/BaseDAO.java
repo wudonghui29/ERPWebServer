@@ -12,15 +12,6 @@ import com.xinyuan.model.BaseOrderModel;
 
 public interface BaseDAO {
 	
-	/**
-	 * 
-	 * @param object  BaseOrderModel vo have orderNO.
-	 * @return read the whole properties on database according to the object with id , be sure have unique result
-	 * @throws Exception
-	 */
-	<E extends BaseOrderModel> E read(E model) throws Exception;
-	
-	
 	
 	/**
 	 * 
@@ -44,12 +35,18 @@ public interface BaseDAO {
 	
 	
 	
+	/**
+	 * 
+	 * @param object
+	 * @return   return the serializable id
+	 * @throws Exception
+	 */
 	<E> Serializable create(E object) throws Exception;
+	
+	
 	
 	<E> boolean modify(E object) throws Exception;
 	
 	<E> boolean delete(E object) throws Exception;
 	
-	<E> boolean apply(E object) throws Exception;
-
 }

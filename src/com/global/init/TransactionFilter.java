@@ -29,13 +29,13 @@ public class TransactionFilter implements Filter {
 			transaction = session.beginTransaction();
 			chain.doFilter(request, response);
 			transaction.commit();
-		} catch (RuntimeException e) {
+		} catch (Exception e) {
 			if (transaction != null){
 				transaction.rollback();
 				DLog.log("Transaction ---> Roll Back , so the operation before transaction.commit() will not persiste to DB");
 			}
 			e.printStackTrace();
-			throw e;
+//			throw e;
 		}
 		finally{
 			

@@ -31,19 +31,24 @@ public class WriteMessageInterceptor extends AbstractInterceptor {
 		try {
 			invocation.invoke();
 		} catch (Exception e) {
-			exceptionInvoke = e;
+			String description = getDescription(e);
+			
 			message.status = ResponseMessage.STATUS_FAILED;
-			message.description = ConfigConstants.REQUEST_ERROR;
+			message.description = description.isEmpty() ? ConfigConstants.REQUEST_ERROR : description;
 			message.object = null;
-			message.exception += (new Date()).toString() + ": \n" + e.toString() + "\n";
-//			StackTraceElement[] trace = e.getStackTrace();
-//          for (StackTraceElement traceElement : trace) message.exception += ("\tat " + traceElement + "\n");   //TODO: For debug mode , in Production remove it
+			message.exception += (new Date()).toString() + " : " + e.toString() ;
             		
+			exceptionInvoke = e;
 			e.printStackTrace();
+			
 		}
 		
+		
+		
+		// Write data to client
+		
 		try {
-			String json = JsonHelper.getGson().toJson(message); 			// TODO: replace the password using regex
+			String json = JsonHelper.getGson().toJson(message);
 			ResponseWriter.write(json.getBytes("UTF-8"));
 			DLog.log("Response JSON : " + json);
 		} catch (IOException e) {
@@ -54,12 +59,38 @@ public class WriteMessageInterceptor extends AbstractInterceptor {
 			ResponseWriter.close();
 		}
 		
+		
+		
+		
+		
 		if (exceptionInvoke != null) {
-//		if (true) {
-			throw new RuntimeException(exceptionInvoke); // transaction roll back 
+//		if (true) {		 // for test transaction roll back 
+			throw new RuntimeException(exceptionInvoke);
 		}
 		
 		return Action.NONE;
+	}
+	
+	
+	
+	private String getDescription(Exception e) {
+		String message = e.getLocalizedMessage();
+		
+		StringBuilder messageBuilder = new StringBuilder();
+		if (message != null) messageBuilder.append(message);
+		
+		Throwable cause = e.getCause();
+		String causeMessage = cause.getLocalizedMessage();
+		if (causeMessage != null) messageBuilder.append(" . " + causeMessage);
+		
+		/**
+		Throwable cause = null;
+		while ((cause = e.getCause()) != null) {
+			String causeMessage = cause.getLocalizedMessage();
+			if (causeMessage != null) messageBuilder.append(" | " + causeMessage);
+		}
+		**/
+		return messageBuilder.toString().replaceAll("\\'", "|");
 	}
 
 }

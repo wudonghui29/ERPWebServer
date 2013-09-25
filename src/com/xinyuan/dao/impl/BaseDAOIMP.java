@@ -16,23 +16,9 @@ import org.hibernate.Query;
 import com.xinyuan.dao.BaseDAO;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.model.BaseOrderModel;
+import com.xinyuan.util.DaoHelper;
 
 public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
-	
-	@Override
-	public <E extends BaseOrderModel> E read(E model) throws Exception {
-		
-		Set<String> keys = new HashSet<String>();
-		
-		if (model.getOrderNO() != null) keys.add("orderNO");
-		if (model.getId() != 0) keys.add("id");
-		
-		List<E> list = read(model, keys);
-		
-		if (list.size() == 1) return list.get(0);
-		
-		return null;
-	}
 	
 	@Override
 	public <E extends Object> E read(E object, Serializable id) throws Exception {
@@ -66,26 +52,6 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 			}
 		}
 		
-		/**
-		String[] fields = (String[]) keys.toArray();
-		for (int i = 0; i < fields.length; i++) {
-			
-			if (fields.length == 1 && fields[0].equals("1")) {
-				
-				whereString = " " + "1" + "=" + "1";
-				
-			} else {
-				
-				String key = (String) fields[i];
-				
-				whereString += " " + key + " = " + ":_" + key;
-				
-				if (i != (fields.length -1 )) whereString += " and";
-				
-			}
-			
-		}
-		**/
 		if (!whereString.isEmpty()) hqlString = hqlString  + " Where" +  whereString;
 		Query query = super.getSession().createQuery(hqlString);
 		
@@ -95,16 +61,13 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 				String propertyname = pd.getName() ;
 				Object propertyvalue =  pd.getReadMethod().invoke(object);
 				
-				if (isContains(keys, propertyname)){
+				if (DaoHelper.isContains(keys, propertyname)){
 					query.setParameter("_"+propertyname, propertyvalue);
 				}
-				
-//				System.out.println(propertyname + " : " + propertyvalue);
 			}
 		}
 		
-		List result = query.list();
-		return result;
+		return query.list();
 	}
 	
 	@Override
@@ -130,28 +93,11 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 		return false;
 	}
 
-	@Override
-	public <E> boolean apply(E object) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
-	}
 	
 	
 	
 	
 	
-	/**
-	 *  
-	 * @param fields
-	 * @param key
-	 * @return
-	 */
-	private boolean isContains(Set<String> keys , String key) {
-		Iterator<String> iterator = keys.iterator();
-		while (iterator.hasNext()) {
-			if (iterator.next().equals(key)) return true; 
-		}
-		return false;
-	}
+	
 
 }

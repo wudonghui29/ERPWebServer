@@ -10,25 +10,30 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.dao.BaseDAO;
+import com.xinyuan.dao.BaseModelDAO;
 import com.xinyuan.dao.UserDAO;
+import com.xinyuan.dao.impl.BaseDAOIMP;
 import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ResponseMessage;
 import com.xinyuan.model.BaseOrderModel;
 import com.xinyuan.model.User;
-import com.xinyuan.util.ApnsPushNotificatioin;
+import com.xinyuan.util.ApnsHelper;
+import com.xinyuan.util.ApprovalHelper;
 import com.xinyuan.util.JsonHelper;
 import com.xinyuan.util.OrderHelper;
-import com.xinyuan.util.ApprovalHelper;
 
-public abstract class SuperAction extends ActionBase {
+public class SuperAction extends ActionModelBase {
 	
 	protected List<Object> models;
 	protected List<JsonElement> objects;
 	protected JsonObject allJsonObject;
 	
-	protected BaseDAO dao = getDao() ;							// for subclass initial
-	protected abstract BaseDAO getDao() ;
+	@Override
+	protected BaseDAO getDao() {
+		return new BaseDAOIMP();
+	}
+
 	
 	@Override
 	public String execute() {
@@ -53,7 +58,6 @@ public abstract class SuperAction extends ActionBase {
 			results.add(result);
 		}
 		
-
 		
 		message.object = results;
 		message.status = ResponseMessage.STATUS_SUCCESS;
@@ -95,7 +99,7 @@ public abstract class SuperAction extends ActionBase {
 		User approveUser = (User)UserAction.sessionGet(ConfigConstants.SIGNIN_USER);
 		String approveUsername = approveUser.getUsername();
 		
-		model = dao.read(model);
+		model = ((BaseModelDAO)dao).read(model);
 		
 //		if (!model.getForwardUser().equals(approveUsername)) DLog.log("not same , ask for leave???"); // TODO:
 		
@@ -116,7 +120,7 @@ public abstract class SuperAction extends ActionBase {
 		String apnsToken = "14191179 b550d568 9692a340 95009826 67146cc6 37f5689b d360804f 8de4cd47"; // userDAO.getUserApnsToken(forwardUser.getUsername());
 		
 		try {
-			ApnsPushNotificatioin.push(map, apnsToken);
+			ApnsHelper.push(map, apnsToken);
 		} catch (Exception e) {
 			e.printStackTrace();     
 		}
@@ -151,5 +155,5 @@ public abstract class SuperAction extends ActionBase {
 	public void setAllJsonObject(JsonObject allJsonObject) {
 		this.allJsonObject = allJsonObject;
 	}
-	
+
 }
