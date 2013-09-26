@@ -1,8 +1,8 @@
 package com.xinyuan.util;
 
 import java.lang.reflect.Method;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,12 +67,12 @@ public class OrderHelper {
 	
 	// in BaseAction Create() method
 	public static void setOrderBasicCreateDetail(BaseOrderModel model) {
-		Date date = new Date(System.currentTimeMillis());
+		Date date = new Date();
 		model.setCreateDate(date);
 		User user = (User)UserAction.sessionGet(ConfigConstants.SIGNIN_USER);
 		model.setCreateUser(user.getUsername());
 		
-		SimpleDateFormat sdf = new SimpleDateFormat(ConfigConstants.DATE_TO_STRING_FORMAT);  
+		SimpleDateFormat sdf = new SimpleDateFormat(ConfigConstants.ORDER_DATE_TO_STRING_FORMAT);  
 		String dateString = sdf.format(date);
 		String orderNO = getOrderNOPrefix(model) + dateString;
 		

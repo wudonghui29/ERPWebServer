@@ -3,7 +3,7 @@ package com.xinyuan.message;
 public class ConfigConstants {
 	
 	public static final String STRING_TO_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-	public static final String DATE_TO_STRING_FORMAT = "yyyyMMddHHmmss";
+	public static final String ORDER_DATE_TO_STRING_FORMAT = "yyyyMMddHHmmss";
 	
 	
 	public static final String VERIFYCODE = "verify-code";

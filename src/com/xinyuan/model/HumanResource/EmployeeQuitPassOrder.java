@@ -1,10 +1,13 @@
 package com.xinyuan.model.HumanResource;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.xinyuan.model.LevelApp_4;
 
@@ -34,7 +37,6 @@ public class EmployeeQuitPassOrder extends LevelApp_4 {
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
-	
 	public Date getActualQuitDate() {
 		return actualQuitDate;
 	}

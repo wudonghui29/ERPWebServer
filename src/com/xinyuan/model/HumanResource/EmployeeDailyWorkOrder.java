@@ -1,11 +1,12 @@
 package com.xinyuan.model.HumanResource;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.xinyuan.model.LevelApp_3;
 
@@ -33,7 +34,6 @@ public class EmployeeDailyWorkOrder extends LevelApp_3{
 	
 	private String askLeaveEmployeeNOs ; // 请假人员名单
 	private String beLateEmployeeNOs ;   // 迟到人员名单
-	
 	
 	public Date getWorkDate() {
 		return workDate;

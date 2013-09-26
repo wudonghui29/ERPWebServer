@@ -1,9 +1,11 @@
 package com.xinyuan.model.HumanResource;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.xinyuan.model.LevelApp_1;
 
@@ -24,7 +26,6 @@ public class EmployeeSecurityMealOrder extends LevelApp_1 {
 	private boolean morningMeal;	// 早
 	private boolean noonMeal;		// 午
 	private boolean eveningMeal;	// 晚
-	
 	
 	public Date getMealDate() {
 		return mealDate;

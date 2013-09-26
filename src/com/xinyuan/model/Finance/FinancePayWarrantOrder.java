@@ -1,8 +1,10 @@
 package com.xinyuan.model.Finance;
 
-import java.sql.Date;
 
-import javax.persistence.Entity;
+import java.util.Date;
+
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.xinyuan.model.LevelAPP_5;
 

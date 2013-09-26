@@ -1,9 +1,11 @@
 package com.xinyuan.model.HumanResource;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.xinyuan.model.BaseOrderModel;
 
@@ -26,7 +28,6 @@ public class EmployeeSecurityDetailOrder extends BaseOrderModel {
 	private boolean morningWork;	// 早班
 	private boolean noonWork;		// 午班
 	private boolean eveningWork;	// 晚班
-	
 	
 	public Date getStartDate() {
 		return startDate;

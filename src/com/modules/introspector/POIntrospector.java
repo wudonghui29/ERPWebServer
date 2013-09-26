@@ -64,15 +64,14 @@ public class POIntrospector {
 	   * @return
 	   * @throws ParseException
 	   */
-	private static Object convert(Object value, Class classObj)
-			throws ParseException {
+	private static Object convert(Object value, Class classObj) throws ParseException {
 		String valueString = (String) value;
 
-		if (classObj == java.sql.Date.class) {
+		if (classObj == java.util.Date.class) {
 			
 			SimpleDateFormat sdf = new SimpleDateFormat(ConfigConstants.STRING_TO_DATE_FORMAT);
 			java.util.Date util_date = (java.util.Date) sdf.parse(valueString);
-			return new java.sql.Date(util_date.getTime());
+			return new java.util.Date(util_date.getTime());
 			
 		} else if (classObj == Boolean.class) {
 

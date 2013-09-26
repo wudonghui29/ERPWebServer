@@ -1,8 +1,9 @@
 package com.modules.util;
 
-import java.util.AbstractSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import com.xinyuan.action.HumanResourceAction;
 import com.xinyuan.action.SuperAction;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.interceptor.PermissionInterceptor;
+import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.util.JsonHelper;
 
 public class Test extends HashSet {
@@ -20,7 +22,7 @@ public class Test extends HashSet {
 	public class Worker  {
 		private String name;  
 		  
-		private java.sql.Date dob;  
+		private java.util.Date dob;  
 		  
 		private java.util.Date inTime;
 
@@ -32,11 +34,11 @@ public class Test extends HashSet {
 			this.name = name;
 		}
 
-		public java.sql.Date getDob() {
+		public java.util.Date getDob() {
 			return dob;
 		}
 
-		public void setDob(java.sql.Date dob) {
+		public void setDob(java.util.Date dob) {
 			this.dob = dob;
 		}
 
@@ -81,7 +83,7 @@ public class Test extends HashSet {
 	
 	
 	// Test Permission check 
-	public static void main(String[] args) {
+	public static void main_______(String[] args) {
 		String havePermission = "H.E.read, H.E.create, H.J.*";
 		String[] has = havePermission.split(",");
 		
@@ -106,7 +108,7 @@ public class Test extends HashSet {
 	}
 	
 	
-	public static void main1(String[] args) {
+	public static void main(String[] args) {
 		SuperAction humanResourceAction = new HumanResourceAction();
 		SuperAction superAction = new SuperAction();
 		
@@ -116,5 +118,17 @@ public class Test extends HashSet {
 		} else {
 			System.err.println("NOT OK");
 		}
+		
+		
+		Date date = new Date(System.currentTimeMillis());
+		
+		SimpleDateFormat sdf = new SimpleDateFormat(ConfigConstants.STRING_TO_DATE_FORMAT);
+		
+		String dateString = sdf.format(date);
+		
+		
+		System.out.println("");
+		
+		
 	}
 }

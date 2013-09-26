@@ -1,11 +1,13 @@
 package com.xinyuan.model.HumanResource;
 
-import java.sql.Date;
 import java.sql.Time;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.xinyuan.model.LevelApp_4;
 
@@ -31,7 +33,6 @@ public class EmployeeOverTimeOrder extends LevelApp_4 {
 	
 	private boolean isHaveDinner; // 是否用晚餐
 
-	
 	public Date getApplyDate() {
 		return applyDate;
 	}
@@ -39,7 +40,6 @@ public class EmployeeOverTimeOrder extends LevelApp_4 {
 	public void setApplyDate(Date applyDate) {
 		this.applyDate = applyDate;
 	}
-
 	public Date getOverTimeDate() {
 		return overTimeDate;
 	}

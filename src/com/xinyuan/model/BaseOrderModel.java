@@ -1,12 +1,12 @@
 package com.xinyuan.model;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToOne;
 
 
 
@@ -35,6 +35,7 @@ public class BaseOrderModel {
 	public void setOrderNO(String orderNO) {
 		this.orderNO = orderNO;
 	}
+	
 	public Date getCreateDate() {
 		return createDate;
 	}
