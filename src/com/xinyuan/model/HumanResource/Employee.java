@@ -37,8 +37,8 @@ public class Employee extends LevelAPP_5 {
 
 	private String employeeNO; // employee NO. unique  工号
 	private Date employDate;   // entry date , sign in date
-	private boolean isEmploying; // 是否在职
-	private boolean isInVisitList; // 是否列入拜访名单
+	private boolean employing; // 是否在职  do not use "isEmploying" , cause in mysql , the column name will be "employing" , "is" is gone
+	private boolean inVisitList; // 是否列入拜访名单
 	private String experience;	// 经历   e.g. "腾讯公司.2013-06~2013-08.CEO"
 	
 	private String departmentName; 
@@ -225,19 +225,19 @@ public class Employee extends LevelAPP_5 {
 	}
 
 	public boolean isEmploying() {
-		return isEmploying;
+		return employing;
 	}
 
-	public void setEmploying(boolean isEmploying) {
-		this.isEmploying = isEmploying;
+	public void setEmploying(boolean employing) {
+		this.employing = employing;
 	}
 
 	public boolean isInVisitList() {
-		return isInVisitList;
+		return inVisitList;
 	}
 
-	public void setInVisitList(boolean isInVisitList) {
-		this.isInVisitList = isInVisitList;
+	public void setInVisitList(boolean inVisitList) {
+		this.inVisitList = inVisitList;
 	}
 
 	public String getExperience() {
