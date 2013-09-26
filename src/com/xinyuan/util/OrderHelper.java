@@ -30,6 +30,7 @@ import com.xinyuan.model.HumanResource.EmployeeQuitPassOrder;
 import com.xinyuan.model.HumanResource.EmployeeRepairAttendanceOrder;
 import com.xinyuan.model.HumanResource.EmployeeSecurityDetailOrder;
 import com.xinyuan.model.HumanResource.EmployeeSecurityMealOrder;
+import com.xinyuan.model.Security.SecurityVisitOrder;
 
 public class OrderHelper {
 	
@@ -37,6 +38,7 @@ public class OrderHelper {
 	
 	static {
 		
+		// HumanResource
 		orderNOPrefixMap.put(Employee.class.getName(), "YG");
 		orderNOPrefixMap.put(EmployeeAttendanceOrder.class.getName(), "KQ");
 		orderNOPrefixMap.put(EmployeeBusinessMealOrder.class.getName(), "WC");
@@ -53,6 +55,13 @@ public class OrderHelper {
 		orderNOPrefixMap.put(EmployeeRepairAttendanceOrder.class.getName(), "BQ");
 		orderNOPrefixMap.put(EmployeeSecurityDetailOrder.class.getName(), "ZB");
 		orderNOPrefixMap.put(EmployeeSecurityMealOrder.class.getName(), "YC");
+		
+		
+		// Security
+		orderNOPrefixMap.put(SecurityVisitOrder.class.getName(), "FK");
+		
+		
+		// Finanace
 		
 	}
 	
