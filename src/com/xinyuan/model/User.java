@@ -20,7 +20,6 @@ public class User implements Serializable{
 	private String password;		//
 	private String permissions; 	// format "superModule.module.read,...." . i.e HumanResource.EmployeeInfo.read
 	
-	private String apnsToken ;
 	private String deviceInfo; 		// ipad or iphone or ...
 	private String deviceId;
 	
@@ -58,12 +57,6 @@ public class User implements Serializable{
 		this.permissions = permissions;
 	}
 	
-	public String getApnsToken() {
-		return apnsToken;
-	}
-	public void setApnsToken(String apnsToken) {
-		this.apnsToken = apnsToken;
-	}
 	public String getDeviceInfo() {
 		return deviceInfo;
 	}

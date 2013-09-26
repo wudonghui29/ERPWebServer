@@ -21,6 +21,7 @@ import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ResponseMessage;
 import com.xinyuan.model.User;
+import com.xinyuan.util.ApprovalHelper;
 
 public class UserAction extends ActionBase {
 	
@@ -74,10 +75,9 @@ public class UserAction extends ActionBase {
 				UserAction.sessionPut(ConfigConstants.SIGNIN_USER, user);
 				
 				// update the apnsToken in db
-				String userToken = user.getApnsToken();
+				String userToken = ApprovalHelper.getAPNSToken(user.getUsername());
 				if (apnsToken != null && !apnsToken.equals(userToken)) {	// TODO: when update token , logout first and clear auto login
-					user.setApnsToken(apnsToken);
-					userDAO.modify(user);
+					ApprovalHelper.setAPNSToken(username, apnsToken);
 				}
 				
 			} else {

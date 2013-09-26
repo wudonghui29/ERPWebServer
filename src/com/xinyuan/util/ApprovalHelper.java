@@ -19,6 +19,8 @@ public class ApprovalHelper {
 		
 		String pendingApprovals = pendingApproval.getPendingApprovals();
 		
+		
+		
 		// orderNO + mode type
 		String orderIdentifier = orderNO + ORDER_MODEL_CONNECTOR + modelType;
 		
@@ -34,6 +36,9 @@ public class ApprovalHelper {
 		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, approveUserName);
 		
 		String pendingApprovals = pendingApproval.getPendingApprovals() ;
+		
+		
+		// list
 		String[] pendingList = pendingApprovals.split(ORDER_DIVIDER);
 		List<String> list = new ArrayList<String>(Arrays.asList(pendingList));
 		
@@ -49,6 +54,23 @@ public class ApprovalHelper {
 		}
 		pendingApproval.setPendingApprovals(result);
 		
+		hibernateDAO.updateObject(pendingApproval);
+	}
+	
+	
+	
+	public static String getAPNSToken(String username) {
+		HibernateDAO hibernateDAO = new HibernateDAO();
+		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, username);
+		
+		return pendingApproval.getApnsToken();
+	}
+	
+	public static void setAPNSToken(String username, String apnsToken) {
+		HibernateDAO hibernateDAO = new HibernateDAO();
+		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, username);
+		
+		pendingApproval.setApnsToken(apnsToken);
 		hibernateDAO.updateObject(pendingApproval);
 	}
 
