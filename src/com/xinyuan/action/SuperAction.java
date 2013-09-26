@@ -25,9 +25,11 @@ import com.xinyuan.util.OrderHelper;
 
 public class SuperAction extends ActionModelBase {
 	
+	protected JsonObject allJsonObject;
+	
 	protected List<Object> models;
 	protected List<JsonElement> objects;
-	protected JsonObject allJsonObject;
+	protected List<List<String>> options;
 	
 	@Override
 	protected BaseDAO getDao() {
@@ -53,7 +55,15 @@ public class SuperAction extends ActionModelBase {
 			
 			Set<String> keys = map.keySet();
 			
-			List<Object> result = dao.read(model, keys);					// TODO: ALL SUBCLASS CAN READ ALL MODE , PLS FIX IT
+			
+			List<Object> result = null;
+			if (options == null) {
+				result = dao.read(model, keys);
+			} else {
+				List<String> fields = options.get(i);
+				result = dao.read(model, keys, fields);
+			}
+			
 			
 			results.add(result);
 		}
@@ -147,6 +157,16 @@ public class SuperAction extends ActionModelBase {
 	public void setObjects(List<JsonElement> objects) {
 		this.objects = objects;
 	}
+	
+	public List<List<String>> getOptions() {
+		return options;
+	}
+
+
+	public void setOptions(List<List<String>> options) {
+		this.options = options;
+	}
+
 
 	public JsonObject getAllJsonObject() {
 		return allJsonObject;

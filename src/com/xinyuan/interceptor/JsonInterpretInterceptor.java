@@ -41,9 +41,11 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		
 		List<Object> models = new ArrayList<Object>();
 		List<JsonElement> ojects = new ArrayList<JsonElement>();
+		List<List<String>> options = new ArrayList<List<String>>();
 		
-		JsonArray modelsArray = (JsonArray) jsonObject.get(ConfigConstants.MODELS);
-		JsonArray objectsArray = (JsonArray) jsonObject.get(ConfigConstants.OBJECTS);
+		JsonArray modelsArray = (JsonArray) jsonObject.get(ConfigConstants.MODELS);			// MODELS
+		JsonArray objectsArray = (JsonArray) jsonObject.get(ConfigConstants.OBJECTS);		// OBJECTS
+		JsonArray optionsArray = (JsonArray) jsonObject.get(ConfigConstants.OPTIOINS);		// OPTIONS
 		
 		if(modelsArray.size() != objectsArray.size()) return Action.NONE;
 		
@@ -58,13 +60,23 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 			Class<?> modelClass = Class.forName(className);
 			Object model = JsonHelper.getGson().fromJson(objectString, modelClass);
 			
-			models.add(model);
-			ojects.add(objectElement);
+			models.add(model);				// MODELS
+			ojects.add(objectElement);		// OBJECTS
+			
+			// if have OPTIONS
+			if (optionsArray != null) {
+				JsonArray optionArray = optionsArray.get(i).getAsJsonArray();
+				List<String> subOptions = JsonHelper.translateJsonArrayToList(optionArray);
+				options.add(subOptions);	// OPTIONS
+			}
+			
+			
 		}
 		
 		
 		superAction.setModels(models);
 		superAction.setObjects(ojects);
+		if (options.size() == models.size()) superAction.setOptions(options);
 		superAction.setAllJsonObject(jsonObject);
 		
 		

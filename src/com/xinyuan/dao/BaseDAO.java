@@ -37,6 +37,18 @@ public interface BaseDAO {
 	
 	/**
 	 * 
+	 * @param object	vo have some properties
+	 * @param keys		the fields value you want to get .
+	 * @return			this method is different from above, this result will return some columns(the keys specified it's column name) values 
+	 * 					but the above method will return all column values
+	 * @throws Exception
+	 */
+	<E extends Object> List<E> read(E object, Set<String> keys, List<String> fields) throws Exception ;
+	
+	
+	
+	/**
+	 * 
 	 * @param object
 	 * @return   return the serializable id
 	 * @throws Exception

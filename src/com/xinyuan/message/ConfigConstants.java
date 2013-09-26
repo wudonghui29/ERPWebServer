@@ -22,6 +22,7 @@ public class ConfigConstants {
 	
 	public static final String MODELS = "MODELS";
 	public static final String OBJECTS = "OBJECTS";
+	public static final String OPTIOINS = "OPTIONS";
 	public static final String PASSWORDS = "PASSWORDS";
 	
 	public static final String DENY = "DENY";

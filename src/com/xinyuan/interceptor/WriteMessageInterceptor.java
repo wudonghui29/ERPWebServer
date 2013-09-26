@@ -31,16 +31,15 @@ public class WriteMessageInterceptor extends AbstractInterceptor {
 		try {
 			invocation.invoke();
 		} catch (Exception e) {
+			exceptionInvoke = e;
+			e.printStackTrace();
+			
 			String description = getDescription(e);
 			
 			message.status = ResponseMessage.STATUS_FAILED;
 			message.description = description.isEmpty() ? ConfigConstants.REQUEST_ERROR : description;
 			message.object = null;
 			message.exception += (new Date()).toString() + " : " + e.toString() ;
-            		
-			exceptionInvoke = e;
-			e.printStackTrace();
-			
 		}
 		
 		
@@ -79,17 +78,12 @@ public class WriteMessageInterceptor extends AbstractInterceptor {
 		StringBuilder messageBuilder = new StringBuilder();
 		if (message != null) messageBuilder.append(message);
 		
-		Throwable cause = e.getCause();
-		String causeMessage = cause.getLocalizedMessage();
-		if (causeMessage != null) messageBuilder.append(" . " + causeMessage);
-		
-		/**
 		Throwable cause = null;
-		while ((cause = e.getCause()) != null) {
+		if ((cause = e.getCause()) != null) {
 			String causeMessage = cause.getLocalizedMessage();
 			if (causeMessage != null) messageBuilder.append(" | " + causeMessage);
 		}
-		**/
+		
 		return messageBuilder.toString().replaceAll("\\'", "|");
 	}
 
