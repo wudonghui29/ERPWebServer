@@ -102,24 +102,20 @@ public class SuperAction extends ActionModelBase {
 	public String apply() throws Exception {
 		if (models.size() != 1) return Action.NONE;		// Forbid create multi-
 		BaseOrderModel model = (BaseOrderModel) models.get(0);
-		
-		UserDAO userDAO = new UserDAOIMP();
-		String forwardUsername = allJsonObject.get(ConfigConstants.APNS_FORWARDS).getAsString();
-		User forwardUser = userDAO.getUser(forwardUsername);
-		User approveUser = (User)UserAction.sessionGet(ConfigConstants.SIGNIN_USER);
-		String approveUsername = approveUser.getUsername();
-		
 		model = ((BaseModelDAO)dao).read(model);
 		
-//		if (!model.getForwardUser().equals(approveUsername)) DLog.log("not same , ask for leave???"); // TODO:
+		String forwardUsername = allJsonObject.get(ConfigConstants.APNS_FORWARDS).getAsString();
+		String approveUsername = ((User)UserAction.sessionGet(ConfigConstants.SIGNIN_USER)).getUsername();
 		
-		boolean isAllApproved = OrderHelper.approve(model, approveUsername);  // TODO: Exception
+		
+//		if (!model.getForwardUser().equals(approveUsername)) DLog.log("not same , ask for leave???"); // TODO:
+		boolean isAllApproved = OrderHelper.approve(model, approveUsername);  // TODO: Handle Exception
 		
 		model.setForwardUser(forwardUsername);
 		dao.modify(model);
 		
 		String orderNO = model.getOrderNO();
-		String modelType = model.getClass().getName().replace(ConfigConstants.MODELPACKAGE, "");
+		String modelType = OrderHelper.getModelType(model);
 		
 		ApprovalHelper.addPendingApprove(forwardUsername, orderNO, modelType);
 		ApprovalHelper.deletePendingApprove(approveUsername, orderNO, modelType);

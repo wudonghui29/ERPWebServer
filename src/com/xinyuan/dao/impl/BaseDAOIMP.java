@@ -54,21 +54,13 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 	}
 
 	@Override
-	public <E> boolean modify(E object) throws Exception {
-		boolean isSuccess = true;
-		try {
-			super.updateObject(object);
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			isSuccess = false;
-		}
-		return isSuccess;
+	public <E> void modify(E object) throws Exception {
+		super.updateObject(object);
 	}
 
 	@Override
-	public <E> boolean delete(E object) throws Exception {
+	public <E> void delete(E object) throws Exception {
 		// TODO Auto-generated method stub
-		return false;
 	}
 
 	

@@ -57,8 +57,8 @@ public interface BaseDAO {
 	
 	
 	
-	<E> boolean modify(E object) throws Exception;
+	<E> void modify(E object) throws Exception;
 	
-	<E> boolean delete(E object) throws Exception;
+	<E> void delete(E object) throws Exception;
 	
 }

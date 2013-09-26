@@ -27,6 +27,7 @@ public abstract class BaseModelDAOIMP extends BaseDAOIMP implements BaseModelDAO
 	
 	
 	
+	
 	// Implement BaseModelDAO Methods:
 	
 	
@@ -75,17 +76,17 @@ public abstract class BaseModelDAOIMP extends BaseDAOIMP implements BaseModelDAO
 	}
 
 	@Override
-	public <E> boolean modify(E object) throws Exception {
-		if (checkModelScope(object)) return false;
+	public <E> void modify(E object) throws Exception {
+		if (checkModelScope(object)) return ;
 		
-		return super.modify(object);
+		super.modify(object);
 	}
 
 	@Override
-	public <E> boolean delete(E object) throws Exception {
-		if (checkModelScope(object)) return false;
+	public <E> void delete(E object) throws Exception {
+		if (checkModelScope(object)) return ;
 		
-		return super.delete(object);
+		super.delete(object);
 	}
 	
 }

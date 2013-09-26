@@ -82,7 +82,7 @@ public class OrderHelper {
 		String modelClassName = model.getClass().getName();
 		return orderNOPrefixMap.get(modelClassName);
 	}
-
+	
 	// in BaseAction Apply() method 
 	public static boolean approve(BaseOrderModel model, String username) throws Exception {
 		boolean isAllApproved = false;
@@ -125,6 +125,11 @@ public class OrderHelper {
 		}
 		
 		return isAllApproved;
+	}
+	
+	
+	public static String getModelType(BaseOrderModel model) {
+		return model.getClass().getName().replace(ConfigConstants.MODELPACKAGE, "");
 	}
 	
 }
