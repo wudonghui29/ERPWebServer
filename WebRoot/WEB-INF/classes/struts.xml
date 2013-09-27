@@ -61,9 +61,6 @@
 		<action name="update" class="com.xinyuan.action.UserAction" method="update">
 			<interceptor-ref name="user-admin-check-stack"></interceptor-ref>
 		</action>
-		<action name="read" class="com.xinyuan.action.UserAction" method="read">
-			<interceptor-ref name="user-admin-check-stack"></interceptor-ref>
-		</action>
 		
 	</package>
 	

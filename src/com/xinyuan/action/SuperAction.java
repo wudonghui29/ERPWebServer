@@ -121,13 +121,9 @@ public class SuperAction extends ActionModelBase {
 		ApprovalHelper.deletePendingApprove(approveUsername, orderNO, modelType);
 		
 		// specified to notify who
-		String apnsToken = ApprovalHelper.getAPNSToken(forwardUsername);
+		String[] apnsTokens = ApprovalHelper.getAPNSToken(forwardUsername).split(",");
 		Map<String, Object> map = JsonHelper.translateElementToMap(allJsonObject.get(ConfigConstants.APNS));
-		try {
-			ApnsHelper.push(map, apnsToken);
-		} catch (Exception e) {
-			e.printStackTrace();     
-		}
+		ApnsHelper.push(map, apnsTokens);
 		
 		message.status = ResponseMessage.STATUS_SUCCESS;
 		return Action.NONE;

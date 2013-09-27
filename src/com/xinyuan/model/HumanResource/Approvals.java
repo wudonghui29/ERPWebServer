@@ -23,7 +23,7 @@ public class Approvals implements Serializable {
 	private String username;			// TODO: all employeeNO can not be modified again once it has value . In the set method , check it .
 	private String pendingApprovals = "";  	// the pending approval orders , split with "," e.g. "JH201304050901.HumanResource.Employee,JH201304050901.HumanResource.EmployeeOutOrder"
 	
-	private String apnsToken ;
+	private String apnsToken = "";
 	
 	@Id
 	@GenericGenerator(name = "idGenerator", strategy = "assigned")
@@ -35,7 +35,7 @@ public class Approvals implements Serializable {
 		this.username = username;
 	}
 	
-	@Column(columnDefinition="varchar(255) default ''")
+	@Column(length=255, columnDefinition="varchar(255) default ''")
 	public String getPendingApprovals() {
 		return pendingApprovals;
 	}
@@ -43,6 +43,7 @@ public class Approvals implements Serializable {
 		this.pendingApprovals = pendingApprovals;
 	}
 	
+	@Column(length=255, columnDefinition="varchar(255) default ''")
 	public String getApnsToken() {
 		return apnsToken;
 	}

@@ -1,16 +1,12 @@
 package com.xinyuan.action;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
 import com.modules.httpWriter.ResponseWriter;
-import com.modules.introspector.POIntrospector;
 import com.modules.util.DLog;
 import com.modules.util.SecurityCode;
 import com.modules.util.VerifyCode;
@@ -68,6 +64,7 @@ public class UserAction extends ActionBase {
 			} else if (password.equals(user.getPassword())) {
 				message.status = ResponseMessage.STATUS_SUCCESS;
 				message.description = ConfigConstants.USER.UserLoginSuccess;
+				message.object = user.getPermissions();
 				
 				// put the permission in session
 				String perssionStr = user.getPermissions();
@@ -88,7 +85,14 @@ public class UserAction extends ActionBase {
 	}
 	
 	public String signout() throws Exception {
-		// TODO: LOGOUT
+		UserAction.sessionRemove(ConfigConstants.PERMISSIONS);
+		UserAction.sessionRemove(ConfigConstants.SIGNIN_USER);
+		
+		User user = (User) UserAction.sessionGet(ConfigConstants.SIGNIN_USER);
+//		ApprovalHelper.deleteAPNSToken(username, apnsToken);
+		ApprovalHelper.setAPNSToken(user.getUsername(), "");
+		
+		message.status = ResponseMessage.STATUS_SUCCESS;
 		return Action.NONE;
 	}
 	
@@ -99,17 +103,6 @@ public class UserAction extends ActionBase {
 		return Action.NONE;
 	}
 	
-	public String read() throws Exception {
-		List users = userDAO.getUsers();			// TODO: read the permissions
-		for (int i = 0; i < users.size(); i++) {
-			User user = (User)users.get(i);
-			user.setPassword(null);
-		}
-		message.object = users;
-		message.status = ResponseMessage.STATUS_SUCCESS;
-		
-		return Action.NONE;
-	}
 	
 	public String update() throws Exception {
 		// TODO: update the permissions 
@@ -141,5 +134,5 @@ public class UserAction extends ActionBase {
 	public static Object sessionGet(String key) {
 		return ActionContext.getContext().getSession().get(key);
 	}
-
+	
 }

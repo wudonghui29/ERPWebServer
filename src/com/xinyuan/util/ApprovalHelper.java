@@ -73,5 +73,16 @@ public class ApprovalHelper {
 		pendingApproval.setApnsToken(apnsToken);
 		hibernateDAO.updateObject(pendingApproval);
 	}
+	
+	public static void deleteAPNSToken(String username, String apnsToken) {
+		HibernateDAO hibernateDAO = new HibernateDAO();
+		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, username);
+		
+		String apnsTokens = ApprovalHelper.getAPNSToken(username);
+		boolean isLagerThanOne = apnsToken.split(",").length > 1 ;
+		
+		pendingApproval.setApnsToken(isLagerThanOne ? apnsTokens.replaceAll("," + apnsToken, "") : apnsToken.replaceAll(apnsToken, ""));
+		hibernateDAO.updateObject(pendingApproval);
+	}
 
 }

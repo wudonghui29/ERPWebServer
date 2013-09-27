@@ -33,7 +33,7 @@ public class User implements Serializable{
 	}
 	
 	@NotEmpty
-	@Column(length=100, unique=true)
+	@Column(length=50, unique=true)
 	public String getUsername() {
 		return username;
 	}
@@ -49,7 +49,7 @@ public class User implements Serializable{
 		this.password = password;
 	}
 	
-	
+	@Column(columnDefinition="varchar(255) default ''")
 	public String getPermissions() {
 		return permissions;
 	}

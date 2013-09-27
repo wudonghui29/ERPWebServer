@@ -34,12 +34,12 @@ public class WriteMessageInterceptor extends AbstractInterceptor {
 			exceptionInvoke = e;
 			e.printStackTrace();
 			
-			String description = getDescription(e);
+			String description = message.description == null || message.description.isEmpty() ? getDescription(e) : message.description;
 			
 			message.status = ResponseMessage.STATUS_FAILED;
 			message.description = description.isEmpty() ? ConfigConstants.REQUEST_ERROR : description;
 			message.object = null;
-			message.exception += (new Date()).toString() + " : " + e.toString() ;
+			message.exception += (new Date()).toString() + " : " + e.getClass().getName() ;
 		}
 		
 		
