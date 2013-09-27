@@ -4,14 +4,10 @@ package com.xinyuan.message;
 
 public class ResponseMessage {
 	
-	public static final String STATUS_SUCCESS = "1";
-	public static final String STATUS_FAILED = "0";
-	public static final String NONE = "";
-	
-	public String status = STATUS_FAILED;   // 0 for failed , 1 for success
-	public String action = NONE;
-	public String description = NONE;
-	public String exception = NONE;
+	public String status = ConstantsConfig.STATUS_FAILED;   // 0 for failed , 1 for success
+	public String action = ConstantsConfig.NONE;
+	public String description = ConstantsConfig.NONE;
+	public String exception = ConstantsConfig.NONE;
 	
 	public Object object = null;
 	

@@ -10,7 +10,7 @@ import com.xinyuan.model.HumanResource.Approvals;
 public class ApprovalHelper {
 	
 	private static String ORDER_DIVIDER = ",";
-	private static String ORDER_MODEL_CONNECTOR = "_";
+	private static String ORDER_MODEL_CONNECTOR = ".";
 	
 	// in BaseAction Apply() method
 	public static void addPendingApprove(String forwardUserName, String orderNO, String modelType) {
@@ -79,9 +79,9 @@ public class ApprovalHelper {
 		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, username);
 		
 		String apnsTokens = ApprovalHelper.getAPNSToken(username);
-		boolean isLagerThanOne = apnsToken.split(",").length > 1 ;
+		boolean isLagerThanOne = apnsToken.split(ORDER_DIVIDER).length > 1 ;
 		
-		pendingApproval.setApnsToken(isLagerThanOne ? apnsTokens.replaceAll("," + apnsToken, "") : apnsToken.replaceAll(apnsToken, ""));
+		pendingApproval.setApnsToken(isLagerThanOne ? apnsTokens.replaceAll(ORDER_DIVIDER + apnsToken, "") : apnsToken.replaceAll(apnsToken, ""));
 		hibernateDAO.updateObject(pendingApproval);
 	}
 

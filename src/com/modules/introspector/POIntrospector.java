@@ -7,9 +7,10 @@ import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.message.FormatConfig;
 
 public class POIntrospector {
+	
 
 	/**
 	 * 
@@ -33,6 +34,8 @@ public class POIntrospector {
 	            }  
 	        }  
 	    }
+	  
+	  
 	  
 	  /**
 	   * 
@@ -69,14 +72,11 @@ public class POIntrospector {
 
 		if (classObj == java.util.Date.class) {
 			
-			SimpleDateFormat sdf = new SimpleDateFormat(ConfigConstants.STRING_TO_DATE_FORMAT);
-			java.util.Date util_date = (java.util.Date) sdf.parse(valueString);
-			return new java.util.Date(util_date.getTime());
+			return new SimpleDateFormat(FormatConfig.STRING_TO_DATE_FORMAT).parse(valueString);
 			
 		} else if (classObj == Boolean.class) {
 
-			int num = Integer.parseInt(valueString);
-			return new Boolean(num == 1);
+			return new Boolean(Integer.parseInt(valueString) == 1);
 			
 		} else if (classObj == float.class) {
 			

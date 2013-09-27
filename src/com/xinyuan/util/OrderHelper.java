@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.xinyuan.action.UserAction;
-import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.message.ConstantsConfig;
+import com.xinyuan.message.FormatConfig;
 import com.xinyuan.model.BaseOrderModel;
 import com.xinyuan.model.LevelAPP_5;
 import com.xinyuan.model.LevelApp_1;
@@ -69,10 +70,10 @@ public class OrderHelper {
 	public static void setOrderBasicCreateDetail(BaseOrderModel model) {
 		Date date = new Date();
 		model.setCreateDate(date);
-		User user = (User)UserAction.sessionGet(ConfigConstants.SIGNIN_USER);
+		User user = (User)UserAction.sessionGet(ConstantsConfig.SIGNIN_USER);
 		model.setCreateUser(user.getUsername());
 		
-		SimpleDateFormat sdf = new SimpleDateFormat(ConfigConstants.ORDER_DATE_TO_STRING_FORMAT);  
+		SimpleDateFormat sdf = new SimpleDateFormat(FormatConfig.ORDER_DATE_TO_STRING_FORMAT);  
 		String dateString = sdf.format(date);
 		String orderNO = getOrderNOPrefix(model) + dateString;
 		
@@ -129,7 +130,7 @@ public class OrderHelper {
 	
 	
 	public static String getModelType(BaseOrderModel model) {
-		return model.getClass().getName().replace(ConfigConstants.MODELPACKAGE, "");
+		return model.getClass().getName().replace(ConstantsConfig.MODELPACKAGE, "");
 	}
 	
 }

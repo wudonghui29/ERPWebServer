@@ -11,11 +11,8 @@ import com.google.gson.JsonObject;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.dao.BaseDAO;
 import com.xinyuan.dao.BaseModelDAO;
-import com.xinyuan.dao.UserDAO;
 import com.xinyuan.dao.impl.BaseDAOIMP;
-import com.xinyuan.dao.impl.UserDAOIMP;
-import com.xinyuan.message.ConfigConstants;
-import com.xinyuan.message.ResponseMessage;
+import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.model.BaseOrderModel;
 import com.xinyuan.model.User;
 import com.xinyuan.util.ApnsHelper;
@@ -70,7 +67,7 @@ public class SuperAction extends ActionModelBase {
 		
 		
 		message.object = results;
-		message.status = ResponseMessage.STATUS_SUCCESS;
+		message.status = ConstantsConfig.STATUS_SUCCESS;
 		
 		return Action.NONE;
 	}
@@ -82,10 +79,10 @@ public class SuperAction extends ActionModelBase {
 		OrderHelper.setOrderBasicCreateDetail(model);
 		Integer identifier = (Integer) dao.create(model);
 		
-		message.status = ResponseMessage.STATUS_SUCCESS ;
+		message.status = ConstantsConfig.STATUS_SUCCESS ;
 		Map map = new HashMap();
-		map.put(ConfigConstants.IDENTIFIER, identifier);
-		map.put(ConfigConstants.ORDERNO, model.getOrderNO());
+		map.put(ConstantsConfig.IDENTIFIER, identifier);
+		map.put(ConstantsConfig.ORDERNO, model.getOrderNO());
 		message.object = map;
 		
 		return Action.NONE;
@@ -104,8 +101,8 @@ public class SuperAction extends ActionModelBase {
 		BaseOrderModel model = (BaseOrderModel) models.get(0);
 		model = ((BaseModelDAO)dao).read(model);
 		
-		String forwardUsername = allJsonObject.get(ConfigConstants.APNS_FORWARDS).getAsString();
-		String approveUsername = ((User)UserAction.sessionGet(ConfigConstants.SIGNIN_USER)).getUsername();
+		String forwardUsername = allJsonObject.get(ConstantsConfig.APNS_FORWARDS).getAsString();
+		String approveUsername = ((User)UserAction.sessionGet(ConstantsConfig.SIGNIN_USER)).getUsername();
 		
 		
 //		if (!model.getForwardUser().equals(approveUsername)) DLog.log("not same , ask for leave???"); // TODO:
@@ -122,10 +119,10 @@ public class SuperAction extends ActionModelBase {
 		
 		// specified to notify who
 		String[] apnsTokens = ApprovalHelper.getAPNSToken(forwardUsername).split(",");
-		Map<String, Object> map = JsonHelper.translateElementToMap(allJsonObject.get(ConfigConstants.APNS));
+		Map<String, Object> map = JsonHelper.translateElementToMap(allJsonObject.get(ConstantsConfig.APNS));
 		ApnsHelper.push(map, apnsTokens);
 		
-		message.status = ResponseMessage.STATUS_SUCCESS;
+		message.status = ConstantsConfig.STATUS_SUCCESS;
 		return Action.NONE;
 	}
 

@@ -12,7 +12,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.xinyuan.action.ActionBase;
-import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.message.ResponseMessage;
 import com.xinyuan.util.JsonHelper;
 
@@ -36,8 +36,8 @@ public class WriteMessageInterceptor extends AbstractInterceptor {
 			
 			String description = message.description == null || message.description.isEmpty() ? getDescription(e) : message.description;
 			
-			message.status = ResponseMessage.STATUS_FAILED;
-			message.description = description.isEmpty() ? ConfigConstants.REQUEST_ERROR : description;
+			message.status = ConstantsConfig.STATUS_FAILED;
+			message.description = description.isEmpty() ? ConstantsConfig.REQUEST_ERROR : description;
 			message.object = null;
 			message.exception += (new Date()).toString() + " : " + e.getClass().getName() ;
 		}

@@ -5,9 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.apple.jobjc.SEL;
 import com.xinyuan.dao.BaseModelDAO;
-import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.model.BaseOrderModel;
 
 public abstract class BaseModelDAOIMP extends BaseDAOIMP implements BaseModelDAO {
@@ -17,8 +16,8 @@ public abstract class BaseModelDAOIMP extends BaseDAOIMP implements BaseModelDAO
 	private String getModelScope() {
 		String wholeClassName = getClass().getName();
 		String shortClassName = wholeClassName.substring(wholeClassName.lastIndexOf(".") + 1);
-		String superModelName = shortClassName.substring(0, shortClassName.indexOf(ConfigConstants.DAOIMP_SUFFIX));
-		return ConfigConstants.MODELPACKAGE + superModelName;
+		String superModelName = shortClassName.substring(0, shortClassName.indexOf(ConstantsConfig.DAOIMP_SUFFIX));
+		return ConstantsConfig.MODELPACKAGE + superModelName;
 	}
 	
 	private boolean checkModelScope(Object object) {

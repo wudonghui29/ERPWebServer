@@ -7,30 +7,23 @@ import java.util.Map.Entry;
 import javapns.Push;
 import javapns.communication.exceptions.CommunicationException;
 import javapns.communication.exceptions.KeystoreException;
-import javapns.devices.exceptions.InvalidDeviceTokenFormatException;
 import javapns.notification.Payload;
 import javapns.notification.PushNotificationPayload;
 import javapns.notification.PushedNotification;
 import javapns.notification.ResponsePacket;
-import javapns.notification.transmission.PushQueue;
 
-import com.modules.util.DLog;
+import com.xinyuan.message.ConstantsConfig;
 
 
 // Reference : http://demo.netfoucs.com/truenaruto/article/details/9165011
 
 public class ApnsHelper {
 	
-	private static final boolean APNS_IN_PRODUCTION = false;
-	
 	private static final String APNS_ALERT = "Alert";
 	private static final String APNS_Sound = "Sound";
 	private static final String APNS_Badge = "Badge";
 	
-	private static final String DEFAULT = "default";
-	
-	private static final String CERTIFICATEPASSWORD = "12345";
-	private static final String CERTIFICATEPATH = "/Users/Isaacs/Downloads/work/xinyuan_develop/apnsDevelop.p12";
+	private static final String APNS_Sound_DEFAULT = "default";
 	
 	
 	/**
@@ -53,7 +46,7 @@ public class ApnsHelper {
 		String badgeString = (String) map.get(APNS_Badge);
 		int badge = badgeString != null && !badgeString.isEmpty() ? Integer.valueOf(badgeString) : -1;
 		String sound = (String) map.get(APNS_Sound);
-		sound = sound == null || sound.isEmpty() ? DEFAULT : sound;
+		sound = sound == null || sound.isEmpty() ? APNS_Sound_DEFAULT : sound;
 		
 		
 		/* Build a blank payload to customize */ 
@@ -67,7 +60,7 @@ public class ApnsHelper {
 			payload.addCustomDictionary(key, (String) entry.getValue());
 		}
 		
-		ApnsHelper.sendUseThread(payload, CERTIFICATEPATH, CERTIFICATEPASSWORD, APNS_IN_PRODUCTION, devices);
+		ApnsHelper.sendUseThread(payload, ConstantsConfig.APNS_CERTIFICATE_PATH, ConstantsConfig.APNS_CERTIFICATE_PASSWORD, ConstantsConfig.APNS_IN_PRODUCTION, devices);
 		
 	}
 	

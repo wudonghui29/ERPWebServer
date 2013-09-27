@@ -12,7 +12,7 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.sun.org.apache.regexp.internal.recompile;
 import com.xinyuan.action.ActionBase;
 import com.xinyuan.action.SuperAction;
-import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.message.ResponseMessage;
 import com.xinyuan.util.JsonHelper;
 
@@ -28,7 +28,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		
 		// Get the permission the user have
 		Map session = invocation.getInvocationContext().getSession();
-		String[] permissions = (String[]) session.get(ConfigConstants.PERMISSIONS);
+		String[] permissions = (String[]) session.get(ConstantsConfig.PERMISSIONS);
 		
 		// Get the struts Action
 		SuperAction superAction = (SuperAction)invocation.getAction();
@@ -37,7 +37,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		// Get the permission needed
 		String method = JsonInterpretInterceptor.getContextMethod().trim();   // method needed
 		JsonObject jsonObject = superAction.getAllJsonObject();
-		JsonArray jsonArray = (JsonArray) jsonObject.get(ConfigConstants.MODELS);
+		JsonArray jsonArray = (JsonArray) jsonObject.get(ConstantsConfig.MODELS);
 		List<String> models = JsonHelper.translateJsonArrayToList(jsonArray); // models needed
 		
 		
@@ -57,7 +57,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		
 		// write message
 		ResponseMessage message = superAction.getMessage();
-		message.description = ConfigConstants.DENY;
+		message.description = ConstantsConfig.DENY;
 		
 		return Action.NONE;
 		

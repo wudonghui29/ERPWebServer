@@ -20,7 +20,7 @@ import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.xinyuan.action.ActionBase;
 import com.xinyuan.action.SuperAction;
-import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.model.BaseOrderModel;
 import com.xinyuan.util.JsonHelper;
 
@@ -34,7 +34,7 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		SuperAction superAction = (SuperAction)invocation.getAction();
 		HttpServletRequest request = ServletActionContext.getRequest();
 		
-		String json = request.getParameter(ConfigConstants.JSON);
+		String json = request.getParameter(ConstantsConfig.JSON);
 		JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(json);
 		DLog.log(json);
 		
@@ -43,9 +43,9 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		List<JsonElement> ojects = new ArrayList<JsonElement>();
 		List<List<String>> options = new ArrayList<List<String>>();
 		
-		JsonArray modelsArray = (JsonArray) jsonObject.get(ConfigConstants.MODELS);			// MODELS
-		JsonArray objectsArray = (JsonArray) jsonObject.get(ConfigConstants.OBJECTS);		// OBJECTS
-		JsonArray optionsArray = (JsonArray) jsonObject.get(ConfigConstants.OPTIOINS);		// OPTIONS
+		JsonArray modelsArray = (JsonArray) jsonObject.get(ConstantsConfig.MODELS);			// MODELS
+		JsonArray objectsArray = (JsonArray) jsonObject.get(ConstantsConfig.OBJECTS);		// OBJECTS
+		JsonArray optionsArray = (JsonArray) jsonObject.get(ConstantsConfig.OPTIOINS);		// OPTIONS
 		
 		if(modelsArray.size() != objectsArray.size()) return Action.NONE;
 		
@@ -56,7 +56,7 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 			String modelString = modelElement.getAsString();
 			String objectString = JsonHelper.getGson().toJson(objectElement);
 			
-			String className = ConfigConstants.MODELPACKAGE + (superAction.getClass() == SuperAction.class ?  modelString : getContextAction() + modelString);
+			String className = ConstantsConfig.MODELPACKAGE + (superAction.getClass() == SuperAction.class ?  modelString : getContextAction() + modelString);
 			Class<?> modelClass = Class.forName(className);
 			Object model = JsonHelper.getGson().fromJson(objectString, modelClass);
 			

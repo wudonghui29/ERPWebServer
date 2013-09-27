@@ -10,7 +10,7 @@ import com.xinyuan.action.ActionBase;
 import com.xinyuan.action.UserAction;
 import com.xinyuan.dao.UserDAO;
 import com.xinyuan.dao.impl.UserDAOIMP;
-import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.message.ResponseMessage;
 import com.xinyuan.model.User;
 
@@ -26,14 +26,14 @@ public class AuthorizeInterceptor extends AbstractInterceptor {
 		User userTest =  userDAO.getUser("mike");
 //		invocation.getInvocationContext().getSession().put(ConfigConstants.SIGNIN_USER, userTest);
 		String perssionStr = userTest.getPermissions();
-		UserAction.sessionPut(ConfigConstants.PERMISSIONS, perssionStr.split(","));
-		UserAction.sessionPut(ConfigConstants.SIGNIN_USER, userTest);
+		UserAction.sessionPut(ConstantsConfig.PERMISSIONS, perssionStr.split(","));
+		UserAction.sessionPut(ConstantsConfig.SIGNIN_USER, userTest);
 		
 		
 		
 		
 		Map session = invocation.getInvocationContext().getSession();
-		User user = (User) session.get(ConfigConstants.SIGNIN_USER);
+		User user = (User) session.get(ConstantsConfig.SIGNIN_USER);
 		
 		if (user != null) {
 			return invocation.invoke();
@@ -41,7 +41,7 @@ public class AuthorizeInterceptor extends AbstractInterceptor {
 			
 			ActionBase action = (ActionBase)invocation.getAction();
 			ResponseMessage message = action.getMessage();
-			message.description = ConfigConstants.USER.UserNotSignIn;
+			message.description = ConstantsConfig.USER.UserNotSignIn;
 			
 			return Action.NONE;
 		}

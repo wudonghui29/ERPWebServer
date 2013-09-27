@@ -7,7 +7,7 @@ import com.opensymphony.xwork2.Action;
 import com.xinyuan.dao.BaseDAO;
 import com.xinyuan.dao.impl.BaseDAOIMP;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
-import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.model.User;
 import com.xinyuan.model.HumanResource.Employee;
 import com.xinyuan.model.HumanResource.Approvals;
@@ -30,7 +30,7 @@ public class HumanResourceAction extends SuperAction {
 			
 			Map<String, Object> map = JsonHelper.translateElementToMap(allJsonObject);
 			
-			String password = (String)map.get(ConfigConstants.PASSWORDS);
+			String password = (String)map.get(ConstantsConfig.PASSWORDS);
 			String username = newEmployee.getEmployeeNO();
 			
 			User newUser = new User();

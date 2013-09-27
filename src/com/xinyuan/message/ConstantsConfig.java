@@ -1,9 +1,10 @@
 package com.xinyuan.message;
 
-public class ConfigConstants {
+public class ConstantsConfig {
 	
-	public static final String STRING_TO_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-	public static final String ORDER_DATE_TO_STRING_FORMAT = "yyyyMMddHHmmss";
+	public static final boolean APNS_IN_PRODUCTION = false;			// TODO: in production , replace it with true
+	public static final String APNS_CERTIFICATE_PASSWORD = "12345";
+	public static final String APNS_CERTIFICATE_PATH = "../apnsDevelop.p12";
 	
 	
 	public static final String VERIFYCODE = "verify-code";
@@ -16,6 +17,7 @@ public class ConfigConstants {
 	
 	
 	public static final String SIGNIN_USER = "signin_user";
+	
 	
 	public static final String DAOIMP_SUFFIX = "DAOIMP";
 	public static final String MODELPACKAGE = "com.xinyuan.model.";
@@ -36,6 +38,10 @@ public class ConfigConstants {
 	public static final String APNS = "APNS";
 	public static final String APNS_FORWARDS = "FORWARDS";
 
+	
+	public static final String NONE = "";
+	public static final String STATUS_SUCCESS = "1";
+	public static final String STATUS_FAILED = "0";
 	
 	public static class USER {
 		public static final String VerifyCodeError = "VerifyCode_Error";
