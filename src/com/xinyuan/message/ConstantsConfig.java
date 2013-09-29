@@ -24,8 +24,14 @@ public class ConstantsConfig {
 	
 	public static final String MODELS = "MODELS";
 	public static final String OBJECTS = "OBJECTS";
-	public static final String OPTIOINS = "OPTIONS";
+	public static final String FIELDS = "FIELDS";
+	public static final String IDENTITYS = "IDENTITYS";
 	public static final String PASSWORDS = "PASSWORDS";
+	
+	public static final String APNS_CONTENTS = "APNS_CONTENTS";
+	public static final String APNS_FORWARDS = "APNS_FORWARDS";
+	
+	
 	
 	public static final String DENY = "DENY";
 	public static final String JSON = "JSON";
@@ -34,9 +40,6 @@ public class ConstantsConfig {
 	public static final String PERMISSIONS = "PERMISSIONS";
 	public static final String REQUEST_ERROR = "REQUEST_ERROR";
 	
-	
-	public static final String APNS = "APNS";
-	public static final String APNS_FORWARDS = "FORWARDS";
 
 	
 	public static final String NONE = "";

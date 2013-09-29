@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.modules.introspector.ModelIntrospector;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.dao.BaseDAO;
 import com.xinyuan.dao.BaseModelDAO;
@@ -46,6 +48,7 @@ public class SuperAction extends ActionModelBase {
 		for (int i = 0; i < models.size(); i++) {
 			
 			Object model = models.get(i);
+			
 			JsonElement object = objects.get(i);
 			
 			Map<String, Object> map = JsonHelper.translateElementToMap(object);
@@ -74,21 +77,58 @@ public class SuperAction extends ActionModelBase {
 	
 	public String create() throws Exception {
 		if (models.size() != 1) return Action.NONE;		// Forbid create multi-
-		BaseOrderModel model = (BaseOrderModel) models.get(0);
 		
-		OrderHelper.setOrderBasicCreateDetail(model);
-		Integer identifier = (Integer) dao.create(model);
+		List<Map<String,String>> results = new ArrayList<Map<String,String>>();
+		
+		for (int i = 0; i < models.size(); i++) {
+			
+			BaseOrderModel model = (BaseOrderModel)models.get(i);
+			
+			OrderHelper.setOrderBasicCreateDetail(model);
+			Integer identifier = (Integer) dao.create(model);
+			
+			Map result = new HashMap();
+			result.put(ConstantsConfig.IDENTIFIER, identifier);
+			result.put(ConstantsConfig.ORDERNO, model.getOrderNO());
+			
+			results.add(result);
+		}
+		
 		
 		message.status = ConstantsConfig.STATUS_SUCCESS ;
-		Map map = new HashMap();
-		map.put(ConstantsConfig.IDENTIFIER, identifier);
-		map.put(ConstantsConfig.ORDERNO, model.getOrderNO());
-		message.object = map;
+		message.object = results;
 		
 		return Action.NONE;
 	}
 	
-	public String modify() throws Exception {
+	public String modify() throws Exception {							// TODO:  some unique column cannot modified!!!
+		if (models.size() != 1) return Action.NONE;		// Forbid create multi-
+		
+		Map<String, Object> allJsonMap = JsonHelper.translateElementToMap(allJsonObject);
+		List identityList = (List)allJsonMap.get(ConstantsConfig.IDENTITYS);
+		
+		for (int i = 0; i < models.size(); i++) {
+			
+			Object model = models.get(i);
+			
+			JsonElement object = objects.get(i);
+			
+			Map<String, Object> map = JsonHelper.translateElementToMap(object);
+			
+			Set<String> keys = map.keySet();
+			
+			String identityJSON = JsonHelper.getGson().toJson(identityList.get(i));
+			
+			BaseOrderModel persistence = (BaseOrderModel)JsonHelper.getGson().fromJson(identityJSON, model.getClass());
+			
+			persistence = ((BaseModelDAO)dao).read(persistence);		// get all values of this po
+			
+			ModelIntrospector.copyVoToPo(model, persistence, keys);
+			
+			dao.modify(persistence);
+		}
+		
+		
 		return Action.NONE;
 	}
 	
@@ -98,29 +138,37 @@ public class SuperAction extends ActionModelBase {
 
 	public String apply() throws Exception {
 		if (models.size() != 1) return Action.NONE;		// Forbid create multi-
-		BaseOrderModel model = (BaseOrderModel) models.get(0);
-		model = ((BaseModelDAO)dao).read(model);
 		
-		String forwardUsername = allJsonObject.get(ConstantsConfig.APNS_FORWARDS).getAsString();
 		String approveUsername = ((User)UserAction.sessionGet(ConstantsConfig.SIGNIN_USER)).getUsername();
 		
+		JsonArray forwardsList = allJsonObject.getAsJsonArray(ConstantsConfig.APNS_FORWARDS);
+		JsonArray forwardContents = allJsonObject.getAsJsonArray(ConstantsConfig.APNS_CONTENTS);
 		
-//		if (!model.getForwardUser().equals(approveUsername)) DLog.log("not same , ask for leave???"); // TODO:
-		boolean isAllApproved = OrderHelper.approve(model, approveUsername);  // TODO: Handle Exception
-		
-		model.setForwardUser(forwardUsername);
-		dao.modify(model);
-		
-		String orderNO = model.getOrderNO();
-		String modelType = OrderHelper.getModelType(model);
-		
-		ApprovalHelper.addPendingApprove(forwardUsername, orderNO, modelType);
-		ApprovalHelper.deletePendingApprove(approveUsername, orderNO, modelType);
-		
-		// specified to notify who
-		String[] apnsTokens = ApprovalHelper.getAPNSToken(forwardUsername).split(",");
-		Map<String, Object> map = JsonHelper.translateElementToMap(allJsonObject.get(ConstantsConfig.APNS));
-		ApnsHelper.push(map, apnsTokens);
+		for (int i = 0; i < models.size(); i++) {
+			
+			BaseOrderModel model = (BaseOrderModel)models.get(i);
+			
+			BaseOrderModel persistence = ((BaseModelDAO)dao).read(model);		// get all values
+			
+//			if (!model.getForwardUser().equals(approveUsername)) DLog.log("not same , ask for leave???"); // TODO:
+			boolean isAllApproved = OrderHelper.approve(persistence, approveUsername);  // TODO: Handle Exception
+			
+			String forwardUsername = forwardsList.get(i).getAsString();
+			persistence.setForwardUser(forwardUsername);
+			dao.modify(persistence);
+			
+			String orderNO = persistence.getOrderNO();
+			String modelType = OrderHelper.getModelType(persistence);
+			
+			ApprovalHelper.addPendingApprove(forwardUsername, orderNO, modelType);
+			ApprovalHelper.deletePendingApprove(approveUsername, orderNO, modelType);
+			
+			// specified to notify who
+			String[] apnsTokens = ApprovalHelper.getAPNSToken(forwardUsername).split(",");
+			Map<String, Object> apnsMap = JsonHelper.translateElementToMap(forwardContents.get(i));
+			ApnsHelper.push(apnsMap, apnsTokens);
+			
+		}
 		
 		message.status = ConstantsConfig.STATUS_SUCCESS;
 		return Action.NONE;

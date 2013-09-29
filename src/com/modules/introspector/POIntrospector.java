@@ -4,12 +4,8 @@ import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
-import com.xinyuan.message.FormatConfig;
-
-public class POIntrospector {
+public class PoIntrospector {
 	
 
 	/**
@@ -25,10 +21,6 @@ public class POIntrospector {
 	        for (PropertyDescriptor pd : pds) {  
 	            if (pd.getName().equals(propertyName)) {  
 	                Method writeMethod = pd.getWriteMethod();
-	                
-	                Class<?> type = writeMethod.getParameterTypes()[0];
-	                value = type != String.class ? convert(value, type) : value;
-	                
 	                writeMethod.invoke(object, value);  
 	                break;  
 	            }  
@@ -58,36 +50,4 @@ public class POIntrospector {
 	        return retValue;  
 	    }  
 	  
-	  
-	  
-	  /**
-	   * 
-	   * @param value
-	   * @param classObj
-	   * @return
-	   * @throws ParseException
-	   */
-	private static Object convert(Object value, Class classObj) throws ParseException {
-		String valueString = (String) value;
-
-		if (classObj == java.util.Date.class) {
-			
-			return new SimpleDateFormat(FormatConfig.STRING_TO_DATE_FORMAT).parse(valueString);
-			
-		} else if (classObj == Boolean.class) {
-
-			return new Boolean(Integer.parseInt(valueString) == 1);
-			
-		} else if (classObj == float.class) {
-			
-			return Float.parseFloat(valueString);
-			
-		} else if (classObj == int.class) {
-			
-			return Integer.parseInt(valueString);
-			
-		}
-
-		return value;
-	}
 }

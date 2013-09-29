@@ -3,7 +3,7 @@ package com.xinyuan.util;
 import java.util.Iterator;
 import java.util.Set;
 
-public class DaoHelper {
+public class IntrospectorHelper {
 	
 	/**
 	 *  

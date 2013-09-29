@@ -10,19 +10,28 @@ import java.util.Set;
 import org.hibernate.Query;
 
 import com.xinyuan.dao.BaseDAO;
-import com.xinyuan.util.DaoHelper;
+import com.xinyuan.util.IntrospectorHelper;
 
 public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 	
 	@Override
-	public <E extends Object> E read(E object, Serializable id) throws Exception {
+	public <E extends Object> E readUnique(E object, Serializable id) throws Exception {
 		return (E) super.getObject(object.getClass(), id);
+	}
+	
+	
+	@Override
+	public <E extends Object> E readUnique(E object, Set<String> keys) throws Exception {
+		String hql = "from " + object.getClass().getName();
+		Query query = query(hql, object, keys);
+		return (E) query.uniqueResult();
 	}
 	
 	@Override
 	public <E extends Object> List<E> read(E object, Set<String> keys) throws Exception {
 		String hql = "from " + object.getClass().getName();
-		return query(hql, object, keys);
+		Query query = query(hql, object, keys);
+		return query.list();			// if no result , will be empty list
 	}
 	
 	
@@ -43,7 +52,8 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 		}
 		hql += " from " + wholeClassName + " " + shortClassNameLowerCase;
 		
-		return query(hql, object, keys);
+		Query query = query(hql, object, keys);
+		return query.list();		// if no result , will be empty list
 	}
 	
 	
@@ -66,8 +76,9 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 	
 	
 	
+	
 	// private methods 
-	private <E extends Object> List<E> query(String hql, E object, Set<String> keys) throws Exception {
+	private <E extends Object> Query query(String hql, E object, Set<String> keys) throws Exception {
 		String whereString = "";
 		
 		
@@ -97,15 +108,15 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 			if (pd.getReadMethod() != null && !"class".equals(pd.getName())) {
 				
 				String propertyname = pd.getName() ;
-				Object propertyvalue =  pd.getReadMethod().invoke(object);
 				
-				if (DaoHelper.isContains(keys, propertyname)){
+				if (IntrospectorHelper.isContains(keys, propertyname)){
+					Object propertyvalue =  pd.getReadMethod().invoke(object);
 					query.setParameter("_"+propertyname, propertyvalue);
 				}
 			}
 		}
 		
-		return query.list();	// if no result , will be empty list
+		return query;
 	}
 	
 	

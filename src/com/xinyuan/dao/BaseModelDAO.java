@@ -6,7 +6,7 @@ public interface BaseModelDAO {
 	
 	/**
 	 * 
-	 * @param object  BaseOrderModel vo have orderNO.
+	 * @param object  BaseOrderModel vo have orderNO or id.
 	 * @return read the whole properties on database according to the object with id , be sure have unique result
 	 * @throws Exception
 	 */

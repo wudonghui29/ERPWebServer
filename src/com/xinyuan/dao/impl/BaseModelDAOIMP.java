@@ -9,6 +9,11 @@ import com.xinyuan.dao.BaseModelDAO;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.model.BaseOrderModel;
 
+/**
+ * 
+ * Limited specified XDAO access XMODEL  
+ * 
+ */
 public abstract class BaseModelDAOIMP extends BaseDAOIMP implements BaseModelDAO {
 	
 	private final String Model_Scope = getModelScope();
@@ -33,18 +38,14 @@ public abstract class BaseModelDAOIMP extends BaseDAOIMP implements BaseModelDAO
 	@Override
 	public <E extends BaseOrderModel> E read(E model) throws Exception {
 		if (checkModelScope(model)) return null;
-		
-		
 		Set<String> keys = new HashSet<String>();
-		
+		setUniqueResultKeys(model, keys);
+		return readUnique(model, keys);
+	}
+	// for subclass
+	protected void setUniqueResultKeys(BaseOrderModel model, Set<String> keys) {
 		if (model.getOrderNO() != null) keys.add("orderNO");
 		if (model.getId() != 0) keys.add("id");
-		
-		List<E> list = read(model, keys);
-		
-		if (list.size() == 1) return list.get(0);
-		
-		return null;
 	}
 	
 	
@@ -54,10 +55,17 @@ public abstract class BaseModelDAOIMP extends BaseDAOIMP implements BaseModelDAO
 	
 	
 	@Override
-	public <E extends Object> E read(E object, Serializable id) throws Exception {
+	public <E extends Object> E readUnique(E object, Serializable id) throws Exception {
 		if (checkModelScope(object)) return null;
 		
-		return super.read(object, id);
+		return super.readUnique(object, id);
+	}
+	
+	@Override
+	public <E extends Object> E readUnique(E object, Set<String> keys) throws Exception {
+		if (checkModelScope(object)) return null;
+		
+		return super.readUnique(object, keys);
 	}
 	
 	@Override
@@ -65,6 +73,13 @@ public abstract class BaseModelDAOIMP extends BaseDAOIMP implements BaseModelDAO
 		if (checkModelScope(object)) return null;
 		
 		return super.read(object, keys);
+	}
+	
+	@Override
+	public <E extends Object> List<E> read(E object, Set<String> keys, List<String> fields) throws Exception {
+		if (checkModelScope(object)) return null;
+		
+		return super.read(object, keys, fields);
 	}
 	
 	@Override

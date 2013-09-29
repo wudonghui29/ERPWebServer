@@ -1,5 +1,6 @@
 package com.xinyuan.action;
 
+import java.util.List;
 import java.util.Map;
 
 import com.google.gson.JsonElement;
@@ -24,25 +25,33 @@ public class HumanResourceAction extends SuperAction {
 	public String create() throws Exception {
 		super.create();
 		
-		Object model = models.get(0);
-		if (model instanceof Employee) {
-			Employee newEmployee = (Employee)model;
+		if (models.size() != 1) return Action.NONE;		// Forbid create multi-
+		
+		Map<String, Object> map = JsonHelper.translateElementToMap(allJsonObject);
+		List<String> passwordList = (List<String>)map.get(ConstantsConfig.PASSWORDS);
+		
+		for (int i = 0; i < models.size(); i++) {
+			Object model = models.get(i);
 			
-			Map<String, Object> map = JsonHelper.translateElementToMap(allJsonObject);
+			if (model instanceof Employee) {
+				Employee newEmployee = (Employee)model;
+				
+				
+				String password = passwordList.get(0);
+				String username = newEmployee.getEmployeeNO();
+				
+				User newUser = new User();
+				newUser.setPassword(password);
+				newUser.setUsername(username);
+				
+				Approvals approval = new Approvals();
+				approval.setUsername(username);
+				
+				BaseDAO baseDAO = new BaseDAOIMP();
+				baseDAO.create(newUser);
+				baseDAO.create(approval);
+			}
 			
-			String password = (String)map.get(ConstantsConfig.PASSWORDS);
-			String username = newEmployee.getEmployeeNO();
-			
-			User newUser = new User();
-			newUser.setPassword(password);
-			newUser.setUsername(username);
-			
-			Approvals approval = new Approvals();
-			approval.setUsername(username);
-			
-			BaseDAO baseDAO = new BaseDAOIMP();
-			baseDAO.create(newUser);
-			baseDAO.create(approval);
 		}
 		
 		return Action.NONE;

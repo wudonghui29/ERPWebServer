@@ -45,7 +45,7 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		
 		JsonArray modelsArray = (JsonArray) jsonObject.get(ConstantsConfig.MODELS);			// MODELS
 		JsonArray objectsArray = (JsonArray) jsonObject.get(ConstantsConfig.OBJECTS);		// OBJECTS
-		JsonArray optionsArray = (JsonArray) jsonObject.get(ConstantsConfig.OPTIOINS);		// OPTIONS
+		JsonArray optionsArray = (JsonArray) jsonObject.get(ConstantsConfig.FIELDS);		// OPTIONS
 		
 		if(modelsArray.size() != objectsArray.size()) return Action.NONE;
 		

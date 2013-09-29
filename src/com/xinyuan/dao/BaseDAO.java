@@ -20,27 +20,43 @@ public interface BaseDAO {
 	 * @return read the whole properties on database according to the object with a unique column value , be sure have unique result
 	 * @throws Exception
 	 */
-	<E extends Object> E read(E object, Serializable id) throws Exception;
+	<E extends Object> E readUnique(E object, Serializable id) throws Exception;
+	
+	
+	/**
+	 * 
+	 * @param object	vo have some properties 
+	 * @param keys		the keys is some of all the object's properties' names , which will put into the where HQL statement for
+	 * 					query the results in the database 
+	 * @return			The HQL must have an unique result
+	 * @throws Exception
+	 */
+	<E extends Object> E readUnique(E object, Set<String> keys) throws Exception ;
 	
 	
 	
 	/**
 	 * 
 	 * @param object	vo have some properties
-	 * @param fields	the fields is some of all the object's properties' names , which will put into the where HQL statement
-	 * @return			read the results in the database , which have the same value as the object have
+	 * @param keys		the keys is some of all the object's properties' names , which will put into the where HQL statement for
+	 * 					query the results in the database 
+	 * @return
 	 * @throws Exception
 	 */
 	<E extends Object> List<E> read(E object, Set<String> keys) throws Exception ;
 	
 	
 	
+
 	/**
-	 * 
-	 * @param object	vo have some properties
-	 * @param keys		the fields value you want to get .
-	 * @return			this method is different from above, this result will return some columns(the keys specified it's column name) values 
-	 * 					but the above method will return all column values
+   
+	 * @param object		vo have some properties
+	 * @param keys			the keys is some of all the object's properties' names , which will put into the where HQL statement for
+	 * 						query the results in the database , which have the same value as the object have
+	 * @param fields		the fields value you want to get / select
+	 * @return
+	 *						this method is different from above, this result will return some columns(the keys specified it's column name) values 
+	 * 						but the above method will return all column values
 	 * @throws Exception
 	 */
 	<E extends Object> List<E> read(E object, Set<String> keys, List<String> fields) throws Exception ;
