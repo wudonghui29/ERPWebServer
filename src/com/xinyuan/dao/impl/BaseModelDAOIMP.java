@@ -39,14 +39,12 @@ public abstract class BaseModelDAOIMP extends BaseDAOIMP implements BaseModelDAO
 	public <E extends BaseOrderModel> E read(E model) throws Exception {
 		if (checkModelScope(model)) return null;
 		Set<String> keys = new HashSet<String>();
+		if (model.getOrderNO() != null) keys.add("orderNO");
+		if (model.getId() != 0) keys.add("id");
 		setUniqueResultKeys(model, keys);
 		return readUnique(model, keys);
 	}
-	// for subclass
-	protected void setUniqueResultKeys(BaseOrderModel model, Set<String> keys) {
-		if (model.getOrderNO() != null) keys.add("orderNO");
-		if (model.getId() != 0) keys.add("id");
-	}
+	protected void setUniqueResultKeys(BaseOrderModel model, Set<String> keys) {}
 	
 	
 	

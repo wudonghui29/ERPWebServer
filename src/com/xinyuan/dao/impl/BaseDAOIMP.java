@@ -69,7 +69,7 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 
 	@Override
 	public <E> void delete(E object) throws Exception {
-		// TODO Auto-generated method stub
+		super.deleteObject(object);
 	}
 
 	

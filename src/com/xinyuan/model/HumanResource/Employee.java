@@ -170,7 +170,7 @@ public class Employee extends LevelAPP_5 {
 	
 	@NotNull
 	@NotEmpty
-	@Column(unique=true)
+	@Column(unique=true, updatable=false)
 	public String getEmployeeNO() {
 		return employeeNO;
 	}

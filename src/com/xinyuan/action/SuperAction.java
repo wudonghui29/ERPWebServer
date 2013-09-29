@@ -25,8 +25,7 @@ import com.xinyuan.util.OrderHelper;
 public class SuperAction extends ActionModelBase {
 	
 	protected JsonObject allJsonObject;
-	
-	protected List<Object> models;
+	protected List<BaseOrderModel> models;
 	protected List<JsonElement> objects;
 	protected List<List<String>> options;
 	
@@ -35,19 +34,22 @@ public class SuperAction extends ActionModelBase {
 		return new BaseDAOIMP();
 	}
 
-	
 	@Override
 	public String execute() {
 		return Action.NONE;
 	}
 	
+	
+	
+	// permissions
+	
 	public String read() throws Exception {
 		
-		List<List<Object>> results = new ArrayList<List<Object>>();
+		List<List<BaseOrderModel>> results = new ArrayList<List<BaseOrderModel>>();
 		
 		for (int i = 0; i < models.size(); i++) {
 			
-			Object model = models.get(i);
+			BaseOrderModel model = models.get(i);
 			
 			JsonElement object = objects.get(i);
 			
@@ -56,7 +58,7 @@ public class SuperAction extends ActionModelBase {
 			Set<String> keys = map.keySet();
 			
 			
-			List<Object> result = null;
+			List<BaseOrderModel> result = null;
 			if (options == null) {
 				result = dao.read(model, keys);
 			} else {
@@ -82,7 +84,7 @@ public class SuperAction extends ActionModelBase {
 		
 		for (int i = 0; i < models.size(); i++) {
 			
-			BaseOrderModel model = (BaseOrderModel)models.get(i);
+			BaseOrderModel model = models.get(i);
 			
 			OrderHelper.setOrderBasicCreateDetail(model);
 			Integer identifier = (Integer) dao.create(model);
@@ -101,7 +103,7 @@ public class SuperAction extends ActionModelBase {
 		return Action.NONE;
 	}
 	
-	public String modify() throws Exception {							// TODO:  some unique column cannot modified!!!
+	public String modify() throws Exception {
 		if (models.size() != 1) return Action.NONE;		// Forbid create multi-
 		
 		Map<String, Object> allJsonMap = JsonHelper.translateElementToMap(allJsonObject);
@@ -109,7 +111,7 @@ public class SuperAction extends ActionModelBase {
 		
 		for (int i = 0; i < models.size(); i++) {
 			
-			Object model = models.get(i);
+			BaseOrderModel model = models.get(i);
 			
 			JsonElement object = objects.get(i);
 			
@@ -119,7 +121,7 @@ public class SuperAction extends ActionModelBase {
 			
 			String identityJSON = JsonHelper.getGson().toJson(identityList.get(i));
 			
-			BaseOrderModel persistence = (BaseOrderModel)JsonHelper.getGson().fromJson(identityJSON, model.getClass());
+			BaseOrderModel persistence = JsonHelper.getGson().fromJson(identityJSON, model.getClass());
 			
 			persistence = ((BaseModelDAO)dao).read(persistence);		// get all values of this po
 			
@@ -128,11 +130,27 @@ public class SuperAction extends ActionModelBase {
 			dao.modify(persistence);
 		}
 		
-		
+		message.status = ConstantsConfig.STATUS_SUCCESS;
 		return Action.NONE;
 	}
 	
 	public String delete() throws Exception {
+		if (models.size() != 1) return Action.NONE;		// Forbid create multi-
+		for (int i = 0; i < models.size(); i++) {
+					
+			BaseOrderModel model = models.get(i);
+				
+			BaseOrderModel persistence = ((BaseModelDAO)dao).read(model);		// get all values
+				
+			dao.delete(persistence);
+			
+			// check if delete successfully
+			if (((BaseModelDAO)dao).read(model) == null) {
+				message.status = ConstantsConfig.STATUS_SUCCESS;
+			}
+		}
+		
+		
 		return Action.NONE;
 	}
 
@@ -146,7 +164,7 @@ public class SuperAction extends ActionModelBase {
 		
 		for (int i = 0; i < models.size(); i++) {
 			
-			BaseOrderModel model = (BaseOrderModel)models.get(i);
+			BaseOrderModel model = models.get(i);
 			
 			BaseOrderModel persistence = ((BaseModelDAO)dao).read(model);		// get all values
 			
@@ -175,19 +193,25 @@ public class SuperAction extends ActionModelBase {
 	}
 
 	
+	
+	
+	
 	// Getter and Setter Methods
 	
-	public List<Object> getModels() {
+	public List<BaseOrderModel> getModels() {
 		return models;
 	}
-
-	public void setModels(List<Object> models) {
+	
+	
+	public void setModels(List<BaseOrderModel> models) {
 		this.models = models;
 	}
+	
 
 	public List<JsonElement> getObjects() {
 		return objects;
 	}
+
 
 	public void setObjects(List<JsonElement> objects) {
 		this.objects = objects;

@@ -28,7 +28,8 @@ public class BaseOrderModel {
 	public void setId(int id) {
 		this.id = id;
 	}
-	@Column(unique=true)
+	
+	@Column(unique=true, updatable=false)
 	public String getOrderNO() {
 		return orderNO;
 	}
@@ -36,6 +37,7 @@ public class BaseOrderModel {
 		this.orderNO = orderNO;
 	}
 	
+	@Column(updatable=false)
 	public Date getCreateDate() {
 		return createDate;
 	}
@@ -43,13 +45,14 @@ public class BaseOrderModel {
 		this.createDate = createDate;
 	}
 	
-	
+	@Column(updatable=false)
 	public String getCreateUser() {
 		return createUser;
 	}
 	public void setCreateUser(String createUser) {
 		this.createUser = createUser;
 	}
+	
 	public String getForwardUser() {
 		return forwardUser;
 	}

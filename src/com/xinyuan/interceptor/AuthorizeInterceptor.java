@@ -23,7 +23,7 @@ public class AuthorizeInterceptor extends AbstractInterceptor {
 		
 		// TODO: for test
 		UserDAO userDAO = new UserDAOIMP();
-		User userTest =  userDAO.getUser("mike");
+		User userTest =  userDAO.getUser("xinyuanTMD");
 //		invocation.getInvocationContext().getSession().put(ConfigConstants.SIGNIN_USER, userTest);
 		String perssionStr = userTest.getPermissions();
 		UserAction.sessionPut(ConstantsConfig.PERMISSIONS, perssionStr.split(","));
