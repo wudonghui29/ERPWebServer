@@ -9,12 +9,12 @@ public class ServerStartupListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		DLog.log("--------- contextInitialized");
+		DLog.log("--------- context initialized ---------");
 	}
 
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
-		DLog.log("--------- contextDestroyed");
+		DLog.log("--------- context destroyed ---------");
 	}
 
 }

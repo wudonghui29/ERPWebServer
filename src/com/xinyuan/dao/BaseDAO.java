@@ -23,6 +23,10 @@ public interface BaseDAO {
 	<E extends Object> E readUnique(E object, Serializable id) throws Exception;
 	
 	
+	
+	
+	
+	
 	/**
 	 * 
 	 * @param object	vo have some properties 
@@ -35,15 +39,6 @@ public interface BaseDAO {
 	
 	
 	
-	/**
-	 * 
-	 * @param object	vo have some properties
-	 * @param keys		the keys is some of all the object's properties' names , which will put into the where HQL statement for
-	 * 					query the results in the database 
-	 * @return
-	 * @throws Exception
-	 */
-	<E extends Object> List<E> read(E object, Set<String> keys) throws Exception ;
 	
 	
 	
@@ -54,12 +49,19 @@ public interface BaseDAO {
 	 * @param keys			the keys is some of all the object's properties' names , which will put into the where HQL statement for
 	 * 						query the results in the database , which have the same value as the object have
 	 * @param fields		the fields value you want to get / select
+	 * 
+	 * @param criteria		the criteria , e.g. ' = , <= , >= , between ... and ... , like ...' 
+	 * 
 	 * @return
+	 * 						use the 'SELECT' clause
+	 * 						// (if no fields specified , there will be no 'SELECT' clause. Then will return fields' key-value pairs)
 	 *						this method is different from above, this result will return some columns(the keys specified it's column name) values 
 	 * 						but the above method will return all column values
 	 * @throws Exception
 	 */
-	<E extends Object> List<E> read(E object, Set<String> keys, List<String> fields) throws Exception ;
+	<E extends Object> List<E> read(E object, Set<String> keys, List<String> fields, Map<String, String> criterias) throws Exception ;
+	
+	
 	
 	
 	

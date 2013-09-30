@@ -3,18 +3,11 @@ package com.modules.introspector;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Set;
 
-import com.xinyuan.util.IntrospectorHelper;
 
 public class ModelIntrospector {
-	
-	
-	private static final String DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
 	
 	
 	
@@ -34,7 +27,7 @@ public class ModelIntrospector {
 	                Method writeMethod = pd.getWriteMethod();
 	                
 	                Class<?> type = writeMethod.getParameterTypes()[0];
-	                value = type != String.class ? convert(value, type) : value;
+	                value = type != String.class ? IntrospectHelper.convert(value, type) : value;
 	                
 	                writeMethod.invoke(object, value);  
 	                break;  
@@ -58,38 +51,6 @@ public class ModelIntrospector {
 	
 	  
 	  
-	  /**
-	   * 
-	   * @param value
-	   * @param classObj
-	   * @return
-	   * @throws ParseException
-	   */
-	private static Object convert(Object value, Class classObj) throws Exception {
-		String valueString = (String) value;
-
-		if (classObj == java.util.Date.class || classObj == java.sql.Date.class) {
-			
-			return new SimpleDateFormat(DateTimeFormat).parse(valueString);
-			
-		} else if (classObj == Boolean.class) {
-
-			return new Boolean(Integer.parseInt(valueString) == 1);
-			
-		} else if (classObj == float.class) {
-			
-			return Float.parseFloat(valueString);
-			
-		} else if (classObj == int.class) {
-			
-			return Integer.parseInt(valueString);
-			
-		}
-
-		return value;
-	}
-	
-	
 	
 	/**
 	 * 
@@ -106,7 +67,7 @@ public class ModelIntrospector {
 				
 				String propertyname = pd.getName() ;
 				
-				if (IntrospectorHelper.isContains(keys, propertyname)){
+				if (IntrospectHelper.isContains(keys, propertyname)){
 					Method readMethod = pd.getReadMethod();
 					Object value =  readMethod.invoke(vo);
 					

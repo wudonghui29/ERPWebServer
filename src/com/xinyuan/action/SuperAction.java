@@ -8,7 +8,6 @@ import java.util.Set;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.modules.introspector.ModelIntrospector;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.dao.BaseDAO;
@@ -20,32 +19,29 @@ import com.xinyuan.model.User;
 import com.xinyuan.util.ApnsHelper;
 import com.xinyuan.util.ApprovalHelper;
 import com.xinyuan.util.JsonHelper;
-import com.xinyuan.util.OrderHelper;
+import com.xinyuan.util.ModelHelper;
 
 public class SuperAction extends ActionModelBase {
 	
-	protected JsonObject allJsonObject;
-	protected List<BaseOrderModel> models;
-	protected List<JsonElement> objects;
-	protected List<List<String>> options;
+	@Override
+	public String execute() {
+		return Action.NONE;
+	}
 	
 	@Override
 	protected BaseDAO getDao() {
 		return new BaseDAOIMP();
 	}
 
-	@Override
-	public String execute() {
-		return Action.NONE;
-	}
 	
 	
-	
-	// permissions
 	
 	public String read() throws Exception {
 		
 		List<List<BaseOrderModel>> results = new ArrayList<List<BaseOrderModel>>();
+		
+		List<List<String>> options = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.FIELDS, false);
+		List<Map<String, String>> criterials = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.CRITERIAS, true);
 		
 		for (int i = 0; i < models.size(); i++) {
 			
@@ -57,15 +53,11 @@ public class SuperAction extends ActionModelBase {
 			
 			Set<String> keys = map.keySet();
 			
+			List<String> fields = options == null ? null : options.get(i);
 			
-			List<BaseOrderModel> result = null;
-			if (options == null) {
-				result = dao.read(model, keys);
-			} else {
-				List<String> fields = options.get(i);
-				result = dao.read(model, keys, fields);
-			}
+			Map<String, String> conditions = criterials == null ? null : criterials.get(i);
 			
+			List<BaseOrderModel> result = dao.read(model, keys, fields, conditions);
 			
 			results.add(result);
 		}
@@ -77,6 +69,8 @@ public class SuperAction extends ActionModelBase {
 		return Action.NONE;
 	}
 	
+	
+	
 	public String create() throws Exception {
 		if (models.size() != 1) return Action.NONE;		// Forbid create multi-
 		
@@ -86,7 +80,7 @@ public class SuperAction extends ActionModelBase {
 			
 			BaseOrderModel model = models.get(i);
 			
-			OrderHelper.setOrderBasicCreateDetail(model);
+			ModelHelper.setOrderBasicCreateDetail(model);
 			Integer identifier = (Integer) dao.create(model);
 			
 			Map result = new HashMap();
@@ -103,8 +97,10 @@ public class SuperAction extends ActionModelBase {
 		return Action.NONE;
 	}
 	
+	
+	
 	public String modify() throws Exception {
-		if (models.size() != 1) return Action.NONE;		// Forbid create multi-
+		if (models.size() != 1) return Action.NONE;		// Forbid modified multi-
 		
 		Map<String, Object> allJsonMap = JsonHelper.translateElementToMap(allJsonObject);
 		List identityList = (List)allJsonMap.get(ConstantsConfig.IDENTITYS);
@@ -134,8 +130,10 @@ public class SuperAction extends ActionModelBase {
 		return Action.NONE;
 	}
 	
+	
+	
 	public String delete() throws Exception {
-		if (models.size() != 1) return Action.NONE;		// Forbid create multi-
+		if (models.size() != 1) return Action.NONE;		// Forbid delete multi-
 		for (int i = 0; i < models.size(); i++) {
 					
 			BaseOrderModel model = models.get(i);
@@ -153,9 +151,11 @@ public class SuperAction extends ActionModelBase {
 		
 		return Action.NONE;
 	}
+	
+	
 
 	public String apply() throws Exception {
-		if (models.size() != 1) return Action.NONE;		// Forbid create multi-
+		if (models.size() != 1) return Action.NONE;		// Forbid apply multi-
 		
 		String approveUsername = ((User)UserAction.sessionGet(ConstantsConfig.SIGNIN_USER)).getUsername();
 		
@@ -169,14 +169,14 @@ public class SuperAction extends ActionModelBase {
 			BaseOrderModel persistence = ((BaseModelDAO)dao).read(model);		// get all values
 			
 //			if (!model.getForwardUser().equals(approveUsername)) DLog.log("not same , ask for leave???"); // TODO:
-			boolean isAllApproved = OrderHelper.approve(persistence, approveUsername);  // TODO: Handle Exception
+			boolean isAllApproved = ModelHelper.approve(persistence, approveUsername);  // TODO: Handle Exception
 			
 			String forwardUsername = forwardsList.get(i).getAsString();
 			persistence.setForwardUser(forwardUsername);
 			dao.modify(persistence);
 			
 			String orderNO = persistence.getOrderNO();
-			String modelType = OrderHelper.getModelType(persistence);
+			String modelType = ModelHelper.getModelType(persistence);
 			
 			ApprovalHelper.addPendingApprove(forwardUsername, orderNO, modelType);
 			ApprovalHelper.deletePendingApprove(approveUsername, orderNO, modelType);
@@ -193,46 +193,4 @@ public class SuperAction extends ActionModelBase {
 	}
 
 	
-	
-	
-	
-	// Getter and Setter Methods
-	
-	public List<BaseOrderModel> getModels() {
-		return models;
-	}
-	
-	
-	public void setModels(List<BaseOrderModel> models) {
-		this.models = models;
-	}
-	
-
-	public List<JsonElement> getObjects() {
-		return objects;
-	}
-
-
-	public void setObjects(List<JsonElement> objects) {
-		this.objects = objects;
-	}
-	
-	public List<List<String>> getOptions() {
-		return options;
-	}
-
-
-	public void setOptions(List<List<String>> options) {
-		this.options = options;
-	}
-
-
-	public JsonObject getAllJsonObject() {
-		return allJsonObject;
-	}
-
-	public void setAllJsonObject(JsonObject allJsonObject) {
-		this.allJsonObject = allJsonObject;
-	}
-
 }

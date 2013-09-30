@@ -3,6 +3,7 @@ package com.xinyuan.dao.impl;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.xinyuan.dao.BaseModelDAO;
@@ -66,18 +67,12 @@ public abstract class BaseModelDAOIMP extends BaseDAOIMP implements BaseModelDAO
 		return super.readUnique(object, keys);
 	}
 	
-	@Override
-	public <E extends Object> List<E> read(E object, Set<String> keys) throws Exception {
-		if (checkModelScope(object)) return null;
-		
-		return super.read(object, keys);
-	}
 	
 	@Override
-	public <E extends Object> List<E> read(E object, Set<String> keys, List<String> fields) throws Exception {
+	public <E extends Object> List<E> read(E object, Set<String> keys, List<String> fields, Map<String, String> criterias) throws Exception {
 		if (checkModelScope(object)) return null;
 		
-		return super.read(object, keys, fields);
+		return super.read(object, keys, fields, criterias);
 	}
 	
 	@Override

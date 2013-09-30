@@ -11,7 +11,7 @@ public class HumanResourceDAOIMP extends BaseModelDAOIMP implements HumanResourc
 	@Override
 	protected void setUniqueResultKeys(BaseOrderModel model, Set<String> keys) {
 		if (model.getClass() == Employee.class)  if (((Employee) model).getEmployeeNO() != null) keys.add("employeeNO");
-		// TODO: How to automatically get the unique column in Hibernate models?? check it out!!!
+		// TODO: How to automatically get the unique column in Hibernate models?? check it out!!!		// In Method.class , getDeclaredAnnotations , check it out
 	}
 
 }

@@ -25,6 +25,7 @@ public class ConstantsConfig {
 	public static final String MODELS = "MODELS";
 	public static final String OBJECTS = "OBJECTS";
 	public static final String FIELDS = "FIELDS";
+	public static final String CRITERIAS = "CRITERIAS";
 	public static final String IDENTITYS = "IDENTITYS";
 	public static final String PASSWORDS = "PASSWORDS";
 	

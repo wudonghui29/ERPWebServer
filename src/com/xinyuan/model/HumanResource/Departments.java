@@ -9,9 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.xinyuan.model.BaseOrderModel;
+
 @Entity
 @Table(uniqueConstraints= @UniqueConstraint(columnNames = {"name", "subDepartment"}))
-public class Departments implements Serializable {
+public class Departments extends BaseOrderModel implements Serializable {
 
 	private int id;
 	private String name;

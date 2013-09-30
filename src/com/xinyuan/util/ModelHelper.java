@@ -33,7 +33,7 @@ import com.xinyuan.model.HumanResource.EmployeeSecurityDetailOrder;
 import com.xinyuan.model.HumanResource.EmployeeSecurityMealOrder;
 import com.xinyuan.model.Security.SecurityVisitOrder;
 
-public class OrderHelper {
+public class ModelHelper {
 	
 	private static Map<String, String> orderNOPrefixMap = new HashMap<String, String>();
 	
