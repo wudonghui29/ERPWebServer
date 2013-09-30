@@ -32,9 +32,6 @@ public class PoIntrospector {
 	  
 	  
 	  
-	  
-	  
-	  
 	  /**
 	   * 
 	   * @param object
