@@ -52,7 +52,7 @@ public class ModelIntrospector {
 	   * @throws Exception
 	   */
 	  public static Object getProperty(Object object, String propertyName)  throws Exception {  
-		  return PoIntrospector.getProperty(object, propertyName);
+		  return POIntrospector.getProperty(object, propertyName);
 	  }
 
 	

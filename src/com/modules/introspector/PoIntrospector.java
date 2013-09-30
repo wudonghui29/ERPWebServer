@@ -5,7 +5,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 
-public class PoIntrospector {
+public class POIntrospector {
 	
 	
 	
