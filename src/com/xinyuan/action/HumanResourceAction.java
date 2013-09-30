@@ -3,15 +3,14 @@ package com.xinyuan.action;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.JsonElement;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.dao.BaseDAO;
 import com.xinyuan.dao.impl.BaseDAOIMP;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.model.User;
-import com.xinyuan.model.HumanResource.Employee;
 import com.xinyuan.model.HumanResource.Approvals;
+import com.xinyuan.model.HumanResource.Employee;
 import com.xinyuan.util.JsonHelper;
 
 

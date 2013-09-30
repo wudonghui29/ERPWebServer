@@ -38,14 +38,14 @@ public class SuperAction extends ActionModelBase {
 	
 	public String read() throws Exception {
 		
-		List<List<BaseOrderModel>> results = new ArrayList<List<BaseOrderModel>>();
+		List<List<Object>> results = new ArrayList<List<Object>>();
 		
 		List<List<String>> options = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.FIELDS, false);
 		List<Map<String, String>> criterials = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.CRITERIAS, true);
 		
 		for (int i = 0; i < models.size(); i++) {
 			
-			BaseOrderModel model = models.get(i);
+			Object model = models.get(i);
 			
 			JsonElement object = objects.get(i);
 			
@@ -57,7 +57,7 @@ public class SuperAction extends ActionModelBase {
 			
 			Map<String, String> conditions = criterials == null ? null : criterials.get(i);
 			
-			List<BaseOrderModel> result = dao.read(model, keys, fields, conditions);
+			List<Object> result = dao.read(model, keys, fields, conditions);
 			
 			results.add(result);
 		}
@@ -78,7 +78,7 @@ public class SuperAction extends ActionModelBase {
 		
 		for (int i = 0; i < models.size(); i++) {
 			
-			BaseOrderModel model = models.get(i);
+			BaseOrderModel model = (BaseOrderModel)models.get(i);
 			
 			ModelHelper.setOrderBasicCreateDetail(model);
 			Integer identifier = (Integer) dao.create(model);
@@ -107,7 +107,7 @@ public class SuperAction extends ActionModelBase {
 		
 		for (int i = 0; i < models.size(); i++) {
 			
-			BaseOrderModel model = models.get(i);
+			BaseOrderModel model = (BaseOrderModel)models.get(i);
 			
 			JsonElement object = objects.get(i);
 			
@@ -136,7 +136,7 @@ public class SuperAction extends ActionModelBase {
 		if (models.size() != 1) return Action.NONE;		// Forbid delete multi-
 		for (int i = 0; i < models.size(); i++) {
 					
-			BaseOrderModel model = models.get(i);
+			BaseOrderModel model = (BaseOrderModel)models.get(i);
 				
 			BaseOrderModel persistence = ((BaseModelDAO)dao).read(model);		// get all values
 				
@@ -164,7 +164,7 @@ public class SuperAction extends ActionModelBase {
 		
 		for (int i = 0; i < models.size(); i++) {
 			
-			BaseOrderModel model = models.get(i);
+			BaseOrderModel model = (BaseOrderModel)models.get(i);
 			
 			BaseOrderModel persistence = ((BaseModelDAO)dao).read(model);		// get all values
 			

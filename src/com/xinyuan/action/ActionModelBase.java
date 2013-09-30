@@ -5,7 +5,6 @@ import java.util.List;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.xinyuan.dao.BaseDAO;
-import com.xinyuan.model.BaseOrderModel;
 
 public abstract class ActionModelBase extends ActionBase {
 
@@ -14,16 +13,16 @@ public abstract class ActionModelBase extends ActionBase {
 	
 	
 	protected JsonObject allJsonObject;
-	protected List<BaseOrderModel> models;
+	protected List<Object> models;
 	protected List<JsonElement> objects;
 	
 	
-	public List<BaseOrderModel> getModels() {
+	public List<Object> getModels() {
 		return models;
 	}
 	
 	
-	public void setModels(List<BaseOrderModel> models) {
+	public void setModels(List<Object> models) {
 		this.models = models;
 	}
 	

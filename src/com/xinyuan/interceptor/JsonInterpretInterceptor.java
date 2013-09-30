@@ -37,7 +37,7 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		
 		
 		List<JsonElement> ojects = new ArrayList<JsonElement>();
-		List<BaseOrderModel> models = new ArrayList<BaseOrderModel>();
+		List<Object> models = new ArrayList<Object>();
 		
 		JsonArray modelsArray = (JsonArray) jsonObject.get(ConstantsConfig.MODELS);			// MODELS
 		JsonArray objectsArray = (JsonArray) jsonObject.get(ConstantsConfig.OBJECTS);		// OBJECTS
@@ -53,7 +53,7 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 			
 			String className = ConstantsConfig.MODELPACKAGE + (superAction.getClass() == SuperAction.class ?  modelString : getContextAction() + modelString);
 			Class<?> modelClass = Class.forName(className);
-			BaseOrderModel model = (BaseOrderModel)JsonHelper.getGson().fromJson(objectString, modelClass);
+			Object model = JsonHelper.getGson().fromJson(objectString, modelClass);
 			
 			models.add(model);				// MODELS
 			ojects.add(objectElement);		// OBJECTS

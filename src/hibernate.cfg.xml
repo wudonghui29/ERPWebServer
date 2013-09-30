@@ -51,6 +51,8 @@
 
 		<!-- ORM -->
         <mapping class="com.xinyuan.model.User"/>
+        
+        
 		
 		<!-- HumanResource Models -->
         <mapping class="com.xinyuan.model.HumanResource.Approvals"/>
@@ -76,7 +78,11 @@
         
 
         <!-- Security Models -->
+        
         <mapping class="com.xinyuan.model.Security.SecurityVisitOrder"/>
+        
+        
+        
         
     </session-factory>
 
