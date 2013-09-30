@@ -17,6 +17,8 @@ public class ModelIntrospector {
 	private static final String DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
 	
 	
+	
+	
 	/**
 	 * 
 	 * @param object
