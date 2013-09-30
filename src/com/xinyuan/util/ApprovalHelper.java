@@ -22,7 +22,7 @@ public class ApprovalHelper {
 		
 		
 		// orderNO + mode type
-		String orderIdentifier = orderNO + ORDER_MODEL_CONNECTOR + modelType;
+		String orderIdentifier = modelType + ORDER_MODEL_CONNECTOR + orderNO;
 		
 		pendingApprovals = pendingApprovals == null || pendingApprovals.isEmpty() ? orderIdentifier : pendingApprovals + ORDER_DIVIDER + orderIdentifier;
 		pendingApproval.setPendingApprovals(pendingApprovals);
@@ -43,7 +43,7 @@ public class ApprovalHelper {
 		List<String> list = new ArrayList<String>(Arrays.asList(pendingList));
 		
 		// orderNO + mode type
-		String orderTypeNO = orderNO + ORDER_MODEL_CONNECTOR + modelType;
+		String orderTypeNO = modelType + ORDER_MODEL_CONNECTOR + orderNO;
 		
 		list.removeAll(Arrays.asList(orderTypeNO));
 		String result = "";
