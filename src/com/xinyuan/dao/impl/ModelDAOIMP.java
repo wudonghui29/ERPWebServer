@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.xinyuan.dao.BaseModelDAO;
+import com.xinyuan.dao.ModelDAO;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.model.BaseOrderModel;
 
@@ -15,17 +15,17 @@ import com.xinyuan.model.BaseOrderModel;
  * Limited specified XDAO access XMODEL  
  * 
  */
-public abstract class BaseModelDAOIMP extends BaseDAOIMP implements BaseModelDAO {
+public abstract class ModelDAOIMP extends BaseDAOIMP implements ModelDAO {
+	
+	
 	
 	private final String Model_Scope = getModelScope();
-	
 	private String getModelScope() {
 		String wholeClassName = getClass().getName();
 		String shortClassName = wholeClassName.substring(wholeClassName.lastIndexOf(".") + 1);
 		String superModelName = shortClassName.substring(0, shortClassName.indexOf(ConstantsConfig.DAOIMP_SUFFIX));
 		return ConstantsConfig.MODELPACKAGE + superModelName;
 	}
-	
 	private boolean checkModelScope(Object object) {
 		return object.getClass().getName().indexOf(Model_Scope) == -1;
 	}
@@ -33,25 +33,36 @@ public abstract class BaseModelDAOIMP extends BaseDAOIMP implements BaseModelDAO
 	
 	
 	
-	// Implement BaseModelDAO Methods:
 	
+	
+	
+	
+	// Implement ModelDAO Methods:
 	
 	@Override
-	public <E extends BaseOrderModel> E read(E model) throws Exception {
+	public <E extends Object> E read(E model) throws Exception {
 		if (checkModelScope(model)) return null;
 		Set<String> keys = new HashSet<String>();
-		if (model.getOrderNO() != null) keys.add("orderNO");
-		if (model.getId() != 0) keys.add("id");
+		if (model instanceof BaseOrderModel) {
+			BaseOrderModel orderModel = (BaseOrderModel)model;
+			if (orderModel.getOrderNO() != null) keys.add("orderNO");
+			if (orderModel.getId() != 0) keys.add("id");
+		}
 		setUniqueResultKeys(model, keys);
 		return readUnique(model, keys);
 	}
-	protected void setUniqueResultKeys(BaseOrderModel model, Set<String> keys) {}
+	protected void setUniqueResultKeys(Object model, Set<String> keys) {}
+	
+	
+	
+	
+	
+	
 	
 	
 	
 	
 	// Override BaseDAOIMP Methods:
-	
 	
 	@Override
 	public <E extends Object> E readUnique(E object, Serializable id) throws Exception {

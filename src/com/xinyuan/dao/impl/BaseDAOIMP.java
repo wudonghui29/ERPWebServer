@@ -12,6 +12,7 @@ import org.hibernate.Query;
 
 import com.modules.introspector.IntrospectHelper;
 import com.xinyuan.dao.BaseDAO;
+import com.xinyuan.util.CriteriaHelper;
 
 public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 	
@@ -23,13 +24,13 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 	
 	@Override
 	public <E extends Object> E readUnique(E object, Set<String> keys) throws Exception {
-		return (E) createQuery(object, keys, null).uniqueResult();
+		return (E) createQuery(object, keys, null, null).uniqueResult();
 	}
 	
 	
 	@Override
 	public <E extends Object> List<E> read(E object, Set<String> keys, List<String> fields, Map<String, String> criterias) throws Exception {
-		return createQuery(object, keys, getSelectClause(object, fields)).list();	// if no result , will be empty list
+		return createQuery(object, keys, fields, criterias).list();	// if no result , will be empty list
 	}
 	
 	
@@ -56,16 +57,19 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 	
 	
 	
-	
+	private static String MARK = "_";
 	
 	
 	// private methods 
-	
-	private <E extends Object> String getSelectClause(E object, List<String> fields) {
-		if (fields == null) return null;
-		
+	private String getAlias(Object object) {
 		String wholeClassName = object.getClass().getName();
 		String alias = wholeClassName.substring(wholeClassName.lastIndexOf(".") + 1).toLowerCase();
+		return alias;
+	}
+	
+	
+	private <E extends Object> String assembleSelectClause(String alias, List<String> fields) {
+		if (fields == null) return null;
 		
 		String hql  = "select " ;
 		int fieldSize = fields.size();
@@ -79,47 +83,64 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 	}
 	
 	
-	private <E extends Object> Query createQuery(E object, Set<String> keys, String selectClause) throws Exception {
-		String wholeClassName = object.getClass().getName();
-		String alias = wholeClassName.substring(wholeClassName.lastIndexOf(".") + 1).toLowerCase();
-		String hql = " from " + object.getClass().getName() + " " + alias;
+	private String assembleWhereClause(Set<String> keys) {
+		if (keys.size() == 0) return null;
 		
-		hql = selectClause == null ? hql : selectClause + hql;
-		
-		return getQuery(hql, object, keys);
-	}
-	
-	
-	private <E extends Object> Query getQuery(String hql, E object, Set<String> keys) throws Exception {
 		String whereString = "";
 		
 		// assemble the hql string
 		Iterator<String> iterator = keys.iterator();
 		while (iterator.hasNext()) {
 			String key = iterator.next();
-			whereString += " " + key + " = " + ":_" + key;
+			whereString += " " + key + " = " + ":" + MARK + key;
 			if (iterator.hasNext()) whereString += " and";
 		}
 		
-		if (!whereString.isEmpty()) hql = hql  + " Where" +  whereString;
-		Query query = super.getSession().createQuery(hql);
-		
-		
+		return whereString;
+	}
+	
+	
+	private <E extends Object> void setParametersValues(Query query, E object, Set<String> keys) throws Exception {
 		// set values
 		for (PropertyDescriptor pd : Introspector.getBeanInfo(object.getClass()).getPropertyDescriptors()) {
 			if (pd.getReadMethod() != null && !"class".equals(pd.getName())) {
 				String propertyname = pd.getName() ;
 				if (IntrospectHelper.isContains(keys, propertyname)){
 					Object propertyvalue =  pd.getReadMethod().invoke(object);
-					query.setParameter("_"+propertyname, propertyvalue);
+					query.setParameter(MARK + propertyname, propertyvalue);
 				}
 			}
 		}
 		
+	}
+	
+	
+	private <E extends Object> Query createQuery(E object, Set<String> keys, List<String> fields, Map<String, String> criterias) throws Exception {
+		
+		String alias = getAlias(object);
+		
+		String hql = " from " + object.getClass().getName() + " " + alias;
+		
+		String selectClause = assembleSelectClause(alias, fields);
+		
+		hql = selectClause == null ? hql : selectClause + hql;
+		
+		String whereClause = assembleWhereClause(keys);
+		
+		hql = whereClause == null ? hql : hql + " Where" + whereClause;
+		
+		
+		String criterialClause = CriteriaHelper.assembleCriteriaClause(criterias);
+		hql = criterialClause == null ? hql : (whereClause == null ? hql + " Where" + criterialClause : hql + criterialClause );
+		
+		
+		Query query = super.getSession().createQuery(hql);
+		
+		setParametersValues(query, object, keys);
+		
+		CriteriaHelper.setCriteriaValues(object, query, criterias);
 		
 		return query;
 	}
 	
-	
-
 }

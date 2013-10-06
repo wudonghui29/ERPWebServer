@@ -32,7 +32,7 @@ public class TransactionFilter implements Filter {
 		} catch (Exception e) {
 			if (transaction != null){
 				transaction.rollback();
-				DLog.log("Transaction ---> Roll Back , so the operation before transaction.commit() will not persiste to DB");
+				DLog.log("Transaction ---> Roll Back");
 			}
 			e.printStackTrace();
 //			throw e;

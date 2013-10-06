@@ -1,4 +1,4 @@
-package com.xinyuan.model.HumanResource;
+package com.xinyuan.model.Setting;
 
 import java.io.Serializable;
 

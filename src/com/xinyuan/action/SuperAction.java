@@ -11,7 +11,7 @@ import com.google.gson.JsonElement;
 import com.modules.introspector.ModelIntrospector;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.dao.BaseDAO;
-import com.xinyuan.dao.BaseModelDAO;
+import com.xinyuan.dao.ModelDAO;
 import com.xinyuan.dao.impl.BaseDAOIMP;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.model.BaseOrderModel;
@@ -55,9 +55,9 @@ public class SuperAction extends ActionModelBase {
 			
 			List<String> fields = options == null ? null : options.get(i);
 			
-			Map<String, String> conditions = criterials == null ? null : criterials.get(i);
+			Map<String, String> criteria = criterials == null ? null : criterials.get(i);
 			
-			List<Object> result = dao.read(model, keys, fields, conditions);
+			List<Object> result = dao.read(model, keys, fields, criteria);
 			
 			results.add(result);
 		}
@@ -119,7 +119,7 @@ public class SuperAction extends ActionModelBase {
 			
 			BaseOrderModel persistence = JsonHelper.getGson().fromJson(identityJSON, model.getClass());
 			
-			persistence = ((BaseModelDAO)dao).read(persistence);		// get all values of this po
+			persistence = ((ModelDAO)dao).read(persistence);		// get all values of this po
 			
 			ModelIntrospector.copyVoToPo(model, persistence, keys);
 			
@@ -138,12 +138,12 @@ public class SuperAction extends ActionModelBase {
 					
 			BaseOrderModel model = (BaseOrderModel)models.get(i);
 				
-			BaseOrderModel persistence = ((BaseModelDAO)dao).read(model);		// get all values
+			BaseOrderModel persistence = ((ModelDAO)dao).read(model);		// get all values
 				
 			dao.delete(persistence);
 			
 			// check if delete successfully
-			if (((BaseModelDAO)dao).read(model) == null) {
+			if (((ModelDAO)dao).read(model) == null) {
 				message.status = ConstantsConfig.STATUS_SUCCESS;
 			}
 		}
@@ -166,7 +166,7 @@ public class SuperAction extends ActionModelBase {
 			
 			BaseOrderModel model = (BaseOrderModel)models.get(i);
 			
-			BaseOrderModel persistence = ((BaseModelDAO)dao).read(model);		// get all values
+			BaseOrderModel persistence = ((ModelDAO)dao).read(model);		// get all values
 			
 //			if (!model.getForwardUser().equals(approveUsername)) DLog.log("not same , ask for leave???"); // TODO:
 			boolean isAllApproved = ModelHelper.approve(persistence, approveUsername);  // TODO: Handle Exception
