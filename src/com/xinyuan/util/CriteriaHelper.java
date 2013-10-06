@@ -20,6 +20,10 @@ public class CriteriaHelper {
 	private static String LIKE = "LIKE";
 	private static String REPLACE_LIKE_PERCENT = "_LK_";		// TODO: why '%' cannot post from ios to tomcat??
 	
+	private static String SPILT_DUPLICATEDKEY_VALUE = "\\*";
+	
+	private static String OR = "or";
+	private static String AND = "and";
 	
 	private static Map<String, String> criteriasMap = new HashMap<String, String>();
 	
@@ -43,65 +47,130 @@ public class CriteriaHelper {
 	}
 	
 	
-	public static String assembleCriteriaClause(Map<String, String> criterias) {
-		if (criterias == null || criterias.size() == 0) return null;
+	
+	/**
+	 * 
+	 * @param criterias		The keys-values use the sql query
+	 * @return
+	 */
+	public static String assembleCriteriaClause(Map<String, Map> criterias) {
+		if (criterias == null || criterias.size() == 0) return "";
 		
 		String criterialClause = "";
 		
-		int count = 0 , size = criterias.size();
-		for (Map.Entry<String, String> entry : criterias.entrySet()) {
-			String key = entry.getKey();			// "age"
-			String value = entry.getValue().toString();		// "BT.18.25" : age between 18 and 25 
-			String[] conditions = value.split(SPILT_FLAG_VALUE_CONNECTOR);
+		for (Map.Entry<String, Map> entry : criterias.entrySet()) {
+			String key = entry.getKey();
 			
-			String criteriaFLAG = conditions[0];		// "BT", "EQ" , "GT" and so on... 
-//			String criteriaVALUE = values[1];		// "18"
+			if (! (key.equalsIgnoreCase(OR) || key.equalsIgnoreCase(AND)) ) continue;
 			
-			String symbol = criteriasMap.get(criteriaFLAG);
+			Map value = entry.getValue();
 			
-			if (symbol.equals(BETWEEN)) {
-				criterialClause += (" " + key + " " + symbol + " " + ":" + MARK + criteriaFLAG + key  + BETWEEN_AND + ":" + MARK + criteriaFLAG + key  + MARK );
-			} else {
-				criterialClause += (" " + key + " " + symbol + " " + ":" + MARK + criteriaFLAG + key);
+			String subClause = getSubClause(value, key);
+			
+			if (!subClause.isEmpty()) {
+				if (key.equalsIgnoreCase(OR)) subClause = " (" + subClause + ") "; 
+				criterialClause += criterialClause.isEmpty() ? subClause : " and" + subClause ;
 			}
-			
-			if (count != size-1) criterialClause += " and"; 
-			count ++ ;
 		}
 		
 		return criterialClause;
 	}
 	
+	/**
+	 * 
+	 * @param map
+	 * @param subKey   may be "AND" / "OR"
+	 * @return
+	 */
+	private static String getSubClause(Map<String, String> map, String subKey) {
+		if (map == null || map.size() == 0) return "";
+		
+		String subClause = "";
+		int count = 0 , size = map.size();
+		for (Map.Entry<String, String> entry : map.entrySet()) {
+			count ++ ;
+			
+			String key = entry.getKey();			// "age"
+			
+			String value = entry.getValue().toString();		// "BT.18.25" : age between 18 and 25 
+			String[] conditions = value.split(SPILT_DUPLICATEDKEY_VALUE) ; 
+			
+			for (int i = 0; i < conditions.length; i++) {
+				
+				String duplicatedKeyValues[] = conditions[i].split(SPILT_FLAG_VALUE_CONNECTOR);
+				
+				String criteriaFLAG = duplicatedKeyValues[0];		// "BT", "EQ" , "GT" and so on... 
+				String criteriaVALUE = duplicatedKeyValues[1];
+				
+				String flag = criteriasMap.get(criteriaFLAG);
+				
+				
+				if (flag.equals(BETWEEN)) {
+					subClause += (" " + key + " " + flag + " " + ":" + MARK + criteriaFLAG + key + i  + BETWEEN_AND + ":" + MARK + criteriaFLAG + key  + MARK + i );
+				} else {
+					subClause += (" " + key + " " + flag + " " + ":" + MARK + criteriaFLAG + key + i);
+				}
+				if (i != conditions.length -1) subClause += " " + subKey;
+				
+			}
+			
+			
+			if (count != size) subClause += " " + subKey; 
+			
+		}
+		
+		return subClause;
+	}
 	
-	public static <E extends Object> void setCriteriaValues(E object, Query query, Map<String, String> criterias) throws Exception {
+	
+	/**
+	 * 
+	 * @param object		the vo object has some of the properties
+	 * @param query			the query with hql
+	 * @param criterias		the values in it
+	 * @throws Exception
+	 */
+	public static <E extends Object> void setCriteriaValues(E object, Query query, Map<String, Map> criterias) throws Exception {
 		if (criterias == null || criterias.size() == 0) return;
 		
 		Map<String, Class<?>> map = IntrospectHelper.getPropertiesTypes(object);
 		Set<String> allProperties = map.keySet();
 		
-		for (Map.Entry<String, String> entry : criterias.entrySet()) {
-			String key = entry.getKey();			// "age"
+		
+		for (Map.Entry<String, Map> entry : criterias.entrySet()) {
+			Map<String, String> valueMap = entry.getValue();
 			
-			if(! IntrospectHelper.isContains(allProperties, key)) continue;
 			
-			String value = entry.getValue();		// "BT.18-25" : age between 18 and 25 
-			String[] values = value.split(SPILT_FLAG_VALUE_CONNECTOR);
-			
-			String criteriaFLAG = values[0];		// "BT", "EQ" , "GT" and so on... 
-			String criteriaVALUE = values[1];		// "18-25"
-			
-			String symbol = criteriasMap.get(criteriaFLAG);
-			
-			if (symbol.equals(BETWEEN)) {
-				String[] betweenValues = criteriaVALUE.split(SPILT_BETWEEN_CONNECTOR);
-				query.setParameter( MARK + criteriaFLAG + key, betweenValues[0]);
-				query.setParameter( MARK + criteriaFLAG + key  + MARK, betweenValues[1]);
-			} else {
-				if (symbol.equals(LIKE)) criteriaVALUE = criteriaVALUE.replaceAll(REPLACE_LIKE_PERCENT, "%"); 
-				query.setParameter( MARK + criteriaFLAG + key, criteriaVALUE);
+			for (Map.Entry<String, String> subEntry : valueMap.entrySet()) {
+				String key = subEntry.getKey();			// "age"
+				
+				if(! IntrospectHelper.isContains(allProperties, key)) continue;
+				
+				String value = subEntry.getValue();		// "BT.18-25" : age between 18 and 25 
+				String[] conditions = value.split(SPILT_DUPLICATEDKEY_VALUE);
+				
+				for (int i = 0; i < conditions.length; i++) {
+					String duplicatedKeyValues[] = conditions[i].split(SPILT_FLAG_VALUE_CONNECTOR);		// "employeeNO":"EQ.WQ0008*EQ.AE0009" -> "employeeNO":"EQ.WQ0008" OR "employeeNO":"EQ.AE0009"
+					
+					String criteriaFLAG = duplicatedKeyValues[0];		// "BT", "EQ" , "GT" and so on... 
+					String criteriaVALUE = duplicatedKeyValues[1];		// "18-25"
+					
+					String flag = criteriasMap.get(criteriaFLAG);
+					
+					if (flag.equals(BETWEEN)) {
+						String[] betweenValues = criteriaVALUE.split(SPILT_BETWEEN_CONNECTOR);
+						query.setParameter( MARK + criteriaFLAG + key + i, betweenValues[0]);
+						query.setParameter( MARK + criteriaFLAG + key + MARK + i, betweenValues[1]);
+					} else {
+						if (flag.equals(LIKE)) criteriaVALUE = criteriaVALUE.replaceAll(REPLACE_LIKE_PERCENT, "%"); 
+						query.setParameter( MARK + criteriaFLAG + key + i, criteriaVALUE);
+					}
+				}
+				
 			}
-			
 		}
+		
+		
 	}
 	
 	

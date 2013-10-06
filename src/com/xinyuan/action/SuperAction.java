@@ -41,7 +41,7 @@ public class SuperAction extends ActionModelBase {
 		List<List<Object>> results = new ArrayList<List<Object>>();
 		
 		List<List<String>> options = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.FIELDS, false);
-		List<Map<String, String>> criterials = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.CRITERIAS, true);
+		List<Map<String, Map>> criterials = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.CRITERIAS, true);
 		
 		for (int i = 0; i < models.size(); i++) {
 			
@@ -55,7 +55,7 @@ public class SuperAction extends ActionModelBase {
 			
 			List<String> fields = options == null ? null : options.get(i);
 			
-			Map<String, String> criteria = criterials == null ? null : criterials.get(i);
+			Map<String, Map> criteria = criterials == null ? null : criterials.get(i);
 			
 			List<Object> result = dao.read(model, keys, fields, criteria);
 			

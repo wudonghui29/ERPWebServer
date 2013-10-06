@@ -59,7 +59,7 @@ public interface BaseDAO {
 	 * 						but the above method will return all column values
 	 * @throws Exception
 	 */
-	<E extends Object> List<E> read(E object, Set<String> keys, List<String> fields, Map<String, String> criterias) throws Exception ;
+	<E extends Object> List<E> read(E object, Set<String> keys, List<String> fields, Map<String, Map> criterias) throws Exception ;
 	
 	
 	

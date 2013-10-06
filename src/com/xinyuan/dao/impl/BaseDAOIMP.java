@@ -29,7 +29,7 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 	
 	
 	@Override
-	public <E extends Object> List<E> read(E object, Set<String> keys, List<String> fields, Map<String, String> criterias) throws Exception {
+	public <E extends Object> List<E> read(E object, Set<String> keys, List<String> fields, Map<String, Map> criterias) throws Exception {
 		return createQuery(object, keys, fields, criterias).list();	// if no result , will be empty list
 	}
 	
@@ -115,7 +115,7 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 	}
 	
 	
-	private <E extends Object> Query createQuery(E object, Set<String> keys, List<String> fields, Map<String, String> criterias) throws Exception {
+	private <E extends Object> Query createQuery(E object, Set<String> keys, List<String> fields, Map<String, Map> criterias) throws Exception {
 		
 		String alias = getAlias(object);
 		
@@ -127,11 +127,15 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 		
 		String whereClause = assembleWhereClause(keys);
 		
-		hql = whereClause == null ? hql : hql + " Where" + whereClause;
+		if (whereClause != null) {
+			hql += " Where" + whereClause;
+		}
 		
 		
 		String criterialClause = CriteriaHelper.assembleCriteriaClause(criterias);
-		hql = criterialClause == null ? hql : (whereClause == null ? hql + " Where" + criterialClause : hql + criterialClause );
+		if (!criterialClause.isEmpty()) {
+			hql += (whereClause == null) ? " Where" + criterialClause : " and" + criterialClause;
+		}
 		
 		
 		Query query = super.getSession().createQuery(hql);

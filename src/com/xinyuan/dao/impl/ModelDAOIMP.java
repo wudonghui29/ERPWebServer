@@ -80,7 +80,7 @@ public abstract class ModelDAOIMP extends BaseDAOIMP implements ModelDAO {
 	
 	
 	@Override
-	public <E extends Object> List<E> read(E object, Set<String> keys, List<String> fields, Map<String, String> criterias) throws Exception {
+	public <E extends Object> List<E> read(E object, Set<String> keys, List<String> fields, Map<String, Map> criterias) throws Exception {
 		if (checkModelScope(object)) return null;
 		
 		return super.read(object, keys, fields, criterias);
