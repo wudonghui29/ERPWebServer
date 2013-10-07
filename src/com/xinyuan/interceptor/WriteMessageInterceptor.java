@@ -72,6 +72,13 @@ public class WriteMessageInterceptor extends AbstractInterceptor {
 	
 	
 	
+	
+	
+	/**
+	 * 
+	 * @param e private method
+	 * @return	return the description
+	 */
 	private String getDescription(Exception e) {
 		String message = e.getLocalizedMessage();
 		

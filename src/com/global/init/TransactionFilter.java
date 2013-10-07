@@ -32,7 +32,7 @@ public class TransactionFilter implements Filter {
 		} catch (Exception e) {
 			if (transaction != null){
 				transaction.rollback();
-				DLog.log("Transaction ---> Roll Back");
+				DLog.log("Transaction Roll Back");
 			}
 			e.printStackTrace();
 //			throw e;

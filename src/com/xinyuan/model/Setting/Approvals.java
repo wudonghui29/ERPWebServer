@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -21,7 +20,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class Approvals implements Serializable {
 
 	private String username;			// TODO: all employeeNO can not be modified again once it has value . In the set method , check it .
-	private String pendingApprovals = "";  	// the pending approval orders , split with "," e.g. "JH201304050901.HumanResource.Employee,JH201304050901.HumanResource.EmployeeOutOrder"
+	private String pendingApprovals;  	// the pending approval orders , split with "," e.g. "JH201304050901.HumanResource.Employee,JH201304050901.HumanResource.EmployeeOutOrder"
 	
 	private String apnsToken = "";
 	
@@ -35,11 +34,11 @@ public class Approvals implements Serializable {
 		this.username = username;
 	}
 	
-	@Column(length=255, columnDefinition="varchar(255) default ''")
 	public String getPendingApprovals() {
 		return pendingApprovals;
 	}
 	public void setPendingApprovals(String pendingApprovals) {
+		if (pendingApprovals.isEmpty()) pendingApprovals = null;
 		this.pendingApprovals = pendingApprovals;
 	}
 	

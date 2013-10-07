@@ -51,6 +51,15 @@ public class CriteriaHelper {
 	/**
 	 * 
 	 * @param criterias		The keys-values use the sql query
+	 * 
+     *   {
+     *      "and": {"height": "BT.2_TO_20" ,"birthday":"BT.2012-03-04 00:00:00_TO_2012-03-06 10:00:00"}
+     *      ,"or": {"employeeNO":"EQ.WQ0008*EQ.AE0009"}
+     *   }
+     *
+     *	Translate to : Where height BETWEEN :_BTheight0 AND :_BTheight_0 and birthday BETWEEN :_BTbirthday0 AND :_BTbirthday_0 and ( employeeNO = :_EQemployeeNO0 or employeeNO = :_EQemployeeNO1)
+     *	except 'Where' character
+     *
 	 * @return
 	 */
 	public static String assembleCriteriaClause(Map<String, Map> criterias) {
