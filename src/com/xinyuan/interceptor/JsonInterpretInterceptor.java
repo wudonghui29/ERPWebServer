@@ -2,6 +2,8 @@ package com.xinyuan.interceptor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -36,8 +38,8 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(json);
 		
 		
-		List<JsonElement> ojects = new ArrayList<JsonElement>();
-		List<Object> models = new ArrayList<Object>();
+		List<Set<String>> voKeys = new ArrayList<Set<String>>();
+		List<Object> vos = new ArrayList<Object>();
 		
 		JsonArray modelsArray = (JsonArray) jsonObject.get(ConstantsConfig.MODELS);			// MODELS
 		JsonArray objectsArray = (JsonArray) jsonObject.get(ConstantsConfig.OBJECTS);		// OBJECTS
@@ -48,21 +50,24 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 			JsonElement modelElement = modelsArray.get(i);
 			JsonElement objectElement = objectsArray.get(i);
 			
+			// get model
 			String modelString = modelElement.getAsString();
 			String objectString = JsonHelper.getGson().toJson(objectElement);
-			
 			String className = ConstantsConfig.MODELPACKAGE + (superAction.getClass() == SuperAction.class ?  modelString : getContextAction() + modelString);
 			Class<?> modelClass = Class.forName(className);
-			Object model = JsonHelper.getGson().fromJson(objectString, modelClass);
+			Object vo = JsonHelper.getGson().fromJson(objectString, modelClass);
 			
-			models.add(model);				// MODELS
-			ojects.add(objectElement);		// OBJECTS
+			// get keys
+			Map<String, Object> map = JsonHelper.translateElementToMap(objectElement);
+			Set<String> keys = map.keySet();
 			
+			vos.add(vo);				// MODELS
+			voKeys.add(keys);			// KEYS
 		}
 		
 		
-		superAction.setModels(models);
-		superAction.setObjects(ojects);
+		superAction.setModels(vos);
+		superAction.setObjectKeys(voKeys);
 		superAction.setAllJsonObject(jsonObject);
 		
 		

@@ -49,22 +49,22 @@ public class JsonHelper {
 	 * 		for FIELDS : E = List<String>
 	 * @param jsonObject
 	 * @param key
-	 * @param isMap
+	 * @param isContentMap
 	 * @return
 	 */
-	public static <E extends Object> List<E> getListFromJson(JsonObject jsonObject, String key, boolean isMap) {
+	public static <E extends Object> List<E> getListFromJson(JsonObject jsonObject, String key, boolean isContentMap) {
 		
-		List<E> fields = new ArrayList<E>();
-		JsonArray fieldsArray = (JsonArray) jsonObject.get(key);	
-		if (fieldsArray == null) return null;
+		List<E> results = new ArrayList<E>();
+		JsonArray outterArray = (JsonArray) jsonObject.get(key);	
+		if (outterArray == null) return null;
 		
-		for (int i = 0; i < fieldsArray.size(); i++) {
-			JsonElement jsonElement = fieldsArray.get(i);
-			E subFields = (E) (isMap ? JsonHelper.translateElementToMap((JsonObject)jsonElement) : JsonHelper.translateJsonArrayToList((JsonArray)jsonElement));
-			fields.add(subFields);
+		for (int i = 0; i < outterArray.size(); i++) {
+			JsonElement jsonElement = outterArray.get(i);
+			E content = (E) (isContentMap ? JsonHelper.translateElementToMap((JsonObject)jsonElement) : JsonHelper.translateJsonArrayToList((JsonArray)jsonElement));
+			results.add(content);
 		}
 		
-		return (List<E>) fields;
+		return (List<E>) results;
 	}
 	
 }

@@ -1,9 +1,6 @@
 package com.xinyuan.dao.impl;
 
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
 import java.io.Serializable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,7 +9,9 @@ import org.hibernate.Query;
 
 import com.modules.introspector.IntrospectHelper;
 import com.xinyuan.dao.BaseDAO;
-import com.xinyuan.util.CriteriaHelper;
+import com.xinyuan.util.QueryCriteriasHelper;
+import com.xinyuan.util.QueryFieldsHelper;
+import com.xinyuan.util.QueryObjectsHelper;
 
 public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 	
@@ -30,6 +29,15 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 	
 	@Override
 	public <E extends Object> List<E> read(E object, Set<String> keys, List<String> fields, Map<String, Map> criterias) throws Exception {
+		/**
+		 * 
+		 * 0. the from clause need 'object' and the where A.a = a clause need 'keys'
+		 * 
+		 * 1. select clause need 'fields'
+		 * 
+		 * 2. criteria clause need 'criterias'
+		 * 
+		 */
 		return createQuery(object, keys, fields, criterias).list();	// if no result , will be empty list
 	}
 	
@@ -53,98 +61,147 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 	
 	
 	
+	@Override
+	public <E extends Object> List<E> readJoined(List<Object> models, List<Set<String>> objectKeys, List<List<String>> outterFields, List<Map<String, Map>> outterCriterials, List<Map<String, String>> outterJoins) throws Exception {
+		
+		
+		String fromClause = " from ";
+		String selectClause = "";
+		String whereEqualsClause = "";
+		String whereCriterialClause = "";
+		String joinClause = "";
+		
+		
+		
+		for (int i = 0; i < models.size(); i++) {
+			
+			Object model = models.get(i);
+			
+			Set<String> keys = objectKeys.get(i);
+			
+			List<String> fields = outterFields == null ? null : outterFields.get(i);
+			
+			Map<String, Map> criterias = outterCriterials == null ? null : outterCriterials.get(i);
+			
+			Map<String, String> joins = outterJoins == null || outterJoins.size() <= i ? null : outterJoins.get(i);
+			
+			
+			String shortClassName = IntrospectHelper.getShortClassName(model);
+			
+			// fromClause
+			if (i != 0) fromClause += " LEFT JOIN " ;
+			fromClause += /*model.getClass().getName() + " " + */shortClassName ;		// in sql , remove the long class name
+			
+			// joinedClause
+			String joinClauseTemp = QueryCriteriasHelper.assembleCriteriasJoinClause(joins);
+			if (joinClauseTemp != null) joinClause += (joinClause.isEmpty() ? (" " + joinClauseTemp + " ") : (" and " + joinClauseTemp + " "));					// ON (A.a = a and B.b = b) ok ????
+			
+			
+			// selectClause
+			String selectClauseTemp = QueryFieldsHelper.assembleFieldsSelectClause(shortClassName, fields);
+			if (selectClauseTemp != null) selectClause += (selectClause.isEmpty() ? selectClauseTemp : ", "+selectClauseTemp);
+			
+			// whereClause
+			// =
+			String whereEqualsClauseTemp = QueryObjectsHelper.assembleObjectsWhereClause(keys,shortClassName);
+			if (whereEqualsClauseTemp != null) whereEqualsClause += ( whereEqualsClause.isEmpty() ? whereEqualsClauseTemp : (" and" + whereEqualsClauseTemp));
+			// >, < , != , like , between ...
+			String whereCriterialClauseTemp = QueryCriteriasHelper.assembleCriteriasWhereClause(criterias);
+			if (whereCriterialClauseTemp != null) whereCriterialClause += whereCriterialClauseTemp;
+			
+		}
+		
+		
+		String hql = "";
+		
+		// LEFT JOIN ... ON ...
+		hql += fromClause + " ON" + joinClause;
+		
+		// SELECT
+		if (!selectClause.isEmpty()) hql = "select " + selectClause + hql;
+		
+		// WHERE
+		if (!whereEqualsClause.isEmpty()) hql += " Where" + whereEqualsClause;
+		if (!whereCriterialClause.isEmpty())  hql += (whereEqualsClause == null) ? " Where" + whereCriterialClause : " and" + whereCriterialClause;
+		
+		
+		// Create Query
+		Query query = super.getSession().createSQLQuery(hql);
+		
+		
+		
+		for (int i = 0; i < models.size(); i++) {
+			
+			Object model = models.get(i);
+			
+			Set<String> keys = objectKeys.get(i);
+			
+			Map<String, Map> criterias = outterCriterials == null ? null : outterCriterials.get(i);
+			
+			String shortClassName = IntrospectHelper.getShortClassName(model);
+			
+			QueryObjectsHelper.setObjectsWhereValues(query, model, keys, shortClassName);
+			
+			QueryCriteriasHelper.setCriteriasWhereValues(query, criterias);
+		}
+		
+		
+		return query.list();
+	}
 	
 	
-	
-	
-	private static String MARK = "_";
 	
 	
 	// private methods 
-	private String getAlias(Object object) {
-		String wholeClassName = object.getClass().getName();
-		String alias = wholeClassName.substring(wholeClassName.lastIndexOf(".") + 1).toLowerCase();
-		return alias;
-	}
-	
-	
-	private <E extends Object> String assembleSelectClause(String alias, List<String> fields) {
-		if (fields == null) return null;
-		
-		String hql  = "select " ;
-		int fieldSize = fields.size();
-		for (int i = 0; i < fieldSize; i++) {
-			String field = fields.get(i);
-			hql += (alias + "." + field );
-			if (i != fieldSize - 1) hql += ", ";
-		}
-		
-		return hql;
-	}
-	
-	
-	private String assembleWhereClause(Set<String> keys) {
-		if (keys.size() == 0) return null;
-		
-		String whereString = "";
-		
-		// assemble the hql string
-		Iterator<String> iterator = keys.iterator();
-		while (iterator.hasNext()) {
-			String key = iterator.next();
-			whereString += " " + key + " = " + ":" + MARK + key;
-			if (iterator.hasNext()) whereString += " and";
-		}
-		
-		return whereString;
-	}
-	
-	
-	private <E extends Object> void setParametersValues(Query query, E object, Set<String> keys) throws Exception {
-		// set values
-		for (PropertyDescriptor pd : Introspector.getBeanInfo(object.getClass()).getPropertyDescriptors()) {
-			if (pd.getReadMethod() != null && !"class".equals(pd.getName())) {
-				String propertyname = pd.getName() ;
-				if (IntrospectHelper.isContains(keys, propertyname)){
-					Object propertyvalue =  pd.getReadMethod().invoke(object);
-					query.setParameter(MARK + propertyname, propertyvalue);
-				}
-			}
-		}
-		
-	}
-	
-	
 	private <E extends Object> Query createQuery(E object, Set<String> keys, List<String> fields, Map<String, Map> criterias) throws Exception {
 		
-		String alias = getAlias(object);
+		String hql = "";
 		
-		String hql = " from " + object.getClass().getName() + " " + alias;
+		// from :
+		String shortClassName = IntrospectHelper.getShortClassName(object);
 		
-		String selectClause = assembleSelectClause(alias, fields);
+		String fromClause = " from " + object.getClass().getName() + " " + shortClassName;
 		
-		hql = selectClause == null ? hql : selectClause + hql;
+		hql += fromClause;
 		
-		String whereClause = assembleWhereClause(keys);
+		// select :
+		String selectClause = QueryFieldsHelper.assembleFieldsSelectClause(shortClassName, fields);
 		
-		if (whereClause != null) {
-			hql += " Where" + whereClause;
-		}
-		
-		
-		String criterialClause = CriteriaHelper.assembleCriteriaClause(criterias);
-		if (!criterialClause.isEmpty()) {
-			hql += (whereClause == null) ? " Where" + criterialClause : " and" + criterialClause;
-		}
+		if (selectClause != null)  hql = "select " + selectClause + hql;
 		
 		
+		
+		// where :
+		
+		// =
+		String whereEqualsClause = QueryObjectsHelper.assembleObjectsWhereClause(keys, shortClassName);
+		
+		if (whereEqualsClause != null)  hql += " Where" + whereEqualsClause;
+		
+		
+		
+		
+		// >, < , != , like , between ...
+		String whereCriterialClause = QueryCriteriasHelper.assembleCriteriasWhereClause(criterias);
+		
+		if (whereCriterialClause != null) hql += (whereEqualsClause == null) ? " Where" + whereCriterialClause : " and" + whereCriterialClause;
+		
+		
+		
+		// Create query
 		Query query = super.getSession().createQuery(hql);
 		
-		setParametersValues(query, object, keys);
 		
-		CriteriaHelper.setCriteriaValues(object, query, criterias);
+		
+		
+		QueryObjectsHelper.setObjectsWhereValues(query, object, keys, shortClassName);
+		
+		QueryCriteriasHelper.setCriteriasWhereValues(query, criterias);
 		
 		return query;
 	}
+	
+	
+
 	
 }

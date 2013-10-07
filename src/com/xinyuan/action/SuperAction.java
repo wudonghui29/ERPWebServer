@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.modules.introspector.ModelIntrospector;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.dao.BaseDAO;
@@ -40,26 +39,34 @@ public class SuperAction extends ActionModelBase {
 		
 		List<List<Object>> results = new ArrayList<List<Object>>();
 		
-		List<List<String>> options = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.FIELDS, false);
-		List<Map<String, Map>> criterials = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.CRITERIAS, true);
+		List<List<String>> outterFields = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.FIELDS, false);
+		List<Map<String, Map>> outterCriterials = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.CRITERIAS, true);
 		
-		for (int i = 0; i < models.size(); i++) {
+		
+		List<Map<String, String>> outterJoins = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.JOINS, true);
+		if (outterJoins != null && outterJoins.size() != 0) {
 			
-			Object model = models.get(i);
-			
-			JsonElement object = objects.get(i);
-			
-			Map<String, Object> map = JsonHelper.translateElementToMap(object);
-			
-			Set<String> keys = map.keySet();
-			
-			List<String> fields = options == null ? null : options.get(i);
-			
-			Map<String, Map> criteria = criterials == null ? null : criterials.get(i);
-			
-			List<Object> result = dao.read(model, keys, fields, criteria);
+			List<Object> result = dao.readJoined(models, objectKeys, outterFields, outterCriterials, outterJoins);
 			
 			results.add(result);
+			
+		} else {
+		
+			for (int i = 0; i < models.size(); i++) {
+				
+				Object model = models.get(i);
+				
+				Set<String> keys = objectKeys.get(i);
+				
+				List<String> fields = outterFields == null ? null : outterFields.get(i);
+				
+				Map<String, Map> criterias = outterCriterials == null ? null : outterCriterials.get(i);
+				
+				List<Object> result = dao.read(model, keys, fields, criterias);
+				
+				results.add(result);
+			}
+			
 		}
 		
 		
@@ -109,17 +116,11 @@ public class SuperAction extends ActionModelBase {
 			
 			BaseOrderModel model = (BaseOrderModel)models.get(i);
 			
-			JsonElement object = objects.get(i);
-			
-			Map<String, Object> map = JsonHelper.translateElementToMap(object);
-			
-			Set<String> keys = map.keySet();
+			Set<String> keys = objectKeys.get(i);
 			
 			String identityJSON = JsonHelper.getGson().toJson(identityList.get(i));
-			
-			BaseOrderModel persistence = JsonHelper.getGson().fromJson(identityJSON, model.getClass());
-			
-			persistence = ((ModelDAO)dao).read(persistence);		// get all values of this po
+			BaseOrderModel persistenceWithID = JsonHelper.getGson().fromJson(identityJSON, model.getClass());		// po
+			BaseOrderModel persistence = ((ModelDAO)dao).read(persistenceWithID);		// get all values of this po
 			
 			ModelIntrospector.copyVoToPo(model, persistence, keys);
 			
@@ -134,16 +135,22 @@ public class SuperAction extends ActionModelBase {
 	
 	public String delete() throws Exception {
 		if (models.size() != 1) return Action.NONE;		// Forbid delete multi-
+		
+		Map<String, Object> allJsonMap = JsonHelper.translateElementToMap(allJsonObject);
+		List identityList = (List)allJsonMap.get(ConstantsConfig.IDENTITYS);
+		
 		for (int i = 0; i < models.size(); i++) {
 					
 			BaseOrderModel model = (BaseOrderModel)models.get(i);
 				
-			BaseOrderModel persistence = ((ModelDAO)dao).read(model);		// get all values
-				
+			String identityJSON = JsonHelper.getGson().toJson(identityList.get(i));
+			BaseOrderModel persistenceWithID = JsonHelper.getGson().fromJson(identityJSON, model.getClass());		// po
+			BaseOrderModel persistence = ((ModelDAO)dao).read(persistenceWithID);		// get all values of this po
+			
 			dao.delete(persistence);
 			
 			// check if delete successfully
-			if (((ModelDAO)dao).read(model) == null) {
+			if (((ModelDAO)dao).read(persistenceWithID) == null) {
 				message.status = ConstantsConfig.STATUS_SUCCESS;
 			}
 		}

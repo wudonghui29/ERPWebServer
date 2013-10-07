@@ -65,6 +65,8 @@ public interface BaseDAO {
 	
 	
 	
+	
+	
 	/**
 	 * 
 	 * @param object
@@ -78,5 +80,15 @@ public interface BaseDAO {
 	<E> void modify(E object) throws Exception;
 	
 	<E> void delete(E object) throws Exception;
+	
+	
+	
+	
+	
+	
+	<E extends Object> List<E> readJoined(List<Object> models, List<Set<String>> objectKeys, List<List<String>> outterFields, List<Map<String, Map>> outterCriterials, List<Map<String, String>> outterJoins) throws Exception;
+	
+	
+	
 	
 }

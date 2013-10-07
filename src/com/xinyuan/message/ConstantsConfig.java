@@ -22,12 +22,18 @@ public class ConstantsConfig {
 	public static final String DAOIMP_SUFFIX = "DAOIMP";
 	public static final String MODELPACKAGE = "com.xinyuan.model.";
 	
-	public static final String MODELS = "MODELS";
+	
+	public static final String METHOD_READ = "read";
+	public static final String ACTION_SETTING = "Setting";		// every user have Setting Package read permission
+	
+	
 	public static final String OBJECTS = "OBJECTS";
-	public static final String FIELDS = "FIELDS";
-	public static final String CRITERIAS = "CRITERIAS";
-	public static final String IDENTITYS = "IDENTITYS";
-	public static final String PASSWORDS = "PASSWORDS";
+	public static final String MODELS = "MODELS";
+	public static final String FIELDS = "FIELDS";			// for multi tables queries
+	public static final String JOINS = "JOINS";				// for cross tables queries with join (left join, right join)
+	public static final String CRITERIAS = "CRITERIAS";		// for query
+	public static final String IDENTITYS = "IDENTITYS";		// for modify， delete
+	public static final String PASSWORDS = "PASSWORDS";		// for create user
 	
 	public static final String APNS_CONTENTS = "APNS_CONTENTS";
 	public static final String APNS_FORWARDS = "APNS_FORWARDS";

@@ -9,11 +9,30 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import com.xinyuan.message.ConstantsConfig;
+
 public class IntrospectHelper {
 	
 	private static final String DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
 	
 	
+	public static String getShortClassName(Object object) {
+		String wholeClassName = object.getClass().getName();
+		return wholeClassName.substring(wholeClassName.lastIndexOf(".") + 1);
+	}
+	
+	
+	public static String getLongClassName(Object object) {
+		return object.getClass().getName();
+	}
+	
+	
+	/**
+	 * 
+	 * @param object
+	 * @return 	the object's properties and their types , map , key for properties name, type for value.
+	 * @throws Exception
+	 */
 	public static Map<String, Class<?>> getPropertiesTypes(Object object) throws Exception {
 		Map<String, Class<?>> map = new HashMap<String, Class<?>>();
 		

@@ -18,7 +18,7 @@ public class User implements Serializable{
 	private int uid ; 				// primary id , id == 1 is administrator for now
 	private String username;		// == employeeNO
 	private String password;		//
-	private String permissions; 	// format "superModule.module.read,...." . i.e HumanResource.EmployeeInfo.read
+	private String permissions = ""; 	// format "superModule.module.read,...." . i.e HumanResource.EmployeeInfo.read
 	
 	private String deviceInfo; 		// ipad or iphone or ...
 	private String deviceId;
@@ -49,7 +49,7 @@ public class User implements Serializable{
 		this.password = password;
 	}
 	
-	@Column(columnDefinition="varchar(255) default ''")
+	@Column(columnDefinition="varchar(500) default ''")
 	public String getPermissions() {
 		return permissions;
 	}

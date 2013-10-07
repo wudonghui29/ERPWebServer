@@ -1,8 +1,8 @@
 package com.xinyuan.action;
 
 import java.util.List;
+import java.util.Set;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.xinyuan.dao.BaseDAO;
 
@@ -13,33 +13,28 @@ public abstract class ActionModelBase extends ActionBase {
 	
 	
 	protected JsonObject allJsonObject;
-	protected List<Object> models;
-	protected List<JsonElement> objects;
+	
+	protected List<Object> models;				// vos
+	protected List<Set<String>> objectKeys;		// vos' keys
 	
 	
 	public List<Object> getModels() {
 		return models;
 	}
-	
-	
 	public void setModels(List<Object> models) {
 		this.models = models;
 	}
 	
-
-	public List<JsonElement> getObjects() {
-		return objects;
+	public List<Set<String>> getObjectKeys() {
+		return objectKeys;
 	}
-
-
-	public void setObjects(List<JsonElement> objects) {
-		this.objects = objects;
+	public void setObjectKeys(List<Set<String>> objectKeys) {
+		this.objectKeys = objectKeys;
 	}
 	
 	public JsonObject getAllJsonObject() {
 		return allJsonObject;
 	}
-
 	public void setAllJsonObject(JsonObject allJsonObject) {
 		this.allJsonObject = allJsonObject;
 	}

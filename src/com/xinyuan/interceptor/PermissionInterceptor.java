@@ -46,8 +46,6 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		boolean isAllowable = false;
 		if (superAction.getClass() == SuperAction.class) {
 			isAllowable = isCrossActions(models) ? checkPermission(method, models, permissions) : false;	// URL:Super__read, MODELS:["HumanResource.Employee","Finance.FinancePayWarrantOrder"]
-		} else if (superAction.getClass() == SettingAction.class) {
-			if (method.equals("read")) isAllowable = true;
 		} else {
 			String action = JsonInterpretInterceptor.getContextAction().trim();   // action
 			isAllowable = checkPermission(action, method, models, permissions); 	// URL:HumanResource__read, MODELS:[".Employee",".EmplyeeOutOrder"]
@@ -109,8 +107,8 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		
 		for (int i = 0; i < modelsSize; i++) {
 			String[] modelCouple = models.get(i).split("\\.");	// "HumanResource.Employee"
-			String action = modelCouple[0].trim();
-			String model = modelCouple[1].trim();
+			String action = modelCouple[0].trim();				// "HumanResource"
+			String model = modelCouple[1].trim();				// "Employee"
 			if (check(permissions, action, model, method)) throughCount++; 
 		}
 		
@@ -126,6 +124,8 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	 * @return
 	 */
 	private static boolean check(String[] permissions, String action, String model, String method) {
+		if(action.equals(ConstantsConfig.ACTION_SETTING) && method.equals(ConstantsConfig.METHOD_READ)) return true;	// Let read the Setting package permission go through
+		
 		for (String permission : permissions) {
 			
 			String[] subPermissions = permission.split("\\.");

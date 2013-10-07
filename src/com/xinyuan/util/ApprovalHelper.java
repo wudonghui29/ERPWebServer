@@ -37,7 +37,6 @@ public class ApprovalHelper {
 		
 		String pendingApprovals = pendingApproval.getPendingApprovals() ;
 		
-		if (pendingApprovals == null) return;
 		
 		// list
 		String[] pendingList = pendingApprovals.split(ORDER_DIVIDER);

@@ -86,6 +86,7 @@ public abstract class ModelDAOIMP extends BaseDAOIMP implements ModelDAO {
 		return super.read(object, keys, fields, criterias);
 	}
 	
+	
 	@Override
 	public <E> Serializable create(E object) throws Exception {
 		if (checkModelScope(object)) return null;
@@ -106,5 +107,15 @@ public abstract class ModelDAOIMP extends BaseDAOIMP implements ModelDAO {
 		
 		super.delete(object);
 	}
+	
+	
+	
+	
+	
+	@Override
+	public <E extends Object> List<E> readJoined(List<Object> models, List<Set<String>> objectKeys, List<List<String>> outterFields, List<Map<String, Map>> outterCriterials, List<Map<String, String>> outterJoins) throws Exception {
+		return null;
+	}
+	
 	
 }

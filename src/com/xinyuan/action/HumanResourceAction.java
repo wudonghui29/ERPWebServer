@@ -42,7 +42,6 @@ public class HumanResourceAction extends SuperAction {
 				User newUser = new User();
 				newUser.setPassword(password);
 				newUser.setUsername(username);
-				newUser.setPermissions("Setting.*.read");   // TODO: Hard code now 
 				
 				Approvals approval = new Approvals();
 				approval.setUsername(username);
