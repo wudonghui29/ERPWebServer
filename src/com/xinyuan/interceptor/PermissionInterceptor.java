@@ -11,6 +11,7 @@ import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.sun.org.apache.regexp.internal.recompile;
 import com.xinyuan.action.ActionBase;
+import com.xinyuan.action.SettingAction;
 import com.xinyuan.action.SuperAction;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.message.ResponseMessage;
@@ -45,6 +46,8 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		boolean isAllowable = false;
 		if (superAction.getClass() == SuperAction.class) {
 			isAllowable = isCrossActions(models) ? checkPermission(method, models, permissions) : false;// URL:Super__read, MODELS:["HumanResource.Employee","Finance.FinancePayWarrantOrder"]
+		} else if (superAction.getClass() == SettingAction.class) {
+			if (method.equals("read")) isAllowable = true;
 		} else {
 			String action = JsonInterpretInterceptor.getContextAction().trim();   // action
 			isAllowable = checkPermission(action, method, models, permissions); 	// URL:HumanResource__read, MODELS:[".Employee",".EmplyeeOutOrder"]
