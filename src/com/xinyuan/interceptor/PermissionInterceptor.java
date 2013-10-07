@@ -45,7 +45,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		// check if request super action
 		boolean isAllowable = false;
 		if (superAction.getClass() == SuperAction.class) {
-			isAllowable = isCrossActions(models) ? checkPermission(method, models, permissions) : false;// URL:Super__read, MODELS:["HumanResource.Employee","Finance.FinancePayWarrantOrder"]
+			isAllowable = isCrossActions(models) ? checkPermission(method, models, permissions) : false;	// URL:Super__read, MODELS:["HumanResource.Employee","Finance.FinancePayWarrantOrder"]
 		} else if (superAction.getClass() == SettingAction.class) {
 			if (method.equals("read")) isAllowable = true;
 		} else {
