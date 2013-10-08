@@ -34,7 +34,7 @@ public class Approvals implements Serializable {
 		this.username = username;
 	}
 	
-	@Column(length=255, columnDefinition="varchar(255) default ''")
+	@Column(columnDefinition="TEXT")
 	public String getPendingApprovals() {
 		return pendingApprovals;
 	}
