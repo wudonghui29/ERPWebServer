@@ -19,7 +19,7 @@ public interface UserDAO {
 
 	User getUser(String username);
 
-	List getUsers();
+	List getAllUsers();
 	
 	public String getUserApnsToken(String username) ;
 }

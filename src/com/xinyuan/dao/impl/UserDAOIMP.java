@@ -25,9 +25,10 @@ public class UserDAOIMP extends HibernateDAO implements UserDAO {
 	}
 	
 
-	public List getUsers() {
-		String hqlString = //"select user.username , user.permissions from User as user Where id != 0";
-							"from User as user Where id != 0"; 
+	public List getAllUsers() {
+		String hqlString = 
+							"select user.username , user.permissions from User as user Where id > 0";
+//							"from User as user Where id != 0"; 
 		return super.getObjects(hqlString);
 	}
 

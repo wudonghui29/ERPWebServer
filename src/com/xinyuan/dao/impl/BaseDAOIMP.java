@@ -96,12 +96,12 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 			String shortClassName = IntrospectHelper.getShortClassName(model);
 			
 			// fromClause
-			if (i != 0) fromClause += " LEFT JOIN " ;
+			if (i != 0) fromClause += " LEFT JOIN " ;						// TODO:  to support form A Left Join B on A.a = B.b Left Join C on A.a = C.c
 			fromClause += /*model.getClass().getName() + " " + */shortClassName ;		// in sql , remove the long class name
 			
 			// joinedClause
 			String joinClauseTemp = QueryCriteriasHelper.assembleCriteriasJoinClause(joins);
-			if (joinClauseTemp != null) joinClause += (joinClause.isEmpty() ? (" " + joinClauseTemp + " ") : (" and " + joinClauseTemp + " "));					// ON (A.a = a and B.b = b) ok ????
+			if (joinClauseTemp != null) joinClause += (joinClause.isEmpty() ? (" " + joinClauseTemp + " ") : (" and " + joinClauseTemp + " "));
 			
 			
 			// selectClause

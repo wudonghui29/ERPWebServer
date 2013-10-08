@@ -12,8 +12,10 @@ public class ConstantsConfig {
 	
 	public static final String ORDERNO = "orderNO";
 	public static final String IDENTIFIER = "id";
+	
 	public static final String USERNAME = "username";
 	public static final String PASSWORD = "password";
+	public static final String PERMISSION = "permission";
 	
 	
 	public static final String SIGNIN_USER = "signin_user";

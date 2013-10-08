@@ -15,14 +15,14 @@ public class AdministratorInterceptor extends AbstractInterceptor {
 		
 		DLog.log(" Ready");
 		
-		if (isAdmin()) return invocation.invoke();
+		User user = (User)ActionContext.getContext().getSession().get(ConstantsConfig.SIGNIN_USER);
+		if (isAdmin(user)) return invocation.invoke();
 		
 		return Action.NONE;
 	}
 	
-	public static boolean isAdmin() {
-		return true ; // TODO: for test
-//		return ((User)ActionContext.getContext().getSession().get(MessageConstants.SIGNIN_USER)).getId() == 0 ;
+	public static boolean isAdmin(User user) {
+		return user.getId() <= 0 ;		// TODO: [CompanyName]TMD[1-9] for < 0 , xinyuanTMD for = 0
 	}
 
 }

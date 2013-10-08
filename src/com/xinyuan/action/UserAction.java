@@ -1,5 +1,7 @@
 package com.xinyuan.action;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +16,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.xinyuan.dao.UserDAO;
 import com.xinyuan.dao.impl.UserDAOIMP;
+import com.xinyuan.interceptor.AdministratorInterceptor;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.model.User;
 import com.xinyuan.util.ApprovalHelper;
@@ -61,9 +64,14 @@ public class UserAction extends ActionBase {
 			if (user == null) {
 				message.description = ConstantsConfig.USER.UserNotExist;
 			} else if (password.equals(user.getPassword())) {
+				List<Object> result = new ArrayList<Object>();
 				message.status = ConstantsConfig.STATUS_SUCCESS;
 				message.description = ConstantsConfig.USER.UserLoginSuccess;
-				message.object = user.getPermissions();
+				
+				result.add(user.getId()+"");
+				result.add(user.getPermissions());
+				result.add(userDAO.getAllUsers());
+				message.object = result;
 				
 				// put the permission in session
 				String perssionStr = user.getPermissions();
@@ -95,16 +103,21 @@ public class UserAction extends ActionBase {
 		return Action.NONE;
 	}
 	
-	public String signup() throws Exception {
-		if (! this.isVerifyCodeError()) {  // verify code &  isAdmin
-			
-		}
+	
+	public String modify() throws Exception {
+		// TODO: modify the password 
 		return Action.NONE;
 	}
 	
-	
+	// admin - check already , only update the permissions
 	public String update() throws Exception {
-		// TODO: update the permissions 
+		String username = request.getParameter(ConstantsConfig.USERNAME);
+		String permissions = request.getParameter(ConstantsConfig.PERMISSION);
+		User user = userDAO.getUser(username);
+		user.setPermissions(permissions);
+		userDAO.modify(user);
+		
+		message.status = ConstantsConfig.STATUS_SUCCESS;
 		return Action.NONE;
 	}
 	
