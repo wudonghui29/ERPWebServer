@@ -12,6 +12,7 @@ import com.xinyuan.dao.BaseDAO;
 import com.xinyuan.util.QueryCriteriasHelper;
 import com.xinyuan.util.QueryFieldsHelper;
 import com.xinyuan.util.QueryObjectsHelper;
+import com.xinyuan.util.QuerySortsHelper;
 
 public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 	
@@ -23,12 +24,12 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 	
 	@Override
 	public <E extends Object> E readUnique(E object, Set<String> keys) throws Exception {
-		return (E) createQuery(object, keys, null, null).uniqueResult();
+		return (E) createQuery(object, keys, null, null, null).uniqueResult();
 	}
 	
 	
 	@Override
-	public <E extends Object> List<E> read(E object, Set<String> keys, List<String> fields, Map<String, Map> criterias) throws Exception {
+	public <E extends Object> List<E> read(E object, Set<String> keys, List<String> fields, Map<String, Map> criterias, List<String> sorts) throws Exception {
 		/**
 		 * 
 		 * 0. the from clause need 'object' and the where A.a = a clause need 'keys'
@@ -38,7 +39,7 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 		 * 2. criteria clause need 'criterias'
 		 * 
 		 */
-		return createQuery(object, keys, fields, criterias).list();	// if no result , will be empty list
+		return createQuery(object, keys, fields, criterias, sorts).list();	// if no result , will be empty list
 	}
 	
 	
@@ -62,7 +63,7 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 	
 	
 	@Override
-	public <E extends Object> List<E> readJoined(List<Object> models, List<Set<String>> objectKeys, List<List<String>> outterFields, List<Map<String, Map>> outterCriterials, List<Map<String, String>> outterJoins) throws Exception {
+	public <E extends Object> List<E> readJoined(List<Object> models, List<Set<String>> objectKeys, List<List<String>> outterFields, List<Map<String, Map>> outterCriterials, List<Map<String, String>> outterJoins, List<List<String>> outterSorts) throws Exception {
 		
 		
 		String fromClause = " from ";
@@ -70,6 +71,8 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 		String whereEqualsClause = "";
 		String whereCriterialClause = "";
 		String joinClause = "";
+		
+		String orderClause = "";
 		
 		
 		
@@ -84,6 +87,10 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 			Map<String, Map> criterias = outterCriterials == null ? null : outterCriterials.get(i);
 			
 			Map<String, String> joins = outterJoins == null || outterJoins.size() <= i ? null : outterJoins.get(i);
+			
+			List<String> sorts = outterSorts == null ? null : outterSorts.get(i);
+			
+			
 			
 			
 			String shortClassName = IntrospectHelper.getShortClassName(model);
@@ -109,6 +116,12 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 			String whereCriterialClauseTemp = QueryCriteriasHelper.assembleCriteriasWhereClause(criterias);
 			if (whereCriterialClauseTemp != null) whereCriterialClause += whereCriterialClauseTemp;
 			
+			
+			// orderClause
+			String orderByClauseTemp = QuerySortsHelper.assembleOrderByClause(sorts, shortClassName);
+			if (orderByClauseTemp != null) orderClause += orderClause.isEmpty() ? orderByClauseTemp : ", " + orderByClauseTemp;
+			
+			
 		}
 		
 		
@@ -123,6 +136,11 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 		// WHERE
 		if (!whereEqualsClause.isEmpty()) hql += " Where" + whereEqualsClause;
 		if (!whereCriterialClause.isEmpty())  hql += (whereEqualsClause == null) ? " Where" + whereCriterialClause : " and" + whereCriterialClause;
+		
+		
+		// ORDER BY
+		if (!orderClause.isEmpty()) hql += " order by " + orderClause;
+		
 		
 		
 		// Create Query
@@ -152,8 +170,10 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 	
 	
 	
+	
+	
 	// private methods 
-	private <E extends Object> Query createQuery(E object, Set<String> keys, List<String> fields, Map<String, Map> criterias) throws Exception {
+	private <E extends Object> Query createQuery(E object, Set<String> keys, List<String> fields, Map<String, Map> criterias, List<String> sorts) throws Exception {
 		
 		String hql = "";
 		
@@ -186,6 +206,11 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 		
 		if (whereCriterialClause != null) hql += (whereEqualsClause == null) ? " Where" + whereCriterialClause : " and" + whereCriterialClause;
 		
+		
+		
+		// order by :
+		String orderByClause = QuerySortsHelper.assembleOrderByClause(sorts, shortClassName);
+		if (orderByClause != null) hql += " order by " + orderByClause;
 		
 		
 		// Create query

@@ -52,6 +52,8 @@ public interface BaseDAO {
 	 * 
 	 * @param criteria		the criteria , e.g. ' = , <= , >= , between ... and ... , like ...' 
 	 * 
+	 * @param sorts 		the order by clause
+	 * 
 	 * @return
 	 * 						use the 'SELECT' clause
 	 * 						// (if no fields specified , there will be no 'SELECT' clause. Then will return fields' key-value pairs)
@@ -59,7 +61,7 @@ public interface BaseDAO {
 	 * 						but the above method will return all column values
 	 * @throws Exception
 	 */
-	<E extends Object> List<E> read(E object, Set<String> keys, List<String> fields, Map<String, Map> criterias) throws Exception ;
+	<E extends Object> List<E> read(E object, Set<String> keys, List<String> fields, Map<String, Map> criterias, List<String> sorts) throws Exception ;
 	
 	
 	
@@ -86,7 +88,7 @@ public interface BaseDAO {
 	
 	
 	
-	<E extends Object> List<E> readJoined(List<Object> models, List<Set<String>> objectKeys, List<List<String>> outterFields, List<Map<String, Map>> outterCriterials, List<Map<String, String>> outterJoins) throws Exception;
+	<E extends Object> List<E> readJoined(List<Object> models, List<Set<String>> objectKeys, List<List<String>> outterFields, List<Map<String, Map>> outterCriterials, List<Map<String, String>> outterJoins, List<List<String>> outterSorts) throws Exception;
 	
 	
 	

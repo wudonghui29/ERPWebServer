@@ -80,10 +80,10 @@ public abstract class ModelDAOIMP extends BaseDAOIMP implements ModelDAO {
 	
 	
 	@Override
-	public <E extends Object> List<E> read(E object, Set<String> keys, List<String> fields, Map<String, Map> criterias) throws Exception {
+	public <E extends Object> List<E> read(E object, Set<String> keys, List<String> fields, Map<String, Map> criterias, List<String> sorts) throws Exception {
 		if (checkModelScope(object)) return null;
 		
-		return super.read(object, keys, fields, criterias);
+		return super.read(object, keys, fields, criterias, sorts);
 	}
 	
 	
@@ -113,7 +113,7 @@ public abstract class ModelDAOIMP extends BaseDAOIMP implements ModelDAO {
 	
 	
 	@Override
-	public <E extends Object> List<E> readJoined(List<Object> models, List<Set<String>> objectKeys, List<List<String>> outterFields, List<Map<String, Map>> outterCriterials, List<Map<String, String>> outterJoins) throws Exception {
+	public <E extends Object> List<E> readJoined(List<Object> models, List<Set<String>> objectKeys, List<List<String>> outterFields, List<Map<String, Map>> outterCriterials, List<Map<String, String>> outterJoins, List<List<String>> outterSorts) throws Exception {
 		return null;
 	}
 	

@@ -40,13 +40,14 @@ public class SuperAction extends ActionModelBase {
 		List<List<Object>> results = new ArrayList<List<Object>>();
 		
 		List<List<String>> outterFields = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.FIELDS, false);
+		List<List<String>> outterSorts = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.SORTS, false);
 		List<Map<String, Map>> outterCriterials = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.CRITERIAS, true);
 		
 		
 		List<Map<String, String>> outterJoins = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.JOINS, true);
 		if (outterJoins != null && outterJoins.size() != 0) {
 			
-			List<Object> result = dao.readJoined(models, objectKeys, outterFields, outterCriterials, outterJoins);
+			List<Object> result = dao.readJoined(models, objectKeys, outterFields, outterCriterials, outterJoins, outterSorts);
 			
 			results.add(result);
 			
@@ -60,9 +61,11 @@ public class SuperAction extends ActionModelBase {
 				
 				List<String> fields = outterFields == null ? null : outterFields.get(i);
 				
+				List<String> sorts = outterSorts == null ? null : outterSorts.get(i);
+				
 				Map<String, Map> criterias = outterCriterials == null ? null : outterCriterials.get(i);
 				
-				List<Object> result = dao.read(model, keys, fields, criterias);
+				List<Object> result = dao.read(model, keys, fields, criterias, sorts);
 				
 				results.add(result);
 			}
