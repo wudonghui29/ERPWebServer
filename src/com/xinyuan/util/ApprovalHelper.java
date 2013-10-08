@@ -63,12 +63,16 @@ public class ApprovalHelper {
 		HibernateDAO hibernateDAO = new HibernateDAO();
 		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, username);
 		
+		if (pendingApproval == null) return null;		// TODO: REMOVE IT
+		
 		return pendingApproval.getApnsToken();
 	}
 	
 	public static void setAPNSToken(String username, String apnsToken) {
 		HibernateDAO hibernateDAO = new HibernateDAO();
 		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, username);
+		
+		if (pendingApproval == null) return;		// TODO: REMOVE IT
 		
 		pendingApproval.setApnsToken(apnsToken);
 		hibernateDAO.updateObject(pendingApproval);
