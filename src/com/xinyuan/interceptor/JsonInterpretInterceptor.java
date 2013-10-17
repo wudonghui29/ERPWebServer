@@ -44,7 +44,10 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		JsonArray modelsArray = (JsonArray) jsonObject.get(ConstantsConfig.MODELS);			// MODELS
 		JsonArray objectsArray = (JsonArray) jsonObject.get(ConstantsConfig.OBJECTS);		// OBJECTS
 		
-		if(modelsArray.size() != objectsArray.size()) return Action.NONE;
+		if(modelsArray.size() != objectsArray.size()) {
+			DLog.log("Reject : models.size not match objects.size");
+			return Action.NONE;
+		}
 		
 		for (int i = 0; i < modelsArray.size(); i++) {
 			JsonElement modelElement = modelsArray.get(i);

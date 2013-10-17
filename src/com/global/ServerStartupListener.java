@@ -1,4 +1,4 @@
-package com.global.init;
+package com.global;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import com.global.init.HibernateUtil;
+import com.global.HibernateInitializer;
 
 
 public class HibernateDAO {
@@ -15,7 +15,7 @@ public class HibernateDAO {
 	 * @return 返回保存是否成功，true代表是。
 	 * */
 	public Serializable saveObject(Object obj){
-		return HibernateUtil.getSessionFactory().getCurrentSession().save(obj);
+		return HibernateInitializer.getSessionFactory().getCurrentSession().save(obj);
 	}
 	
 	/**
@@ -24,7 +24,7 @@ public class HibernateDAO {
 	 * @return 修改是否成功，true代表是.
 	  */
 	public void updateObject(Object obj){
-		HibernateUtil.getSessionFactory().getCurrentSession().update(obj);
+		HibernateInitializer.getSessionFactory().getCurrentSession().update(obj);
 	}
 	
 	/**
@@ -33,7 +33,7 @@ public class HibernateDAO {
 	 * @return 附和条件的实体对象的列表
 	 */
 	public List getObjects(String hsql){
-		List result = HibernateUtil.getSessionFactory().getCurrentSession().createQuery(hsql).list();
+		List result = HibernateInitializer.getSessionFactory().getCurrentSession().createQuery(hsql).list();
 		return result;
 	}
 	
@@ -42,7 +42,7 @@ public class HibernateDAO {
 	 * @return HQL语句的执行结果
 	 */
 	public Object getObject(String hqsl) {
-		return HibernateUtil.getSessionFactory().getCurrentSession().createQuery(hqsl).uniqueResult();
+		return HibernateInitializer.getSessionFactory().getCurrentSession().createQuery(hqsl).uniqueResult();
 	}
 	
 	/**
@@ -52,7 +52,7 @@ public class HibernateDAO {
 	 *@return 标识符相匹配的实体对象
 	 */
 	public Object getObject(Class cls,	Serializable id){
-		Object result = HibernateUtil.getSessionFactory().getCurrentSession().get(cls, id);
+		Object result = HibernateInitializer.getSessionFactory().getCurrentSession().get(cls, id);
 		return result;
 	}
 	
@@ -61,7 +61,7 @@ public class HibernateDAO {
 	 * @param id 通过ID要删除的实体对象
 	 */
 	public void deleteObject(Object obj){
-		HibernateUtil.getSessionFactory().getCurrentSession().delete(obj);
+		HibernateInitializer.getSessionFactory().getCurrentSession().delete(obj);
 	}
 	
 	/**
@@ -69,7 +69,7 @@ public class HibernateDAO {
 	 * @return 当前线程相关联的Session对象的实例
 	 */
 	 protected Session getSession(){
-		 return HibernateUtil.getSessionFactory().getCurrentSession();
+		 return HibernateInitializer.getSessionFactory().getCurrentSession();
 	 }
 
 }

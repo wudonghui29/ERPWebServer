@@ -53,15 +53,12 @@
 		<action name="connect" class="com.xinyuan.action.UserAction" method="connect"/>
 		<action name="signin" class="com.xinyuan.action.UserAction" method="signin"/>
 		<action name="signout" class="com.xinyuan.action.UserAction" method="signout"/>
-		<action name="modify" class="com.xinyuan.action.UserAction" method="" />
+		<action name="modify" class="com.xinyuan.action.UserAction" method="modify" />
 		
 		
 		<action name="update" class="com.xinyuan.action.UserAction" method="update">
 			<interceptor-ref name="user-admin-check-stack"></interceptor-ref>
 		</action>
-		<!-- <action name="signup" class="com.xinyuan.action.UserAction" method="signup">
-			<interceptor-ref name="user-admin-check-stack"></interceptor-ref>
-		</action> -->
 		
 	</package>
 	
@@ -84,7 +81,6 @@
 		<default-interceptor-ref name="logicIntercepterStack" />
 		
 	</package>
-	
 	
 	<package name="specific" extends="logic">
 	

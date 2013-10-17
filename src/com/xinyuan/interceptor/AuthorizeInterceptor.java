@@ -2,12 +2,12 @@ package com.xinyuan.interceptor;
 
 import java.util.Map;
 
+import com.global.SessionManager;
 import com.modules.util.DLog;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.xinyuan.action.ActionBase;
-import com.xinyuan.action.UserAction;
 import com.xinyuan.dao.UserDAO;
 import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConstantsConfig;
@@ -26,8 +26,8 @@ public class AuthorizeInterceptor extends AbstractInterceptor {
 		User userTest =  userDAO.getUser("xinyuanTMD");
 //		invocation.getInvocationContext().getSession().put(ConfigConstants.SIGNIN_USER, userTest);
 		String perssionStr = userTest.getPermissions();
-		UserAction.sessionPut(ConstantsConfig.PERMISSIONS, perssionStr.split(","));
-		UserAction.sessionPut(ConstantsConfig.SIGNIN_USER, userTest);
+		SessionManager.put(ConstantsConfig.PERMISSIONS, perssionStr.split(","));
+		SessionManager.put(ConstantsConfig.SIGNIN_USER, userTest);
 		
 		
 		

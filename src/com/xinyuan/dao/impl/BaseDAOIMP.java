@@ -70,7 +70,6 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 		String selectClause = "";
 		String whereEqualsClause = "";
 		String whereCriterialClause = "";
-		String joinClause = "";
 		
 		String orderClause = "";
 		
@@ -98,10 +97,11 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 			// fromClause
 			if (i != 0) fromClause += " LEFT JOIN " ;						// TODO:  to support form A Left Join B on A.a = B.b Left Join C on A.a = C.c
 			fromClause += /*model.getClass().getName() + " " + */shortClassName ;		// in sql , remove the long class name
-			
 			// joinedClause
-			String joinClauseTemp = QueryCriteriasHelper.assembleCriteriasJoinClause(joins);
-			if (joinClauseTemp != null) joinClause += (joinClause.isEmpty() ? (" " + joinClauseTemp + " ") : (" and " + joinClauseTemp + " "));
+			String joinONClause = QueryCriteriasHelper.assembleCriteriasJoinClause(joins);
+			if (joinONClause != null && i != 0) {
+				fromClause += " ON " + joinONClause;
+			}
 			
 			
 			// selectClause
@@ -125,10 +125,8 @@ public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
 		}
 		
 		
-		String hql = "";
+		String hql = fromClause;
 		
-		// LEFT JOIN ... ON ...
-		hql += fromClause + " ON" + joinClause;
 		
 		// SELECT
 		if (!selectClause.isEmpty()) hql = "select " + selectClause + hql;

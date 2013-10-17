@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.global.SessionManager;
 import com.google.gson.JsonArray;
+import com.modules.introspector.IntrospectHelper;
 import com.modules.introspector.ModelIntrospector;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.dao.BaseDAO;
@@ -167,7 +169,7 @@ public class SuperAction extends ActionModelBase {
 	public String apply() throws Exception {
 		if (models.size() != 1) return Action.NONE;		// Forbid apply multi-
 		
-		String approveUsername = ((User)UserAction.sessionGet(ConstantsConfig.SIGNIN_USER)).getUsername();
+		String approveUsername = ((User)SessionManager.get(ConstantsConfig.SIGNIN_USER)).getUsername();
 		
 		JsonArray forwardsList = allJsonObject.getAsJsonArray(ConstantsConfig.APNS_FORWARDS);
 		JsonArray forwardContents = allJsonObject.getAsJsonArray(ConstantsConfig.APNS_CONTENTS);
@@ -186,10 +188,9 @@ public class SuperAction extends ActionModelBase {
 			dao.modify(persistence);
 			
 			String orderNO = persistence.getOrderNO();
-			String modelType = ModelHelper.getModelType(persistence);
-			
-			ApprovalHelper.addPendingApprove(forwardUsername, orderNO, modelType);
-			ApprovalHelper.deletePendingApprove(approveUsername, orderNO, modelType);
+			String orderType = IntrospectHelper.getShortClassName(persistence);
+			ApprovalHelper.addPendingApprove(forwardUsername, orderNO, orderType);
+			ApprovalHelper.deletePendingApprove(approveUsername, orderNO, orderType);
 			
 			// specified to notify who
 			String[] apnsTokens = ApprovalHelper.getAPNSToken(forwardUsername).split(",");

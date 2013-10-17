@@ -1,4 +1,4 @@
-package com.global.init;
+package com.global;
 
 import java.io.IOException;
 
@@ -25,7 +25,7 @@ public class TransactionFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 		Transaction transaction = null;	
 		try {
-			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			Session session = HibernateInitializer.getSessionFactory().getCurrentSession();
 			transaction = session.beginTransaction();
 			chain.doFilter(request, response);
 			transaction.commit();

@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.xinyuan.action.UserAction;
+import com.global.SessionManager;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.message.FormatConfig;
 import com.xinyuan.model.BaseOrderModel;
@@ -70,7 +70,7 @@ public class ModelHelper {
 	public static void setOrderBasicCreateDetail(BaseOrderModel model) {
 		Date date = new Date();
 		model.setCreateDate(date);
-		User user = (User)UserAction.sessionGet(ConstantsConfig.SIGNIN_USER);
+		User user = (User)SessionManager.get(ConstantsConfig.SIGNIN_USER);
 		model.setCreateUser(user.getUsername());
 		
 		SimpleDateFormat sdf = new SimpleDateFormat(FormatConfig.ORDER_DATE_TO_STRING_FORMAT);  
@@ -126,11 +126,6 @@ public class ModelHelper {
 		}
 		
 		return isAllApproved;
-	}
-	
-	
-	public static String getModelType(BaseOrderModel model) {
-		return model.getClass().getName().replace(ConstantsConfig.MODELPACKAGE, "");
 	}
 	
 }

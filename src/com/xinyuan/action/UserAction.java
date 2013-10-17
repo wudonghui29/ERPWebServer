@@ -8,12 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.global.SessionManager;
 import com.modules.httpWriter.ResponseWriter;
 import com.modules.util.DLog;
 import com.modules.util.SecurityCode;
 import com.modules.util.VerifyCode;
 import com.opensymphony.xwork2.Action;
-import com.opensymphony.xwork2.ActionContext;
 import com.xinyuan.dao.UserDAO;
 import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.interceptor.AdministratorInterceptor;
@@ -45,7 +45,7 @@ public class UserAction extends ActionBase {
 		String verifyCode = randomBool ? VerifyCode.generateCode(count) : SecurityCode.getSecurityCode(count);
 		byte[] imageBytes = randomBool ? VerifyCode.generateImageBytes(verifyCode) : SecurityCode.getImageAsBytes(verifyCode);
 
-		UserAction.sessionPut(ConstantsConfig.VERIFYCODE, verifyCode);
+		SessionManager.put(ConstantsConfig.VERIFYCODE, verifyCode);
 		ResponseWriter.write(imageBytes);
 		message.status = ConstantsConfig.STATUS_SUCCESS;
 		DLog.log(ConstantsConfig.VERIFYCODE + " : " + verifyCode);
@@ -75,13 +75,15 @@ public class UserAction extends ActionBase {
 				
 				// put the permission in session
 				String perssionStr = user.getPermissions();
-				UserAction.sessionPut(ConstantsConfig.PERMISSIONS, perssionStr.split(","));
-				UserAction.sessionPut(ConstantsConfig.SIGNIN_USER, user);
+				SessionManager.put(ConstantsConfig.PERMISSIONS, perssionStr.split(","));
+				SessionManager.put(ConstantsConfig.SIGNIN_USER, user);
 				
 				// update the apnsToken in db
-				String userToken = ApprovalHelper.getAPNSToken(user.getUsername());
-				if (apnsToken != null && !apnsToken.equals(userToken)) {	// TODO: when update token , logout first and clear auto login
-					ApprovalHelper.setAPNSToken(username, apnsToken);
+				if (!AdministratorInterceptor.isAdmin(user)) {
+					String userToken = ApprovalHelper.getAPNSToken(user.getUsername());
+					if (apnsToken != null && !apnsToken.equals(userToken)) {	// TODO: when update token , logout first and clear auto login
+						ApprovalHelper.setAPNSToken(username, apnsToken);
+					}
 				}
 				
 			} else {
@@ -92,10 +94,10 @@ public class UserAction extends ActionBase {
 	}
 	
 	public String signout() throws Exception {
-		UserAction.sessionRemove(ConstantsConfig.PERMISSIONS);
-		UserAction.sessionRemove(ConstantsConfig.SIGNIN_USER);
+		SessionManager.remove(ConstantsConfig.PERMISSIONS);
+		SessionManager.remove(ConstantsConfig.SIGNIN_USER);
 		
-		User user = (User) UserAction.sessionGet(ConstantsConfig.SIGNIN_USER);
+		User user = (User) SessionManager.get(ConstantsConfig.SIGNIN_USER);
 //		ApprovalHelper.deleteAPNSToken(username, apnsToken);
 		ApprovalHelper.setAPNSToken(user.getUsername(), "");
 		
@@ -133,18 +135,6 @@ public class UserAction extends ActionBase {
 		
 		return isError;
 		**/
-	}
-	
-	public static void sessionPut(String key , Object value) {
-		ActionContext.getContext().getSession().put(key, value);
-	}
-	
-	public static void sessionRemove(String key) {
-		ActionContext.getContext().getSession().remove(key);
-	}
-	
-	public static Object sessionGet(String key) {
-		return ActionContext.getContext().getSession().get(key);
 	}
 	
 }

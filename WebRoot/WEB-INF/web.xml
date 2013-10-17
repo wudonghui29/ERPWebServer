@@ -12,7 +12,7 @@
 	
 	<listener>
     	<description>ServletContextListener</description>
-    	<listener-class>com.global.init.ServerStartupListener</listener-class>
+    	<listener-class>com.global.ServerStartupListener</listener-class>
 	</listener>
   
     <!-- session -->
@@ -23,7 +23,7 @@
     <!-- struts2 -->	
 	<filter>
 		<filter-name>TransactionFilter</filter-name>
-		<filter-class>com.global.init.TransactionFilter</filter-class>
+		<filter-class>com.global.TransactionFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>TransactionFilter</filter-name>

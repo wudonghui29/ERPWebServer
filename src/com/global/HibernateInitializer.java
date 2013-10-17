@@ -1,4 +1,4 @@
-package com.global.init;
+package com.global;
 
 
 import javax.naming.InitialContext;
@@ -27,10 +27,10 @@ import com.modules.util.DLog;
  *
  * @author galaxy
  */
-public class HibernateUtil 
+public class HibernateInitializer 
 {
 
-    private static Log log = LogFactory.getLog(HibernateUtil.class);
+    private static Log log = LogFactory.getLog(HibernateInitializer.class);
 
     // 指定定义拦截器属性名
     private static final String INTERCEPTOR_CLASS = "hibernate.util.interceptor_class";
@@ -58,7 +58,7 @@ public class HibernateUtil
             if (interceptorName != null) 
             {
                 Class interceptorClass =
-                        HibernateUtil.class.getClassLoader().loadClass(interceptorName);
+                        HibernateInitializer.class.getClassLoader().loadClass(interceptorName);
                 Interceptor interceptor = (Interceptor)interceptorClass.newInstance();
                 configuration.setInterceptor(interceptor);
             }
