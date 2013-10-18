@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.xinyuan.dao.impl.HibernateDAO;
-import com.xinyuan.model.Setting.Approvals;
+import com.xinyuan.model.Approval.Approvals;
 
 public class ApprovalHelper {
 	

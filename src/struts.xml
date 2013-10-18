@@ -40,6 +40,28 @@
 	
 	
 	
+	<!-- setting package -->
+	<package name="setting" extends="main" namespace="/setting">
+	
+		<interceptors>
+			<interceptor name="json-interpretor" class="com.xinyuan.interceptor.JsonInterpretInterceptor" />
+			
+			<interceptor-stack name="notOnlineIntercepterStack">
+				<interceptor-ref name="defaultInterceptorsStack" />
+				<interceptor-ref name="json-interpretor" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="notOnlineIntercepterStack" />
+		
+		<action name="*" class="com.xinyuan.action.SettingAction" method="{1}"/>
+	
+	
+	</package>
+	
+	
+	
+	
+	
 	<!-- user package -->
 	<package name="user" extends="main" namespace="/user" >
 	
@@ -77,10 +99,6 @@
         </action>
         
 	</package>
-	
-	
-	
-	
 	
 	<!-- admin package -->
 	<package name="admin" extends="main" namespace="/admin">

@@ -32,7 +32,7 @@ public class ConstantsConfig {
 	
 	
 	public static final String METHOD_READ = "read";
-	public static final String ACTION_SETTING = "Setting";		// every user have Setting Package read permission
+	public static final String ACTION_APPROVAL = "Approval";		// every user have Approval Package read permission
 	
 	
 	public static final String OBJECTS = "OBJECTS";
@@ -42,9 +42,10 @@ public class ConstantsConfig {
 	public static final String SORTS = "SORTS";
 	public static final String CRITERIAS = "CRITERIAS";		// for query
 	public static final String IDENTITYS = "IDENTITYS";		// for modify， delete
+	public static final String PARAMETERS = "PARAMETERS"; 	// for user connect 's verify code's length or type , and so on ...
+	
 	public static final String PASSWORDS = "PASSWORDS";		// for create user
 	
-	public static final String PARAMETERS = "PARAMETERS"; 	// for user connect 's verify code's length or type , and so on ...
 	
 	
 	public static final String APNS_CONTENTS = "APNS_CONTENTS";

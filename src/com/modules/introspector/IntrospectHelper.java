@@ -1,15 +1,16 @@
 package com.modules.introspector;
 
+import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import com.xinyuan.message.ConstantsConfig;
 
 public class IntrospectHelper {
 	
@@ -34,6 +35,54 @@ public class IntrospectHelper {
 	public static String getLongClassName(Object object) {
 		return object.getClass().getName();
 	}
+	
+	
+	/**
+	 * 
+	 */
+	public static Map<String, Map<String, List<String>>> translateToPropertiesMap(List<String> wholeClassNames) {
+		Map<String, Map<String, List<String>>> map = new HashMap<String, Map<String, List<String>>>();
+		
+		for (Iterator iterator = wholeClassNames.iterator(); iterator.hasNext();) {
+			String wholeClassName = (String) iterator.next();
+			String parts[] = wholeClassName.split("\\.");
+			int length = parts.length;
+			
+			if (length < 2) continue;
+			
+			String className = parts[length - 1];
+			String categoryName = parts[length - 2];
+			
+			// category map
+			Map<String, List<String>> categoryMap =  map.get(categoryName); 
+			if (categoryMap == null) {
+				categoryMap = new HashMap<String, List<String>>();
+				map.put(categoryName, categoryMap);
+			}
+			
+			// class properties list
+			try {
+				
+				List<String> list = new ArrayList<String>();
+				Class<?> classObj = Class.forName(wholeClassName);
+				for (PropertyDescriptor pd : Introspector.getBeanInfo(classObj).getPropertyDescriptors()) {
+					String propertyname = pd.getName() ;
+					if (!"class".equals(propertyname)) {
+						list.add(propertyname);
+					}
+				}
+				categoryMap.put(className, list);
+				
+			} catch (Exception e) {
+				// TODO: ...... to enhance
+				continue;
+			}
+			
+		}
+		
+		return map;
+	}
+	
 	
 	
 	

@@ -1,4 +1,4 @@
-package com.xinyuan.model.Setting;
+package com.xinyuan.model.Approval;
 
 import java.io.Serializable;
 

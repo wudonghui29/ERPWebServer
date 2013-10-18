@@ -22,6 +22,7 @@ import com.xinyuan.util.ApprovalHelper;
 import com.xinyuan.util.JsonHelper;
 
 public class UserAction extends ActionModelBase {
+	
 	@Override
 	protected BaseDAO getDao() { return null; }
 	

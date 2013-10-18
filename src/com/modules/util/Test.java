@@ -13,6 +13,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.xinyuan.action.HumanResourceAction;
+import com.xinyuan.action.ApprovalAction;
+import com.xinyuan.action.SettingAction;
 import com.xinyuan.action.SuperAction;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.interceptor.PermissionInterceptor;
@@ -136,7 +138,7 @@ public class Test extends HashSet {
 	}
 	
 	// TEST APNS
-	 public static void main(String[] args) {
+	 public static void main1111(String[] args) {
 //       String[] devices = {"7df340181160dcb82607885e332e770b497a754758592047646396cebc9ab913",  "9ab941ea30f5cc4db41fc0a5dbbeae2dfe6a9d0f8c3bca1b97cc5c043aff6be0"}; 
 		 String[] devices = {"7df34018 1160dcb8 2607885e 332e770b 497a7547 58592047 646396ce bc9ab913",  "9ab941ea 30f5cc4d b41fc0a5 dbbeae2d fe6a9d0f 8c3bca1b 97cc5c04 3aff6be0"}; 
 		 Map<String, Object> map = new HashMap<String, Object>();
@@ -151,5 +153,14 @@ public class Test extends HashSet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-}
+	 }
+	 
+	 
+	 
+	 public static void main(String[] args) {
+		 SettingAction settingAction = new SettingAction();
+		 settingAction.readApplicationModelsStructures();
+	}
+	 
+	 
 }

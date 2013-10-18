@@ -4,10 +4,15 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.global.SessionManager;
 import com.modules.util.DLog;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+import com.xinyuan.dao.UserDAO;
+import com.xinyuan.dao.impl.UserDAOIMP;
+import com.xinyuan.message.ConstantsConfig;
+import com.xinyuan.model.User.User;
 
 public class UserAgentInterceptor extends AbstractInterceptor {
 	
@@ -17,7 +22,9 @@ public class UserAgentInterceptor extends AbstractInterceptor {
 	
 	private static final String DEVICE_IOS = "ios";
 	
-	private static final String APP_NAME = "ios";  // TODO: Add when the app name finally decided.
+	private static final String APP_NAME = "XinYuanERP";
+	
+	private static final String APP_TEST_NAME = "SteelERP";
 	
 
 	@Override
@@ -31,15 +38,32 @@ public class UserAgentInterceptor extends AbstractInterceptor {
 		
 		boolean isEmpty = userAgent == null || userAgent.isEmpty();
 		
-		boolean isIOS = (userAgent.toLowerCase().contains(CFNETWORK) 
-						|| userAgent.toLowerCase().contains(DEVICE_IOS)
-						|| userAgent.toLowerCase().contains(APP_NAME));
+		boolean isIOSAPP = (
+						userAgent.toLowerCase().contains(CFNETWORK) 		// in Simulator : User Agent: XinYuanERP/1.0 CFNetwork/672.0.2 Darwin/12.5.0
+//						&& userAgent.toLowerCase().contains(DEVICE_IOS)		// TODO : check it in device
+						&& (userAgent.contains(APP_NAME) || userAgent.contains(APP_TEST_NAME))
+						);
 		
-		if (isEmpty || !isIOS) return Action.NONE;
+		if (isEmpty || !isIOSAPP) return Action.NONE;
 		
-		String result = invocation.invoke();
 		
-		return result;
+		
+		
+		// TODO: for test, remove it in production
+		if(userAgent.contains(APP_TEST_NAME)) {
+			DLog.log("In Test Mode (select the user) : ");
+			UserDAO userDAO = new UserDAOIMP();
+			User userTest =  userDAO.getUser("xinyuanTMD");
+//		invocation.getInvocationContext().getSession().put(ConfigConstants.SIGNIN_USER, userTest);
+			String perssionStr = userTest.getPermissions();
+			SessionManager.put(ConstantsConfig.PERMISSIONS, perssionStr.split(","));
+			SessionManager.put(ConstantsConfig.SIGNIN_USER, userTest);
+		}
+		
+		
+		
+		
+		return invocation.invoke();
 	}
 
 }

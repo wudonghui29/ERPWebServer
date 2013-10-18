@@ -8,8 +8,8 @@ import com.xinyuan.dao.BaseDAO;
 import com.xinyuan.dao.impl.BaseDAOIMP;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.message.ConstantsConfig;
+import com.xinyuan.model.Approval.Approvals;
 import com.xinyuan.model.HumanResource.Employee;
-import com.xinyuan.model.Setting.Approvals;
 import com.xinyuan.model.User.User;
 import com.xinyuan.util.JsonHelper;
 

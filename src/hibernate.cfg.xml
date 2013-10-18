@@ -55,9 +55,9 @@
         <mapping class="com.xinyuan.model.User.User"/>
         
         
-        <!-- Setting Models -->
-        <mapping class="com.xinyuan.model.Setting.Approvals"/>
-        <mapping class="com.xinyuan.model.Setting.Departments"/>
+        <!-- Approval Models -->
+        <mapping class="com.xinyuan.model.Approval.Approvals"/>
+        <mapping class="com.xinyuan.model.Approval.Departments"/>
         
         
 		
@@ -84,6 +84,9 @@
         <!-- Security Models -->
         <mapping class="com.xinyuan.model.Security.SecurityVisitOrder"/>
         
+        
+        <!-- Business Models -->
+        <mapping class="com.xinyuan.model.Business.BusinessClient"/>
         
         
         

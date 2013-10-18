@@ -133,7 +133,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	 * @return
 	 */
 	private static boolean check(String[] permissions, String action, String model, String method) {
-		if(action.equals(ConstantsConfig.ACTION_SETTING) && method.equals(ConstantsConfig.METHOD_READ)) return true;	// Let read the Setting package permission go through
+		if(action.equals(ConstantsConfig.ACTION_APPROVAL) && method.equals(ConstantsConfig.METHOD_READ)) return true;	// Let "read" the Approval package permission go through
 		
 		for (String permission : permissions) {
 			
