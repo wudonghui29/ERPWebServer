@@ -13,14 +13,15 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.modules.introspector.IntrospectHelper;
 import com.modules.util.DLog;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+import com.xinyuan.action.ActionModelBase;
 import com.xinyuan.action.SuperAction;
 import com.xinyuan.message.ConstantsConfig;
-import com.xinyuan.model.BaseOrderModel;
 import com.xinyuan.util.JsonHelper;
 
 public class JsonInterpretInterceptor extends AbstractInterceptor {
@@ -30,7 +31,7 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		
 		DLog.log(" Ready");
 		
-		SuperAction superAction = (SuperAction)invocation.getAction();
+		ActionModelBase baseAction = (ActionModelBase)invocation.getAction();
 		HttpServletRequest request = ServletActionContext.getRequest();
 		
 		String json = request.getParameter(ConstantsConfig.JSON);
@@ -49,14 +50,18 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 			return Action.NONE;
 		}
 		
+		// "HumanResource__delete" -> "HumanResource"
+		String actionName = IntrospectHelper.getShortClassName(baseAction);
+		String catagory = actionName.replace(ConstantsConfig.ACTION, "");
+		
 		for (int i = 0; i < modelsArray.size(); i++) {
 			JsonElement modelElement = modelsArray.get(i);
 			JsonElement objectElement = objectsArray.get(i);
 			
 			// get model
-			String modelString = modelElement.getAsString();
+			String modelString = modelElement.getAsString();					// e.g : ".Employee"
 			String objectString = JsonHelper.getGson().toJson(objectElement);
-			String className = ConstantsConfig.MODELPACKAGE + (superAction.getClass() == SuperAction.class ?  modelString : getContextAction() + modelString);
+			String className = ConstantsConfig.MODELPACKAGE + (baseAction.getClass() == SuperAction.class ?  modelString : catagory + modelString);
 			Class<?> modelClass = Class.forName(className);
 			Object vo = JsonHelper.getGson().fromJson(objectString, modelClass);
 			
@@ -69,22 +74,12 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		}
 		
 		
-		superAction.setModels(vos);
-		superAction.setObjectKeys(voKeys);
-		superAction.setAllJsonObject(jsonObject);
+		baseAction.setModels(vos);
+		baseAction.setObjectKeys(voKeys);
+		baseAction.setAllJsonObject(jsonObject);
 		
 		
 		return invocation.invoke();
 	}
 	
-	public static String getContextName() {
-		return ActionContext.getContext().getName();
-	}
-	public static String getContextAction() {
-		return getContextName().split("__")[0];
-	}
-	public static String getContextMethod() {
-		return getContextName().split("__")[1];
-	}
-
 }

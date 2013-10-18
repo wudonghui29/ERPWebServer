@@ -6,7 +6,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.xinyuan.message.ConstantsConfig;
-import com.xinyuan.model.User;
+import com.xinyuan.model.User.User;
 
 public class AdministratorInterceptor extends AbstractInterceptor {
 

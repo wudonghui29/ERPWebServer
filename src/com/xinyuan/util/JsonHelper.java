@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.print.DocFlavor.STRING;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -65,6 +67,27 @@ public class JsonHelper {
 		}
 		
 		return (List<E>) results;
+	}
+	
+	
+	/**
+	 * 
+	 * 
+	 {
+    	"OBJECTS": 
+    	[ { } ]
+  	 	,"MODELS": [".User"]
+  		,"PARAMETERS": {
+    		"VERIFYCODE_COUNT":"5",
+    		"VERIFYCODE_TYPE":"true"
+  		}
+	}
+	 *  For the parameters value inside "PARAMETERS"
+	 */
+	public static String getParameter(JsonObject jsonObject, String parameterName) {
+		Map<String, Object> map = JsonHelper.translateElementToMap(jsonObject);
+		Map<String, String> parametersMap = (Map<String, String>) map.get(ConstantsConfig.PARAMETERS);
+		return parametersMap != null ? parametersMap.get(parameterName) : null;
 	}
 	
 }

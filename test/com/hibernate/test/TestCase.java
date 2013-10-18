@@ -14,7 +14,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
 import org.junit.AfterClass;
 import org.junit.Test;
 
-import com.xinyuan.model.User;
+import com.xinyuan.model.User.User;
 
 public class TestCase {
 

@@ -16,7 +16,7 @@ import com.xinyuan.dao.ModelDAO;
 import com.xinyuan.dao.impl.BaseDAOIMP;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.model.BaseOrderModel;
-import com.xinyuan.model.User;
+import com.xinyuan.model.User.User;
 import com.xinyuan.util.ApnsHelper;
 import com.xinyuan.util.ApprovalHelper;
 import com.xinyuan.util.JsonHelper;

@@ -16,6 +16,15 @@ public class IntrospectHelper {
 	private static final String DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
 	
 	
+	public static String getParentPackageName(Object object) {
+		String wholeClassName = object.getClass().getName();
+		String packageParts[] = wholeClassName.split("\\.");
+		
+		int parentPackageIndex = packageParts.length - 2;
+		return parentPackageIndex >= 0 ? packageParts[parentPackageIndex] : null;
+	}
+	
+	
 	public static String getShortClassName(Object object) {
 		String wholeClassName = object.getClass().getName();
 		return wholeClassName.substring(wholeClassName.lastIndexOf(".") + 1);
@@ -25,6 +34,7 @@ public class IntrospectHelper {
 	public static String getLongClassName(Object object) {
 		return object.getClass().getName();
 	}
+	
 	
 	
 	/**

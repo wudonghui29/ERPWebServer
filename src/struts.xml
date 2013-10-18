@@ -39,32 +39,80 @@
 	</package>
 	
 	
+	
 	<!-- user package -->
-	<package name="user" extends="main" namespace="/user">
+	<package name="user" extends="main" namespace="/user" >
 	
 		<interceptors>
-			<interceptor name="admin-check" class="com.xinyuan.interceptor.AdministratorInterceptor"></interceptor>
-			<interceptor-stack name="user-admin-check-stack">
+			<interceptor name="authorize-check" class="com.xinyuan.interceptor.AuthorizeInterceptor" />
+			<interceptor name="json-interpretor" class="com.xinyuan.interceptor.JsonInterpretInterceptor" />
+			
+			<interceptor-stack name="notOnlineIntercepterStack">
 				<interceptor-ref name="defaultInterceptorsStack" />
-				<interceptor-ref name="admin-check" />
-			</interceptor-stack>		
+				<interceptor-ref name="json-interpretor" />
+			</interceptor-stack>
+			
+			<interceptor-stack name="onlineIntercepterStack">
+				<interceptor-ref name="defaultInterceptorsStack" />
+				<interceptor-ref name="authorize-check" />
+			</interceptor-stack>
 		</interceptors>
-	
-		<action name="connect" class="com.xinyuan.action.UserAction" method="connect"/>
-		<action name="signin" class="com.xinyuan.action.UserAction" method="signin"/>
-		<action name="signout" class="com.xinyuan.action.UserAction" method="signout"/>
-		<action name="modify" class="com.xinyuan.action.UserAction" method="modify" />
 		
 		
-		<action name="update" class="com.xinyuan.action.UserAction" method="update">
-			<interceptor-ref name="user-admin-check-stack"></interceptor-ref>
-		</action>
-		
+		<!-- not signin / not online -->
+        <action name="connect" class="com.xinyuan.action.UserAction" method="connect">
+        	<interceptor-ref name="notOnlineIntercepterStack"></interceptor-ref>
+        </action>
+        <action name="signin" class="com.xinyuan.action.UserAction" method="signin">
+        	<interceptor-ref name="notOnlineIntercepterStack"></interceptor-ref>
+        </action>
+        
+        
+        <!-- has signined / online -->
+        <action name="signout" class="com.xinyuan.action.UserAction" method="signout">
+        	<interceptor-ref name="onlineIntercepterStack"></interceptor-ref>
+        </action>
+        <action name="modify" class="com.xinyuan.action.UserAction" method="modify" >
+        	<interceptor-ref name="onlineIntercepterStack"></interceptor-ref>
+        </action>
+        
 	</package>
 	
 	
+	
+	
+	
+	<!-- admin package -->
+	<package name="admin" extends="main" namespace="/admin">
+	
+		<interceptors>
+			<interceptor name="authorize-check" class="com.xinyuan.interceptor.AuthorizeInterceptor" />
+			<interceptor name="json-interpretor" class="com.xinyuan.interceptor.JsonInterpretInterceptor" />
+			<interceptor name="admin-check" class="com.xinyuan.interceptor.AdministratorInterceptor"/>
+			<interceptor-stack name="adminIntercepterStack">
+				<interceptor-ref name="defaultInterceptorsStack" />
+				<interceptor-ref name="authorize-check" />
+				<interceptor-ref name="admin-check" />
+				<interceptor-ref name="json-interpretor" />
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="adminIntercepterStack" />
+		
+		<action name="adminModify" class="com.xinyuan.action.UserAction" method="adminModify" />
+		<action name="signup" class="com.xinyuan.action.UserAction" method="signup" />
+	
+	</package>
+	
+	
+	
+	
+	
+	
+	
+	
 	<!-- logic package -->
-	<package name="logic" extends="main" namespace="/logic">
+	<package name="logic" extends="main">
 	
 		<interceptors>
 			<interceptor name="authorize-check" class="com.xinyuan.interceptor.AuthorizeInterceptor" />
@@ -82,9 +130,9 @@
 		
 	</package>
 	
-	<package name="specific" extends="logic">
+	<package name="specific" extends="logic" namespace="/logic">
 	
-		<action name="*__*" class="com.xinyuan.action.{1}Action" method="{2}"></action>
+		<action name="*__*" class="com.xinyuan.action.{1}Action" method="{2}"/>
 	
 	</package>
 

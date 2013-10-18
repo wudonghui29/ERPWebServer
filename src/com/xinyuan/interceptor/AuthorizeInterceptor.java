@@ -12,7 +12,11 @@ import com.xinyuan.dao.UserDAO;
 import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.message.ResponseMessage;
-import com.xinyuan.model.User;
+import com.xinyuan.model.User.User;
+
+/**
+ *	Check Is Login Or Not
+ */
 
 public class AuthorizeInterceptor extends AbstractInterceptor {
 
@@ -33,7 +37,7 @@ public class AuthorizeInterceptor extends AbstractInterceptor {
 		
 		
 		Map session = invocation.getInvocationContext().getSession();
-		User user = (User) session.get(ConstantsConfig.SIGNIN_USER);
+		User user = (User) session.get(ConstantsConfig.SIGNIN_USER);   // Same as SessionManager.get(ConstantsConfig.SIGNIN_USER)
 		
 		if (user != null) {
 			return invocation.invoke();

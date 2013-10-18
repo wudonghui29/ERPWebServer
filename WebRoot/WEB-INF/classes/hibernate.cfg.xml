@@ -50,7 +50,9 @@
 
 
 		<!-- ORM -->
-        <mapping class="com.xinyuan.model.User"/>
+		
+		<!-- User -->
+        <mapping class="com.xinyuan.model.User.User"/>
         
         
         <!-- Setting Models -->

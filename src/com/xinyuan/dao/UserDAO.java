@@ -2,7 +2,7 @@ package com.xinyuan.dao;
 
 import java.util.List;
 
-import com.xinyuan.model.User;
+import com.xinyuan.model.User.User;
 
 /**
  * Interface of user operation

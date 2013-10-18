@@ -3,9 +3,10 @@ package com.xinyuan.dao.impl;
 import java.util.List;
 
 import org.hibernate.NonUniqueResultException;
+import org.hibernate.Query;
 
 import com.xinyuan.dao.UserDAO;
-import com.xinyuan.model.User;
+import com.xinyuan.model.User.User;
 
 public class UserDAOIMP extends HibernateDAO implements UserDAO {
 
@@ -21,13 +22,16 @@ public class UserDAOIMP extends HibernateDAO implements UserDAO {
 	}
 
 	public User getUser(String username) {
-		return (User)super.getObject("from User Where username= '" + username + "'");
+		String hql = "from User user Where user.username=:username";
+		Query query = super.getSession().createQuery(hql);
+		query.setParameter("username", username);
+		return (User)query.uniqueResult();
 	}
 	
 
 	public List getAllUsers() {
 		String hqlString = 
-							"select user.username , user.permissions from User as user Where id > 0";
+							"select user.username , user.permissions, user.categories from User as user Where id > 0";
 //							"from User as user Where id != 0"; 
 		return super.getObjects(hqlString);
 	}

@@ -16,7 +16,6 @@ import com.xinyuan.model.LevelApp_2;
 import com.xinyuan.model.LevelApp_3;
 import com.xinyuan.model.LevelApp_4;
 import com.xinyuan.model.LevelApp_6;
-import com.xinyuan.model.User;
 import com.xinyuan.model.HumanResource.Employee;
 import com.xinyuan.model.HumanResource.EmployeeAttendanceOrder;
 import com.xinyuan.model.HumanResource.EmployeeBusinessMealOrder;
@@ -32,6 +31,7 @@ import com.xinyuan.model.HumanResource.EmployeeRepairAttendanceOrder;
 import com.xinyuan.model.HumanResource.EmployeeSecurityDetailOrder;
 import com.xinyuan.model.HumanResource.EmployeeSecurityMealOrder;
 import com.xinyuan.model.Security.SecurityVisitOrder;
+import com.xinyuan.model.User.User;
 
 public class ModelHelper {
 	

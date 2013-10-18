@@ -7,17 +7,27 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.modules.util.DLog;
 import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
-import com.sun.org.apache.regexp.internal.recompile;
-import com.xinyuan.action.ActionBase;
-import com.xinyuan.action.SettingAction;
+import com.xinyuan.action.ActionModelBase;
 import com.xinyuan.action.SuperAction;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.message.ResponseMessage;
 import com.xinyuan.util.JsonHelper;
 
 public class PermissionInterceptor extends AbstractInterceptor {
+	
+	public static String getContextName() {
+		return ActionContext.getContext().getName();
+	}
+	public static String getContextAction() {
+		return getContextName().split("__")[0];
+	}
+	public static String getContextMethod() {
+		return getContextName().split("__")[1];
+	}
+	
 
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
@@ -32,22 +42,22 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		String[] permissions = (String[]) session.get(ConstantsConfig.PERMISSIONS);
 		
 		// Get the struts Action
-		SuperAction superAction = (SuperAction)invocation.getAction();
+		ActionModelBase baseAction = (ActionModelBase)invocation.getAction();
 		
 		
 		// Get the permission needed
-		String method = JsonInterpretInterceptor.getContextMethod().trim();   // method needed
-		JsonObject jsonObject = superAction.getAllJsonObject();
+		String method = PermissionInterceptor.getContextMethod().trim();   // method needed		// TODO: Be careful of ActionModelBase's method !! important !!
+		JsonObject jsonObject = baseAction.getAllJsonObject();
 		JsonArray jsonArray = (JsonArray) jsonObject.get(ConstantsConfig.MODELS);
 		List<String> models = JsonHelper.translateJsonArrayToList(jsonArray); // models needed
 		
 		
 		// check if request super action
 		boolean isAllowable = false;
-		if (superAction.getClass() == SuperAction.class) {
+		if (baseAction.getClass() == SuperAction.class) {
 			isAllowable = isCrossActions(models) ? checkPermission(method, models, permissions) : false;	// URL:Super__read, MODELS:["HumanResource.Employee","Finance.FinancePayWarrantOrder"]
 		} else {
-			String action = JsonInterpretInterceptor.getContextAction().trim();   // action
+			String action = PermissionInterceptor.getContextAction().trim();   // action
 			isAllowable = checkPermission(action, method, models, permissions); 	// URL:HumanResource__read, MODELS:[".Employee",".EmplyeeOutOrder"]
 		}
 		
@@ -57,13 +67,12 @@ public class PermissionInterceptor extends AbstractInterceptor {
 
 		
 		// write message
-		ResponseMessage message = superAction.getMessage();
+		ResponseMessage message = baseAction.getMessage();
 		message.description = ConstantsConfig.DENY;
 		
 		return Action.NONE;
 		
 	}
-	
 	
 	
 	

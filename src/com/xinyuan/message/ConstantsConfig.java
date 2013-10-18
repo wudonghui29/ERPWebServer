@@ -6,9 +6,15 @@ public class ConstantsConfig {
 	public static final String APNS_CERTIFICATE_PASSWORD = "12345";
 	public static final String APNS_CERTIFICATE_PATH = "../apnsDevelop.p12";
 	
+	public static final String ACTION = "Action" ;
 	
-	public static final String VERIFYCODE = "verify-code";
-	public static final String APNS_TOKEN = "apnsToken";
+	
+	public static final String VERIFYCODE = "VERIFYCODE";
+	public static final String VERIFYCODE_TYPE = "VERIFYCODE_TYPE";
+	public static final String VERIFYCODE_COUNT = "VERIFYCODE_COUNT";
+	
+	
+	public static final String APNSTOKEN = "APNSTOKEN";
 	
 	public static final String ORDERNO = "orderNO";
 	public static final String IDENTIFIER = "id";
@@ -38,6 +44,8 @@ public class ConstantsConfig {
 	public static final String IDENTITYS = "IDENTITYS";		// for modify， delete
 	public static final String PASSWORDS = "PASSWORDS";		// for create user
 	
+	public static final String PARAMETERS = "PARAMETERS"; 	// for user connect 's verify code's length or type , and so on ...
+	
 	
 	public static final String APNS_CONTENTS = "APNS_CONTENTS";
 	public static final String APNS_FORWARDS = "APNS_FORWARDS";
@@ -47,7 +55,6 @@ public class ConstantsConfig {
 	public static final String DENY = "DENY";
 	public static final String JSON = "JSON";
 	public static final String USERS = "USERS";
-	public static final String PARAMETERS = "PARAMETERS";
 	public static final String PERMISSIONS = "PERMISSIONS";
 	public static final String REQUEST_ERROR = "REQUEST_ERROR";
 	

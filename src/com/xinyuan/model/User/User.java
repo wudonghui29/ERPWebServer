@@ -1,4 +1,4 @@
-package com.xinyuan.model;
+package com.xinyuan.model.User;
 
 import java.io.Serializable;
 
@@ -18,7 +18,9 @@ public class User implements Serializable{
 	private int uid ; 				// primary id , id == 1 is administrator for now
 	private String username;		// == employeeNO
 	private String password;		//
+	
 	private String permissions = ""; 	// format "superModule.module.read,...." . i.e HumanResource.EmployeeInfo.read
+	private String categories = "";		// "HumanResource", "Security" ...
 	
 	private String deviceInfo; 		// ipad or iphone or ...
 	private String deviceId;
@@ -55,6 +57,14 @@ public class User implements Serializable{
 	}
 	public void setPermissions(String permissions) {
 		this.permissions = permissions;
+	}
+	
+	@Column(columnDefinition="varchar(255) default ''")
+	public String getCategories() {
+		return categories;
+	}
+	public void setCategories(String categories) {
+		this.categories = categories;
 	}
 	
 	public String getDeviceInfo() {
