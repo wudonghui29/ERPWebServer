@@ -4,6 +4,12 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
+<%--
+<%  
+response.sendRedirect("welcomeLink.action");
+%> 
+--%>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -15,6 +21,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
+	
+	<!--
+	
+	<META HTTP-EQUIV="Refresh" CONTENT="0;URL=welcomeLink.action">
+	
+	--!>
+	
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->

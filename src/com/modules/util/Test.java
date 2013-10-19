@@ -159,7 +159,7 @@ public class Test extends HashSet {
 	 
 	 public static void main(String[] args) {
 		 SettingAction settingAction = new SettingAction();
-		 settingAction.readApplicationModelsStructures();
+		 settingAction.getApplicationModelsStructures();
 	}
 	 
 	 

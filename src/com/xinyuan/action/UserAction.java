@@ -26,38 +26,10 @@ public class UserAction extends ActionModelBase {
 	@Override
 	protected BaseDAO getDao() { return null; }
 	
-//	private HttpServletRequest request = ServletActionContext.getRequest();
-	
 	private UserDAO userDAO = new UserDAOIMP();
 	
 	
 	public String connect() throws Exception {
-		
-//		HttpServletRequest request = ServletActionContext.getRequest();
-//		Enumeration<String> enumeration = request.getHeaderNames();
-//		while (enumeration.hasMoreElements()) {
-//			String name = (String) enumeration.nextElement();
-//			String value = request.getHeader(name);
-//			System.out.println(name + " : " + value);
-//		}
-//		
-//		HttpSession session = ServletActionContext.getRequest().getSession();
-//		String sessionID = session.getId();
-//		System.out.println("session id -> " + sessionID);
-		
-		
-//		HttpServletRequest request = ServletActionContext.getRequest();
-//		Enumeration<String> enumeration = request.getParameterNames();
-//		while (enumeration.hasMoreElements()) {
-//			String name = (String) enumeration.nextElement();
-//			String value = request.getParameter(name);
-//			System.out.println(name + " - " + value);
-//		}
-
-		
-//		String VERIFYCODE_TYPE = request.getParameter(ConstantsConfig.VERIFYCODE_TYPE);
-//		String VERIFYCODE_COUNT = request.getParameter(ConstantsConfig.VERIFYCODE_COUNT);
-		
 		String VERIFYCODE_TYPE = JsonHelper.getParameter(allJsonObject, ConstantsConfig.VERIFYCODE_TYPE);
 		String VERIFYCODE_COUNT = JsonHelper.getParameter(allJsonObject, ConstantsConfig.VERIFYCODE_COUNT);
 		

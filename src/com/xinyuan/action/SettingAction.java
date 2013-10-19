@@ -12,20 +12,31 @@ import com.modules.introspector.IntrospectHelper;
 import com.modules.util.FileHelper;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.dao.BaseDAO;
+import com.xinyuan.dao.HumanResourceDAO;
+import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.message.ConstantsConfig;
 
+/**
+ * 
+ * This Action is No need to check permission, 
+ * 		so put the no permission checked user interface here
+ * 
+ * With get* prefix , the not signed user can get
+ * 
+ * With read* prefix , it needs to signed 
+ * 
+ *
+ */
 public class SettingAction extends ActionModelBase {
 	
 	@Override
 	protected BaseDAO getDao() { return null; }
 
-	public String readApplicationModelsStructures() {
+	
+	public String getApplicationModelsStructures() {
 		// get the file paths
-		String contextPath = ServletActionContext.getServletContext().getRealPath(File.separator);
-		String containerPath = System.getProperty("catalina.base");
-		String projectPath = System.getProperty("user.dir");
 		String fileSeperator = System.getProperty("file.separator");
-		String classLoaderFilePath = getClass().getClassLoader().getResource(".").getPath();
+		String contextPath = ServletActionContext.getServletContext().getRealPath(File.separator);
 		
 		String modelsFilesPath = contextPath + "WEB-INF" + fileSeperator + "classes" + fileSeperator + "com" + fileSeperator + "xinyuan" + fileSeperator + "model" + fileSeperator;
 		
@@ -56,4 +67,14 @@ public class SettingAction extends ActionModelBase {
 		return Action.NONE;
 	}
 	
+	public String readNameEmployeeNOPairs() {
+		
+		HumanResourceDAO humanResourceDAO = new HumanResourceDAOIMP();
+		List list = humanResourceDAO.getNameNOPairs();
+		
+		message.status = ConstantsConfig.STATUS_SUCCESS;
+		message.object = list;
+		
+		return Action.NONE;
+	}
 }

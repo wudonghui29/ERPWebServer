@@ -12,6 +12,7 @@
 	<package name="main" extends="struts-default" namespace="/">
 	
         <interceptors>
+        
 	        <interceptor name="post-request" class="com.xinyuan.interceptor.PostRequestInterceptor"/>
 	        <interceptor name="user-agent" class="com.xinyuan.interceptor.UserAgentInterceptor" />
 	        <interceptor name="write-message" class="com.xinyuan.interceptor.WriteMessageInterceptor" />
@@ -20,6 +21,20 @@
 	           <interceptor-ref name="user-agent"/>
 	           <interceptor-ref name="write-message"/>
 	        </interceptor-stack>
+	        
+	        
+			<interceptor name="json-interpretor" class="com.xinyuan.interceptor.JsonInterpretInterceptor" />
+			<interceptor-stack name="notOnlineIntercepterStack">
+				<interceptor-ref name="defaultInterceptorsStack" />
+				<interceptor-ref name="json-interpretor" />
+			</interceptor-stack>
+			
+	        <interceptor name="authorize-check" class="com.xinyuan.interceptor.AuthorizeInterceptor" />
+			<interceptor-stack name="onlineIntercepterStack">
+				<interceptor-ref name="defaultInterceptorsStack" />
+				<interceptor-ref name="authorize-check" />
+			</interceptor-stack>
+			
     	</interceptors>
         <default-interceptor-ref name="defaultInterceptorsStack" />
         
@@ -42,20 +57,13 @@
 	
 	<!-- setting package -->
 	<package name="setting" extends="main" namespace="/setting">
-	
-		<interceptors>
-			<interceptor name="json-interpretor" class="com.xinyuan.interceptor.JsonInterpretInterceptor" />
-			
-			<interceptor-stack name="notOnlineIntercepterStack">
-				<interceptor-ref name="defaultInterceptorsStack" />
-				<interceptor-ref name="json-interpretor" />
-			</interceptor-stack>
-		</interceptors>
-		<default-interceptor-ref name="notOnlineIntercepterStack" />
+		<action name="get*" class="com.xinyuan.action.SettingAction" method="get{1}">
+			<interceptor-ref name="notOnlineIntercepterStack"></interceptor-ref>
+		</action>
 		
-		<action name="*" class="com.xinyuan.action.SettingAction" method="{1}"/>
-	
-	
+		<action name="read*" class="com.xinyuan.action.SettingAction" method="read{1}">
+			<interceptor-ref name="onlineIntercepterStack"></interceptor-ref>
+		</action>
 	</package>
 	
 	
@@ -64,22 +72,6 @@
 	
 	<!-- user package -->
 	<package name="user" extends="main" namespace="/user" >
-	
-		<interceptors>
-			<interceptor name="authorize-check" class="com.xinyuan.interceptor.AuthorizeInterceptor" />
-			<interceptor name="json-interpretor" class="com.xinyuan.interceptor.JsonInterpretInterceptor" />
-			
-			<interceptor-stack name="notOnlineIntercepterStack">
-				<interceptor-ref name="defaultInterceptorsStack" />
-				<interceptor-ref name="json-interpretor" />
-			</interceptor-stack>
-			
-			<interceptor-stack name="onlineIntercepterStack">
-				<interceptor-ref name="defaultInterceptorsStack" />
-				<interceptor-ref name="authorize-check" />
-			</interceptor-stack>
-		</interceptors>
-		
 		
 		<!-- not signin / not online -->
         <action name="connect" class="com.xinyuan.action.UserAction" method="connect">

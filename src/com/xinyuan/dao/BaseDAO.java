@@ -45,7 +45,7 @@ public interface BaseDAO {
 
 	/**
    
-	 * @param object		vo have some properties and values
+	 * @param object		vo carries some properties and values
 	 * @param keys			the keys is some of all the object's properties' names , which will put into the where HQL statement for
 	 * 						query the results in the database , which have the same value as the object have
 	 * @param fields		the fields value you want to get / select
