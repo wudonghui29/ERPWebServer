@@ -49,6 +49,7 @@ public class SettingAction extends ActionModelBase {
 		List<String> classesNamesList = new ArrayList<String>();
 		for (Iterator iterator = modelsList.iterator(); iterator.hasNext();) {
 			String string = (String) iterator.next();
+			if (string.startsWith("Approval") || string.startsWith("User")) continue;
 			String className = string.replaceAll(".class", "");
 			String wholeClassName = ConstantsConfig.MODELPACKAGE + className;
 			classesNamesList.add(wholeClassName);
