@@ -12,13 +12,17 @@ import com.xinyuan.model.LevelApp_3;
 
 
 /**
- * 员要出勤日报表
+ * 员工出勤日报表
+ * 
+ * ATT: 出勤
+ * 
+ * DR: daily report 日报表
  *
  */
 
 @Entity
 @Table
-public class EmployeeDailyWorkOrder extends LevelApp_3{
+public class EmployeeATTDROrder extends LevelApp_3{
 	
 	private Date workDate; 		// 出勤日期
 	

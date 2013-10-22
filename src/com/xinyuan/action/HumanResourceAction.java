@@ -35,7 +35,6 @@ public class HumanResourceAction extends SuperAction {
 			if (model instanceof Employee) {
 				Employee newEmployee = (Employee)model;
 				
-				
 				String password = passwordList.get(0);
 				String username = newEmployee.getEmployeeNO();
 				

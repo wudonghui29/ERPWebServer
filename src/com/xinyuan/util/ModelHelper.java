@@ -17,9 +17,9 @@ import com.xinyuan.model.LevelApp_3;
 import com.xinyuan.model.LevelApp_4;
 import com.xinyuan.model.LevelApp_6;
 import com.xinyuan.model.HumanResource.Employee;
-import com.xinyuan.model.HumanResource.EmployeeAttendanceOrder;
+import com.xinyuan.model.HumanResource.EmployeeATTOrder;
 import com.xinyuan.model.HumanResource.EmployeeBusinessMealOrder;
-import com.xinyuan.model.HumanResource.EmployeeDailyWorkOrder;
+import com.xinyuan.model.HumanResource.EmployeeATTDROrder;
 import com.xinyuan.model.HumanResource.EmployeeDormitoryOrder;
 import com.xinyuan.model.HumanResource.EmployeeLeaveOrder;
 import com.xinyuan.model.HumanResource.EmployeeMonthlyExamineOrder;
@@ -27,7 +27,7 @@ import com.xinyuan.model.HumanResource.EmployeeOutOrder;
 import com.xinyuan.model.HumanResource.EmployeeOverTimeOrder;
 import com.xinyuan.model.HumanResource.EmployeeQuitOrder;
 import com.xinyuan.model.HumanResource.EmployeeQuitPassOrder;
-import com.xinyuan.model.HumanResource.EmployeeRepairAttendanceOrder;
+import com.xinyuan.model.HumanResource.EmployeeATTFixOrder;
 import com.xinyuan.model.HumanResource.EmployeeSecurityDetailOrder;
 import com.xinyuan.model.HumanResource.EmployeeSecurityMealOrder;
 import com.xinyuan.model.Security.SecurityVisitOrder;
@@ -41,9 +41,9 @@ public class ModelHelper {
 		
 		// HumanResource
 		orderNOPrefixMap.put(Employee.class.getName(), "YG");
-		orderNOPrefixMap.put(EmployeeAttendanceOrder.class.getName(), "KQ");
+		orderNOPrefixMap.put(EmployeeATTOrder.class.getName(), "KQ");
 		orderNOPrefixMap.put(EmployeeBusinessMealOrder.class.getName(), "WC");
-		orderNOPrefixMap.put(EmployeeDailyWorkOrder.class.getName(), "CQ");
+		orderNOPrefixMap.put(EmployeeATTDROrder.class.getName(), "CQ");
 		orderNOPrefixMap.put(EmployeeDormitoryOrder.class.getName(), "SS");
 		
 		orderNOPrefixMap.put(EmployeeLeaveOrder.class.getName(), "QJ");
@@ -53,7 +53,7 @@ public class ModelHelper {
 		orderNOPrefixMap.put(EmployeeQuitOrder.class.getName(), "LZ");
 		
 		orderNOPrefixMap.put(EmployeeQuitPassOrder.class.getName(), "FX");
-		orderNOPrefixMap.put(EmployeeRepairAttendanceOrder.class.getName(), "BQ");
+		orderNOPrefixMap.put(EmployeeATTFixOrder.class.getName(), "BQ");
 		orderNOPrefixMap.put(EmployeeSecurityDetailOrder.class.getName(), "ZB");
 		orderNOPrefixMap.put(EmployeeSecurityMealOrder.class.getName(), "YC");
 		

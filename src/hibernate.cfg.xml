@@ -63,9 +63,9 @@
 		
 		<!-- HumanResource Models -->
         <mapping class="com.xinyuan.model.HumanResource.Employee"/>
-        <mapping class="com.xinyuan.model.HumanResource.EmployeeAttendanceOrder"/>
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeATTOrder"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeBusinessMealOrder"/>
-        <mapping class="com.xinyuan.model.HumanResource.EmployeeDailyWorkOrder"/>
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeATTDROrder"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeDormitoryOrder"/>
         
         <mapping class="com.xinyuan.model.HumanResource.EmployeeLeaveOrder"/>
@@ -76,7 +76,7 @@
         <mapping class="com.xinyuan.model.HumanResource.EmployeeQuitOrder"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeQuitPassOrder"/>
         
-        <mapping class="com.xinyuan.model.HumanResource.EmployeeRepairAttendanceOrder"/>
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeATTFixOrder"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeSecurityMealOrder"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeSecurityDetailOrder"/>
         

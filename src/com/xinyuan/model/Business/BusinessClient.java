@@ -22,14 +22,14 @@ public class BusinessClient extends LevelApp_1 {
 	
 	private String principal;		// 负责人
 	
-	private String phoneNO ; 	// 电话
-	private String faxNO;		// 传真
-	private String homePage;  //网址
-	private String postCode; 	// 邮政编号
+	private String phoneNO ; 		// 电话
+	private String faxNO;			// 传真
+	private String homePage;  		//网址
+	private String postCode; 		// 邮政编号
 	
 	
-	private String businessEmployee; // 业务员  TODO: TO be remove
-	private String businessEmployeeNO; // 业务员
+	private String businessEmployee; 	// 业务员  TODO: TO be remove
+	private String businessEmployeeNO; 	// 业务员
 	
 	
 	public String getClientNO() {

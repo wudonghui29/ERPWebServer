@@ -18,7 +18,7 @@ import com.xinyuan.model.LevelApp_4;
 
 @Entity
 @Table
-public class EmployeeAttendanceOrder extends LevelApp_4 {
+public class EmployeeATTOrder extends LevelApp_4 {
 	
 	// 考核日期的范围
 	private Date attendanceStarDate; 

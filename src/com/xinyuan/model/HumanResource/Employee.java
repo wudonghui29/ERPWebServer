@@ -21,7 +21,7 @@ public class Employee extends LevelAPP_5 {
 	
 	private String name ;		// 姓名
 	private String idCard ;		// 身份证号码
-	private boolean gender;  // 0 , female ; 1 , male  // boolean respect as "true" in json
+	private boolean gender;  	// 0 , female ; 1 , male  // boolean respect as "true" in json
 	private Date birthday;
 	
 	private float height;
@@ -33,20 +33,21 @@ public class Employee extends LevelAPP_5 {
 	private String urgencyContact;  // his name and relationship and his phone NO. e.g. "Sam.Brother.13828899987"
 	private String education;		// e.g.  "广州美术学院.本科.2013-06.毕业"
 	private String country;			// 国籍
-	private String nationality ;  // human race 民族
-	private String nativePlace;  // native place 籍贯
-	private String homeAddress;	// 家地址
+	private String nationality ;  	// human race 民族
+	private String nativePlace;  	// native place 籍贯
+	private String homeAddress;		// 家地址
 	private String livingAddress;	//现住址
 
-	private String employeeNO; // employee NO. unique  工号
-	private Date employDate;   // entry date , sign in date
-	private boolean employing; // 是否在职  do not use "isEmploying" , cause in mysql , the column name will be "employing" , "is" is gone
-	private boolean inVisitList; // 是否列入拜访名单
-	private String experience;	// 经历   e.g. "腾讯公司.2013-06~2013-08.CEO"
+	private String employeeNO; 		// employee NO. unique  工号
+	private Date employDate;  	 	// entry date , sign in date
+	private boolean employing;		// 是否在职  do not use "isEmploying" , cause in mysql , the column name will be "employing" , "is" is gone
+	private boolean inVisitList; 	// 是否列入拜访名单
+	private String experience;		// 经历   e.g. "腾讯公司.2013-06~2013-08.CEO"
 	
-	private String departmentName; 
-	private int jobLevel;	//级别
-	private String jobTitle;	//职称
+	private String departmentName;
+	private String subDepartmentName;
+	private int jobLevel;			//级别
+	private String jobTitle;		//职称
 	
 	private boolean drivingLicence ; // 0 , have ; 1 , do not have
 
@@ -192,6 +193,14 @@ public class Employee extends LevelAPP_5 {
 
 	public void setDepartmentName(String departmentName) {
 		this.departmentName = departmentName;
+	}
+	
+	public String getSubDepartmentName() {
+		return subDepartmentName;
+	}
+
+	public void setSubDepartmentName(String subDepartmentName) {
+		this.subDepartmentName = subDepartmentName;
 	}
 
 	public int getJobLevel() {
