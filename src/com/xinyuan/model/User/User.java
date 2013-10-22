@@ -51,7 +51,8 @@ public class User implements Serializable{
 		this.password = password;
 	}
 	
-	@Column(columnDefinition="varchar(500) default ''")
+//	@Column(columnDefinition="varchar(500) default ''")
+	@Column(columnDefinition="TEXT default ''")
 	public String getPermissions() {
 		return permissions;
 	}

@@ -21,7 +21,6 @@ public class ConstantsConfig {
 	
 	public static final String USERNAME = "username";
 	public static final String PASSWORD = "password";
-	public static final String PERMISSION = "permission";
 	
 	
 	public static final String SIGNIN_USER = "signin_user";
@@ -32,6 +31,11 @@ public class ConstantsConfig {
 	
 	
 	public static final String METHOD_READ = "read";
+	public static final String METHOD_CREATE = "create";
+	public static final String METHOD_MODIFY = "modify";
+	public static final String METHOD_DELETE = "delete";
+	public static final String METHOD_APPLY = "apply";
+	
 	public static final String ACTION_APPROVAL = "Approval";		// every user have Approval Package read permission
 	
 	
@@ -56,7 +60,9 @@ public class ConstantsConfig {
 	public static final String DENY = "DENY";
 	public static final String JSON = "JSON";
 	public static final String USERS = "USERS";
+	public static final String CATEGORIES = "CATEGORIES";
 	public static final String PERMISSIONS = "PERMISSIONS";
+	
 	public static final String REQUEST_ERROR = "REQUEST_ERROR";
 	
 

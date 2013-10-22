@@ -1,11 +1,14 @@
 package com.xinyuan.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
 import com.global.SessionManager;
+import com.google.gson.JsonArray;
 import com.modules.httpWriter.ResponseWriter;
 import com.modules.introspector.ModelIntrospector;
 import com.modules.util.DLog;
@@ -71,14 +74,14 @@ public class UserAction extends ActionModelBase {
 		if (user == null) {
 			message.description = ConstantsConfig.USER.UserNotExist;
 		} else if (password.equals(user.getPassword())) {
-			List<Object> result = new ArrayList<Object>();
+//			List<Object> result = new ArrayList<Object>();
+			Map<String, Object> map = new HashMap<String, Object>();
 			message.status = ConstantsConfig.STATUS_SUCCESS;
 			message.description = ConstantsConfig.USER.UserLoginSuccess;
 			
-			result.add(user.getId()+"");
-			result.add(user.getPermissions());
-			result.add(userDAO.getAllUsers());
-			message.object = result;
+			map.put(ConstantsConfig.IDENTIFIER, user.getId());
+			map.put(ConstantsConfig.PERMISSIONS, userDAO.getAllUsers());
+			message.object = map;
 			
 			// put the permission in session
 			String perssionStr = user.getPermissions();
@@ -137,8 +140,8 @@ public class UserAction extends ActionModelBase {
 	
 	public String adminModify() throws Exception {
 //		if (models.size() != 1) return Action.NONE;		// Forbid modified multi-
-		
-		List<String> identityList = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.IDENTITYS, false);
+		JsonArray jsonArray = (JsonArray)allJsonObject.get(ConstantsConfig.IDENTITYS);
+		List<String> identityList = JsonHelper.translateJsonArrayToList(jsonArray);
 		
 		for (int i = 0; i < models.size(); i++) {
 			
