@@ -9,6 +9,8 @@ import java.util.Set;
 
 import com.global.SessionManager;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.modules.httpWriter.ResponseWriter;
 import com.modules.introspector.ModelIntrospector;
 import com.modules.util.DLog;
@@ -85,7 +87,9 @@ public class UserAction extends ActionModelBase {
 			
 			// put the permission in session
 			String perssionStr = user.getPermissions();
-			SessionManager.put(ConstantsConfig.PERMISSIONS, perssionStr.split(","));
+			JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(perssionStr);
+			Map<String, Object> permissions = JsonHelper.translateElementToMap(jsonObject);
+			SessionManager.put(ConstantsConfig.PERMISSIONS, permissions);
 			SessionManager.put(ConstantsConfig.SIGNIN_USER, user);
 			
 			// update the apnsToken in db

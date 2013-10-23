@@ -39,36 +39,37 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		
 		// Get the permission the user have
 		Map session = invocation.getInvocationContext().getSession();
-		String[] permissions = (String[]) session.get(ConstantsConfig.PERMISSIONS);
+		Map<String, Object> permissions = (Map<String, Object>)session.get(ConstantsConfig.PERMISSIONS);
 		
 		// Get the struts Action
 		ActionModelBase baseAction = (ActionModelBase)invocation.getAction();
 		
 		
 		// Get the permission needed
-		String method = PermissionInterceptor.getContextMethod().trim();   // method needed		// TODO: Be careful of ActionModelBase's method !! important !!
+		String method = PermissionInterceptor.getContextMethod().trim();   		// A . method needeD  // TODO: Be careful of ActionModelBase's method !! important !!
 		JsonObject jsonObject = baseAction.getAllJsonObject();
 		JsonArray jsonArray = (JsonArray) jsonObject.get(ConstantsConfig.MODELS);
-		List<String> models = JsonHelper.translateJsonArrayToList(jsonArray); // models needed
+		List<String> models = JsonHelper.translateJsonArrayToList(jsonArray); 	// B. models needed
 		
 		
-		// check if request super action
-//		boolean isAllowable = false;
-//		if (baseAction.getClass() == SuperAction.class) {
-//			isAllowable = isCrossActions(models) ? checkPermission(method, models, permissions) : false;	// URL:Super__read, MODELS:["HumanResource.Employee","Finance.FinancePayWarrantOrder"]
-//		} else {
-//			String action = PermissionInterceptor.getContextAction().trim();   // action
-//			isAllowable = checkPermission(action, method, models, permissions); 	// URL:HumanResource__read, MODELS:[".Employee",".EmplyeeOutOrder"]
-//		}
-//		if (isAllowable) return invocation.invoke();
+		boolean isAllowable = false;
+		// check if super action
+		if (baseAction.getClass() == SuperAction.class) {
+			isAllowable = isCrossActions(models) ? checkPermission(method, models, permissions) : false;	// URL:Super__read, MODELS:["HumanResource.Employee","Finance.FinancePayWarrantOrder"]
+		// not the super action
+		} else {
+			String action = PermissionInterceptor.getContextAction().trim();   // action needed
+			isAllowable = checkPermission(action, method, models, permissions); 			// URL:HumanResource__read, MODELS:[".Employee",".EmplyeeOutOrder"]
+		}
+		if (isAllowable) return invocation.invoke();
 		
 		// write message
-//		ResponseMessage message = baseAction.getMessage();
-//		message.description = ConstantsConfig.DENY;
-//		
-//		return Action.NONE;
+		ResponseMessage message = baseAction.getMessage();
+		message.description = ConstantsConfig.DENY;
 		
-		return invocation.invoke();
+		return Action.NONE;
+		
+//		return invocation.invoke();
 	}
 	
 	
@@ -88,7 +89,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	 * @return
 	 * 
 	 */
-	public static boolean checkPermission(String action, String method, List<String> models, String[] permissions) {
+	public static boolean checkPermission(String action, String method, List<String> models, Map<String, Object> permissions) {
 		int throughCount = 0;
 		int modelsSize = models.size();
 		
@@ -107,7 +108,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	 * @param permissions	["HumanResource.Employee.read","HumanResource.Employee.create"]
 	 * @return
 	 */
-	public static boolean checkPermission(String method, List<String> models, String[] permissions) {
+	public static boolean checkPermission(String method, List<String> models, Map<String, Object> permissions) {
 		int throughCount = 0;
 		int modelsSize = models.size();
 		
@@ -129,23 +130,15 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	 * @param method			be checked method
 	 * @return
 	 */
-	private static boolean check(String[] permissions, String action, String model, String method) {
+	private static boolean check(Map<String, Object> permissions, String action, String model, String method) {
 		if(action.equals(ConstantsConfig.ACTION_APPROVAL) && method.equals(ConstantsConfig.METHOD_READ)) return true;	// Let "read" the Approval package permission go through
 		
-		for (String permission : permissions) {
-			
-			String[] subPermissions = permission.split("\\.");
-			String sub0 = subPermissions[0].trim();
-			String sub1 = subPermissions[1].trim();
-			String sub2 = subPermissions[2].trim();
-			
-			if (sub0.equals(action) || sub0.equals("*")) { 			// TODO: REMOVE THE "*"
-				if (sub2.equals(method) || sub2.equals("*")) {
-					if (sub1.equals(model) || sub1.equals("*")) {
-						return true;
-					}
-				}
-						
+		Map<String, List<String>> modelsPermissions = (Map<String, List<String>>)permissions.get(action);
+		List<String> methodsPermissions = modelsPermissions.get(model);
+		
+		for (int i = 0; i < methodsPermissions.size(); i++) {
+			if (methodsPermissions.get(i).equals(method)) {
+				return true;
 			}
 		}
 		return false;

@@ -9,15 +9,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import com.global.SessionManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.xinyuan.action.HumanResourceAction;
 import com.xinyuan.action.ApprovalAction;
 import com.xinyuan.action.SettingAction;
 import com.xinyuan.action.SuperAction;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.interceptor.PermissionInterceptor;
+import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.message.FormatConfig;
 import com.xinyuan.util.ApnsHelper;
 import com.xinyuan.util.JsonHelper;
@@ -88,18 +92,17 @@ public class Test extends HashSet {
 	
 	
 	// Test Permission check 
-	public static void main_______(String[] args) {
-		String havePermission = "H.E.read, H.E.create, H.J.*";
-		String[] has = havePermission.split(",");
+	public static void main(String[] args) {
+		String perssionStr = "{\"Business\":{\"BusinessClient\":[\"read\",\"create\"]},\"Assistant\":{\"ASDeviceBatteryMROrder\":[\"read\",\"create\",\"modify\"]}}";
+
+		JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(perssionStr);
+		Map<String, Object> permissions = JsonHelper.translateElementToMap(jsonObject);
 		
-		String modelsStr = ".E";
+		String modelsStr = ".ASDeviceBatteryMROrder";
 		String[] array = modelsStr.split(",");
-		Gson gson = new GsonBuilder().create();
-		JsonArray jsonArray = gson.toJsonTree(array).getAsJsonArray();
+		List<String> models = Arrays.asList(array);
 		
-		List<String> models = JsonHelper.translateJsonArrayToList(jsonArray);
-		
-		boolean allowed = PermissionInterceptor.checkPermission("H", "read", models, has);
+		boolean allowed = PermissionInterceptor.checkPermission("Assistant", "read", models, permissions);
 		
 		System.out.println("");
 	}
@@ -157,7 +160,7 @@ public class Test extends HashSet {
 	 
 	 
 	 
-	 public static void main(String[] args) {
+	 public static void main____________(String[] args) {
 		 SettingAction settingAction = new SettingAction();
 		 settingAction.getApplicationModelsStructures();
 	}
