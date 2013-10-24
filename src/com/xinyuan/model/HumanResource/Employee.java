@@ -49,6 +49,8 @@ public class Employee extends LevelAPP_5 {
 	private int jobLevel;			//级别
 	private String jobTitle;		//职称
 	
+	private String wordMask;		// 
+	
 	private boolean drivingLicence ; // 0 , have ; 1 , do not have
 
 
@@ -259,5 +261,12 @@ public class Employee extends LevelAPP_5 {
 	public void setExperience(String experience) {
 		this.experience = experience;
 	}
-	
+
+	public String getWordMask() {
+		return wordMask;
+	}
+
+	public void setWordMask(String wordMask) {
+		this.wordMask = wordMask;
+	}
 }

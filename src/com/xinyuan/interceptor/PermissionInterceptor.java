@@ -129,7 +129,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	
 	/**
 	 * 
-	 * @param permissions		the permission user had , ["HumanResource.Employee.read","HumanResource.Employee.create"]
+	 * @param permissions		the permission user had
 	 * @param action			be checked action
 	 * @param model				be checked model
 	 * @param method			be checked method
@@ -167,7 +167,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		String compare = null;
 		for (int i = 0; i < modelsSize; i++) {
 			String[] modelCouple = models.get(i).split("\\.");	// "HumanResource.Employee"
-			String action = modelCouple[0].trim();
+			String action = modelCouple[1].trim();
 			
 			if (i == 0) {
 				compare = action;
