@@ -72,16 +72,18 @@ public class HumanResourceAction extends SuperAction {
 			Object model = models.get(i);
 			
 			if (model instanceof Employee) {
-				Employee newEmployee = (Employee)model;
+				Employee employee = (Employee)model;
 				
 				String password = passwordList.get(0);
-				String username = newEmployee.getEmployeeNO();
+				String username = employee.getEmployeeNO();
 				
 				// modify user
 				UserDAO userDao = new UserDAOIMP();
 				User user = userDao.getUser(username);
-				user.setPassword(password);
-				userDao.modify(user);
+				if (! employee.getWordMask().equals(password)) {
+					user.setPassword(password);
+					userDao.modify(user);
+				}
 			}
 			
 		}
