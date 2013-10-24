@@ -98,11 +98,12 @@ public class Test extends HashSet {
 		JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(perssionStr);
 		Map<String, Object> permissions = JsonHelper.translateElementToMap(jsonObject);
 		
-		String modelsStr = ".ASDeviceBatteryMROrder";
+		String modelsStr = "Assistant.ASDeviceBatteryMROrder, Business.BusinessClient";
 		String[] array = modelsStr.split(",");
 		List<String> models = Arrays.asList(array);
 		
-		boolean allowed = PermissionInterceptor.checkPermission("Assistant", "read", models, permissions);
+//		boolean allowed = PermissionInterceptor.checkPermission("Business", "read", models, permissions);
+		boolean alloweda = PermissionInterceptor.checkPermission("read", models, permissions);  // for action = "super"
 		
 		System.out.println("");
 	}

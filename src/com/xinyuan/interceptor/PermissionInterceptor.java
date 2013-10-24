@@ -58,7 +58,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 			isAllowable = isCrossActions(models) ? checkPermission(method, models, permissions) : false;	// URL:Super__read, MODELS:["HumanResource.Employee","Finance.FinancePayWarrantOrder"]
 		// not the super action
 		} else {
-			String action = PermissionInterceptor.getContextAction().trim();   // action needed
+			String action = PermissionInterceptor.getContextAction().trim();   // C. action needed
 			isAllowable = checkPermission(action, method, models, permissions); 			// URL:HumanResource__read, MODELS:[".Employee",".EmplyeeOutOrder"]
 		}
 		if (isAllowable) return invocation.invoke();
@@ -68,8 +68,6 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		message.description = ConstantsConfig.DENY;
 		
 		return Action.NONE;
-		
-//		return invocation.invoke();
 	}
 	
 	
@@ -102,7 +100,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	}
 	
 	/**
-	 * 
+	 * This interface is for "Super" Action
 	 * @param method		"read"
 	 * @param models		["HumanResource.Employee","Finance.FinancePayWarrantOrder"]
 	 * @param permissions	["HumanResource.Employee.read","HumanResource.Employee.create"]
@@ -112,11 +110,18 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		int throughCount = 0;
 		int modelsSize = models.size();
 		
-		for (int i = 0; i < modelsSize; i++) {
-			String[] modelCouple = models.get(i).split("\\.");	// "HumanResource.Employee"
-			String action = modelCouple[0].trim();				// "HumanResource"
-			String model = modelCouple[1].trim();				// "Employee"
-			if (check(permissions, action, model, method)) throughCount++; 
+		try {
+			
+			for (int i = 0; i < modelsSize; i++) {
+				String[] modelCouple = models.get(i).split("\\.");	// "HumanResource.Employee"
+				String action = modelCouple[0].trim();				// "HumanResource"
+				String model = modelCouple[1].trim();				// "Employee"
+				if (check(permissions, action, model, method)) throughCount++; 
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
 		
 		return throughCount == modelsSize ;
@@ -133,14 +138,20 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	private static boolean check(Map<String, Object> permissions, String action, String model, String method) {
 		if(action.equals(ConstantsConfig.ACTION_APPROVAL) && method.equals(ConstantsConfig.METHOD_READ)) return true;	// Let "read" the Approval package permission go through
 		
-		Map<String, List<String>> modelsPermissions = (Map<String, List<String>>)permissions.get(action);
-		List<String> methodsPermissions = modelsPermissions.get(model);
-		
-		for (int i = 0; i < methodsPermissions.size(); i++) {
-			if (methodsPermissions.get(i).equals(method)) {
-				return true;
+		try {
+			
+			Map<String, List<String>> modelsPermissions = (Map<String, List<String>>)permissions.get(action);
+			List<String> methodsPermissions = modelsPermissions.get(model);
+			
+			for (int i = 0; i < methodsPermissions.size(); i++) {
+				if (methodsPermissions.get(i).equals(method)) return true;
 			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
+		
 		return false;
 	}
 	
