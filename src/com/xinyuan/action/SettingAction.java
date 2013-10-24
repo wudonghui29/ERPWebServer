@@ -51,7 +51,7 @@ public class SettingAction extends ActionModelBase {
 			String string = (String) iterator.next();
 //			if (string.startsWith("Approval") || string.startsWith("User")) continue;
 			String className = string.replaceAll(".class", "");
-			String wholeClassName = ConstantsConfig.MODELPACKAGE + className;
+			String wholeClassName = ConstantsConfig.MODELPACKAGE + "." + className;
 			classesNamesList.add(wholeClassName);
 //			System.out.println(string);
 		}

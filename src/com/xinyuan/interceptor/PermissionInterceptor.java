@@ -102,8 +102,8 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	/**
 	 * This interface is for "Super" Action
 	 * @param method		"read"
-	 * @param models		["HumanResource.Employee","Finance.FinancePayWarrantOrder"]
-	 * @param permissions	["HumanResource.Employee.read","HumanResource.Employee.create"]
+	 * @param models		[".HumanResource.Employee",".Finance.FinancePayWarrantOrder"]
+	 * @param permissions	[".HumanResource.Employee.read",".HumanResource.Employee.create"]
 	 * @return
 	 */
 	public static boolean checkPermission(String method, List<String> models, Map<String, Object> permissions) {
@@ -114,8 +114,8 @@ public class PermissionInterceptor extends AbstractInterceptor {
 			
 			for (int i = 0; i < modelsSize; i++) {
 				String[] modelCouple = models.get(i).split("\\.");	// "HumanResource.Employee"
-				String action = modelCouple[0].trim();				// "HumanResource"
-				String model = modelCouple[1].trim();				// "Employee"
+				String action = modelCouple[1].trim();				// "HumanResource"
+				String model = modelCouple[2].trim();				// "Employee"
 				if (check(permissions, action, model, method)) throughCount++; 
 			}
 			

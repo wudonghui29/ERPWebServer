@@ -61,7 +61,7 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 			// get model
 			String modelString = modelElement.getAsString();					// e.g : ".Employee"
 			String objectString = JsonHelper.getGson().toJson(objectElement);
-			String className = ConstantsConfig.MODELPACKAGE + (baseAction.getClass() == SuperAction.class ?  modelString : catagory + modelString);
+			String className = ConstantsConfig.MODELPACKAGE + (baseAction.getClass() == SuperAction.class ?  modelString : "." + catagory + modelString);
 			Class<?> modelClass = Class.forName(className);
 			Object vo = JsonHelper.getGson().fromJson(objectString, modelClass);
 			

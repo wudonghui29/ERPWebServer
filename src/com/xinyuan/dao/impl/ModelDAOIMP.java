@@ -24,7 +24,7 @@ public abstract class ModelDAOIMP extends BaseDAOIMP implements ModelDAO {
 		String wholeClassName = getClass().getName();
 		String shortClassName = wholeClassName.substring(wholeClassName.lastIndexOf(".") + 1);
 		String superModelName = shortClassName.substring(0, shortClassName.indexOf(ConstantsConfig.DAOIMP_SUFFIX));
-		return ConstantsConfig.MODELPACKAGE + superModelName;
+		return ConstantsConfig.MODELPACKAGE + "." + superModelName;
 	}
 	private boolean checkModelScope(Object object) {
 		return object.getClass().getName().indexOf(Model_Scope) == -1;

@@ -93,6 +93,11 @@ public class Test extends HashSet {
 	
 	// Test Permission check 
 	public static void main(String[] args) {
+		
+		String aa = ".a.B";
+		String[] aaa = aa.split("\\.");
+		
+		
 		String perssionStr = "{\"Business\":{\"BusinessClient\":[\"read\",\"create\"]},\"Assistant\":{\"ASDeviceBatteryMROrder\":[\"read\",\"create\",\"modify\"]}}";
 
 		JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(perssionStr);

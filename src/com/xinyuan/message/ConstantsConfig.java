@@ -27,7 +27,7 @@ public class ConstantsConfig {
 	
 	
 	public static final String DAOIMP_SUFFIX = "DAOIMP";
-	public static final String MODELPACKAGE = "com.xinyuan.model.";
+	public static final String MODELPACKAGE = "com.xinyuan.model";
 	
 	
 	public static final String METHOD_READ = "read";
