@@ -49,7 +49,7 @@ public class Employee extends LevelAPP_5 {
 	private int jobLevel;			//级别
 	private String jobTitle;		//职称
 	
-	private String wordMask;		// 
+	private String wordMask;		//password mask 
 	
 	private boolean drivingLicence ; // 0 , have ; 1 , do not have
 
