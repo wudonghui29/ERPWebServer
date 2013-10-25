@@ -22,6 +22,7 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.xinyuan.action.ActionModelBase;
 import com.xinyuan.action.SuperAction;
 import com.xinyuan.message.ConstantsConfig;
+import com.xinyuan.message.ResponseMessage;
 import com.xinyuan.util.JsonHelper;
 
 public class JsonInterpretInterceptor extends AbstractInterceptor {
@@ -78,6 +79,8 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		baseAction.setObjectKeys(voKeys);
 		baseAction.setAllJsonObject(jsonObject);
 		
+		ResponseMessage message = baseAction.getMessage();
+		message.models = modelsArray.toString();
 		
 		return invocation.invoke();
 	}

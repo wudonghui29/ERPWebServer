@@ -19,7 +19,7 @@ public class User implements Serializable{
 	private String username;		// == employeeNO
 	private String password;		//
 	
-	private String permissions = ""; 	// format "superModule.module.read,...." . i.e HumanResource.EmployeeInfo.read
+	private String permissions = "{}"; 	// format "superModule.module.read,...." . i.e HumanResource.EmployeeInfo.read
 	private String categories = "";		// "HumanResource", "Security" ...
 	
 	private String deviceInfo; 		// ipad or iphone or ...
@@ -52,7 +52,7 @@ public class User implements Serializable{
 	}
 	
 //	@Column(columnDefinition="varchar(500) default ''")
-	@Column(columnDefinition="TEXT default ''")
+	@Column(columnDefinition="TEXT default '{}'")
 	public String getPermissions() {
 		return permissions;
 	}

@@ -11,6 +11,8 @@ public class ResponseMessage {
 	
 	public Object object = null;
 	
+	public String models ;
+	
 	public String getStatus() {
 		return status;
 	}
@@ -41,6 +43,12 @@ public class ResponseMessage {
 	}
 	public void setObject(Object object) {
 		this.object = object;
+	}
+	public String getModels() {
+		return models;
+	}
+	public void setModels(String models) {
+		this.models = models;
 	}
 	
 }
