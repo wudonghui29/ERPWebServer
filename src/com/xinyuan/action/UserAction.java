@@ -76,7 +76,14 @@ public class UserAction extends ActionModelBase {
 		if (user == null) {
 			message.description = ConstantsConfig.USER.UserNotExist;
 		} else if (password.equals(user.getPassword())) {
-//			List<Object> result = new ArrayList<Object>();
+			
+			// update the apnsToken in db
+			String userToken = ApprovalHelper.getAPNSToken(user.getUsername());
+			if (apnsToken != null && !apnsToken.equals(userToken)) {	// TODO: when update token , logout first and clear auto login
+				ApprovalHelper.setAPNSToken(username, apnsToken);
+			}
+			
+			// put result in response
 			Map<String, Object> map = new HashMap<String, Object>();
 			message.status = ConstantsConfig.STATUS_SUCCESS;
 			message.description = ConstantsConfig.USER.UserLoginSuccess;
@@ -92,13 +99,6 @@ public class UserAction extends ActionModelBase {
 			SessionManager.put(ConstantsConfig.PERMISSIONS, permissions);
 			SessionManager.put(ConstantsConfig.SIGNIN_USER, user);
 			
-			// update the apnsToken in db
-			if (!AdministratorInterceptor.isAdmin(user)) {
-				String userToken = ApprovalHelper.getAPNSToken(user.getUsername());
-				if (apnsToken != null && !apnsToken.equals(userToken)) {	// TODO: when update token , logout first and clear auto login
-					ApprovalHelper.setAPNSToken(username, apnsToken);
-				}
-			}
 			
 		} else {
 			message.description = ConstantsConfig.USER.UserPasswordError;

@@ -6,6 +6,7 @@
 
 
 
+
 ## Mysql
 
 	mysql -u***** -p*****
@@ -23,3 +24,12 @@
 	ALTER TABLE User CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 	
 	ALTER TABLE User MODIFY COLUMN permissions Text;
+	
+	
+	
+	
+## Set up the First In Mysql 
+	
+	INSERT INTO `ERPWebServer`.`User` (`username`) VALUES ('administrator');
+	UPDATE `ERPWebServer`.`User` SET `id`='0' WHERE `username`='administrator';
+	INSERT INTO `ERPWebServer`.`Approvals` (`username`) VALUES ('administrator');
