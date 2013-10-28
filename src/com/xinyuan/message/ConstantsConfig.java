@@ -8,6 +8,7 @@ public class ConstantsConfig {
 	
 	public static final String ACTION = "Action" ;
 	
+	public static final String MODEL_USER = "User";
 	
 	public static final String VERIFYCODE = "VERIFYCODE";
 	public static final String VERIFYCODE_TYPE = "VERIFYCODE_TYPE";
@@ -18,6 +19,7 @@ public class ConstantsConfig {
 	
 	public static final String ORDERNO = "orderNO";
 	public static final String IDENTIFIER = "id";
+	
 	
 	public static final String USERNAME = "username";
 	public static final String PASSWORD = "password";

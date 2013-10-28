@@ -7,7 +7,7 @@ import java.util.Set;
 
 import javax.print.DocFlavor.STRING;
 
-import com.xinyuan.model.BaseOrderModel;
+import com.xinyuan.model.OrderModel;
 
 
 public interface BaseDAO {

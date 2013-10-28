@@ -12,12 +12,14 @@ import com.xinyuan.model.LevelApp_4;
 
 /**
  * 员工月终考核表
+ * 
+ * ME: Monthly Examine
  *
  */
 
 @Entity
 @Table
-public class EmployeeMonthlyExamineOrder extends LevelApp_4 {
+public class EmployeeMEOrder extends LevelApp_4 {
 	
 	private Employee employee ; // 考核的员工
 	

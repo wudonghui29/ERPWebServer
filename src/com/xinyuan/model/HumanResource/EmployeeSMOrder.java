@@ -13,11 +13,12 @@ import com.xinyuan.model.LevelApp_1;
 /**
  * 保安人员用餐明细表
  *
+ * SM : Security Meal
  */
 
 @Entity
 @Table
-public class EmployeeSecurityMealOrder extends LevelApp_1 {
+public class EmployeeSMOrder extends LevelApp_1 {
 
 	private Date mealDate;		// 日期
 	

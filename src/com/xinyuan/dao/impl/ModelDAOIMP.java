@@ -8,7 +8,7 @@ import java.util.Set;
 
 import com.xinyuan.dao.ModelDAO;
 import com.xinyuan.message.ConstantsConfig;
-import com.xinyuan.model.BaseOrderModel;
+import com.xinyuan.model.OrderModel;
 
 /**
  * 
@@ -19,14 +19,14 @@ public abstract class ModelDAOIMP extends BaseDAOIMP implements ModelDAO {
 	
 	
 	
-	private final String Model_Scope = getModelScope();
+	private final String Model_Scope = getModelScope();		// "com.xinyuan.model.Cards"
 	private String getModelScope() {
 		String wholeClassName = getClass().getName();
 		String shortClassName = wholeClassName.substring(wholeClassName.lastIndexOf(".") + 1);
 		String superModelName = shortClassName.substring(0, shortClassName.indexOf(ConstantsConfig.DAOIMP_SUFFIX));
 		return ConstantsConfig.MODELPACKAGE + "." + superModelName;
 	}
-	private boolean checkModelScope(Object object) {
+	private boolean checkModelScope(Object object) {		// check "com.xinyuan.model.Cards.CardsAlbums" is under "com.xinyuan.model.Cards"
 		return object.getClass().getName().indexOf(Model_Scope) == -1;
 	}
 	
@@ -43,8 +43,8 @@ public abstract class ModelDAOIMP extends BaseDAOIMP implements ModelDAO {
 	public <E extends Object> E read(E model) throws Exception {
 		if (checkModelScope(model)) return null;
 		Set<String> keys = new HashSet<String>();
-		if (model instanceof BaseOrderModel) {
-			BaseOrderModel orderModel = (BaseOrderModel)model;
+		if (model instanceof OrderModel) {
+			OrderModel orderModel = (OrderModel)model;
 			if (orderModel.getOrderNO() != null) keys.add("orderNO");
 			if (orderModel.getId() != 0) keys.add("id");
 		}

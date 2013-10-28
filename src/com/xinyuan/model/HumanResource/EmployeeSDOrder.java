@@ -7,17 +7,17 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.xinyuan.model.BaseOrderModel;
+import com.xinyuan.model.OrderModel;
 
 
 /**
  * 保安人员用餐明细表 - 备注 值班明细 表
- *
+ * SD : Security Detail
  */
 
 @Entity
 @Table
-public class EmployeeSecurityDetailOrder extends BaseOrderModel {
+public class EmployeeSDOrder extends OrderModel {
 
 	// 日期范围
 	private Date startDate;

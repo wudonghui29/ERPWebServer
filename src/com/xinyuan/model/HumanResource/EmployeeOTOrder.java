@@ -14,12 +14,13 @@ import com.xinyuan.model.LevelApp_4;
 /**
  * 加班申请确认单
  * 
+ * OT : Over Time
  *
  */
 
 @Entity
 @Table
-public class EmployeeOverTimeOrder extends LevelApp_4 {
+public class EmployeeOTOrder extends LevelApp_4 {
 	
 	private Date applyDate ;	 // 申请日期
 	private Date overTimeDate; 	// 加班日期

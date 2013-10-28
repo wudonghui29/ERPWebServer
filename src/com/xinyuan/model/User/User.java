@@ -52,7 +52,7 @@ public class User implements Serializable{
 	}
 	
 //	@Column(columnDefinition="varchar(500) default ''")
-	@Column(columnDefinition="TEXT default '{}'")
+	@Column(columnDefinition="TEXT")
 	public String getPermissions() {
 		return permissions;
 	}

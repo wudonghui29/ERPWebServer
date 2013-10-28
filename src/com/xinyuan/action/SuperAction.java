@@ -15,7 +15,7 @@ import com.xinyuan.dao.BaseDAO;
 import com.xinyuan.dao.ModelDAO;
 import com.xinyuan.dao.impl.BaseDAOIMP;
 import com.xinyuan.message.ConstantsConfig;
-import com.xinyuan.model.BaseOrderModel;
+import com.xinyuan.model.OrderModel;
 import com.xinyuan.model.User.User;
 import com.xinyuan.util.ApnsHelper;
 import com.xinyuan.util.ApprovalHelper;
@@ -90,7 +90,7 @@ public class SuperAction extends ActionModelBase {
 		
 		for (int i = 0; i < models.size(); i++) {
 			
-			BaseOrderModel model = (BaseOrderModel)models.get(i);
+			OrderModel model = (OrderModel)models.get(i);
 			
 			ModelHelper.setOrderBasicCreateDetail(model);
 			Integer identifier = (Integer) dao.create(model);
@@ -119,13 +119,13 @@ public class SuperAction extends ActionModelBase {
 		
 		for (int i = 0; i < models.size(); i++) {
 			
-			BaseOrderModel model = (BaseOrderModel)models.get(i);
+			OrderModel model = (OrderModel)models.get(i);
 			
 			Set<String> keys = objectKeys.get(i);
 			
 			String identityJSON = JsonHelper.getGson().toJson(identityList.get(i));
-			BaseOrderModel persistenceWithID = JsonHelper.getGson().fromJson(identityJSON, model.getClass());		// po
-			BaseOrderModel persistence = ((ModelDAO)dao).read(persistenceWithID);		// get all values of this po
+			OrderModel persistenceWithID = JsonHelper.getGson().fromJson(identityJSON, model.getClass());		// po
+			OrderModel persistence = ((ModelDAO)dao).read(persistenceWithID);		// get all values of this po
 			
 			ModelIntrospector.copyVoToPo(model, persistence, keys);
 			
@@ -146,11 +146,11 @@ public class SuperAction extends ActionModelBase {
 		
 		for (int i = 0; i < models.size(); i++) {
 					
-			BaseOrderModel model = (BaseOrderModel)models.get(i);
+			OrderModel model = (OrderModel)models.get(i);
 				
 			String identityJSON = JsonHelper.getGson().toJson(identityList.get(i));
-			BaseOrderModel persistenceWithID = JsonHelper.getGson().fromJson(identityJSON, model.getClass());		// po
-			BaseOrderModel persistence = ((ModelDAO)dao).read(persistenceWithID);		// get all values of this po
+			OrderModel persistenceWithID = JsonHelper.getGson().fromJson(identityJSON, model.getClass());		// po
+			OrderModel persistence = ((ModelDAO)dao).read(persistenceWithID);		// get all values of this po
 			
 			dao.delete(persistence);
 			
@@ -176,9 +176,9 @@ public class SuperAction extends ActionModelBase {
 		
 		for (int i = 0; i < models.size(); i++) {
 			
-			BaseOrderModel model = (BaseOrderModel)models.get(i);
+			OrderModel model = (OrderModel)models.get(i);
 			
-			BaseOrderModel persistence = ((ModelDAO)dao).read(model);		// get all values
+			OrderModel persistence = ((ModelDAO)dao).read(model);		// get all values
 			
 //			if (!model.getForwardUser().equals(approveUsername)) DLog.log("not same , ask for leave???"); // TODO:
 			boolean isAllApproved = ModelHelper.approve(persistence, approveUsername);  // TODO: Handle Exception

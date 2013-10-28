@@ -13,11 +13,13 @@ import com.xinyuan.model.LevelApp_1;
 /**
  * 月份出差误餐费已补贴明细表
  *
+ * BM : Business Meal
+ *
  */
 
 @Entity
 @Table
-public class EmployeeBusinessMealOrder extends LevelApp_1 {
+public class EmployeeBMOrder extends LevelApp_1 {
 	
 	private Date mealDate;		// 日期
 	

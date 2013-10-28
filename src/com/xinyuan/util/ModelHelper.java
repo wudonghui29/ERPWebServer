@@ -9,7 +9,7 @@ import java.util.Map;
 import com.global.SessionManager;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.message.FormatConfig;
-import com.xinyuan.model.BaseOrderModel;
+import com.xinyuan.model.OrderModel;
 import com.xinyuan.model.LevelAPP_5;
 import com.xinyuan.model.LevelApp_1;
 import com.xinyuan.model.LevelApp_2;
@@ -18,18 +18,18 @@ import com.xinyuan.model.LevelApp_4;
 import com.xinyuan.model.LevelApp_6;
 import com.xinyuan.model.HumanResource.Employee;
 import com.xinyuan.model.HumanResource.EmployeeATTOrder;
-import com.xinyuan.model.HumanResource.EmployeeBusinessMealOrder;
+import com.xinyuan.model.HumanResource.EmployeeBMOrder;
 import com.xinyuan.model.HumanResource.EmployeeATTDROrder;
 import com.xinyuan.model.HumanResource.EmployeeDormitoryOrder;
 import com.xinyuan.model.HumanResource.EmployeeLeaveOrder;
-import com.xinyuan.model.HumanResource.EmployeeMonthlyExamineOrder;
+import com.xinyuan.model.HumanResource.EmployeeMEOrder;
 import com.xinyuan.model.HumanResource.EmployeeOutOrder;
-import com.xinyuan.model.HumanResource.EmployeeOverTimeOrder;
+import com.xinyuan.model.HumanResource.EmployeeOTOrder;
 import com.xinyuan.model.HumanResource.EmployeeQuitOrder;
 import com.xinyuan.model.HumanResource.EmployeeQuitPassOrder;
 import com.xinyuan.model.HumanResource.EmployeeATTFixOrder;
-import com.xinyuan.model.HumanResource.EmployeeSecurityDetailOrder;
-import com.xinyuan.model.HumanResource.EmployeeSecurityMealOrder;
+import com.xinyuan.model.HumanResource.EmployeeSDOrder;
+import com.xinyuan.model.HumanResource.EmployeeSMOrder;
 import com.xinyuan.model.Security.SecurityVisitOrder;
 import com.xinyuan.model.User.User;
 
@@ -42,20 +42,20 @@ public class ModelHelper {
 		// HumanResource
 		orderNOPrefixMap.put(Employee.class.getName(), "YG");
 		orderNOPrefixMap.put(EmployeeATTOrder.class.getName(), "KQ");
-		orderNOPrefixMap.put(EmployeeBusinessMealOrder.class.getName(), "WC");
+		orderNOPrefixMap.put(EmployeeBMOrder.class.getName(), "WC");
 		orderNOPrefixMap.put(EmployeeATTDROrder.class.getName(), "CQ");
 		orderNOPrefixMap.put(EmployeeDormitoryOrder.class.getName(), "SS");
 		
 		orderNOPrefixMap.put(EmployeeLeaveOrder.class.getName(), "QJ");
-		orderNOPrefixMap.put(EmployeeMonthlyExamineOrder.class.getName(), "KH");
+		orderNOPrefixMap.put(EmployeeMEOrder.class.getName(), "KH");
 		orderNOPrefixMap.put(EmployeeOutOrder.class.getName(), "WC");
-		orderNOPrefixMap.put(EmployeeOverTimeOrder.class.getName(), "JB");
+		orderNOPrefixMap.put(EmployeeOTOrder.class.getName(), "JB");
 		orderNOPrefixMap.put(EmployeeQuitOrder.class.getName(), "LZ");
 		
 		orderNOPrefixMap.put(EmployeeQuitPassOrder.class.getName(), "FX");
 		orderNOPrefixMap.put(EmployeeATTFixOrder.class.getName(), "BQ");
-		orderNOPrefixMap.put(EmployeeSecurityDetailOrder.class.getName(), "ZB");
-		orderNOPrefixMap.put(EmployeeSecurityMealOrder.class.getName(), "YC");
+		orderNOPrefixMap.put(EmployeeSDOrder.class.getName(), "ZB");
+		orderNOPrefixMap.put(EmployeeSMOrder.class.getName(), "YC");
 		
 		
 		// Security
@@ -67,7 +67,7 @@ public class ModelHelper {
 	}
 	
 	// in BaseAction Create() method
-	public static void setOrderBasicCreateDetail(BaseOrderModel model) {
+	public static void setOrderBasicCreateDetail(OrderModel model) {
 		Date date = new Date();
 		model.setCreateDate(date);
 		User user = (User)SessionManager.get(ConstantsConfig.SIGNIN_USER);
@@ -79,13 +79,13 @@ public class ModelHelper {
 		
 		model.setOrderNO(orderNO);		// TODO: check the database if already have this no.
 	}
-	private static String getOrderNOPrefix(BaseOrderModel model) {
+	private static String getOrderNOPrefix(OrderModel model) {
 		String modelClassName = model.getClass().getName();
 		return orderNOPrefixMap.get(modelClassName);
 	}
 	
 	// in BaseAction Apply() method 
-	public static boolean approve(BaseOrderModel model, String username) throws Exception {
+	public static boolean approve(OrderModel model, String username) throws Exception {
 		boolean isAllApproved = false;
 		
 		try {
