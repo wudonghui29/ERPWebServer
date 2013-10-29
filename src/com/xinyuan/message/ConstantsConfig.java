@@ -6,6 +6,8 @@ public class ConstantsConfig {
 	public static final String APNS_CERTIFICATE_PASSWORD = "12345";
 	public static final String APNS_CERTIFICATE_PATH = "../apnsDevelop.p12";
 	
+	public static final String DEFAULT_PERMISSION = "{}";
+	
 	public static final String ACTION = "Action" ;
 	
 	public static final String MODEL_USER = "User";

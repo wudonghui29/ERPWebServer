@@ -9,22 +9,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import com.global.SessionManager;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.xinyuan.action.HumanResourceAction;
-import com.xinyuan.action.ApprovalAction;
 import com.xinyuan.action.SettingAction;
 import com.xinyuan.action.SuperAction;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.interceptor.PermissionInterceptor;
-import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.message.FormatConfig;
+import com.xinyuan.model.HumanResource.Employee;
 import com.xinyuan.util.ApnsHelper;
 import com.xinyuan.util.JsonHelper;
+import com.xinyuan.util.ModelHelper;
 
 public class Test extends HashSet {
 
@@ -92,7 +88,7 @@ public class Test extends HashSet {
 	
 	
 	// Test Permission check 
-	public static void main(String[] args) {
+	public static void main000(String[] args) {
 		
 		String perssionStr = "{\"Business\":{\"BusinessClient\":[\"read\",\"create\"]},\"Assistant\":{\"ASDeviceBatteryMROrder\":[\"read\",\"create\",\"modify\"]}}";
 
@@ -105,6 +101,29 @@ public class Test extends HashSet {
 		
 //		boolean allowed = PermissionInterceptor.checkPermission("Business", "read", models, permissions);
 		boolean alloweda = PermissionInterceptor.checkPermission("read", models, permissions);  // for action = "super"
+		
+		System.out.println("");
+
+	}
+	
+	public static void main(String[] args) {
+//		String perssionStr = null;
+		
+		
+//		boolean isEmpty = perssionStr.isEmpty();
+		
+//		JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(perssionStr);
+//		Map<String, Object> permissions = JsonHelper.translateElementToMap(jsonObject);
+		
+		Employee employee = new Employee();
+		ModelHelper.setOrderBasicCreateDetail(employee);
+		
+//		String str = "YG201312011212";
+//		String strDigit = str.replaceAll("\\D+","");
+//		
+//		int digitCount = strDigit.length();
+//		int formatCount = FormatConfig.DATESTRING_WITH_SECOND_FORMAT.length();
+//		int formatWithoutSecondCount = FormatConfig.DATESTRING_WITHOUT_SECOND_FORMAT.length();
 		
 		System.out.println("");
 	}

@@ -6,7 +6,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.print.DocFlavor.STRING;
+
+import com.apple.jobjc.foundation.NSString;
 import com.global.SessionManager;
+import com.sun.org.apache.bcel.internal.generic.IREM;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.message.FormatConfig;
 import com.xinyuan.model.OrderModel;
@@ -36,6 +41,7 @@ import com.xinyuan.model.User.User;
 public class ModelHelper {
 	
 	private static Map<String, String> orderNOPrefixMap = new HashMap<String, String>();
+	private static Map<String, String> previousOrderNOMap = new HashMap<String, String>();
 	
 	static {
 		
@@ -73,16 +79,34 @@ public class ModelHelper {
 		User user = (User)SessionManager.get(ConstantsConfig.SIGNIN_USER);
 		model.setCreateUser(user.getUsername());
 		
-		SimpleDateFormat sdf = new SimpleDateFormat(FormatConfig.ORDER_DATE_TO_STRING_FORMAT);  
+		// Generate the orderNO
+		String modelClassName = model.getClass().getName();
+		String orederPrefix = orderNOPrefixMap.get(modelClassName);
+		
+		String previousOrderNO = previousOrderNOMap.get(modelClassName);
+		SimpleDateFormat sdf = new SimpleDateFormat(FormatConfig.DATESTRING_WITHOUT_SECOND_FORMAT);  
 		String dateString = sdf.format(date);
-		String orderNO = getOrderNOPrefix(model) + dateString;
+		String orderNO = orederPrefix + dateString;
+		if (previousOrderNO != null && previousOrderNO.contains(orderNO)) {
+			orderNO = generateOrderNO(orederPrefix, sdf, date);
+		}
 		
 		model.setOrderNO(orderNO);		// TODO: check the database if already have this no.
+		previousOrderNOMap.put(modelClassName, orderNO);
 	}
-	private static String getOrderNOPrefix(OrderModel model) {
-		String modelClassName = model.getClass().getName();
-		return orderNOPrefixMap.get(modelClassName);
+	
+	private static String generateOrderNO(String orederPrefix, SimpleDateFormat sdf, Date date) {
+//		String previousOrderNODigit = previousOrderNO.replaceAll("\\D+","");
+//		int previousDigitCount = previousOrderNODigit.length();
+//		int formatCount = FormatConfig.DATESTRING_WITH_SECOND_FORMAT.length();
+//		boolean isPreviousFormatWithSecond = previousDigitCount >= formatCount;
+		
+		sdf.applyPattern(FormatConfig.DATESTRING_WITH_SECOND_FORMAT);
+		String dateString = sdf.format(date);
+		String newOrderNO = orederPrefix + dateString;
+		return newOrderNO;
 	}
+	
 	
 	// in BaseAction Apply() method 
 	public static boolean approve(OrderModel model, String username) throws Exception {

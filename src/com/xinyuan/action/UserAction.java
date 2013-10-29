@@ -15,6 +15,7 @@ import com.modules.httpWriter.ResponseWriter;
 import com.modules.introspector.ModelIntrospector;
 import com.modules.util.DLog;
 import com.modules.util.SecurityCode;
+import com.modules.util.StringHelper;
 import com.modules.util.VerifyCode;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.dao.BaseDAO;
@@ -94,6 +95,7 @@ public class UserAction extends ActionModelBase {
 			
 			// put the permission in session
 			String perssionStr = user.getPermissions();
+			perssionStr = StringHelper.isEmpty(perssionStr) ? ConstantsConfig.DEFAULT_PERMISSION : perssionStr;
 			JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(perssionStr);
 			Map<String, Object> permissions = JsonHelper.translateElementToMap(jsonObject);
 			SessionManager.put(ConstantsConfig.PERMISSIONS, permissions);

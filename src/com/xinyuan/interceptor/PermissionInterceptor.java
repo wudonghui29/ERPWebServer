@@ -3,6 +3,7 @@ package com.xinyuan.interceptor;
 import java.util.List;
 import java.util.Map;
 
+import com.global.SessionManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.modules.util.DLog;
@@ -14,6 +15,7 @@ import com.xinyuan.action.ActionModelBase;
 import com.xinyuan.action.SuperAction;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.message.ResponseMessage;
+import com.xinyuan.model.User.User;
 import com.xinyuan.util.JsonHelper;
 
 public class PermissionInterceptor extends AbstractInterceptor {
@@ -34,7 +36,9 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		
 		DLog.log(" Ready");
 		
-//		return invocation.invoke();  // TODO: FOR TEST
+		// ok , check if administrator  	//TODO: For test , remove it , in production, give all the permission to administrator, or , just leave it?
+		boolean isAdministrator = AdministratorInterceptor.isAdmin((User)SessionManager.get(ConstantsConfig.SIGNIN_USER));
+		if (isAdministrator) return invocation.invoke();
 
 		
 		// Get the permission the user have
@@ -53,6 +57,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		
 		
 		boolean isAllowable = false;
+		
 		// check if super action
 		if (baseAction.getClass() == SuperAction.class) {
 			isAllowable = isCrossActions(models) ? checkPermission(method, models, permissions) : false;	// URL:Super__read, MODELS:["HumanResource.Employee","Finance.FinancePayWarrantOrder"]
@@ -61,7 +66,11 @@ public class PermissionInterceptor extends AbstractInterceptor {
 			String action = PermissionInterceptor.getContextAction().trim();   // C. action needed
 			isAllowable = checkPermission(action, method, models, permissions); 			// URL:HumanResource__read, MODELS:[".Employee",".EmplyeeOutOrder"]
 		}
+		
+		// ok , let it pass
 		if (isAllowable) return invocation.invoke();
+		
+		
 		
 		// write message
 		ResponseMessage message = baseAction.getMessage();
@@ -141,6 +150,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		try {
 			
 			Map<String, List<String>> modelsPermissions = (Map<String, List<String>>)permissions.get(action);
+			if (modelsPermissions == null) return false;
 			List<String> methodsPermissions = modelsPermissions.get(model);
 			
 			for (int i = 0; i < methodsPermissions.size(); i++) {

@@ -44,6 +44,7 @@ public class HumanResourceAction extends SuperAction {
 				User newUser = new User();
 				newUser.setPassword(password);
 				newUser.setUsername(username);
+				newUser.setPermissions(ConstantsConfig.DEFAULT_PERMISSION);
 				
 				// create approval
 				Approvals approval = new Approvals();
