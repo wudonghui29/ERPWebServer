@@ -88,21 +88,30 @@ public class ModelHelper {
 		String dateString = sdf.format(date);
 		String orderNO = orederPrefix + dateString;
 		if (previousOrderNO != null && previousOrderNO.contains(orderNO)) {
-			orderNO = generateOrderNO(orederPrefix, sdf, date);
+			orderNO = generateOrderNO(orederPrefix, sdf, date, previousOrderNO);
 		}
 		
 		model.setOrderNO(orderNO);		// TODO: check the database if already have this no.
 		previousOrderNOMap.put(modelClassName, orderNO);
 	}
 	
-	private static String generateOrderNO(String orederPrefix, SimpleDateFormat sdf, Date date) {
-//		String previousOrderNODigit = previousOrderNO.replaceAll("\\D+","");
-//		int previousDigitCount = previousOrderNODigit.length();
+	private static String generateOrderNO(String orederPrefix, SimpleDateFormat sdf, Date date, String previousOrderNO) {
+		String previousOrderDigit = previousOrderNO.replaceAll("\\D+","");
+//		int previousDigitCount = previousOrderDigit.length();
 //		int formatCount = FormatConfig.DATESTRING_WITH_SECOND_FORMAT.length();
 //		boolean isPreviousFormatWithSecond = previousDigitCount >= formatCount;
 		
+		// digit add 1 to avoid same in second
 		sdf.applyPattern(FormatConfig.DATESTRING_WITH_SECOND_FORMAT);
 		String dateString = sdf.format(date);
+		
+		// the second + 1
+		if (dateString.equals(previousOrderDigit)) {
+			String lastStr = dateString.substring(dateString.length() - 1);
+			int i = Integer.valueOf(lastStr);
+			dateString = dateString.substring(0, dateString.length() - 1) + (i+1) ;
+		}
+		
 		String newOrderNO = orederPrefix + dateString;
 		return newOrderNO;
 	}

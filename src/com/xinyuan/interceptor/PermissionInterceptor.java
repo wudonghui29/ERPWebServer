@@ -35,19 +35,14 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	public String intercept(ActionInvocation invocation) throws Exception {
 		
 		DLog.log(" Ready");
-		
-		// ok , check if administrator  	//TODO: For test , remove it , in production, give all the permission to administrator, or , just leave it?
-		boolean isAdministrator = AdministratorInterceptor.isAdmin((User)SessionManager.get(ConstantsConfig.SIGNIN_USER));
-		if (isAdministrator) return invocation.invoke();
 
-		
 		// Get the permission the user have
 		Map session = invocation.getInvocationContext().getSession();
 		Map<String, Object> permissions = (Map<String, Object>)session.get(ConstantsConfig.PERMISSIONS);
 		
 		// Get the struts Action
 		ActionModelBase baseAction = (ActionModelBase)invocation.getAction();
-		
+		ResponseMessage message = baseAction.getMessage();
 		
 		// Get the permission needed
 		String method = PermissionInterceptor.getContextMethod().trim();   		// A . method needeD  // TODO: Be careful of ActionModelBase's method !! important !!
@@ -55,6 +50,12 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		JsonArray jsonArray = (JsonArray) jsonObject.get(ConstantsConfig.MODELS);
 		List<String> models = JsonHelper.translateJsonArrayToList(jsonArray); 	// B. models needed
 		
+		message.models = models;
+		
+		
+		// ok , check if administrator  	//TODO: For test , remove it , in production, give all the permission to administrator, or , just leave it?
+		boolean isAdministrator = AdministratorInterceptor.isAdmin((User)SessionManager.get(ConstantsConfig.SIGNIN_USER));
+		if (isAdministrator) return invocation.invoke();
 		
 		boolean isAllowable = false;
 		
@@ -70,10 +71,6 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		// ok , let it pass
 		if (isAllowable) return invocation.invoke();
 		
-		
-		
-		// write message
-		ResponseMessage message = baseAction.getMessage();
 		message.description = ConstantsConfig.DENY;
 		
 		return Action.NONE;

@@ -75,7 +75,7 @@ public class SuperAction extends ActionModelBase {
 		}
 		
 		
-		message.object = results;
+		message.objects = results;
 		message.status = ConstantsConfig.STATUS_SUCCESS;
 		
 		return Action.NONE;
@@ -104,7 +104,7 @@ public class SuperAction extends ActionModelBase {
 		
 		
 		message.status = ConstantsConfig.STATUS_SUCCESS ;
-		message.object = results;
+		message.objects = results;
 		
 		return Action.NONE;
 	}

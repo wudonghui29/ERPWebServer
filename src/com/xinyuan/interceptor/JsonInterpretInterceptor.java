@@ -79,9 +79,6 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		baseAction.setObjectKeys(voKeys);
 		baseAction.setAllJsonObject(jsonObject);
 		
-		ResponseMessage message = baseAction.getMessage();
-		message.models = modelsArray.toString();
-		
 		return invocation.invoke();
 	}
 	

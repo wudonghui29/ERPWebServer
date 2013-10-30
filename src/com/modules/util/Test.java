@@ -115,8 +115,8 @@ public class Test extends HashSet {
 //		JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(perssionStr);
 //		Map<String, Object> permissions = JsonHelper.translateElementToMap(jsonObject);
 		
-		Employee employee = new Employee();
-		ModelHelper.setOrderBasicCreateDetail(employee);
+//		Employee employee = new Employee();
+//		ModelHelper.setOrderBasicCreateDetail(employee);
 		
 //		String str = "YG201312011212";
 //		String strDigit = str.replaceAll("\\D+","");
@@ -125,7 +125,13 @@ public class Test extends HashSet {
 //		int formatCount = FormatConfig.DATESTRING_WITH_SECOND_FORMAT.length();
 //		int formatWithoutSecondCount = FormatConfig.DATESTRING_WITHOUT_SECOND_FORMAT.length();
 		
-		System.out.println("");
+		String dateString = "20130408123005";
+		
+		String lastStr = dateString.substring(dateString.length() - 1);
+		int i = Integer.valueOf(lastStr);
+		dateString = dateString.substring(0, dateString.length() - 1) + (i+1) ;
+		
+		System.out.println(dateString);
 	}
 	
 	// Test filter models

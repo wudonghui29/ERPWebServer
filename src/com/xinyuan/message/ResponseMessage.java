@@ -1,5 +1,7 @@
 package com.xinyuan.message;
 
+import java.util.List;
+
 
 
 public class ResponseMessage {
@@ -9,9 +11,9 @@ public class ResponseMessage {
 	public String description = ConstantsConfig.NONE;
 	public String exception = ConstantsConfig.NONE;
 	
-	public Object object = null;
+	public Object objects = null;
 	
-	public String models ;
+	public List models = null;
 	
 	public String getStatus() {
 		return status;
@@ -39,16 +41,15 @@ public class ResponseMessage {
 	}
 	
 	public Object getObject() {
-		return object;
+		return objects;
 	}
 	public void setObject(Object object) {
-		this.object = object;
+		this.objects = object;
 	}
-	public String getModels() {
+	public List getModels() {
 		return models;
 	}
-	public void setModels(String models) {
+	public void setModels(List models) {
 		this.models = models;
 	}
-	
 }

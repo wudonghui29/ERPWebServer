@@ -33,7 +33,7 @@ public class JsonHelper {
 	}
 	
 	/**
-	 * Convert JsonElement to Java List
+	 * Convert JsonElement to Java List, the element should be string
 	 * @param jsonArray
 	 * @return
 	 */

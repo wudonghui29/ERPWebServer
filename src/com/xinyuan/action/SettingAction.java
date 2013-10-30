@@ -62,7 +62,7 @@ public class SettingAction extends ActionModelBase {
 		 
 		 
 		 message.status = ConstantsConfig.STATUS_SUCCESS;
-		 message.object = map;
+		 message.objects = map;
 		
 		
 		return Action.NONE;
@@ -74,7 +74,7 @@ public class SettingAction extends ActionModelBase {
 		List list = humanResourceDAO.getNameNOPairs();
 		
 		message.status = ConstantsConfig.STATUS_SUCCESS;
-		message.object = list;
+		message.objects = list;
 		
 		return Action.NONE;
 	}

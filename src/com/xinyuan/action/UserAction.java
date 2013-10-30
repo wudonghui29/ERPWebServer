@@ -91,7 +91,7 @@ public class UserAction extends ActionModelBase {
 			
 			map.put(ConstantsConfig.IDENTIFIER, user.getId());
 			map.put(ConstantsConfig.PERMISSIONS, userDAO.getAllUsers());
-			message.object = map;
+			message.objects = map;
 			
 			// put the permission in session
 			String perssionStr = user.getPermissions();
