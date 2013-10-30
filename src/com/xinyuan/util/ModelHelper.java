@@ -6,33 +6,28 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.print.DocFlavor.STRING;
-
-import com.apple.jobjc.foundation.NSString;
 import com.global.SessionManager;
-import com.sun.org.apache.bcel.internal.generic.IREM;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.message.FormatConfig;
-import com.xinyuan.model.OrderModel;
 import com.xinyuan.model.LevelAPP_5;
 import com.xinyuan.model.LevelApp_1;
 import com.xinyuan.model.LevelApp_2;
 import com.xinyuan.model.LevelApp_3;
 import com.xinyuan.model.LevelApp_4;
 import com.xinyuan.model.LevelApp_6;
+import com.xinyuan.model.OrderModel;
 import com.xinyuan.model.HumanResource.Employee;
+import com.xinyuan.model.HumanResource.EmployeeATTDROrder;
+import com.xinyuan.model.HumanResource.EmployeeATTFixOrder;
 import com.xinyuan.model.HumanResource.EmployeeATTOrder;
 import com.xinyuan.model.HumanResource.EmployeeBMOrder;
-import com.xinyuan.model.HumanResource.EmployeeATTDROrder;
 import com.xinyuan.model.HumanResource.EmployeeDormitoryOrder;
 import com.xinyuan.model.HumanResource.EmployeeLeaveOrder;
 import com.xinyuan.model.HumanResource.EmployeeMEOrder;
-import com.xinyuan.model.HumanResource.EmployeeOutOrder;
 import com.xinyuan.model.HumanResource.EmployeeOTOrder;
+import com.xinyuan.model.HumanResource.EmployeeOutOrder;
 import com.xinyuan.model.HumanResource.EmployeeQuitOrder;
 import com.xinyuan.model.HumanResource.EmployeeQuitPassOrder;
-import com.xinyuan.model.HumanResource.EmployeeATTFixOrder;
 import com.xinyuan.model.HumanResource.EmployeeSDOrder;
 import com.xinyuan.model.HumanResource.EmployeeSMOrder;
 import com.xinyuan.model.Security.SecurityVisitOrder;
@@ -65,7 +60,7 @@ public class ModelHelper {
 		
 		
 		// Security
-		orderNOPrefixMap.put(SecurityVisitOrder.class.getName(), "FK");
+		orderNOPrefixMap.put(SecurityVisitOrder.class.getName(), "FKD");
 		
 		
 		// Finanace
@@ -82,9 +77,11 @@ public class ModelHelper {
 		// Generate the orderNO
 		String modelClassName = model.getClass().getName();
 		String orederPrefix = orderNOPrefixMap.get(modelClassName);
-		
 		String previousOrderNO = previousOrderNOMap.get(modelClassName);
-		SimpleDateFormat sdf = new SimpleDateFormat(FormatConfig.DATESTRING_WITHOUT_SECOND_FORMAT);  
+		
+		String format = orederPrefix.equals("FKD") ? FormatConfig.DATESTRING_WITH_SECOND_FORMAT : FormatConfig.DATESTRING_WITHOUT_SECOND_FORMAT;
+		
+		SimpleDateFormat sdf = new SimpleDateFormat(format);  
 		String dateString = sdf.format(date);
 		String orderNO = orederPrefix + dateString;
 		if (previousOrderNO != null && previousOrderNO.contains(orderNO)) {
