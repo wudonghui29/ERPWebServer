@@ -37,6 +37,7 @@ public class ModelHelper {
 	
 	private static Map<String, String> orderNOPrefixMap = new HashMap<String, String>();
 	private static Map<String, String> previousOrderNOMap = new HashMap<String, String>();
+	private static Map<String, String> withSecondOrderMap = new HashMap<String, String>();
 	
 	static {
 		
@@ -65,6 +66,12 @@ public class ModelHelper {
 		
 		// Finanace
 		
+		
+		
+		
+		// others
+		withSecondOrderMap.put("FKD", ConstantsConfig.NONE);
+		
 	}
 	
 	// in BaseAction Create() method
@@ -79,7 +86,7 @@ public class ModelHelper {
 		String orederPrefix = orderNOPrefixMap.get(modelClassName);
 		String previousOrderNO = previousOrderNOMap.get(modelClassName);
 		
-		String format = orederPrefix.equals("FKD") ? FormatConfig.DATESTRING_WITH_SECOND_FORMAT : FormatConfig.DATESTRING_WITHOUT_SECOND_FORMAT;
+		String format = withSecondOrderMap.containsKey(orederPrefix) ? FormatConfig.DATESTRING_WITH_SECOND_FORMAT : FormatConfig.DATESTRING_WITHOUT_SECOND_FORMAT;
 		
 		SimpleDateFormat sdf = new SimpleDateFormat(format);  
 		String dateString = sdf.format(date);
