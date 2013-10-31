@@ -12,6 +12,8 @@ import javapns.notification.PushNotificationPayload;
 import javapns.notification.PushedNotification;
 import javapns.notification.ResponsePacket;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.xinyuan.message.ConstantsConfig;
 
 
@@ -24,6 +26,24 @@ public class ApnsHelper {
 	private static final String APNS_Badge = "Badge";
 	
 	private static final String APNS_Sound_DEFAULT = "default";
+	
+	
+	public static void inform(JsonObject allJsonObject) throws Exception {
+		
+		JsonArray forwardsList = allJsonObject.getAsJsonArray(ConstantsConfig.APNS_FORWARDS);
+		JsonArray forwardContents = allJsonObject.getAsJsonArray(ConstantsConfig.APNS_CONTENTS);
+		
+		for (int index = 0; index < forwardsList.size(); index++) {
+			
+			String forwardUsername = forwardsList.get(index).getAsString();
+			String[] apnsTokens = ApprovalHelper.getAPNSToken(forwardUsername).split(ConstantsConfig.CONTENT_DIVIDER);
+			Map<String, Object> apnsMap = JsonHelper.translateElementToMap(forwardContents.get(index));
+			
+			ApnsHelper.push(apnsMap, apnsTokens);
+		}
+		
+		
+	}
 	
 	
 	/**

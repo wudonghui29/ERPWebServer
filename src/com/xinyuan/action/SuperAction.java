@@ -103,7 +103,8 @@ public class SuperAction extends ActionModelBase {
 			
 			results.add(result);
 		}
-		
+		// push APNS notifications
+		ApnsHelper.inform(allJsonObject);
 		
 		message.status = ConstantsConfig.STATUS_SUCCESS ;
 		message.objects = results;
@@ -171,10 +172,9 @@ public class SuperAction extends ActionModelBase {
 	public String apply() throws Exception {
 		if (models.size() != 1) return Action.NONE;		// Forbid apply multi-
 		
-		String approveUsername = ((User)SessionManager.get(ConstantsConfig.SIGNIN_USER)).getUsername();
+		String signinedUser = ((User)SessionManager.get(ConstantsConfig.SIGNIN_USER)).getUsername();
 		
 		JsonArray forwardsList = allJsonObject.getAsJsonArray(ConstantsConfig.APNS_FORWARDS);
-		JsonArray forwardContents = allJsonObject.getAsJsonArray(ConstantsConfig.APNS_CONTENTS);
 		
 		for (int i = 0; i < models.size(); i++) {
 			
@@ -182,28 +182,26 @@ public class SuperAction extends ActionModelBase {
 			
 			OrderModel persistence = ((ModelDAO)dao).read(model);		// get all values
 			
-//			if (!model.getForwardUser().equals(approveUsername)) DLog.log("not same , ask for leave???"); // TODO:
-			boolean isAllApproved = ModelHelper.approve(persistence, approveUsername);  // TODO: Handle Exception
+			boolean isAllApproved = ModelHelper.approve(persistence, signinedUser);  // TODO: Handle Exception
 			
+			// update the Order Table
 			String forwardUsername = forwardsList.get(i).getAsString();
 			persistence.setForwardUser(forwardUsername);
 			dao.modify(persistence);
 			
+			// update the Approval Table
 			String orderNO = persistence.getOrderNO();
 			String orderType = IntrospectHelper.getShortClassName(persistence);
 			ApprovalHelper.addPendingApprove(forwardUsername, orderNO, orderType);
-			ApprovalHelper.deletePendingApprove(approveUsername, orderNO, orderType);
-			
-			// specified to notify who
-			String[] apnsTokens = ApprovalHelper.getAPNSToken(forwardUsername).split(",");
-			Map<String, Object> apnsMap = JsonHelper.translateElementToMap(forwardContents.get(i));
-			ApnsHelper.push(apnsMap, apnsTokens);
+			ApprovalHelper.deletePendingApprove(signinedUser, orderNO, orderType);
 			
 		}
+		// push APNS notifications
+		ApnsHelper.inform(allJsonObject);
 		
 		message.status = ConstantsConfig.STATUS_SUCCESS;
 		return Action.NONE;
 	}
-
+	
 	
 }

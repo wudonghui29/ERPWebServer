@@ -7,7 +7,7 @@ import com.xinyuan.model.LevelApp_2;
 
 
 /**
- *  拜访单
+ *  拜访单/访客单
  *
  */
 

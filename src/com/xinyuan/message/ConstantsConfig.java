@@ -8,6 +8,9 @@ public class ConstantsConfig {
 	
 	public static final String DEFAULT_PERMISSION = "{}";
 	
+	public static final String CONTENT_DIVIDER = ",";
+	public static final String CONTENT_CONNECTOR = ".";
+	
 	public static final String ACTION = "Action" ;
 	
 	public static final String MODEL_USER = "User";
