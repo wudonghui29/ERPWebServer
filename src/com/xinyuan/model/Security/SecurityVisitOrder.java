@@ -20,9 +20,10 @@ public class SecurityVisitOrder extends LevelApp_2 {
 	private int accompanyCount;		// 随同人数
 	
 	private String carNO;			// 车牌号码
+	private String visitReason;		// 事由
 	private String employeeNO;		// 拜访人员(即拜访本公司的谁)  	// level_one ??
 	private String agentEmployeeNO;	// 转接人员					// level_two ??
-	private String visitReason;		// 事由
+	private String interviewNO;		// 已接见人
 	
 	public String getVisitorCompany() {
 		return visitorCompany;
@@ -66,5 +67,10 @@ public class SecurityVisitOrder extends LevelApp_2 {
 	public void setVisitReason(String visitReason) {
 		this.visitReason = visitReason;
 	}
-	
+	public String getInterviewNO() {
+		return interviewNO;
+	}
+	public void setInterviewNO(String interviewNO) {
+		this.interviewNO = interviewNO;
+	}
 }

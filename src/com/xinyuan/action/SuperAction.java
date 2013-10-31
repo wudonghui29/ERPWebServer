@@ -96,7 +96,9 @@ public class SuperAction extends ActionModelBase {
 			Integer identifier = (Integer) dao.create(model);
 			
 			Map result = new HashMap();
+			
 			result.put(ConstantsConfig.IDENTIFIER, identifier);
+			
 			result.put(ConstantsConfig.ORDERNO, model.getOrderNO());
 			
 			results.add(result);
