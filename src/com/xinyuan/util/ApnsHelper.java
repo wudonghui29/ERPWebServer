@@ -33,7 +33,9 @@ public class ApnsHelper {
 		JsonArray forwardsList = allJsonObject.getAsJsonArray(ConstantsConfig.APNS_FORWARDS);
 		JsonArray forwardContents = allJsonObject.getAsJsonArray(ConstantsConfig.APNS_CONTENTS);
 		
-		for (int index = 0; index < forwardsList.size(); index++) {
+		int forwardsCount = forwardsList != null ? forwardsList.size() : 0 ;
+		
+		for (int index = 0; index < forwardsCount; index++) {
 			
 			String forwardUsername = forwardsList.get(index).getAsString();
 			String[] apnsTokens = ApprovalHelper.getAPNSToken(forwardUsername).split(ConstantsConfig.CONTENT_DIVIDER);

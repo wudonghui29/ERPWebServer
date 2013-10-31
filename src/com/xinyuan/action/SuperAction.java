@@ -134,6 +134,8 @@ public class SuperAction extends ActionModelBase {
 			
 			dao.modify(persistence);
 		}
+		// push APNS notifications
+		ApnsHelper.inform(allJsonObject);
 		
 		message.status = ConstantsConfig.STATUS_SUCCESS;
 		return Action.NONE;

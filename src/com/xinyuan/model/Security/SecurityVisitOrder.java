@@ -1,9 +1,11 @@
 package com.xinyuan.model.Security;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.xinyuan.model.LevelApp_2;
+import com.xinyuan.model.LevelApp_1;
 
 
 /**
@@ -13,7 +15,7 @@ import com.xinyuan.model.LevelApp_2;
 
 @Entity
 @Table
-public class SecurityVisitOrder extends LevelApp_2 {
+public class SecurityVisitOrder extends LevelApp_1 {
 
 	private String visitorCompany;  // 拜访人公司
 	private String visitorName;		// 拜访人名字
@@ -21,9 +23,16 @@ public class SecurityVisitOrder extends LevelApp_2 {
 	
 	private String carNO;			// 车牌号码
 	private String visitReason;		// 事由
-	private String employeeNO;		// 拜访人员(即拜访本公司的谁)  	// level_one ??
-	private String agentEmployeeNO;	// 转接人员					// level_two ??
+	private String employeeNO;		// 拜访人员(即拜访本公司的谁)
+	private String agentEmployeeNO; // 转接人员(们)
 	private String interviewNO;		// 已接见人
+	
+	
+	private String enterAuthNO;		// 入厂放行 (保安NO)
+	private String exitAuthNO;		// 出厂放行 (保安NO)
+	private Date	enterDate;		// 入厂时间
+	private Date	exitDate;		// 出厂时间
+	
 	
 	public String getVisitorCompany() {
 		return visitorCompany;
@@ -73,4 +82,29 @@ public class SecurityVisitOrder extends LevelApp_2 {
 	public void setInterviewNO(String interviewNO) {
 		this.interviewNO = interviewNO;
 	}
+	public String getEnterAuthNO() {
+		return enterAuthNO;
+	}
+	public void setEnterAuthNO(String enterAuthNO) {
+		this.enterAuthNO = enterAuthNO;
+	}
+	public String getExitAuthNO() {
+		return exitAuthNO;
+	}
+	public void setExitAuthNO(String exitAuthNO) {
+		this.exitAuthNO = exitAuthNO;
+	}
+	public Date getEnterDate() {
+		return enterDate;
+	}
+	public void setEnterDate(Date enterDate) {
+		this.enterDate = enterDate;
+	}
+	public Date getExitDate() {
+		return exitDate;
+	}
+	public void setExitDate(Date exitDate) {
+		this.exitDate = exitDate;
+	}
+	
 }

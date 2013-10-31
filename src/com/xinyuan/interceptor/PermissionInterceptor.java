@@ -20,6 +20,15 @@ import com.xinyuan.util.JsonHelper;
 
 public class PermissionInterceptor extends AbstractInterceptor {
 	
+//	private static List<String> methods = new ArrayList<String>();
+//	{
+//		methods.add(ConstantsConfig.METHOD_READ);
+//		methods.add(ConstantsConfig.METHOD_CREATE);
+//		methods.add(ConstantsConfig.METHOD_MODIFY);
+//		methods.add(ConstantsConfig.METHOD_DELETE);
+//		methods.add(ConstantsConfig.METHOD_APPLY);
+//	}
+	
 	public static String getContextName() {
 		return ActionContext.getContext().getName();
 	}
@@ -55,7 +64,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		
 		// ok , check if administrator  	//TODO: For test , remove it , in production, give all the permission to administrator, or , just leave it?
 		boolean isAdministrator = AdministratorInterceptor.isAdmin((User)SessionManager.get(ConstantsConfig.SIGNIN_USER));
-		if (isAdministrator) return invocation.invoke();
+		if (isAdministrator) return invocation.invoke();	// ok , let it pass
 		
 		boolean isAllowable = false;
 		
@@ -68,8 +77,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 			isAllowable = checkPermission(action, method, models, permissions); 			// URL:HumanResource__read, MODELS:[".Employee",".EmplyeeOutOrder"]
 		}
 		
-		// ok , let it pass
-		if (isAllowable) return invocation.invoke();
+		if (isAllowable) return invocation.invoke();	// ok , let it pass
 		
 		message.description = ConstantsConfig.DENY;
 		
@@ -135,7 +143,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	
 	/**
 	 * 
-	 * @param permissions		the permission user had
+	 * @param permissions		the permissions signined user had
 	 * @param action			be checked action
 	 * @param model				be checked model
 	 * @param method			be checked method
@@ -143,6 +151,8 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	 */
 	private static boolean check(Map<String, Object> permissions, String action, String model, String method) {
 		if(action.equals(ConstantsConfig.ACTION_APPROVAL) && method.equals(ConstantsConfig.METHOD_READ)) return true;	// Let "read" the Approval package permission go through
+		
+//		if (! methods.contains(method)) return true;		// for SecurityAction.inform ... TODO: ...
 		
 		try {
 			
