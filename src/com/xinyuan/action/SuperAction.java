@@ -45,9 +45,8 @@ public class SuperAction extends ActionModelBase {
 		List<List<String>> outterFields = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.FIELDS, false);
 		List<List<String>> outterSorts = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.SORTS, false);
 		List<Map<String, Map>> outterCriterials = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.CRITERIAS, true);
-		
-		
 		List<Map<String, String>> outterJoins = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.JOINS, true);
+		
 		if (outterJoins != null && outterJoins.size() != 0) {
 			
 			List<Object> result = dao.readJoined(models, objectKeys, outterFields, outterCriterials, outterJoins, outterSorts);
@@ -135,7 +134,7 @@ public class SuperAction extends ActionModelBase {
 			dao.modify(persistence);
 		}
 		// push APNS notifications
-		ApnsHelper.inform(allJsonObject);
+		ApnsHelper.sendAPNS(allJsonObject, message);
 		
 		message.status = ConstantsConfig.STATUS_SUCCESS;
 		return Action.NONE;
@@ -164,7 +163,6 @@ public class SuperAction extends ActionModelBase {
 				message.status = ConstantsConfig.STATUS_SUCCESS;
 			}
 		}
-		
 		
 		return Action.NONE;
 	}
@@ -198,8 +196,9 @@ public class SuperAction extends ActionModelBase {
 			ApprovalHelper.deletePendingApprove(signinedUser, orderNO, orderType);
 			
 		}
+		
 		// push APNS notifications
-		ApnsHelper.inform(allJsonObject);
+		ApnsHelper.sendAPNS(allJsonObject, message);
 		
 		message.status = ConstantsConfig.STATUS_SUCCESS;
 		return Action.NONE;

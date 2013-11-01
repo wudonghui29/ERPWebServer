@@ -15,6 +15,7 @@ import javapns.notification.ResponsePacket;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.xinyuan.message.ConstantsConfig;
+import com.xinyuan.message.ResponseMessage;
 
 
 // Reference : http://demo.netfoucs.com/truenaruto/article/details/9165011
@@ -24,12 +25,34 @@ public class ApnsHelper {
 	private static final String APNS_ALERT = "Alert";
 	private static final String APNS_Sound = "Sound";
 	private static final String APNS_Badge = "Badge";
-	
 	private static final String APNS_Sound_DEFAULT = "default";
 	
 	
-	public static void inform(JsonObject allJsonObject) throws Exception {
+	public static boolean sendAPNS(JsonObject allJsonObject, ResponseMessage message) {
+		boolean isSuccess = false;
+		try {
+			
+			// push APNS notifications
+			ApnsHelper.inform(allJsonObject);
+			
+			isSuccess = true;
+			message.apnsStatus = ConstantsConfig.STATUS_SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			isSuccess = false;
+			message.apnsStatus = ConstantsConfig.STATUS_FAILED;
+			message.description = ConstantsConfig.MESSAGE.PushAPNSFailed;
+		}
 		
+		return isSuccess;
+	}
+	
+	/**
+	 * @param allJsonObject		{ "APNS_FORWARDS" : [] , "APNS_CONTENTS" : [] }
+	 * @throws Exception
+	 */
+	private static void inform(JsonObject allJsonObject) throws Exception {
 		JsonArray forwardsList = allJsonObject.getAsJsonArray(ConstantsConfig.APNS_FORWARDS);
 		JsonArray forwardContents = allJsonObject.getAsJsonArray(ConstantsConfig.APNS_CONTENTS);
 		
@@ -41,10 +64,8 @@ public class ApnsHelper {
 			String[] apnsTokens = ApprovalHelper.getAPNSToken(forwardUsername).split(ConstantsConfig.CONTENT_DIVIDER);
 			Map<String, Object> apnsMap = JsonHelper.translateElementToMap(forwardContents.get(index));
 			
-			ApnsHelper.push(apnsMap, apnsTokens);
+			push(apnsMap, apnsTokens);
 		}
-		
-		
 	}
 	
 	
@@ -82,27 +103,30 @@ public class ApnsHelper {
 			payload.addCustomDictionary(key, (String) entry.getValue());
 		}
 		
-		ApnsHelper.sendWithOutThread(payload, ConstantsConfig.APNS_CERTIFICATE_PATH, ConstantsConfig.APNS_CERTIFICATE_PASSWORD, ConstantsConfig.APNS_IN_PRODUCTION, devices);
+		sendWithOutThread(payload, ConstantsConfig.APNS_CERTIFICATE_PATH, ConstantsConfig.APNS_CERTIFICATE_PASSWORD, ConstantsConfig.APNS_IN_PRODUCTION, devices);
 		
 	}
 	
+	private static void sendWithOutThread(final Payload payload, final Object keystore, final String password, final boolean production, final String[] devices) throws Exception {
+		send(payload, keystore, password, production, devices);
+	}
 	
-	public static void sendWithThread(final Payload payload, final Object keystore, final String password, final boolean production, final String[] devices) {
-		// start a new thread to send notification  // But: http://stackoverflow.com/questions/533783/why-spawning-threads-in-java-ee-container-is-discouraged
+	// But: http://stackoverflow.com/questions/533783/why-spawning-threads-in-java-ee-container-is-discouraged
+	private static void sendWithThread(final Payload payload, final Object keystore, final String password, final boolean production, final String[] devices) {
+		// start a new thread to send notification  
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				ApnsHelper.send(payload, keystore, password, production, devices);
+				try {
+					send(payload, keystore, password, production, devices);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}).start();
 	}
 	
-	public static void sendWithOutThread(final Payload payload, final Object keystore, final String password, final boolean production, final String[] devices) {
-		ApnsHelper.send(payload, keystore, password, production, devices);
-	}
-	
-	
-	public static void send(Payload payload, Object keystore, String password, boolean production, String[] devices) {
+	private static void send(Payload payload, Object keystore, String password, boolean production, String[] devices) throws Exception {
 		try {
 			
 			List<PushedNotification> notifications = Push.payload(payload, keystore, password, production, devices);
@@ -135,10 +159,11 @@ public class ApnsHelper {
 		} catch (KeystoreException e) {
 			/* A critical problem occurred while trying to use your keystore */  
 			e.printStackTrace();
-			
+			throw e;
 		} catch (CommunicationException e) {
 			/* A critical communication error occurred while trying to contact Apple servers */  
 			e.printStackTrace();
+			throw e;
 		}
 	}
 	

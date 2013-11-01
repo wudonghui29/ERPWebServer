@@ -19,14 +19,16 @@ import org.hibernate.annotations.GenericGenerator;
 @Table
 public class Approvals implements Serializable {
 
-	private String username;			// TODO: all employeeNO can not be modified again once it has value . In the set method , check it .
+	private String username;				// TODO: all employeeNO can not be modified again once it has value . In the set method , check it .
 	private String pendingApprovals = "";  	// the pending approval orders , split with "," e.g. "JH201304050901.HumanResource.Employee,JH201304050901.HumanResource.EmployeeOutOrder"
+	private String pendingInforms = "";		// the pending inform APNS. Some times the APNS would failed , so put it here .
 	
 	private String apnsToken = "";
 	
 	@Id
 	@GenericGenerator(name = "idGenerator", strategy = "assigned")
 	@GeneratedValue(generator = "idGenerator")
+	@Column(updatable=false)
 	public String getUsername() {
 		return username;
 	}
@@ -40,6 +42,14 @@ public class Approvals implements Serializable {
 	}
 	public void setPendingApprovals(String pendingApprovals) {
 		this.pendingApprovals = pendingApprovals;
+	}
+	
+	@Column(columnDefinition="TEXT")
+	public String getPendingInforms() {
+		return pendingInforms;
+	}
+	public void setPendingInforms(String pendingInforms) {
+		this.pendingInforms = pendingInforms;
 	}
 	
 	@Column(length=255, columnDefinition="varchar(255) default ''")

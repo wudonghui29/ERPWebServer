@@ -93,18 +93,7 @@ public class SettingAction extends ActionModelBase {
 	 * @return
 	 */
 	public String inform() {
-		// push APNS notifications
-		try {
-			ApnsHelper.inform(allJsonObject);
-			
-			message.status = ConstantsConfig.STATUS_SUCCESS;
-		} catch (Exception e) {
-			e.printStackTrace();
-			
-			message.status = ConstantsConfig.STATUS_FAILED;
-			message.description = ConstantsConfig.MESSAGE.PushAPNSFailed;
-		}
-		
+		ApnsHelper.sendAPNS(allJsonObject, message);
 		return Action.NONE;
 	}
 }

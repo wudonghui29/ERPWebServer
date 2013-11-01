@@ -11,6 +11,8 @@ public class ResponseMessage {
 	public String description = ConstantsConfig.NONE;
 	public String exception = ConstantsConfig.NONE;
 	
+	public String apnsStatus = null ;
+	
 	public Object objects = null;
 	
 	public List models = null;
@@ -39,12 +41,17 @@ public class ResponseMessage {
 	public void setException(String exception) {
 		this.exception = exception;
 	}
-	
-	public Object getObject() {
+	public String getApnsStatus() {
+		return apnsStatus;
+	}
+	public void setApnsStatus(String apnsStatus) {
+		this.apnsStatus = apnsStatus;
+	}
+	public Object getObjects() {
 		return objects;
 	}
-	public void setObject(Object object) {
-		this.objects = object;
+	public void setObjects(Object objects) {
+		this.objects = objects;
 	}
 	public List getModels() {
 		return models;
