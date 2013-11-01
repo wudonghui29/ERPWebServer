@@ -11,10 +11,11 @@ import org.apache.struts2.ServletActionContext;
 import com.modules.introspector.IntrospectHelper;
 import com.modules.util.FileHelper;
 import com.opensymphony.xwork2.Action;
-import com.xinyuan.dao.BaseDAO;
 import com.xinyuan.dao.HumanResourceDAO;
+import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.message.ConstantsConfig;
+import com.xinyuan.util.ApnsHelper;
 
 /**
  * 
@@ -30,9 +31,12 @@ import com.xinyuan.message.ConstantsConfig;
 public class SettingAction extends ActionModelBase {
 	
 	@Override
-	protected BaseDAO getDao() { return null; }
+	protected SuperDAO getDao() { return null; }
 
-	
+	/**
+	 * when client launch app
+	 * @return
+	 */
 	public String getApplicationModelsStructures() {
 		// get the file paths
 		String fileSeperator = System.getProperty("file.separator");
@@ -68,6 +72,10 @@ public class SettingAction extends ActionModelBase {
 		return Action.NONE;
 	}
 	
+	/**
+	 * When client singined
+	 * @return
+	 */
 	public String readNameEmployeeNOPairs() {
 		
 		HumanResourceDAO humanResourceDAO = new HumanResourceDAOIMP();
@@ -75,6 +83,27 @@ public class SettingAction extends ActionModelBase {
 		
 		message.status = ConstantsConfig.STATUS_SUCCESS;
 		message.objects = list;
+		
+		return Action.NONE;
+	}
+	
+	
+	/**
+	 * Push notifications
+	 * @return
+	 */
+	public String inform() {
+		// push APNS notifications
+		try {
+			ApnsHelper.inform(allJsonObject);
+			
+			message.status = ConstantsConfig.STATUS_SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			message.status = ConstantsConfig.STATUS_FAILED;
+			message.description = ConstantsConfig.MESSAGE.PushAPNSFailed;
+		}
 		
 		return Action.NONE;
 	}

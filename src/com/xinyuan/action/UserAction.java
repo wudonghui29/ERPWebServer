@@ -18,7 +18,7 @@ import com.modules.util.SecurityCode;
 import com.modules.util.StringHelper;
 import com.modules.util.VerifyCode;
 import com.opensymphony.xwork2.Action;
-import com.xinyuan.dao.BaseDAO;
+import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.UserDAO;
 import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.interceptor.AdministratorInterceptor;
@@ -30,7 +30,7 @@ import com.xinyuan.util.JsonHelper;
 public class UserAction extends ActionModelBase {
 	
 	@Override
-	protected BaseDAO getDao() { return null; }
+	protected SuperDAO getDao() { return null; }
 	
 	private UserDAO userDAO = new UserDAOIMP();
 	

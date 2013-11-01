@@ -31,7 +31,7 @@
 			
 	        <interceptor name="authorize-check" class="com.xinyuan.interceptor.AuthorizeInterceptor" />
 			<interceptor-stack name="onlineIntercepterStack">
-				<interceptor-ref name="defaultInterceptorsStack" />
+				<interceptor-ref name="notOnlineIntercepterStack" />
 				<interceptor-ref name="authorize-check" />
 			</interceptor-stack>
 			
@@ -62,6 +62,10 @@
 		</action>
 		
 		<action name="read*" class="com.xinyuan.action.SettingAction" method="read{1}">
+			<interceptor-ref name="onlineIntercepterStack"></interceptor-ref>
+		</action>
+		
+		<action name="inform" class="com.xinyuan.action.SettingAction" method="inform">
 			<interceptor-ref name="onlineIntercepterStack"></interceptor-ref>
 		</action>
 	</package>

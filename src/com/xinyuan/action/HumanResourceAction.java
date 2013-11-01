@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.opensymphony.xwork2.Action;
-import com.xinyuan.dao.BaseDAO;
+import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.UserDAO;
-import com.xinyuan.dao.impl.BaseDAOIMP;
+import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConstantsConfig;
@@ -19,7 +19,7 @@ import com.xinyuan.util.JsonHelper;
 public class HumanResourceAction extends SuperAction {
 	
 	@Override
-	protected BaseDAO getDao() {
+	protected SuperDAO getDao() {
 		return new HumanResourceDAOIMP();
 	}
 	
@@ -50,7 +50,7 @@ public class HumanResourceAction extends SuperAction {
 				Approvals approval = new Approvals();
 				approval.setUsername(username);
 				
-				BaseDAO baseDAO = new BaseDAOIMP();
+				SuperDAO baseDAO = new SuperDAOIMP();
 				baseDAO.create(newUser);
 				baseDAO.create(approval);
 			}

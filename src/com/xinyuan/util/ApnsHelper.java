@@ -82,21 +82,23 @@ public class ApnsHelper {
 			payload.addCustomDictionary(key, (String) entry.getValue());
 		}
 		
-		ApnsHelper.sendUseThread(payload, ConstantsConfig.APNS_CERTIFICATE_PATH, ConstantsConfig.APNS_CERTIFICATE_PASSWORD, ConstantsConfig.APNS_IN_PRODUCTION, devices);
+		ApnsHelper.sendWithOutThread(payload, ConstantsConfig.APNS_CERTIFICATE_PATH, ConstantsConfig.APNS_CERTIFICATE_PASSWORD, ConstantsConfig.APNS_IN_PRODUCTION, devices);
 		
 	}
 	
 	
-	public static void sendUseThread(final Payload payload, final Object keystore, final String password, final boolean production, final String[] devices) {
-		
-		// start a new thread to send notification
+	public static void sendWithThread(final Payload payload, final Object keystore, final String password, final boolean production, final String[] devices) {
+		// start a new thread to send notification  // But: http://stackoverflow.com/questions/533783/why-spawning-threads-in-java-ee-container-is-discouraged
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				ApnsHelper.send(payload, keystore, password, production, devices);
 			}
 		}).start();
-		
+	}
+	
+	public static void sendWithOutThread(final Payload payload, final Object keystore, final String password, final boolean production, final String[] devices) {
+		ApnsHelper.send(payload, keystore, password, production, devices);
 	}
 	
 	

@@ -15,7 +15,7 @@ import com.xinyuan.model.OrderModel;
  * Limited specified XDAO access XMODEL  
  * 
  */
-public abstract class ModelDAOIMP extends BaseDAOIMP implements ModelDAO {
+public abstract class ModelDAOIMP extends SuperDAOIMP implements ModelDAO {
 	
 	
 	
@@ -111,7 +111,7 @@ public abstract class ModelDAOIMP extends BaseDAOIMP implements ModelDAO {
 	
 	
 	
-	
+	// only for super
 	@Override
 	public <E extends Object> List<E> readJoined(List<Object> models, List<Set<String>> objectKeys, List<List<String>> outterFields, List<Map<String, Map>> outterCriterials, List<Map<String, String>> outterJoins, List<List<String>> outterSorts) throws Exception {
 		return null;

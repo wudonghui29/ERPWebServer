@@ -8,13 +8,13 @@ import java.util.Set;
 import org.hibernate.Query;
 
 import com.modules.introspector.IntrospectHelper;
-import com.xinyuan.dao.BaseDAO;
+import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.util.QueryCriteriasHelper;
 import com.xinyuan.util.QueryFieldsHelper;
 import com.xinyuan.util.QueryObjectsHelper;
 import com.xinyuan.util.QuerySortsHelper;
 
-public class BaseDAOIMP extends HibernateDAO implements BaseDAO {
+public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 	
 	@Override
 	public <E extends Object> E readUnique(E object, Serializable id) throws Exception {

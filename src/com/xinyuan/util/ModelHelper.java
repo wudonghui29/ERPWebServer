@@ -9,6 +9,7 @@ import java.util.Map;
 import com.global.SessionManager;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.message.FormatConfig;
+import com.xinyuan.model.BaseModel;
 import com.xinyuan.model.LevelAPP_5;
 import com.xinyuan.model.LevelApp_1;
 import com.xinyuan.model.LevelApp_2;
@@ -31,6 +32,7 @@ import com.xinyuan.model.HumanResource.EmployeeQuitPassOrder;
 import com.xinyuan.model.HumanResource.EmployeeSDOrder;
 import com.xinyuan.model.HumanResource.EmployeeSMOrder;
 import com.xinyuan.model.Security.SecurityVisitOrder;
+import com.xinyuan.model.User.User;
 import com.xinyuan.model.User.User;
 
 public class ModelHelper {
@@ -75,7 +77,7 @@ public class ModelHelper {
 	}
 	
 	// in BaseAction Create() method
-	public static void setOrderBasicCreateDetail(OrderModel model) {
+	public static void setOrderBasicCreateDetail(BaseModel model) {
 		Date date = new Date();
 		model.setCreateDate(date);
 		User user = (User)SessionManager.get(ConstantsConfig.SIGNIN_USER);

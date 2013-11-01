@@ -1,12 +1,12 @@
 package com.xinyuan.action;
 
-import com.xinyuan.dao.BaseDAO;
+import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.SecurityDAOIMP;
 
 public class SecurityAction extends SuperAction {
 
 	@Override
-	protected BaseDAO getDao() {
+	protected SuperDAO getDao() {
 		return new SecurityDAOIMP();
 	}
 	

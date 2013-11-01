@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.gson.JsonObject;
-import com.xinyuan.dao.BaseDAO;
+import com.xinyuan.dao.SuperDAO;
 
 public abstract class ActionModelBase extends ActionBase {
 
-	protected BaseDAO dao = getDao() ;
-	protected abstract BaseDAO getDao() ;
+	protected SuperDAO dao = getDao() ;
+	protected abstract SuperDAO getDao() ;
 	
 	
 	protected JsonObject allJsonObject;

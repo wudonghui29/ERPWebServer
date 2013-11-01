@@ -10,7 +10,7 @@ import javax.print.DocFlavor.STRING;
 import com.xinyuan.model.OrderModel;
 
 
-public interface BaseDAO {
+public interface SuperDAO {
 	
 	
 	/**

@@ -11,10 +11,11 @@ import com.google.gson.JsonArray;
 import com.modules.introspector.IntrospectHelper;
 import com.modules.introspector.ModelIntrospector;
 import com.opensymphony.xwork2.Action;
-import com.xinyuan.dao.BaseDAO;
 import com.xinyuan.dao.ModelDAO;
-import com.xinyuan.dao.impl.BaseDAOIMP;
+import com.xinyuan.dao.SuperDAO;
+import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.message.ConstantsConfig;
+import com.xinyuan.model.BaseModel;
 import com.xinyuan.model.OrderModel;
 import com.xinyuan.model.User.User;
 import com.xinyuan.util.ApnsHelper;
@@ -30,8 +31,8 @@ public class SuperAction extends ActionModelBase {
 	}
 	
 	@Override
-	protected BaseDAO getDao() {
-		return new BaseDAOIMP();
+	protected SuperDAO getDao() {
+		return new SuperDAOIMP();
 	}
 
 	
@@ -90,9 +91,10 @@ public class SuperAction extends ActionModelBase {
 		
 		for (int i = 0; i < models.size(); i++) {
 			
-			OrderModel model = (OrderModel)models.get(i);
+			BaseModel model = (BaseModel)models.get(i);
 			
 			ModelHelper.setOrderBasicCreateDetail(model);
+			
 			Integer identifier = (Integer) dao.create(model);
 			
 			Map result = new HashMap();
@@ -103,8 +105,6 @@ public class SuperAction extends ActionModelBase {
 			
 			results.add(result);
 		}
-		// push APNS notifications
-		ApnsHelper.inform(allJsonObject);
 		
 		message.status = ConstantsConfig.STATUS_SUCCESS ;
 		message.objects = results;
@@ -122,13 +122,13 @@ public class SuperAction extends ActionModelBase {
 		
 		for (int i = 0; i < models.size(); i++) {
 			
-			OrderModel model = (OrderModel)models.get(i);
+			BaseModel model = (BaseModel)models.get(i);
 			
 			Set<String> keys = objectKeys.get(i);
 			
 			String identityJSON = JsonHelper.getGson().toJson(identityList.get(i));
-			OrderModel persistenceWithID = JsonHelper.getGson().fromJson(identityJSON, model.getClass());		// po
-			OrderModel persistence = ((ModelDAO)dao).read(persistenceWithID);		// get all values of this po
+			BaseModel persistenceWithID = JsonHelper.getGson().fromJson(identityJSON, model.getClass());		// po
+			BaseModel persistence = ((ModelDAO)dao).read(persistenceWithID);		// get all values of this po
 			
 			ModelIntrospector.copyVoToPo(model, persistence, keys);
 			
@@ -151,11 +151,11 @@ public class SuperAction extends ActionModelBase {
 		
 		for (int i = 0; i < models.size(); i++) {
 					
-			OrderModel model = (OrderModel)models.get(i);
+			BaseModel model = (BaseModel)models.get(i);
 				
 			String identityJSON = JsonHelper.getGson().toJson(identityList.get(i));
-			OrderModel persistenceWithID = JsonHelper.getGson().fromJson(identityJSON, model.getClass());		// po
-			OrderModel persistence = ((ModelDAO)dao).read(persistenceWithID);		// get all values of this po
+			BaseModel persistenceWithID = JsonHelper.getGson().fromJson(identityJSON, model.getClass());		// po
+			BaseModel persistence = ((ModelDAO)dao).read(persistenceWithID);		// get all values of this po
 			
 			dao.delete(persistence);
 			
@@ -184,7 +184,7 @@ public class SuperAction extends ActionModelBase {
 			
 			OrderModel persistence = ((ModelDAO)dao).read(model);		// get all values
 			
-			boolean isAllApproved = ModelHelper.approve(persistence, signinedUser);  // TODO: Handle Exception
+//			boolean isAllApproved = ModelHelper.approve(persistence, signinedUser);  // TODO: Handle Exception
 			
 			// update the Order Table
 			String forwardUsername = forwardsList.get(i).getAsString();

@@ -89,8 +89,8 @@ public class ConstantsConfig {
 		public static final String UserPasswordError = "User_Password_Error";
 	}
 	
-	public static class EMPLOYEE {
-		public static final String EmployeeNOIsExisted = "Employee_NO_Existed";
-	}
 	
+	public static class MESSAGE {
+		public static final String PushAPNSFailed = "Push_APNS_Failed";
+	}
 }
