@@ -6,7 +6,7 @@ public class QueryFieldsHelper {
 	
 	
 	public static <E extends Object> String assembleFieldsSelectClause(String alias, List<String> fields) {
-		if (fields == null || fields.size() == 0) return null;
+		if (fields == null || fields.size() == 0) return "";
 		
 		String hql  = "" ;
 		int fieldSize = fields.size();
@@ -16,7 +16,7 @@ public class QueryFieldsHelper {
 			if (i != fieldSize - 1) hql += ", ";
 		}
 		
-		return hql.isEmpty() ? null : hql;
+		return hql;
 	}
 
 }

@@ -12,10 +12,6 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageOutputStream;
 
-import com.opensymphony.xwork2.ActionContext;
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-import com.sun.org.apache.regexp.internal.recompile;
-
 public class VerifyCode {
 
 	public static String generateCode(int length) {

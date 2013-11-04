@@ -14,6 +14,8 @@ import javapns.notification.ResponsePacket;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.opensymphony.xwork2.ActionContext;
+import com.xinyuan.action.ActionBase;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.message.ResponseMessage;
 
@@ -29,23 +31,20 @@ public class ApnsHelper {
 	
 	
 	public static boolean sendAPNS(JsonObject allJsonObject, ResponseMessage message) {
-		boolean isSuccess = false;
 		try {
+			message.apnsStatus = ConstantsConfig.STATUS_SUCCESS;
 			
 			// push APNS notifications
 			ApnsHelper.inform(allJsonObject);
 			
-			isSuccess = true;
-			message.apnsStatus = ConstantsConfig.STATUS_SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-			isSuccess = false;
 			message.apnsStatus = ConstantsConfig.STATUS_FAILED;
 			message.description = ConstantsConfig.MESSAGE.PushAPNSFailed;
 		}
 		
-		return isSuccess;
+		return message.apnsStatus.equalsIgnoreCase(ConstantsConfig.STATUS_SUCCESS) ;
 	}
 	
 	/**
@@ -127,34 +126,11 @@ public class ApnsHelper {
 	}
 	
 	private static void send(Payload payload, Object keystore, String password, boolean production, String[] devices) throws Exception {
+		List<PushedNotification> notifications = null;
+		
 		try {
 			
-			List<PushedNotification> notifications = Push.payload(payload, keystore, password, production, devices);
-	        
-			
-			for (PushedNotification notification : notifications) {
-	            if (notification.isSuccessful()) {
-	                    /* Apple accepted the notification and should deliver it */  
-	                    System.out.println("Push notification sent successfully to: " + notification.getDevice().getToken());
-	                    /* Still need to query the Feedback Service regularly */  
-	            } else {
-	                    String invalidToken = notification.getDevice().getToken();
-	                    /* Add code here to remove invalidToken from your database */  
-	
-	                    /* Find out more about what the problem was */  
-	                    Exception theProblem = notification.getException();
-	                    theProblem.printStackTrace();
-	
-	                    /* If the problem was an error-response packet returned by Apple, get it */  
-	                    ResponsePacket theErrorResponse = notification.getResponse();
-	                    if (theErrorResponse != null) {
-	                            System.out.println(theErrorResponse.getMessage());
-	                    }
-	            }
-	            
-			}
-			
-			
+			notifications = Push.payload(payload, keystore, password, production, devices);
 		
 		} catch (KeystoreException e) {
 			/* A critical problem occurred while trying to use your keystore */  
@@ -165,6 +141,35 @@ public class ApnsHelper {
 			e.printStackTrace();
 			throw e;
 		}
+			
+		/* App Message */
+		ActionBase action = (ActionBase)ActionContext.getContext().getActionInvocation().getAction();
+		ResponseMessage message = action.getMessage();
+		
+		for (PushedNotification notification : notifications) {
+            if (notification.isSuccessful()) {
+                    /* Apple accepted the notification and should deliver it */  
+                    System.out.println("Push notification sent successfully to: " + notification.getDevice().getToken());
+                    /* Still need to query the Feedback Service regularly */  
+                    
+            } else {
+            		message.apnsStatus = ConstantsConfig.STATUS_FAILED;
+            		
+                    String invalidToken = notification.getDevice().getToken();
+                    /* Add code here to remove invalidToken from your database */  
+
+                    /* Find out more about what the problem was */  
+                    Exception theProblem = notification.getException();
+                    theProblem.printStackTrace();
+
+                    /* If the problem was an error-response packet returned by Apple, get it */  
+                    ResponsePacket theErrorResponse = notification.getResponse();
+                    if (theErrorResponse != null)  System.out.println(theErrorResponse.getMessage());
+            }
+            
+		}
+			
+			
 	}
 	
 }

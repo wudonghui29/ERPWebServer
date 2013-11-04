@@ -40,9 +40,7 @@ public class SettingAction extends ActionModelBase {
 	public String getApplicationModelsStructures() {
 		// get the file paths
 		String fileSeperator = System.getProperty("file.separator");
-		String contextPath = ServletActionContext.getServletContext().getRealPath(File.separator);
-		
-		String modelsFilesPath = contextPath + "WEB-INF" + fileSeperator + "classes" + fileSeperator + "com" + fileSeperator + "xinyuan" + fileSeperator + "model" + fileSeperator;
+		String modelsFilesPath = ConstantsConfig.contextRealPath + "WEB-INF" + fileSeperator + "classes" + fileSeperator + "com" + fileSeperator + "xinyuan" + fileSeperator + "model" + fileSeperator;
 		
 		// get the file name list
 		File folder = new File(modelsFilesPath);

@@ -34,6 +34,9 @@ public class SecurityVisitOrder extends LevelApp_1 {
 	private Date	exitDate;		// 出厂时间
 	
 	
+	private int imageCount ;		// 拍照图片数量
+	
+	
 	public String getVisitorCompany() {
 		return visitorCompany;
 	}
@@ -105,6 +108,14 @@ public class SecurityVisitOrder extends LevelApp_1 {
 	}
 	public void setExitDate(Date exitDate) {
 		this.exitDate = exitDate;
+	}
+	
+	
+	public int getImageCount() {
+		return imageCount;
+	}
+	public void setImageCount(int imageCount) {
+		this.imageCount = imageCount;
 	}
 	
 }

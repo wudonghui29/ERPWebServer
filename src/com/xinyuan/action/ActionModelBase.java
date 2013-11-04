@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.google.gson.JsonObject;
 import com.xinyuan.dao.SuperDAO;
+import com.xinyuan.message.RequestMessage;
 
 public abstract class ActionModelBase extends ActionBase {
 
@@ -13,9 +14,12 @@ public abstract class ActionModelBase extends ActionBase {
 	
 	
 	protected JsonObject allJsonObject;
-	
 	protected List<Object> models;				// vos
 	protected List<Set<String>> objectKeys;		// vos' keys
+	
+	
+	protected RequestMessage requestMessage;
+	
 	
 	
 	public List<Object> getModels() {
@@ -37,6 +41,15 @@ public abstract class ActionModelBase extends ActionBase {
 	}
 	public void setAllJsonObject(JsonObject allJsonObject) {
 		this.allJsonObject = allJsonObject;
+	}
+	
+	
+	
+	public RequestMessage getRequestMessage() {
+		return requestMessage;
+	}
+	public void setRequestMessage(RequestMessage requestMessage) {
+		this.requestMessage = requestMessage;
 	}
 
 }

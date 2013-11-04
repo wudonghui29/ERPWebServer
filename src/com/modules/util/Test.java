@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -111,7 +112,6 @@ public class Test extends HashSet {
 		
 		
 //		boolean isEmpty = perssionStr.isEmpty();
-		
 //		JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(perssionStr);
 //		Map<String, Object> permissions = JsonHelper.translateElementToMap(jsonObject);
 		
@@ -120,13 +120,11 @@ public class Test extends HashSet {
 		
 //		String str = "YG201312011212";
 //		String strDigit = str.replaceAll("\\D+","");
-//		
 //		int digitCount = strDigit.length();
 //		int formatCount = FormatConfig.DATESTRING_WITH_SECOND_FORMAT.length();
 //		int formatWithoutSecondCount = FormatConfig.DATESTRING_WITHOUT_SECOND_FORMAT.length();
 		
 		String dateString = "20130408123005";
-		
 		String lastStr = dateString.substring(dateString.length() - 1);
 		int i = Integer.valueOf(lastStr);
 		dateString = dateString.substring(0, dateString.length() - 1) + (i+1) ;
@@ -168,7 +166,7 @@ public class Test extends HashSet {
 	}
 	
 	// TEST APNS
-	 public static void main(String[] args) {
+	 public static void main00000000000000(String[] args) {
 //       String[] devices = {"7df340181160dcb82607885e332e770b497a754758592047646396cebc9ab913",  "9ab941ea30f5cc4db41fc0a5dbbeae2dfe6a9d0f8c3bca1b97cc5c043aff6be0"}; 
 		 String[] devices = {"7df34018 1160dcb8 2607885e 332e770b 497a7547 58592047 646396ce bc9ab913",  "9ab941ea 30f5cc4d b41fc0a5 dbbeae2d fe6a9d0f 8c3bca1b 97cc5c04 3aff6be0"}; 
 		 Map<String, Object> map = new HashMap<String, Object>();
@@ -190,6 +188,14 @@ public class Test extends HashSet {
 	 public static void main____________(String[] args) {
 		 SettingAction settingAction = new SettingAction();
 		 settingAction.getApplicationModelsStructures();
+	}
+	 
+	 
+	 public static void main(String[] args) {
+		 List<String> list = null;
+		 for (String string : list) {
+			 System.out.println(string);
+		 }
 	}
 	 
 	 

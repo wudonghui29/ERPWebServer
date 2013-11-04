@@ -1,10 +1,16 @@
 package com.xinyuan.message;
 
+import java.io.File;
+
+import org.apache.struts2.ServletActionContext;
+
 public class ConstantsConfig {
+	
+	public static final String contextRealPath = ServletActionContext.getServletContext().getRealPath(File.separator);
 	
 	public static final boolean APNS_IN_PRODUCTION = false;			// TODO: in production , replace it with true
 	public static final String APNS_CERTIFICATE_PASSWORD = "12345";
-	public static final String APNS_CERTIFICATE_PATH = "../apnsDevelop.p12";
+	public static final String APNS_CERTIFICATE_PATH = contextRealPath + "../apnsDevelop.p12";
 	
 	public static final String DEFAULT_PERMISSION = "{}";
 	

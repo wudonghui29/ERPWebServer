@@ -3,6 +3,7 @@ package com.modules.introspector;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class IntrospectHelper {
 	
 	
 	/**
-	 * 
+	 * HumanResource.Employee{name,sex,birthday, ... }
 	 */
 	public static Map<String, Map<String, List<String>>> translateToPropertiesMap(List<String> wholeClassNames) {
 		Map<String, Map<String, List<String>>> map = new HashMap<String, Map<String, List<String>>>();
@@ -67,7 +68,7 @@ public class IntrospectHelper {
 				Class<?> classObj = Class.forName(wholeClassName);
 				for (PropertyDescriptor pd : Introspector.getBeanInfo(classObj).getPropertyDescriptors()) {
 					String propertyname = pd.getName() ;
-					if (!"class".equals(propertyname)) {
+					if (!isClassPropertyName(propertyname)) {
 						list.add(propertyname);
 					}
 				}
@@ -97,7 +98,7 @@ public class IntrospectHelper {
 		
 		for (PropertyDescriptor pd : Introspector.getBeanInfo(object.getClass()).getPropertyDescriptors()) {
 			String propertyname = pd.getName() ;
-			if (!"class".equals(propertyname)) {
+			if (!isClassPropertyName(propertyname)) {
 				map.put(propertyname, pd.getPropertyType());
 			}
 		}
@@ -151,6 +152,32 @@ public class IntrospectHelper {
 		}
 
 		return value;
+	}
+	
+	
+	public static String objectToString(Object object) {
+		String toString = "";
+		try {
+			PropertyDescriptor[] propertyDescriptors = Introspector.getBeanInfo(object.getClass()).getPropertyDescriptors();
+			
+			for (PropertyDescriptor pd : propertyDescriptors) {
+				String propertyname = pd.getName() ;
+				if (isClassPropertyName(propertyname)) continue ;
+				Method readMethod = pd.getReadMethod();
+				Object value = readMethod.invoke(object);
+				if (value != null) toString += propertyname + ": " + value.toString() + ", ";
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return toString;
+	}
+	
+	
+	public static boolean isClassPropertyName(String propertyname) {
+//		"class".equals(propertyname)
+		return "class".equalsIgnoreCase(propertyname);
 	}
 
 }

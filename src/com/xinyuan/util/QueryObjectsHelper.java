@@ -13,8 +13,8 @@ public class QueryObjectsHelper {
 	
 	private static String MARK = "_";
 	
-	public static String assembleObjectsWhereClause(Set<String> keys, String alias) {
-		if (keys == null || keys.size() == 0) return null;
+	public static String assembleObjectsWhereClause(String alias, Set<String> keys) {
+		if (keys == null || keys.size() == 0) return "";
 		
 		String whereString = "";
 		
@@ -23,18 +23,21 @@ public class QueryObjectsHelper {
 		while (iterator.hasNext()) {
 			String key = iterator.next();
 			whereString += " " + (alias != null ? alias + "." + key : key) + " = " + ":" + MARK + (alias != null ? alias + key : key);
-			if (iterator.hasNext()) whereString += " and";
+			if (iterator.hasNext()) whereString += " AND";
 		}
 		
-		return whereString.isEmpty() ? null : whereString;
+		return whereString;
 	}
 	
 	
-	public static <E extends Object> void setObjectsWhereValues(Query query, E object, Set<String> keys, String alias) throws Exception {
-		// set values
+	public static <E extends Object> void setObjectsWhereValues(Query query, E object, Set<String> keys) throws Exception {
+		if (keys == null || keys.size() == 0) return;
+		
+		String alias = IntrospectHelper.getShortClassName(object);
 		for (PropertyDescriptor pd : Introspector.getBeanInfo(object.getClass()).getPropertyDescriptors()) {
-			if (pd.getReadMethod() != null && !"class".equals(pd.getName())) {
+			if (pd.getReadMethod() != null && !IntrospectHelper.isClassPropertyName(pd.getName())) {
 				String propertyname = pd.getName() ;
+				// set values
 				if (IntrospectHelper.isContains(keys, propertyname)){
 					Object propertyvalue =  pd.getReadMethod().invoke(object);
 					query.setParameter(MARK + (alias != null ? alias + propertyname : propertyname), propertyvalue);

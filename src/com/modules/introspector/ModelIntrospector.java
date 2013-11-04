@@ -6,6 +6,8 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.util.Set;
 
+import javax.persistence.criteria.CriteriaBuilder.In;
+
 
 public class ModelIntrospector {
 	
@@ -63,7 +65,7 @@ public class ModelIntrospector {
 		
 		for (PropertyDescriptor pd : Introspector.getBeanInfo(po.getClass()).getPropertyDescriptors()) {
 			
-			if (pd.getReadMethod() != null && !"class".equals(pd.getName())) {
+			if (pd.getReadMethod() != null && !IntrospectHelper.isClassPropertyName(pd.getName())) {
 				
 				String propertyname = pd.getName() ;
 				

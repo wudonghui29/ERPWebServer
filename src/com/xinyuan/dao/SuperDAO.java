@@ -88,7 +88,7 @@ public interface SuperDAO {
 	
 	
 	
-	<E extends Object> List<E> readJoined(List<Object> models, List<Set<String>> objectKeys, List<List<String>> outterFields, List<Map<String, Map>> outterCriterials, List<Map<String, String>> outterJoins, List<List<String>> outterSorts) throws Exception;
+	<E extends Object> List<E> readJoined(List<Object> outterObjects, List<Set<String>> outterKeys, List<List<String>> outterFields, List<Map<String, Map>> outterCriterials, List<Map<String, String>> outterJoins, List<List<String>> outterSorts, List<List<String>> outterLimits) throws Exception;
 	
 	
 	

@@ -22,7 +22,7 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.xinyuan.action.ActionModelBase;
 import com.xinyuan.action.SuperAction;
 import com.xinyuan.message.ConstantsConfig;
-import com.xinyuan.message.ResponseMessage;
+import com.xinyuan.message.RequestMessage;
 import com.xinyuan.util.JsonHelper;
 
 public class JsonInterpretInterceptor extends AbstractInterceptor {
@@ -31,12 +31,14 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 	public String intercept(ActionInvocation invocation) throws Exception {
 		
 		DLog.log(" Ready");
-		
+//		Action action = (Action)ActionContext.getContext().getActionInvocation().getAction();		// the same as follow
 		ActionModelBase baseAction = (ActionModelBase)invocation.getAction();
 		HttpServletRequest request = ServletActionContext.getRequest();
 		
 		String json = request.getParameter(ConstantsConfig.JSON);
 		DLog.log(json);
+		RequestMessage requestMessage = JsonHelper.getGson().fromJson(json, RequestMessage.class);
+		DLog.log(requestMessage.toString());
 		JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(json);
 		
 		
@@ -78,6 +80,7 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		baseAction.setModels(vos);
 		baseAction.setObjectKeys(voKeys);
 		baseAction.setAllJsonObject(jsonObject);
+		baseAction.setRequestMessage(requestMessage);
 		
 		return invocation.invoke();
 	}

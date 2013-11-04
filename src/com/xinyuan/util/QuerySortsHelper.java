@@ -9,8 +9,8 @@ public class QuerySortsHelper {
 	 * @param sorts   e.g ["employeeNO DESC"]
 	 * @return
 	 */
-	public static String assembleOrderByClause(List<String> sorts, String alias) {
-		if (sorts == null ||  sorts.size() == 0) return null;
+	public static String assembleOrderByClause(String alias, List<String> sorts) {
+		if (sorts == null ||  sorts.size() == 0) return "";
 		
 		String orderByString = "";
 		
@@ -21,7 +21,7 @@ public class QuerySortsHelper {
 			if (i != size-1) orderByString += ", "; 
 		}
 		
-		return orderByString.isEmpty() ? null : orderByString;
+		return orderByString;
 	}
 	
 }

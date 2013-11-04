@@ -46,10 +46,11 @@ public class SuperAction extends ActionModelBase {
 		List<List<String>> outterSorts = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.SORTS, false);
 		List<Map<String, Map>> outterCriterials = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.CRITERIAS, true);
 		List<Map<String, String>> outterJoins = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.JOINS, true);
+		List<List<String>> outterLimits = requestMessage.getLIMITS();
 		
 		if (outterJoins != null && outterJoins.size() != 0) {
 			
-			List<Object> result = dao.readJoined(models, objectKeys, outterFields, outterCriterials, outterJoins, outterSorts);
+			List<Object> result = dao.readJoined(models, objectKeys, outterFields, outterCriterials, outterJoins, outterSorts, outterLimits);
 			
 			results.add(result);
 			
@@ -127,7 +128,7 @@ public class SuperAction extends ActionModelBase {
 			
 			String identityJSON = JsonHelper.getGson().toJson(identityList.get(i));
 			BaseModel persistenceWithID = JsonHelper.getGson().fromJson(identityJSON, model.getClass());		// po
-			BaseModel persistence = ((ModelDAO)dao).read(persistenceWithID);		// get all values of this po
+			BaseModel persistence = ((ModelDAO)dao).readUnique(persistenceWithID);		// get all values of this po
 			
 			ModelIntrospector.copyVoToPo(model, persistence, keys);
 			
@@ -154,12 +155,12 @@ public class SuperAction extends ActionModelBase {
 				
 			String identityJSON = JsonHelper.getGson().toJson(identityList.get(i));
 			BaseModel persistenceWithID = JsonHelper.getGson().fromJson(identityJSON, model.getClass());		// po
-			BaseModel persistence = ((ModelDAO)dao).read(persistenceWithID);		// get all values of this po
+			BaseModel persistence = ((ModelDAO)dao).readUnique(persistenceWithID);		// get all values of this po
 			
 			dao.delete(persistence);
 			
 			// check if delete successfully
-			if (((ModelDAO)dao).read(persistenceWithID) == null) {
+			if (((ModelDAO)dao).readUnique(persistenceWithID) == null) {
 				message.status = ConstantsConfig.STATUS_SUCCESS;
 			}
 		}
@@ -180,7 +181,7 @@ public class SuperAction extends ActionModelBase {
 			
 			OrderModel model = (OrderModel)models.get(i);
 			
-			OrderModel persistence = ((ModelDAO)dao).read(model);		// get all values
+			OrderModel persistence = ((ModelDAO)dao).readUnique(model);		// get all values
 			
 //			boolean isAllApproved = ModelHelper.approve(persistence, signinedUser);  // TODO: Handle Exception
 			

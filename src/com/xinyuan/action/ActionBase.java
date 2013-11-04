@@ -5,9 +5,9 @@ import com.xinyuan.message.ResponseMessage;
 
 public abstract class ActionBase extends ActionSupport {
 
-	protected ResponseMessage message = new ResponseMessage();					// for subclass
+	protected ResponseMessage message = new ResponseMessage();					// for subclass use
 
-	public ResponseMessage getMessage() {						// for intercepter
+	public ResponseMessage getMessage() {										// for intercepter and ApnsHelper
 		return message;
 	}
 	
