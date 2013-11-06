@@ -37,7 +37,7 @@ public class WriteMessageInterceptor extends AbstractInterceptor {
 			String description = message.description == null || message.description.isEmpty() ? getDescription(e) : message.description;
 			
 			message.status = ConstantsConfig.STATUS_FAILED;
-			message.description = description.isEmpty() ? ConstantsConfig.REQUEST_ERROR : description;
+			message.description = description == null || description.isEmpty() ? ConstantsConfig.REQUEST_ERROR : description;
 			message.objects = null;
 			message.exception += (new Date()).toString() + " : " + e.getClass().getName() ;
 		}

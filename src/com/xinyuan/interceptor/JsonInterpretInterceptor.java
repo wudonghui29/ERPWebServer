@@ -16,7 +16,6 @@ import com.google.gson.JsonParser;
 import com.modules.introspector.IntrospectHelper;
 import com.modules.util.DLog;
 import com.opensymphony.xwork2.Action;
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.xinyuan.action.ActionModelBase;
@@ -38,7 +37,7 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		String json = request.getParameter(ConstantsConfig.JSON);
 		DLog.log(json);
 		RequestMessage requestMessage = JsonHelper.getGson().fromJson(json, RequestMessage.class);
-		DLog.log(requestMessage.toString());
+		DLog.log("RequestMessage : " + requestMessage.toString());
 		JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(json);
 		
 		

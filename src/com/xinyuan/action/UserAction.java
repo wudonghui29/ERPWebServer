@@ -146,18 +146,13 @@ public class UserAction extends ActionModelBase {
 	
 	public String adminModify() throws Exception {
 //		if (models.size() != 1) return Action.NONE;		// Forbid modified multi-
-		JsonArray jsonArray = (JsonArray)allJsonObject.get(ConstantsConfig.IDENTITYS);
-		List<String> identityList = JsonHelper.translateJsonArrayToList(jsonArray);
-		
+		List<Map<String, String>> identities = requestMessage.getIDENTITYS();
 		for (int i = 0; i < models.size(); i++) {
-			
 			User model = (User)models.get(i);
-			
 			Set<String> keys = objectKeys.get(i);
 			
-			String username = identityList.get(i);
+			String username = identities.get(i).get(ConstantsConfig.USERNAME);
 			User persistence = userDAO.getUser(username); 	// po
-			
 			ModelIntrospector.copyVoToPo(model, persistence, keys);
 			
 			userDAO.modify(persistence);

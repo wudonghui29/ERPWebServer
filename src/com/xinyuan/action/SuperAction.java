@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.hibernate.SQLQuery;
+
 import com.global.SessionManager;
 import com.google.gson.JsonArray;
 import com.modules.introspector.IntrospectHelper;
@@ -22,6 +24,7 @@ import com.xinyuan.util.ApnsHelper;
 import com.xinyuan.util.ApprovalHelper;
 import com.xinyuan.util.JsonHelper;
 import com.xinyuan.util.ModelHelper;
+import com.xinyuan.util.QueryLimitsHelper;
 
 public class SuperAction extends ActionModelBase {
 	
@@ -34,47 +37,45 @@ public class SuperAction extends ActionModelBase {
 	protected SuperDAO getDao() {
 		return new SuperDAOIMP();
 	}
-
-	
 	
 	
 	public String read() throws Exception {
-		
-		List<List<Object>> results = new ArrayList<List<Object>>();
-		
-		List<List<String>> outterFields = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.FIELDS, false);
-		List<List<String>> outterSorts = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.SORTS, false);
-		List<Map<String, Map>> outterCriterials = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.CRITERIAS, true);
-		List<Map<String, String>> outterJoins = JsonHelper.getListFromJson(allJsonObject, ConstantsConfig.JOINS, true);
+		List<List<String>> outterSorts = requestMessage.getSORTS();
+		List<List<String>> outterFields = requestMessage.getFIELDS();
 		List<List<String>> outterLimits = requestMessage.getLIMITS();
+		List<Map<String, String>> outterJoins = requestMessage.getJOINS();
+		List<Map<String, Map>> outterCriterials = requestMessage.getCRITERIAS();
 		
+		List<Object> results = new ArrayList<Object>();
 		if (outterJoins != null && outterJoins.size() != 0) {
 			
-			List<Object> result = dao.readJoined(models, objectKeys, outterFields, outterCriterials, outterJoins, outterSorts, outterLimits);
+			results = dao.readJoined(models, objectKeys, outterFields, outterCriterials, outterJoins, outterSorts, outterLimits);
 			
-			results.add(result);
+			if (QueryLimitsHelper.isJoinedNeedLimits(outterLimits)) {
+				if (message.numbers == null) message.numbers = new ArrayList<String>();
+				message.numbers.add(dao.getJoinedTotalRows());
+			}
 			
 		} else {
 		
 			for (int i = 0; i < models.size(); i++) {
 				
 				Object model = models.get(i);
-				
 				Set<String> keys = objectKeys.get(i);
-				
-				List<String> fields = outterFields == null ? null : outterFields.get(i);
-				
 				List<String> sorts = outterSorts == null ? null : outterSorts.get(i);
-				
+				List<String> limits= outterLimits == null ? null : outterLimits.get(i);
+				List<String> fields = outterFields == null ? null : outterFields.get(i);
 				Map<String, Map> criterias = outterCriterials == null ? null : outterCriterials.get(i);
 				
-				List<Object> result = dao.read(model, keys, fields, criterias, sorts);
+				results.add(dao.read(model, keys, fields, criterias, sorts, limits));
 				
-				results.add(result);
+				if (QueryLimitsHelper.isNeedLimit(limits)) {
+					if (message.numbers == null) message.numbers = new ArrayList<String>();
+					message.numbers.add(dao.getTotalRows(model, keys, fields, criterias));
+				}
 			}
 			
 		}
-		
 		
 		message.objects = results;
 		message.status = ConstantsConfig.STATUS_SUCCESS;
@@ -118,7 +119,7 @@ public class SuperAction extends ActionModelBase {
 		if (models.size() != 1) return Action.NONE;		// Forbid modified multi-
 		
 		Map<String, Object> allJsonMap = JsonHelper.translateElementToMap(allJsonObject);
-		List identityList = (List)allJsonMap.get(ConstantsConfig.IDENTITYS);
+		List identityList = (List)allJsonMap.get(ConstantsConfig.IDENTITYS);		// key - value
 		
 		for (int i = 0; i < models.size(); i++) {
 			
@@ -147,7 +148,7 @@ public class SuperAction extends ActionModelBase {
 		if (models.size() != 1) return Action.NONE;		// Forbid delete multi-
 		
 		Map<String, Object> allJsonMap = JsonHelper.translateElementToMap(allJsonObject);
-		List identityList = (List)allJsonMap.get(ConstantsConfig.IDENTITYS);
+		List identityList = (List)allJsonMap.get(ConstantsConfig.IDENTITYS);			// key -value
 		
 		for (int i = 0; i < models.size(); i++) {
 					

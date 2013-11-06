@@ -6,6 +6,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Map;
 
 import com.modules.introspector.IntrospectHelper;
 
@@ -14,16 +15,16 @@ public class RequestMessage {
 	private List MODELS;
 	private List OBJECTS;
 	
-	private List FIELDS;
-	private List JOINS;
-	private List SORTS;
-	private List LIMITS;
+	private List<List<String>> FIELDS;
+	private List<Map<String, String>> JOINS;
+	private List<List<String>> SORTS;
+	private List<List<String>> LIMITS;
 	
-	private List CRITERIAS;
-	private List IDENTITYS;
+	private List<Map<String, Map>> CRITERIAS;
+	private List<Map<String, String>> IDENTITYS;
 	private List PARAMETERS;
 	
-	private List PASSWORDS;
+	private List<String> PASSWORDS;
 	private List APNS_CONTENTS;
 	private List APNS_FORWARDS;
 	
@@ -40,40 +41,40 @@ public class RequestMessage {
 	public void setOBJECTS(List oBJECTS) {
 		OBJECTS = oBJECTS;
 	}
-	public List getFIELDS() {
+	public List<List<String>> getFIELDS() {
 		return FIELDS;
 	}
-	public void setFIELDS(List fIELDS) {
+	public void setFIELDS(List<List<String>> fIELDS) {
 		FIELDS = fIELDS;
 	}
-	public List getJOINS() {
+	public List<Map<String, String>> getJOINS() {
 		return JOINS;
 	}
-	public void setJOINS(List jOINS) {
+	public void setJOINS(List<Map<String, String>> jOINS) {
 		JOINS = jOINS;
 	}
-	public List getSORTS() {
+	public List<List<String>> getSORTS() {
 		return SORTS;
 	}
-	public void setSORTS(List sORTS) {
+	public void setSORTS(List<List<String>> sORTS) {
 		SORTS = sORTS;
 	}
-	public List getLIMITS() {
+	public List<List<String>> getLIMITS() {
 		return LIMITS;
 	}
-	public void setLIMITS(List lIMITS) {
+	public void setLIMITS(List<List<String>> lIMITS) {
 		LIMITS = lIMITS;
 	}
-	public List getCRITERIAS() {
+	public List<Map<String, Map>> getCRITERIAS() {
 		return CRITERIAS;
 	}
-	public void setCRITERIAS(List cRITERIAS) {
+	public void setCRITERIAS(List<Map<String, Map>> cRITERIAS) {
 		CRITERIAS = cRITERIAS;
 	}
-	public List getIDENTITYS() {
+	public List<Map<String, String>> getIDENTITYS() {
 		return IDENTITYS;
 	}
-	public void setIDENTITYS(List iDENTITYS) {
+	public void setIDENTITYS(List<Map<String, String>> iDENTITYS) {
 		IDENTITYS = iDENTITYS;
 	}
 	public List getPARAMETERS() {
@@ -82,10 +83,10 @@ public class RequestMessage {
 	public void setPARAMETERS(List pARAMETERS) {
 		PARAMETERS = pARAMETERS;
 	}
-	public List getPASSWORDS() {
+	public List<String> getPASSWORDS() {
 		return PASSWORDS;
 	}
-	public void setPASSWORDS(List pASSWORDS) {
+	public void setPASSWORDS(List<String> pASSWORDS) {
 		PASSWORDS = pASSWORDS;
 	}
 	public List getAPNS_CONTENTS() {

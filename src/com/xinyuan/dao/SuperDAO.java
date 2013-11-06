@@ -12,6 +12,18 @@ import com.xinyuan.model.OrderModel;
 
 public interface SuperDAO {
 	
+	/**
+	 * 
+	 * @param object
+	 * @return   return the serializable id
+	 * @throws Exception
+	 */
+	<E> Serializable create(E object) throws Exception;
+	
+	<E> void modify(E object) throws Exception;
+	
+	<E> void delete(E object) throws Exception;
+	
 	
 	/**
 	 * 
@@ -21,9 +33,6 @@ public interface SuperDAO {
 	 * @throws Exception
 	 */
 	<E extends Object> E readUnique(E object, Serializable id) throws Exception;
-	
-	
-	
 	
 	
 	
@@ -41,8 +50,12 @@ public interface SuperDAO {
 	
 	
 	
+	/**
+	 * for hql string
+	 * @return
+	 */
+	<E extends Object> String getTotalRows(E object,  Set<String> keys,  List<String> fields,  Map<String, Map> criterias) throws Exception;
 	
-
 	/**
    
 	 * @param object		vo carries some properties and values
@@ -61,31 +74,15 @@ public interface SuperDAO {
 	 * 						but the above method will return all column values
 	 * @throws Exception
 	 */
-	<E extends Object> List<E> read(E object, Set<String> keys, List<String> fields, Map<String, Map> criterias, List<String> sorts) throws Exception ;
-	
-	
-	
-	
+	<E extends Object> List<E> read(E object, Set<String> keys, List<String> fields, Map<String, Map> criterias, List<String> sorts, List<String> limits) throws Exception ;
 	
 	
 	
 	/**
-	 * 
-	 * @param object
-	 * @return   return the serializable id
-	 * @throws Exception
+	 * When use Limit 0. 10 clause, for (joined) sql string
+	 * @return  the total count of rows
 	 */
-	<E> Serializable create(E object) throws Exception;
-	
-	
-	
-	<E> void modify(E object) throws Exception;
-	
-	<E> void delete(E object) throws Exception;
-	
-	
-	
-	
+	String getJoinedTotalRows() ;
 	
 	
 	<E extends Object> List<E> readJoined(List<Object> outterObjects, List<Set<String>> outterKeys, List<List<String>> outterFields, List<Map<String, Map>> outterCriterials, List<Map<String, String>> outterJoins, List<List<String>> outterSorts, List<List<String>> outterLimits) throws Exception;

@@ -8,14 +8,13 @@ public class ResponseMessage {
 	
 	public String status = ConstantsConfig.STATUS_FAILED;   // 0 for failed , 1 for success
 	public String action = ConstantsConfig.NONE;
-	public String description = ConstantsConfig.NONE;
-	public String exception = ConstantsConfig.NONE;
-	
 	public String apnsStatus = null ;
+	public String description = null;
+	public String exception = null;
 	
 	public Object objects = null;
-	
-	public List models = null;
+	public List<String> models = null;
+	public List<String> numbers = null;
 	
 	public String getStatus() {
 		return status;
@@ -53,10 +52,17 @@ public class ResponseMessage {
 	public void setObjects(Object objects) {
 		this.objects = objects;
 	}
-	public List getModels() {
+	public List<String> getModels() {
 		return models;
 	}
-	public void setModels(List models) {
+	public void setModels(List<String> models) {
 		this.models = models;
 	}
+	public List<String> getNumbers() {
+		return numbers;
+	}
+	public void setNumbers(List<String> numbers) {
+		this.numbers = numbers;
+	}
+
 }

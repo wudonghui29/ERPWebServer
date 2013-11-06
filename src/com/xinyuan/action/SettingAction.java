@@ -74,10 +74,10 @@ public class SettingAction extends ActionModelBase {
 	 * When client singined
 	 * @return
 	 */
-	public String readNameEmployeeNOPairs() {
+	public String readEmployeeBasicData() {
 		
 		HumanResourceDAO humanResourceDAO = new HumanResourceDAOIMP();
-		List list = humanResourceDAO.getNameNOPairs();
+		List list = humanResourceDAO.getNOPairs();
 		
 		message.status = ConstantsConfig.STATUS_SUCCESS;
 		message.objects = list;

@@ -5,6 +5,6 @@ import java.util.List;
 
 public interface HumanResourceDAO {
 	
-	List getNameNOPairs();
+	List getNOPairs();
 	
 }
