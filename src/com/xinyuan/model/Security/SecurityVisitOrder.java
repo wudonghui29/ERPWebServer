@@ -2,6 +2,7 @@ package com.xinyuan.model.Security;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -34,7 +35,7 @@ public class SecurityVisitOrder extends LevelApp_1 {
 	private Date	exitDate;		// 出厂时间
 	
 	
-	private int imageCount ;		// 拍照图片数量
+	private String carryStuff;		// 外携物品
 	
 	
 	public String getVisitorCompany() {
@@ -110,12 +111,12 @@ public class SecurityVisitOrder extends LevelApp_1 {
 		this.exitDate = exitDate;
 	}
 	
-	
-	public int getImageCount() {
-		return imageCount;
+	@Column(columnDefinition="TEXT")
+	public String getCarryStuff() {
+		return carryStuff;
 	}
-	public void setImageCount(int imageCount) {
-		this.imageCount = imageCount;
+	public void setCarryStuff(String carryStuff) {
+		this.carryStuff = carryStuff;
 	}
 	
 }
