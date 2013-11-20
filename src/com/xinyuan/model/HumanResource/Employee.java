@@ -46,7 +46,7 @@ public class Employee extends LevelAPP_5 {
 	
 	private String departmentName;
 	private String subDepartmentName;
-	private int jobLevel;			//级别
+	private int jobLevel = 10;			//级别
 	private String jobTitle;		//职称
 	
 	private String wordMask;		//password mask 
@@ -205,6 +205,7 @@ public class Employee extends LevelAPP_5 {
 		this.subDepartmentName = subDepartmentName;
 	}
 
+	@Column(nullable=false, columnDefinition="int default 10")
 	public int getJobLevel() {
 		return jobLevel;
 	}

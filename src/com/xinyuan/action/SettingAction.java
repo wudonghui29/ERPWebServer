@@ -11,8 +11,10 @@ import org.apache.struts2.ServletActionContext;
 import com.modules.introspector.IntrospectHelper;
 import com.modules.util.FileHelper;
 import com.opensymphony.xwork2.Action;
+import com.xinyuan.dao.BusinessDAO;
 import com.xinyuan.dao.HumanResourceDAO;
 import com.xinyuan.dao.SuperDAO;
+import com.xinyuan.dao.impl.BusinessDAOIMP;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.util.ApnsHelper;
@@ -62,7 +64,6 @@ public class SettingAction extends ActionModelBase {
 		 Map<String, Map<String, List<String>>> map = IntrospectHelper.translateToPropertiesMap(classesNamesList);
 //		 System.out.println(map);
 		 
-		 
 		 message.status = ConstantsConfig.STATUS_SUCCESS;
 		 message.objects = map;
 		
@@ -77,10 +78,17 @@ public class SettingAction extends ActionModelBase {
 	public String readEmployeeBasicData() {
 		
 		HumanResourceDAO humanResourceDAO = new HumanResourceDAOIMP();
-		List list = humanResourceDAO.getNOPairs();
+		List hrList = humanResourceDAO.getUsersNOPairs();
+		
+		BusinessDAO businessDAO = new BusinessDAOIMP();
+		List bsList = businessDAO.getClientsNOPairs();
+		
+		List<List> results = new ArrayList<List>();
+		results.add(hrList);
+		results.add(bsList);
 		
 		message.status = ConstantsConfig.STATUS_SUCCESS;
-		message.objects = list;
+		message.objects = results;
 		
 		return Action.NONE;
 	}

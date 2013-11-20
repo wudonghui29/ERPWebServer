@@ -33,3 +33,12 @@
 	INSERT INTO `ERPWebServer`.`User` (`username`) VALUES ('administrator');
 	UPDATE `ERPWebServer`.`User` SET `id`='0' WHERE `username`='administrator';
 	INSERT INTO `ERPWebServer`.`Approvals` (`username`) VALUES ('administrator');
+	
+	
+	
+	
+	
+2013-11-11
+
+	alter table Employee alter jobLevel set default 10;
+	alter table BusinessClient add unique (clientNO);

@@ -32,8 +32,8 @@ public class HibernateDAO {
 	 * @param hsql 需要执行的HQL语句
 	 * @return 附和条件的实体对象的列表
 	 */
-	public List getObjects(String hsql){
-		List result = HibernateInitializer.getSessionFactory().getCurrentSession().createQuery(hsql).list();
+	public List<Object> getObjects(String hsql){
+		List<Object> result = HibernateInitializer.getSessionFactory().getCurrentSession().createQuery(hsql).list();
 		return result;
 	}
 	

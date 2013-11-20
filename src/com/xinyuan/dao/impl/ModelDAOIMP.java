@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.global.HibernateInitializer;
 import com.xinyuan.dao.ModelDAO;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.model.OrderModel;
@@ -52,6 +53,7 @@ public abstract class ModelDAOIMP extends SuperDAOIMP implements ModelDAO {
 		return readUnique(model, keys);
 	}
 	protected void setUniqueResultKeys(Object model, Set<String> keys) {}
+
 	
 	
 	
@@ -59,10 +61,7 @@ public abstract class ModelDAOIMP extends SuperDAOIMP implements ModelDAO {
 	
 	
 	
-	
-	
-	
-	// Override BaseDAOIMP Methods:
+	// Override SuperDAOIMP Methods :
 	
 	@Override
 	public <E extends Object> E readUnique(E object, Serializable id) throws Exception {
