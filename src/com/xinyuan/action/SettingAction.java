@@ -21,8 +21,8 @@ import com.xinyuan.util.ApnsHelper;
 
 /**
  * 
- * This Action is No need to check permission, 
- * 		so put the no permission checked user interface here
+ * This Action is No need to check permission, but need check signed or not .
+ * 		So put the no permission checked user interface here .
  * 
  * With get* prefix , the not signed user can get
  * 
@@ -42,7 +42,9 @@ public class SettingAction extends ActionModelBase {
 	public String getApplicationModelsStructures() {
 		// get the file paths
 		String fileSeperator = System.getProperty("file.separator");
-		String modelsFilesPath = ConstantsConfig.contextRealPath + "WEB-INF" + fileSeperator + "classes" + fileSeperator + "com" + fileSeperator + "xinyuan" + fileSeperator + "model" + fileSeperator;
+		String modelsFilesPath = ConstantsConfig.contextRealPath + "WEB-INF"
+				+ fileSeperator + "classes" + fileSeperator + "com"
+				+ fileSeperator + "xinyuan" + fileSeperator + "model" + fileSeperator;
 		
 		// get the file name list
 		File folder = new File(modelsFilesPath);
@@ -53,16 +55,16 @@ public class SettingAction extends ActionModelBase {
 		List<String> classesNamesList = new ArrayList<String>();
 		for (Iterator iterator = modelsList.iterator(); iterator.hasNext();) {
 			String string = (String) iterator.next();
-			if (string.contains(ConstantsConfig.MODEL_USER)) continue;
+			
+			if (string.contains(ConstantsConfig.CATEGORIE_USER) || string.contains(ConstantsConfig.CATEGORIE_APPROVAL)) continue;
+			
 			String className = string.replaceAll(".class", "");
 			String wholeClassName = ConstantsConfig.MODELPACKAGE + "." + className;
 			classesNamesList.add(wholeClassName);
-//			System.out.println(string);
 		}
 		
 		// translate classes properties name to map
 		 Map<String, Map<String, List<String>>> map = IntrospectHelper.translateToPropertiesMap(classesNamesList);
-//		 System.out.println(map);
 		 
 		 message.status = ConstantsConfig.STATUS_SUCCESS;
 		 message.objects = map;

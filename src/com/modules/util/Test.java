@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -18,10 +17,8 @@ import com.xinyuan.action.SuperAction;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.interceptor.PermissionInterceptor;
 import com.xinyuan.message.FormatConfig;
-import com.xinyuan.model.HumanResource.Employee;
 import com.xinyuan.util.ApnsHelper;
 import com.xinyuan.util.JsonHelper;
-import com.xinyuan.util.ModelHelper;
 
 public class Test extends HashSet {
 

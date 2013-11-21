@@ -21,8 +21,12 @@ public class TransactionFilter implements Filter {
 	public void destroy() {
 	}
 
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		System.out.println("\n\n\n");			// TODO: Remove it in production!
+		DLog.log("*************************** ----- Begin Transaction");
+		
+		
+		
 		Transaction transaction = null;	
 		try {
 			Session session = HibernateInitializer.getSessionFactory().getCurrentSession();
@@ -36,10 +40,13 @@ public class TransactionFilter implements Filter {
 			}
 			e.printStackTrace();
 //			throw e;
-		}
-		finally{
+		} finally{
 			
 		}
+		
+		
+		
+		DLog.log("*************************** ----- Done Transaction");
 	}
 
 	public void init(FilterConfig arg0) throws ServletException {

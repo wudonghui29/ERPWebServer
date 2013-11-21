@@ -19,7 +19,16 @@ public class ConstantsConfig {
 	
 	public static final String ACTION = "Action" ;
 	
-	public static final String MODEL_USER = "User";
+	public static final String MODEL_APPROVALS = "Approvals";
+	
+	public static final String CATEGORIE_USER = "User";
+	public static final String CATEGORIE_APPROVAL = "Approval";  // every user have Approval Package read permission
+	
+	public static final String METHOD_READ = "read";
+	public static final String METHOD_CREATE = "create";
+	public static final String METHOD_MODIFY = "modify";
+	public static final String METHOD_DELETE = "delete";
+	public static final String METHOD_APPLY = "apply";
 	
 	public static final String VERIFYCODE = "VERIFYCODE";
 	public static final String VERIFYCODE_TYPE = "VERIFYCODE_TYPE";
@@ -41,15 +50,8 @@ public class ConstantsConfig {
 	
 	public static final String DAOIMP_SUFFIX = "DAOIMP";
 	public static final String MODELPACKAGE = "com.xinyuan.model";
+
 	
-	
-	public static final String METHOD_READ = "read";
-	public static final String METHOD_CREATE = "create";
-	public static final String METHOD_MODIFY = "modify";
-	public static final String METHOD_DELETE = "delete";
-	public static final String METHOD_APPLY = "apply";
-	
-	public static final String ACTION_APPROVAL = "Approval";		// every user have Approval Package read permission
 	
 	
 	public static final String OBJECTS = "OBJECTS";
@@ -81,8 +83,8 @@ public class ConstantsConfig {
 
 	
 	public static final String NONE = "";
-	public static final String STATUS_SUCCESS = "1";
 	public static final String STATUS_FAILED = "0";
+	public static final String STATUS_SUCCESS = "1";
 	
 	public static class USER {
 		public static final String VerifyCodeError = "VerifyCode_Error";

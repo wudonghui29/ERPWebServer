@@ -13,7 +13,7 @@ public class AdministratorInterceptor extends AbstractInterceptor {
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
 		
-		DLog.log(" Ready");
+		DLog.log("");
 		
 		User user = (User)ActionContext.getContext().getSession().get(ConstantsConfig.SIGNIN_USER);
 		if (isAdmin(user)) return invocation.invoke();

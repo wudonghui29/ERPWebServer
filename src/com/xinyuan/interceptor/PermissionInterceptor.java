@@ -43,7 +43,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
 		
-		DLog.log(" Ready");
+		DLog.log("");
 
 		// Get the permission the user have
 		Map session = invocation.getInvocationContext().getSession();
@@ -150,7 +150,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	 * @return
 	 */
 	private static boolean check(Map<String, Object> permissions, String action, String model, String method) {
-		if(action.equals(ConstantsConfig.ACTION_APPROVAL) && method.equals(ConstantsConfig.METHOD_READ)) return true;	// Let "read" the Approval package permission go through
+		if(action.equals(ConstantsConfig.CATEGORIE_APPROVAL) && method.equals(ConstantsConfig.METHOD_READ)) return true;	// Let "read" the Approval package permission go through
 		
 //		if (! methods.contains(method)) return true;		// for SecurityAction.inform ... TODO: ...
 		

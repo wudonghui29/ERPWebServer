@@ -1,4 +1,4 @@
-package com.xinyuan.model.HumanResource;
+package com.xinyuan.model.SharedOrder;
 
 import java.util.Date;
 
@@ -10,6 +10,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.xinyuan.model.LevelApp_2;
+import com.xinyuan.model.HumanResource.Employee;
 
 
 /**
@@ -20,11 +21,11 @@ import com.xinyuan.model.LevelApp_2;
 
 @Entity
 @Table
-public class EmployeeOutOrder extends LevelApp_2 {
+public class SharedOutOrder extends LevelApp_2 {
 	
 	private Employee employee;  // the employee ask for going out 
 	
-	private Date applyDate; // 申请日期
+	private Date applyDate; 		// 申请日期
 	
 	private String outDestination ; // the place header to 
 	private String outReason;		// the reason of going out

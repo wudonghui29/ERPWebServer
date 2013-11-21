@@ -26,13 +26,12 @@ import com.xinyuan.model.HumanResource.EmployeeDormitoryOrder;
 import com.xinyuan.model.HumanResource.EmployeeLeaveOrder;
 import com.xinyuan.model.HumanResource.EmployeeMEOrder;
 import com.xinyuan.model.HumanResource.EmployeeOTOrder;
-import com.xinyuan.model.HumanResource.EmployeeOutOrder;
 import com.xinyuan.model.HumanResource.EmployeeQuitOrder;
 import com.xinyuan.model.HumanResource.EmployeeQuitPassOrder;
 import com.xinyuan.model.HumanResource.EmployeeSDOrder;
 import com.xinyuan.model.HumanResource.EmployeeSMOrder;
 import com.xinyuan.model.Security.SecurityVisitOrder;
-import com.xinyuan.model.User.User;
+import com.xinyuan.model.SharedOrder.SharedOutOrder;
 import com.xinyuan.model.User.User;
 
 public class ModelHelper {
@@ -45,21 +44,21 @@ public class ModelHelper {
 		
 		// HumanResource
 		orderNOPrefixMap.put(Employee.class.getName(), "YG");
-		orderNOPrefixMap.put(EmployeeATTOrder.class.getName(), "KQ");
-		orderNOPrefixMap.put(EmployeeBMOrder.class.getName(), "WC");
-		orderNOPrefixMap.put(EmployeeATTDROrder.class.getName(), "CQ");
-		orderNOPrefixMap.put(EmployeeDormitoryOrder.class.getName(), "SS");
+		orderNOPrefixMap.put(EmployeeATTOrder.class.getName(), "KQD");
+		orderNOPrefixMap.put(EmployeeBMOrder.class.getName(), "CCHWCD");
+		orderNOPrefixMap.put(EmployeeATTDROrder.class.getName(), "CQD");
+		orderNOPrefixMap.put(EmployeeDormitoryOrder.class.getName(), "SSD");
 		
-		orderNOPrefixMap.put(EmployeeLeaveOrder.class.getName(), "QJ");
-		orderNOPrefixMap.put(EmployeeMEOrder.class.getName(), "KH");
-		orderNOPrefixMap.put(EmployeeOutOrder.class.getName(), "WC");
-		orderNOPrefixMap.put(EmployeeOTOrder.class.getName(), "JB");
-		orderNOPrefixMap.put(EmployeeQuitOrder.class.getName(), "LZ");
+		orderNOPrefixMap.put(EmployeeLeaveOrder.class.getName(), "QJD");
+		orderNOPrefixMap.put(EmployeeMEOrder.class.getName(), "KHD");
+		orderNOPrefixMap.put(SharedOutOrder.class.getName(), "WCD");
+		orderNOPrefixMap.put(EmployeeOTOrder.class.getName(), "JBD");
+		orderNOPrefixMap.put(EmployeeQuitOrder.class.getName(), "LZD");
 		
-		orderNOPrefixMap.put(EmployeeQuitPassOrder.class.getName(), "FX");
-		orderNOPrefixMap.put(EmployeeATTFixOrder.class.getName(), "BQ");
-		orderNOPrefixMap.put(EmployeeSDOrder.class.getName(), "ZB");
-		orderNOPrefixMap.put(EmployeeSMOrder.class.getName(), "YC");
+		orderNOPrefixMap.put(EmployeeQuitPassOrder.class.getName(), "FXD");
+		orderNOPrefixMap.put(EmployeeATTFixOrder.class.getName(), "BQD");
+		orderNOPrefixMap.put(EmployeeSDOrder.class.getName(), "ZBD");
+		orderNOPrefixMap.put(EmployeeSMOrder.class.getName(), "YCD");
 		
 		
 		// Security

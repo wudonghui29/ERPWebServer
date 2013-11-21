@@ -78,7 +78,6 @@
         <mapping class="com.xinyuan.model.HumanResource.EmployeeLeaveOrder"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeMEOrder"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeOTOrder"/>
-        <mapping class="com.xinyuan.model.HumanResource.EmployeeOutOrder"/>
         
         <mapping class="com.xinyuan.model.HumanResource.EmployeeQuitOrder"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeQuitPassOrder"/>
@@ -94,6 +93,9 @@
         <!-- Business Models -->
         <mapping class="com.xinyuan.model.Business.BusinessClient"/>
         
+        
+        <!-- SharedOrder Models -->
+        <mapping class="com.xinyuan.model.SharedOrder.SharedOutOrder"/>
         
         
     </session-factory>

@@ -19,7 +19,7 @@ public class AuthorizeInterceptor extends AbstractInterceptor {
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
 		
-		DLog.log(" Ready");
+		DLog.log("");
 		
 		User user = (User) SessionManager.get(ConstantsConfig.SIGNIN_USER);
 		

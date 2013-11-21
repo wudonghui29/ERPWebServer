@@ -25,7 +25,7 @@ public class WriteMessageInterceptor extends AbstractInterceptor {
 		String url = ServletActionContext.getRequest().getRequestURL().toString();
 		message.action = url.substring(url.lastIndexOf("/") + 1);
 		
-		DLog.log(" Ready");
+		DLog.log("");
 		
 		Exception exceptionInvoke = null;
 		try {

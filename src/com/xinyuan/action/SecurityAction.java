@@ -12,7 +12,6 @@ public class SecurityAction extends SuperAction {
 	
 
 //	public String switchInform() throws Exception {
-//		
 //		return Action.NONE;
 //	}
 	

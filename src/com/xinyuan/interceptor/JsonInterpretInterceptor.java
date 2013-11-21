@@ -29,7 +29,7 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
 		
-		DLog.log(" Ready");
+		DLog.log("");
 //		Action action = (Action)ActionContext.getContext().getActionInvocation().getAction();		// the same as follow
 		ActionModelBase baseAction = (ActionModelBase)invocation.getAction();
 		HttpServletRequest request = ServletActionContext.getRequest();
