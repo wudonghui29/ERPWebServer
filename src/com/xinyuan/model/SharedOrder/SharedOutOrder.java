@@ -2,15 +2,13 @@ package com.xinyuan.model.SharedOrder;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-import com.xinyuan.model.LevelApp_2;
-import com.xinyuan.model.HumanResource.Employee;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.xinyuan.model.LevelApp_1;
 
 
 /**
@@ -21,55 +19,51 @@ import com.xinyuan.model.HumanResource.Employee;
 
 @Entity
 @Table
-public class SharedOutOrder extends LevelApp_2 {
+public class SharedOutOrder extends LevelApp_1 {
 	
-	private Employee employee;  // the employee ask for going out 
+	private String employeeNO; 		// employee NO. the employee ask for going out 
 	
-	private Date applyDate; 		// 申请日期
+	private String outReason;		// the reason of going out  事由
 	
-	private String outDestination ; // the place header to 
-	private String outReason;		// the reason of going out
+	private String outCompanyCarrying; 		// the carrying stuff when going out 外携公司物品
+	private String outPersonalCarrying;   	// the carrying stuff when coming back 外携私人物品
 	
-	private String outCarrying; 	// the carrying stuff when going out
-	private String entryCarrying;   // the carrying stuff when coming back
+	private Date outDate ; 	// the date of going out  出厂时间 
+	private Date entryDate; // the date of coming back  入厂时间
 	
-	private Date outDate ; 	// the date of going out 
-	private Date entryDate; // the date of coming back
+	private String outSecurityEmployeeNO;		// 保安出厂放行
+	private String entrySecurityEmployeeNO;		// 保安入厂放行
 	
+	private String sendAppEmployeeNO;		// 发关主管核准
+	private String notAppEmployeeNO;		// 主管不核准
 	
-	@ManyToOne
-	@JoinColumn(name="employeeId")
-	public Employee getEmployee() {
-		return employee;
+	@NotEmpty
+	public String getEmployeeNO() {
+		return employeeNO;
 	}
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
+	public void setEmployeeNO(String employeeNO) {
+		this.employeeNO = employeeNO;
 	}
-	
-	
-	public String getOutDestination() {
-		return outDestination;
-	}
-	public void setOutDestination(String outDestination) {
-		this.outDestination = outDestination;
-	}
+	@Column(columnDefinition="TEXT")
 	public String getOutReason() {
 		return outReason;
 	}
 	public void setOutReason(String outReason) {
 		this.outReason = outReason;
 	}
-	public String getOutCarrying() {
-		return outCarrying;
+	@Column(columnDefinition="TEXT")
+	public String getOutCompanyCarrying() {
+		return outCompanyCarrying;
 	}
-	public void setOutCarrying(String outCarrying) {
-		this.outCarrying = outCarrying;
+	public void setOutCompanyCarrying(String outCompanyCarrying) {
+		this.outCompanyCarrying = outCompanyCarrying;
 	}
-	public String getEntryCarrying() {
-		return entryCarrying;
+	@Column(columnDefinition="TEXT")
+	public String getOutPersonalCarrying() {
+		return outPersonalCarrying;
 	}
-	public void setEntryCarrying(String entryCarrying) {
-		this.entryCarrying = entryCarrying;
+	public void setOutPersonalCarrying(String outPersonalCarrying) {
+		this.outPersonalCarrying = outPersonalCarrying;
 	}
 	public Date getOutDate() {
 		return outDate;
@@ -83,11 +77,29 @@ public class SharedOutOrder extends LevelApp_2 {
 	public void setEntryDate(Date entryDate) {
 		this.entryDate = entryDate;
 	}
-	public Date getApplyDate() {
-		return applyDate;
+	public String getOutSecurityEmployeeNO() {
+		return outSecurityEmployeeNO;
 	}
-	public void setApplyDate(Date applyDate) {
-		this.applyDate = applyDate;
+	public void setOutSecurityEmployeeNO(String outSecurityEmployeeNO) {
+		this.outSecurityEmployeeNO = outSecurityEmployeeNO;
+	}
+	public String getEntrySecurityEmployeeNO() {
+		return entrySecurityEmployeeNO;
+	}
+	public void setEntrySecurityEmployeeNO(String entrySecurityEmployeeNO) {
+		this.entrySecurityEmployeeNO = entrySecurityEmployeeNO;
+	}
+	public String getSendAppEmployeeNO() {
+		return sendAppEmployeeNO;
+	}
+	public void setSendAppEmployeeNO(String sendAppEmployeeNO) {
+		this.sendAppEmployeeNO = sendAppEmployeeNO;
+	}
+	public String getNotAppEmployeeNO() {
+		return notAppEmployeeNO;
+	}
+	public void setNotAppEmployeeNO(String notAppEmployeeNO) {
+		this.notAppEmployeeNO = notAppEmployeeNO;
 	}
 	
 }
