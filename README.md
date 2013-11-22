@@ -28,7 +28,7 @@
 	
 	
 	
-## Set up the First In Mysql 
+## Initialize Data In Mysql 
 	
 	INSERT INTO `ERPWebServer`.`User` (`username`) VALUES ('administrator');
 	UPDATE `ERPWebServer`.`User` SET `id`='0' WHERE `username`='administrator';
