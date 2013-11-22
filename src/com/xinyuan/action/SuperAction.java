@@ -8,7 +8,7 @@ import java.util.Set;
 
 import org.hibernate.SQLQuery;
 
-import com.global.SessionManager;
+import com.Global.SessionManager;
 import com.google.gson.JsonArray;
 import com.modules.introspector.IntrospectHelper;
 import com.modules.introspector.ModelIntrospector;

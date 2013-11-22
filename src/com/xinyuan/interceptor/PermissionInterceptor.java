@@ -3,7 +3,7 @@ package com.xinyuan.interceptor;
 import java.util.List;
 import java.util.Map;
 
-import com.global.SessionManager;
+import com.Global.SessionManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.modules.util.DLog;

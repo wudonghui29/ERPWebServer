@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.global.SessionManager;
+import com.Global.SessionManager;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.message.FormatConfig;
 import com.xinyuan.model.BaseModel;

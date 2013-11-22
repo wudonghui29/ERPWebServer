@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
-import com.global.SessionManager;
+import com.Global.SessionManager;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.modules.util.DLog;
