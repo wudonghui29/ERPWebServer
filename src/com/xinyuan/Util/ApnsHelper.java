@@ -15,10 +15,10 @@ import javapns.notification.ResponsePacket;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.opensymphony.xwork2.ActionContext;
-import com.xinyuan.Config.ConfigConstants;
-import com.xinyuan.Config.ConfigJSON;
-import com.xinyuan.Config.ResponseMessage;
 import com.xinyuan.action.ActionBase;
+import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.message.ConfigJSON;
+import com.xinyuan.message.ResponseMessage;
 
 
 // Reference : http://demo.netfoucs.com/truenaruto/article/details/9165011

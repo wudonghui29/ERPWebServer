@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.xinyuan.Config.ConfigConstants;
 import com.xinyuan.dao.impl.HibernateDAO;
+import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.model.Approval.Approvals;
 
 public class ApprovalHelper {

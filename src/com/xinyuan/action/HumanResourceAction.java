@@ -1,12 +1,12 @@
 package com.xinyuan.action;
 
 import com.opensymphony.xwork2.Action;
-import com.xinyuan.Config.ConfigConstants;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.UserDAO;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.dao.impl.UserDAOIMP;
+import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.model.Approval.Approvals;
 import com.xinyuan.model.HumanResource.Employee;
 import com.xinyuan.model.User.User;

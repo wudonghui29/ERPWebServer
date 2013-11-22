@@ -16,13 +16,13 @@ import com.modules.Util.SecurityCode;
 import com.modules.Util.StringHelper;
 import com.modules.Util.VerifyCode;
 import com.opensymphony.xwork2.Action;
-import com.xinyuan.Config.ConfigConstants;
-import com.xinyuan.Config.ConfigJSON;
 import com.xinyuan.Util.ApprovalHelper;
 import com.xinyuan.Util.JsonHelper;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.UserDAO;
 import com.xinyuan.dao.impl.UserDAOIMP;
+import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.message.ConfigJSON;
 import com.xinyuan.model.User.User;
 
 public class UserAction extends ActionModelBase {

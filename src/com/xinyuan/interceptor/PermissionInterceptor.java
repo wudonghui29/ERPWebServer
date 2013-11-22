@@ -11,12 +11,12 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
-import com.xinyuan.Config.ConfigConstants;
-import com.xinyuan.Config.ConfigJSON;
-import com.xinyuan.Config.ResponseMessage;
 import com.xinyuan.Util.JsonHelper;
 import com.xinyuan.action.ActionModelBase;
 import com.xinyuan.action.SuperAction;
+import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.message.ConfigJSON;
+import com.xinyuan.message.ResponseMessage;
 import com.xinyuan.model.User.User;
 
 public class PermissionInterceptor extends AbstractInterceptor {

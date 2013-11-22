@@ -5,9 +5,9 @@ import com.modules.Util.DLog;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
-import com.xinyuan.Config.ConfigConstants;
-import com.xinyuan.Config.ResponseMessage;
 import com.xinyuan.action.ActionBase;
+import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.message.ResponseMessage;
 import com.xinyuan.model.User.User;
 
 /**

@@ -1,4 +1,4 @@
-package com.xinyuan.Config;
+package com.xinyuan.message;
 
 import java.io.File;
 

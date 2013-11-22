@@ -11,7 +11,6 @@ import java.util.Map;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.xinyuan.Config.ConfigFormat;
 import com.xinyuan.Util.ApnsHelper;
 import com.xinyuan.Util.JsonHelper;
 import com.xinyuan.action.HumanResourceAction;
@@ -19,6 +18,7 @@ import com.xinyuan.action.SettingAction;
 import com.xinyuan.action.SuperAction;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.interceptor.PermissionInterceptor;
+import com.xinyuan.message.ConfigFormat;
 
 public class Test extends HashSet {
 

@@ -11,13 +11,13 @@ import org.apache.struts2.ServletActionContext;
 import com.modules.Introspector.IntrospectHelper;
 import com.modules.Util.FileHelper;
 import com.opensymphony.xwork2.Action;
-import com.xinyuan.Config.ConfigConstants;
 import com.xinyuan.Util.ApnsHelper;
 import com.xinyuan.dao.BusinessDAO;
 import com.xinyuan.dao.HumanResourceDAO;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.BusinessDAOIMP;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
+import com.xinyuan.message.ConfigConstants;
 
 /**
  * 

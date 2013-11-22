@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.Global.SessionManager;
-import com.xinyuan.Config.ConfigConstants;
-import com.xinyuan.Config.ConfigFormat;
+import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.message.ConfigFormat;
 import com.xinyuan.model.BaseModel;
 import com.xinyuan.model.HumanResource.Employee;
 import com.xinyuan.model.HumanResource.EmployeeATTDROrder;
