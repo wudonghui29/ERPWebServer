@@ -6,15 +6,15 @@ import java.util.Date;
 
 import org.apache.struts2.ServletActionContext;
 
-import com.modules.httpWriter.ResponseWriter;
-import com.modules.util.DLog;
+import com.modules.HttpWriter.ResponseWriter;
+import com.modules.Util.DLog;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+import com.xinyuan.Util.JsonHelper;
 import com.xinyuan.action.ActionBase;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.message.ResponseMessage;
-import com.xinyuan.util.JsonHelper;
 
 public class WriteMessageInterceptor extends AbstractInterceptor {
 	

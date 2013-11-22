@@ -13,16 +13,16 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.modules.introspector.IntrospectHelper;
-import com.modules.util.DLog;
+import com.modules.Introspector.IntrospectHelper;
+import com.modules.Util.DLog;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+import com.xinyuan.Util.JsonHelper;
 import com.xinyuan.action.ActionModelBase;
 import com.xinyuan.action.SuperAction;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.message.RequestMessage;
-import com.xinyuan.util.JsonHelper;
 
 public class JsonInterpretInterceptor extends AbstractInterceptor {
 
@@ -63,7 +63,7 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 			// get model
 			String modelString = modelElement.getAsString();					// e.g : ".Employee"
 			String objectString = JsonHelper.getGson().toJson(objectElement);
-			String className = ConstantsConfig.MODELPACKAGE + (baseAction.getClass() == SuperAction.class ?  modelString : "." + catagory + modelString);
+			String className = ConstantsConfig.MODELPACKAGE + (baseAction.getClass() == SuperAction.class ?  modelString : ConstantsConfig.PACKAGE_CONNECTOR + catagory + modelString);
 			Class<?> modelClass = Class.forName(className);
 			Object vo = JsonHelper.getGson().fromJson(objectString, modelClass);
 			

@@ -8,13 +8,13 @@ import java.util.Set;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 
-import com.modules.introspector.IntrospectHelper;
+import com.modules.Introspector.IntrospectHelper;
+import com.xinyuan.Util.QueryCriteriasHelper;
+import com.xinyuan.Util.QueryFieldsHelper;
+import com.xinyuan.Util.QueryLimitsHelper;
+import com.xinyuan.Util.QueryObjectsHelper;
+import com.xinyuan.Util.QuerySortsHelper;
 import com.xinyuan.dao.SuperDAO;
-import com.xinyuan.util.QueryCriteriasHelper;
-import com.xinyuan.util.QueryFieldsHelper;
-import com.xinyuan.util.QueryLimitsHelper;
-import com.xinyuan.util.QueryObjectsHelper;
-import com.xinyuan.util.QuerySortsHelper;
 
 public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 	private static final String k_AND = " AND";

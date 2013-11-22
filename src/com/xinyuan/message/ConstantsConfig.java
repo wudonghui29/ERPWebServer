@@ -7,12 +7,17 @@ import org.apache.struts2.ServletActionContext;
 public class ConstantsConfig {
 	
 	public static final String contextRealPath = ServletActionContext.getServletContext().getRealPath(File.separator);
+	public static final String fileSeperator = System.getProperty("file.separator");
+	public static final String modelsFilesPath = ConstantsConfig.contextRealPath + "WEB-INF"
+			+ fileSeperator + "classes" + fileSeperator + "com"
+			+ fileSeperator + "xinyuan" + fileSeperator + "model" + fileSeperator;
 	
 	public static final boolean APNS_IN_PRODUCTION = false;			// TODO: in production , replace it with true
 	public static final String APNS_CERTIFICATE_PASSWORD = "12345";
 	public static final String APNS_CERTIFICATE_PATH = contextRealPath + "../apnsDevelop.p12";
 	
-	public static final String DEFAULT_PERMISSION = "{}";
+	public static final String SUFFIX_CLASS = ".class";
+	public static final String PACKAGE_CONNECTOR = ".";
 	
 	public static final String CONTENT_DIVIDER = ",";
 	public static final String CONTENT_CONNECTOR = ".";
@@ -29,6 +34,10 @@ public class ConstantsConfig {
 	public static final String METHOD_MODIFY = "modify";
 	public static final String METHOD_DELETE = "delete";
 	public static final String METHOD_APPLY = "apply";
+	
+	
+	public static final String DEFAULT_PERMISSION = "{}";
+	
 	
 	public static final String VERIFYCODE = "VERIFYCODE";
 	public static final String VERIFYCODE_TYPE = "VERIFYCODE_TYPE";
@@ -81,8 +90,7 @@ public class ConstantsConfig {
 	public static final String REQUEST_ERROR = "REQUEST_ERROR";
 	
 
-	
-	public static final String NONE = "";
+	public static final String EMPTY_STRING = "";
 	public static final String STATUS_FAILED = "0";
 	public static final String STATUS_SUCCESS = "1";
 	

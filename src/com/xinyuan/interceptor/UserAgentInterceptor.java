@@ -9,15 +9,15 @@ import org.apache.struts2.ServletActionContext;
 import com.Global.SessionManager;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.modules.util.DLog;
+import com.modules.Util.DLog;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+import com.xinyuan.Util.JsonHelper;
 import com.xinyuan.dao.UserDAO;
 import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.model.User.User;
-import com.xinyuan.util.JsonHelper;
 
 public class UserAgentInterceptor extends AbstractInterceptor {
 	

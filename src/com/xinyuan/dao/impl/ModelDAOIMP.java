@@ -23,9 +23,9 @@ public abstract class ModelDAOIMP extends SuperDAOIMP implements ModelDAO {
 	private final String Model_Scope = getModelScope();		// "com.xinyuan.model.Cards"
 	private String getModelScope() {
 		String wholeClassName = getClass().getName();
-		String shortClassName = wholeClassName.substring(wholeClassName.lastIndexOf(".") + 1);
+		String shortClassName = wholeClassName.substring(wholeClassName.lastIndexOf(ConstantsConfig.PACKAGE_CONNECTOR) + 1);
 		String superModelName = shortClassName.substring(0, shortClassName.indexOf(ConstantsConfig.DAOIMP_SUFFIX));
-		return ConstantsConfig.MODELPACKAGE + "." + superModelName;
+		return ConstantsConfig.MODELPACKAGE + ConstantsConfig.PACKAGE_CONNECTOR + superModelName;
 	}
 	private boolean checkModelScope(Object object) {		// check "com.xinyuan.model.Cards.CardsAlbums" is under "com.xinyuan.model.Cards"
 		return object.getClass().getName().indexOf(Model_Scope) == -1;

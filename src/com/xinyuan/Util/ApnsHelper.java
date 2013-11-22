@@ -1,4 +1,4 @@
-package com.xinyuan.util;
+package com.xinyuan.Util;
 
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.modules.util;
+package com.modules.Util;
 
 import java.io.File;
 import java.util.List;
@@ -11,7 +11,7 @@ public class FileHelper {
 	            listFilesForFolder(fileEntry, list);
 	        } else {
 //	            System.out.println(fileEntry.getName());
-	        	list.add(fileEntry.getParentFile().getName() + "." + fileEntry.getName());
+	        	list.add(fileEntry.getParentFile().getName() + "." + fileEntry.getName());		// use "parentFolder.fileName" format . i.e. "Approval/Approvals.class"-> "Approval.Approvals.class"
 	        }
 	    }
 	}

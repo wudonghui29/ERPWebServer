@@ -1,4 +1,4 @@
-package com.modules.httpWriter;
+package com.modules.HttpWriter;
 
 import java.io.IOException;
 import java.io.PrintWriter;

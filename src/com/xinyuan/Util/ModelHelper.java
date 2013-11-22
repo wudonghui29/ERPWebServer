@@ -1,4 +1,4 @@
-package com.xinyuan.util;
+package com.xinyuan.Util;
 
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
@@ -63,6 +63,7 @@ public class ModelHelper {
 		
 		// Security
 		orderNOPrefixMap.put(SecurityVisitOrder.class.getName(), "FKD");
+		withSecondOrderMap.put("FKD", ConstantsConfig.EMPTY_STRING);
 		
 		
 		// Finanace
@@ -70,8 +71,6 @@ public class ModelHelper {
 		
 		
 		
-		// others
-		withSecondOrderMap.put("FKD", ConstantsConfig.NONE);
 		
 	}
 	

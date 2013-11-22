@@ -1,4 +1,4 @@
-package com.modules.util;
+package com.modules.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,14 +11,14 @@ import java.util.Map;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.xinyuan.Util.ApnsHelper;
+import com.xinyuan.Util.JsonHelper;
 import com.xinyuan.action.HumanResourceAction;
 import com.xinyuan.action.SettingAction;
 import com.xinyuan.action.SuperAction;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.interceptor.PermissionInterceptor;
 import com.xinyuan.message.FormatConfig;
-import com.xinyuan.util.ApnsHelper;
-import com.xinyuan.util.JsonHelper;
 
 public class Test extends HashSet {
 
@@ -188,7 +188,7 @@ public class Test extends HashSet {
 	}
 	 
 	 
-	 public static void main(String[] args) {
+	 public static void main_2_(String[] args) {
 		 List<String> list = null;
 		 for (String string : list) {
 			 System.out.println(string);

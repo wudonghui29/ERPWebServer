@@ -1,4 +1,4 @@
-package com.modules.util;
+package com.modules.Util;
 
 import java.awt.Color;
 import java.awt.Font;

@@ -11,21 +11,21 @@ import com.Global.SessionManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.modules.httpWriter.ResponseWriter;
-import com.modules.introspector.ModelIntrospector;
-import com.modules.util.DLog;
-import com.modules.util.SecurityCode;
-import com.modules.util.StringHelper;
-import com.modules.util.VerifyCode;
+import com.modules.HttpWriter.ResponseWriter;
+import com.modules.Introspector.ModelIntrospector;
+import com.modules.Util.DLog;
+import com.modules.Util.SecurityCode;
+import com.modules.Util.StringHelper;
+import com.modules.Util.VerifyCode;
 import com.opensymphony.xwork2.Action;
+import com.xinyuan.Util.ApprovalHelper;
+import com.xinyuan.Util.JsonHelper;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.UserDAO;
 import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.interceptor.AdministratorInterceptor;
 import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.model.User.User;
-import com.xinyuan.util.ApprovalHelper;
-import com.xinyuan.util.JsonHelper;
 
 public class UserAction extends ActionModelBase {
 	

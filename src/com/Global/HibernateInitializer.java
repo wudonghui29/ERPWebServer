@@ -12,7 +12,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 
-import com.modules.util.DLog;
+import com.modules.Util.DLog;
 
 //import com.sun.org.apache.commons.logging.Log;
 //import com.sun.org.apache.commons.logging.LogFactory;

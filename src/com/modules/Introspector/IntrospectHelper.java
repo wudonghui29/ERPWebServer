@@ -1,4 +1,4 @@
-package com.modules.introspector;
+package com.modules.Introspector;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;

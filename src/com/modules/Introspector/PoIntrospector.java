@@ -1,4 +1,4 @@
-package com.modules.introspector;
+package com.modules.Introspector;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;

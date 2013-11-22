@@ -8,16 +8,16 @@ import java.util.Map;
 
 import org.apache.struts2.ServletActionContext;
 
-import com.modules.introspector.IntrospectHelper;
-import com.modules.util.FileHelper;
+import com.modules.Introspector.IntrospectHelper;
+import com.modules.Util.FileHelper;
 import com.opensymphony.xwork2.Action;
+import com.xinyuan.Util.ApnsHelper;
 import com.xinyuan.dao.BusinessDAO;
 import com.xinyuan.dao.HumanResourceDAO;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.BusinessDAOIMP;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.message.ConstantsConfig;
-import com.xinyuan.util.ApnsHelper;
 
 /**
  * 
@@ -40,26 +40,20 @@ public class SettingAction extends ActionModelBase {
 	 * @return
 	 */
 	public String getApplicationModelsStructures() {
-		// get the file paths
-		String fileSeperator = System.getProperty("file.separator");
-		String modelsFilesPath = ConstantsConfig.contextRealPath + "WEB-INF"
-				+ fileSeperator + "classes" + fileSeperator + "com"
-				+ fileSeperator + "xinyuan" + fileSeperator + "model" + fileSeperator;
-		
 		// get the file name list
-		File folder = new File(modelsFilesPath);
+		File folder = new File(ConstantsConfig.modelsFilesPath);
 		List<String> modelsList = new ArrayList<String>();
 		FileHelper.listFilesForSubFolder(folder, modelsList);
 		
 		// get the model package path class name list
 		List<String> classesNamesList = new ArrayList<String>();
 		for (Iterator iterator = modelsList.iterator(); iterator.hasNext();) {
-			String string = (String) iterator.next();
+			String string = (String) iterator.next();				// "Approval.Approvals.class"  not ".java" 
 			
 			if (string.contains(ConstantsConfig.CATEGORIE_USER) || string.contains(ConstantsConfig.CATEGORIE_APPROVAL)) continue;
 			
-			String className = string.replaceAll(".class", "");
-			String wholeClassName = ConstantsConfig.MODELPACKAGE + "." + className;
+			String className = string.replaceAll(ConstantsConfig.SUFFIX_CLASS, ConstantsConfig.EMPTY_STRING);
+			String wholeClassName = ConstantsConfig.MODELPACKAGE + ConstantsConfig.PACKAGE_CONNECTOR + className;			// MODELPACKAGE + "Approval.Approvals"
 			classesNamesList.add(wholeClassName);
 		}
 		
