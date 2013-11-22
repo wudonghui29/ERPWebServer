@@ -15,24 +15,22 @@ import javapns.notification.ResponsePacket;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.opensymphony.xwork2.ActionContext;
+import com.xinyuan.Config.ConfigConstants;
+import com.xinyuan.Config.ConfigJSON;
+import com.xinyuan.Config.ResponseMessage;
 import com.xinyuan.action.ActionBase;
-import com.xinyuan.message.ConstantsConfig;
-import com.xinyuan.message.ResponseMessage;
 
 
 // Reference : http://demo.netfoucs.com/truenaruto/article/details/9165011
 
 public class ApnsHelper {
 	
-	private static final String APNS_ALERT = "Alert";
-	private static final String APNS_Sound = "Sound";
-	private static final String APNS_Badge = "Badge";
 	private static final String APNS_Sound_DEFAULT = "default";
 	
 	
 	public static boolean sendAPNS(JsonObject allJsonObject, ResponseMessage message) {
 		try {
-			message.apnsStatus = ConstantsConfig.STATUS_SUCCESS;
+			message.apnsStatus = ConfigConstants.STATUS_SUCCESS;
 			
 			// push APNS notifications
 			ApnsHelper.inform(allJsonObject);
@@ -40,11 +38,11 @@ public class ApnsHelper {
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-			message.apnsStatus = ConstantsConfig.STATUS_FAILED;
-			message.description = ConstantsConfig.MESSAGE.PushAPNSFailed;
+			message.apnsStatus = ConfigConstants.STATUS_FAILED;
+			message.description = ConfigConstants.MESSAGE.PushAPNSFailed;
 		}
 		
-		return message.apnsStatus.equalsIgnoreCase(ConstantsConfig.STATUS_SUCCESS) ;
+		return message.apnsStatus.equalsIgnoreCase(ConfigConstants.STATUS_SUCCESS) ;
 	}
 	
 	/**
@@ -52,15 +50,15 @@ public class ApnsHelper {
 	 * @throws Exception
 	 */
 	private static void inform(JsonObject allJsonObject) throws Exception {
-		JsonArray forwardsList = allJsonObject.getAsJsonArray(ConstantsConfig.APNS_FORWARDS);
-		JsonArray forwardContents = allJsonObject.getAsJsonArray(ConstantsConfig.APNS_CONTENTS);
+		JsonArray forwardsList = allJsonObject.getAsJsonArray(ConfigJSON.APNS_FORWARDS);
+		JsonArray forwardContents = allJsonObject.getAsJsonArray(ConfigJSON.APNS_CONTENTS);
 		
 		int forwardsCount = forwardsList != null ? forwardsList.size() : 0 ;
 		
 		for (int index = 0; index < forwardsCount; index++) {
 			
 			String forwardUsername = forwardsList.get(index).getAsString();
-			String[] apnsTokens = ApprovalHelper.getAPNSToken(forwardUsername).split(ConstantsConfig.CONTENT_DIVIDER);
+			String[] apnsTokens = ApprovalHelper.getAPNSToken(forwardUsername).split(ConfigConstants.CONTENT_DIVIDER);
 			Map<String, Object> apnsMap = JsonHelper.translateElementToMap(forwardContents.get(index));
 			
 			push(apnsMap, apnsTokens);
@@ -76,6 +74,9 @@ public class ApnsHelper {
 	 */
 	
 	public static void push(Map<String, Object>map , String[] apnsTokens) throws Exception {
+		String APNS_Alert = ConfigJSON.APNS_Alert;
+		String APNS_Badge = ConfigJSON.APNS_Badge;
+		String APNS_Sound = ConfigJSON.APNS_Sound;
 		
 		// FILETER THE PLACEHOLDER
 		String[] devices = new String[apnsTokens.length];
@@ -84,7 +85,7 @@ public class ApnsHelper {
 		}
 		
 		// GET THE APN MESSAGE OUT
-		String message = (String) map.get(APNS_ALERT);
+		String message = (String) map.get(APNS_Alert);
 		String badgeString = (String) map.get(APNS_Badge);
 		int badge = badgeString != null && !badgeString.isEmpty() ? Integer.valueOf(badgeString) : -1;
 		String sound = (String) map.get(APNS_Sound);
@@ -98,11 +99,11 @@ public class ApnsHelper {
 		payload.addSound(sound);
 		for (Entry<String, Object> entry : map.entrySet()) {
 			String key = entry.getKey();
-			if (key.equals(APNS_ALERT) || key.equals(APNS_Badge) || key.equals(APNS_Sound)) continue;
+			if (key.equals(APNS_Alert) || key.equals(APNS_Badge) || key.equals(APNS_Sound)) continue;
 			payload.addCustomDictionary(key, (String) entry.getValue());
 		}
 		
-		sendWithOutThread(payload, ConstantsConfig.APNS_CERTIFICATE_PATH, ConstantsConfig.APNS_CERTIFICATE_PASSWORD, ConstantsConfig.APNS_IN_PRODUCTION, devices);
+		sendWithOutThread(payload, ConfigConstants.APNS_CERTIFICATE_PATH, ConfigConstants.APNS_CERTIFICATE_PASSWORD, ConfigConstants.APNS_IN_PRODUCTION, devices);
 		
 	}
 	
@@ -153,7 +154,7 @@ public class ApnsHelper {
                     /* Still need to query the Feedback Service regularly */  
                     
             } else {
-            		message.apnsStatus = ConstantsConfig.STATUS_FAILED;
+            		message.apnsStatus = ConfigConstants.STATUS_FAILED;
             		
                     String invalidToken = notification.getDevice().getToken();
                     /* Add code here to remove invalidToken from your database */  

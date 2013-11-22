@@ -5,9 +5,9 @@ import com.modules.Util.DLog;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+import com.xinyuan.Config.ConfigConstants;
+import com.xinyuan.Config.ResponseMessage;
 import com.xinyuan.action.ActionBase;
-import com.xinyuan.message.ConstantsConfig;
-import com.xinyuan.message.ResponseMessage;
 import com.xinyuan.model.User.User;
 
 /**
@@ -21,7 +21,7 @@ public class AuthorizeInterceptor extends AbstractInterceptor {
 		
 		DLog.log("");
 		
-		User user = (User) SessionManager.get(ConstantsConfig.SIGNIN_USER);
+		User user = (User) SessionManager.get(ConfigConstants.SIGNIN_USER);
 		
 		if (user != null) {
 			return invocation.invoke();
@@ -29,7 +29,7 @@ public class AuthorizeInterceptor extends AbstractInterceptor {
 			
 			ActionBase action = (ActionBase)invocation.getAction();
 			ResponseMessage message = action.getMessage();
-			message.description = ConstantsConfig.USER.UserNotSignIn;
+			message.description = ConfigConstants.USER.UserNotSignIn;
 			
 			return Action.NONE;
 		}

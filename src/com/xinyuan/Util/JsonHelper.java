@@ -4,21 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.print.DocFlavor.STRING;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.sun.org.apache.bcel.internal.generic.RET;
-import com.xinyuan.message.ConstantsConfig;
-import com.xinyuan.message.FormatConfig;
+import com.xinyuan.Config.ConfigFormat;
+import com.xinyuan.Config.ConfigJSON;
 
 public class JsonHelper {
 	
 	public static Gson getGson(){
-		return new GsonBuilder().setDateFormat(FormatConfig.STRING_TO_DATE_FORMAT).create();
+		return new GsonBuilder().setDateFormat(ConfigFormat.STRING_TO_DATE_FORMAT).create();
 	}
 
 	/**
@@ -86,7 +83,7 @@ public class JsonHelper {
 	 */
 	public static String getParameter(JsonObject jsonObject, String parameterName) {
 		Map<String, Object> map = JsonHelper.translateElementToMap(jsonObject);
-		List<Map<String, String>> list = (List<Map<String, String>>) map.get(ConstantsConfig.PARAMETERS);
+		List<Map<String, String>> list = (List<Map<String, String>>) map.get(ConfigJSON.PARAMETERS);
 		if (list == null || list.size() != 0) return null;						// TODO : ...  Just For UserAction now
 		Map<String, String> parametersMap = (Map<String, String>) list.get(0);
 		return parametersMap != null ? parametersMap.get(parameterName) : null;

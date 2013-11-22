@@ -1,6 +1,6 @@
-package com.xinyuan.message;
+package com.xinyuan.Config;
 
-public class FormatConfig {
+public class ConfigFormat {
 
 	public static final String STRING_TO_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	public static final String DATESTRING_WITH_SECOND_FORMAT = "yyyyMMddHHmmss";

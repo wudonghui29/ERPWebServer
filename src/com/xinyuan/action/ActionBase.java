@@ -1,7 +1,7 @@
 package com.xinyuan.action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.xinyuan.message.ResponseMessage;
+import com.xinyuan.Config.ResponseMessage;
 
 public abstract class ActionBase extends ActionSupport {
 

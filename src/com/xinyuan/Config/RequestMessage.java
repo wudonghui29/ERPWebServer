@@ -1,4 +1,4 @@
-package com.xinyuan.message;
+package com.xinyuan.Config;
 
 import java.beans.BeanDescriptor;
 import java.beans.IntrospectionException;

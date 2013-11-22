@@ -1,6 +1,5 @@
 package com.xinyuan.action;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +7,6 @@ import java.util.Random;
 import java.util.Set;
 
 import com.Global.SessionManager;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.modules.HttpWriter.ResponseWriter;
@@ -18,13 +16,13 @@ import com.modules.Util.SecurityCode;
 import com.modules.Util.StringHelper;
 import com.modules.Util.VerifyCode;
 import com.opensymphony.xwork2.Action;
+import com.xinyuan.Config.ConfigConstants;
+import com.xinyuan.Config.ConfigJSON;
 import com.xinyuan.Util.ApprovalHelper;
 import com.xinyuan.Util.JsonHelper;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.UserDAO;
 import com.xinyuan.dao.impl.UserDAOIMP;
-import com.xinyuan.interceptor.AdministratorInterceptor;
-import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.model.User.User;
 
 public class UserAction extends ActionModelBase {
@@ -36,8 +34,8 @@ public class UserAction extends ActionModelBase {
 	
 	
 	public String connect() throws Exception {
-		String VERIFYCODE_TYPE = JsonHelper.getParameter(allJsonObject, ConstantsConfig.VERIFYCODE_TYPE);
-		String VERIFYCODE_COUNT = JsonHelper.getParameter(allJsonObject, ConstantsConfig.VERIFYCODE_COUNT);
+		String VERIFYCODE_TYPE = JsonHelper.getParameter(allJsonObject, ConfigJSON.VERIFYCODE_TYPE);
+		String VERIFYCODE_COUNT = JsonHelper.getParameter(allJsonObject, ConfigJSON.VERIFYCODE_COUNT);
 		
 		int count = 7;
 		try {
@@ -50,10 +48,10 @@ public class UserAction extends ActionModelBase {
 		String verifyCode = randomBool ? VerifyCode.generateCode(count) : SecurityCode.getSecurityCode(count);
 		byte[] imageBytes = randomBool ? VerifyCode.generateImageBytes(verifyCode) : SecurityCode.getImageAsBytes(verifyCode);
 
-		SessionManager.put(ConstantsConfig.VERIFYCODE, verifyCode);
+		SessionManager.put(ConfigJSON.VERIFYCODE, verifyCode);
 		ResponseWriter.write(imageBytes);
-		message.status = ConstantsConfig.STATUS_SUCCESS;
-		DLog.log(ConstantsConfig.VERIFYCODE + " : " + verifyCode);
+		message.status = ConfigConstants.STATUS_SUCCESS;
+		DLog.log(ConfigJSON.VERIFYCODE + " : " + verifyCode);
 
 		return Action.NONE;
 	}
@@ -71,11 +69,11 @@ public class UserAction extends ActionModelBase {
 		
 		String username = model.getUsername();
 		String password = model.getPassword();
-		String apnsToken = JsonHelper.getParameter(allJsonObject,ConstantsConfig.APNSTOKEN);
+		String apnsToken = JsonHelper.getParameter(allJsonObject,ConfigJSON.APNSTOKEN);
 		
 		User user = userDAO.getUser(username);
 		if (user == null) {
-			message.description = ConstantsConfig.USER.UserNotExist;
+			message.description = ConfigConstants.USER.UserNotExist;
 		} else if (password.equals(user.getPassword())) {
 			
 			// update the apnsToken in db
@@ -86,24 +84,24 @@ public class UserAction extends ActionModelBase {
 			
 			// put result in response
 			Map<String, Object> map = new HashMap<String, Object>();
-			message.status = ConstantsConfig.STATUS_SUCCESS;
-			message.description = ConstantsConfig.USER.UserLoginSuccess;
+			message.status = ConfigConstants.STATUS_SUCCESS;
+			message.description = ConfigConstants.USER.UserLoginSuccess;
 			
-			map.put(ConstantsConfig.IDENTIFIER, user.getId());
-			map.put(ConstantsConfig.PERMISSIONS, userDAO.getAllUsers());
+			map.put(ConfigJSON.IDENTIFIER, user.getId());
+			map.put(ConfigConstants.PERMISSIONS, userDAO.getAllUsers());
 			message.objects = map;
 			
 			// put the permission in session
 			String perssionStr = user.getPermissions();
-			perssionStr = StringHelper.isEmpty(perssionStr) ? ConstantsConfig.DEFAULT_PERMISSION : perssionStr;
+			perssionStr = StringHelper.isEmpty(perssionStr) ? ConfigConstants.DEFAULT_PERMISSION : perssionStr;
 			JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(perssionStr);
 			Map<String, Object> permissions = JsonHelper.translateElementToMap(jsonObject);
-			SessionManager.put(ConstantsConfig.PERMISSIONS, permissions);
-			SessionManager.put(ConstantsConfig.SIGNIN_USER, user);
+			SessionManager.put(ConfigConstants.PERMISSIONS, permissions);
+			SessionManager.put(ConfigConstants.SIGNIN_USER, user);
 			
 			
 		} else {
-			message.description = ConstantsConfig.USER.UserPasswordError;
+			message.description = ConfigConstants.USER.UserPasswordError;
 		}
 			
 //		}
@@ -114,14 +112,14 @@ public class UserAction extends ActionModelBase {
 	}
 	
 	public String signout() throws Exception {
-		SessionManager.remove(ConstantsConfig.PERMISSIONS);
-		SessionManager.remove(ConstantsConfig.SIGNIN_USER);
+		SessionManager.remove(ConfigConstants.PERMISSIONS);
+		SessionManager.remove(ConfigConstants.SIGNIN_USER);
 		
-		User user = (User) SessionManager.get(ConstantsConfig.SIGNIN_USER);
+		User user = (User) SessionManager.get(ConfigConstants.SIGNIN_USER);
 //		ApprovalHelper.deleteAPNSToken(username, apnsToken);
 		ApprovalHelper.setAPNSToken(user.getUsername(), "");
 		
-		message.status = ConstantsConfig.STATUS_SUCCESS;
+		message.status = ConfigConstants.STATUS_SUCCESS;
 		return Action.NONE;
 	}
 	
@@ -151,14 +149,14 @@ public class UserAction extends ActionModelBase {
 			User model = (User)models.get(i);
 			Set<String> keys = objectKeys.get(i);
 			
-			String username = identities.get(i).get(ConstantsConfig.USERNAME);
+			String username = identities.get(i).get(ConfigJSON.USERNAME);
 			User persistence = userDAO.getUser(username); 	// po
 			ModelIntrospector.copyVoToPo(model, persistence, keys);
 			
 			userDAO.modify(persistence);
 		}
 		
-		message.status = ConstantsConfig.STATUS_SUCCESS;
+		message.status = ConfigConstants.STATUS_SUCCESS;
 		return Action.NONE;
 	}
 	
@@ -191,12 +189,12 @@ public class UserAction extends ActionModelBase {
 	 */
 	private boolean isVerifyCodeError() {
 		
-		String userVerifyCode = JsonHelper.getParameter(allJsonObject, ConstantsConfig.VERIFYCODE);
-		String verifyCode = (String) SessionManager.get(ConstantsConfig.VERIFYCODE);
-		SessionManager.remove(ConstantsConfig.VERIFYCODE);
+		String userVerifyCode = JsonHelper.getParameter(allJsonObject, ConfigJSON.VERIFYCODE);
+		String verifyCode = (String) SessionManager.get(ConfigJSON.VERIFYCODE);
+		SessionManager.remove(ConfigJSON.VERIFYCODE);
 		
 		boolean isError = userVerifyCode == null || userVerifyCode.isEmpty() || !userVerifyCode.equals(verifyCode);
-		if (isError) message.description = ConstantsConfig.USER.VerifyCodeError;
+		if (isError) message.description = ConfigConstants.USER.VerifyCodeError;
 		
 //		return isError;
 		

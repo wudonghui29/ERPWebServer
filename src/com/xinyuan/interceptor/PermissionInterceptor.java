@@ -11,11 +11,12 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+import com.xinyuan.Config.ConfigConstants;
+import com.xinyuan.Config.ConfigJSON;
+import com.xinyuan.Config.ResponseMessage;
 import com.xinyuan.Util.JsonHelper;
 import com.xinyuan.action.ActionModelBase;
 import com.xinyuan.action.SuperAction;
-import com.xinyuan.message.ConstantsConfig;
-import com.xinyuan.message.ResponseMessage;
 import com.xinyuan.model.User.User;
 
 public class PermissionInterceptor extends AbstractInterceptor {
@@ -47,7 +48,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 
 		// Get the permission the user have
 		Map session = invocation.getInvocationContext().getSession();
-		Map<String, Object> permissions = (Map<String, Object>)session.get(ConstantsConfig.PERMISSIONS);
+		Map<String, Object> permissions = (Map<String, Object>)session.get(ConfigConstants.PERMISSIONS);
 		
 		// Get the struts Action
 		ActionModelBase baseAction = (ActionModelBase)invocation.getAction();
@@ -56,14 +57,14 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		// Get the permission needed
 		String method = PermissionInterceptor.getContextMethod().trim();   		// A . method needeD  // TODO: Be careful of ActionModelBase's method !! important !!
 		JsonObject jsonObject = baseAction.getAllJsonObject();
-		JsonArray jsonArray = (JsonArray) jsonObject.get(ConstantsConfig.MODELS);
+		JsonArray jsonArray = (JsonArray) jsonObject.get(ConfigJSON.MODELS);
 		List<String> models = JsonHelper.translateJsonArrayToList(jsonArray); 	// B. models needed
 		
 		message.models = models;
 		
 		
 		// ok , check if administrator  	//TODO: For test , remove it , in production, give all the permission to administrator, or , just leave it?
-		boolean isAdministrator = AdministratorInterceptor.isAdmin((User)SessionManager.get(ConstantsConfig.SIGNIN_USER));
+		boolean isAdministrator = AdministratorInterceptor.isAdmin((User)SessionManager.get(ConfigConstants.SIGNIN_USER));
 		if (isAdministrator) return invocation.invoke();	// ok , let it pass
 		
 		boolean isAllowable = false;
@@ -79,7 +80,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		
 		if (isAllowable) return invocation.invoke();	// ok , let it pass
 		
-		message.description = ConstantsConfig.DENY;
+		message.description = ConfigConstants.DENY;
 		
 		return Action.NONE;
 	}
@@ -150,7 +151,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	 * @return
 	 */
 	private static boolean check(Map<String, Object> permissions, String action, String model, String method) {
-		if(action.equals(ConstantsConfig.CATEGORIE_APPROVAL) && method.equals(ConstantsConfig.METHOD_READ)) return true;	// Let "read" the Approval package permission go through
+		if(action.equals(ConfigConstants.CATEGORIE_APPROVAL) && method.equals(ConfigConstants.METHOD_READ)) return true;	// Let "read" the Approval package permission go through
 		
 //		if (! methods.contains(method)) return true;		// for SecurityAction.inform ... TODO: ...
 		

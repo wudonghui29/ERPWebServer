@@ -11,13 +11,13 @@ import org.apache.struts2.ServletActionContext;
 import com.modules.Introspector.IntrospectHelper;
 import com.modules.Util.FileHelper;
 import com.opensymphony.xwork2.Action;
+import com.xinyuan.Config.ConfigConstants;
 import com.xinyuan.Util.ApnsHelper;
 import com.xinyuan.dao.BusinessDAO;
 import com.xinyuan.dao.HumanResourceDAO;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.BusinessDAOIMP;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
-import com.xinyuan.message.ConstantsConfig;
 
 /**
  * 
@@ -41,7 +41,7 @@ public class SettingAction extends ActionModelBase {
 	 */
 	public String getApplicationModelsStructures() {
 		// get the file name list
-		File folder = new File(ConstantsConfig.modelsFilesPath);
+		File folder = new File(ConfigConstants.modelsFilesPath);
 		List<String> modelsList = new ArrayList<String>();
 		FileHelper.listFilesForSubFolder(folder, modelsList);
 		
@@ -50,17 +50,17 @@ public class SettingAction extends ActionModelBase {
 		for (Iterator iterator = modelsList.iterator(); iterator.hasNext();) {
 			String string = (String) iterator.next();				// "Approval.Approvals.class"  not ".java" 
 			
-			if (string.contains(ConstantsConfig.CATEGORIE_USER) || string.contains(ConstantsConfig.CATEGORIE_APPROVAL)) continue;
+			if (string.contains(ConfigConstants.CATEGORIE_USER) || string.contains(ConfigConstants.CATEGORIE_APPROVAL)) continue;
 			
-			String className = string.replaceAll(ConstantsConfig.SUFFIX_CLASS, ConstantsConfig.EMPTY_STRING);
-			String wholeClassName = ConstantsConfig.MODELPACKAGE + ConstantsConfig.PACKAGE_CONNECTOR + className;			// MODELPACKAGE + "Approval.Approvals"
+			String className = string.replaceAll(ConfigConstants.SUFFIX_CLASS, ConfigConstants.EMPTY_STRING);
+			String wholeClassName = ConfigConstants.MODELPACKAGE + ConfigConstants.PACKAGE_CONNECTOR + className;			// MODELPACKAGE + "Approval.Approvals"
 			classesNamesList.add(wholeClassName);
 		}
 		
 		// translate classes properties name to map
 		 Map<String, Map<String, List<String>>> map = IntrospectHelper.translateToPropertiesMap(classesNamesList);
 		 
-		 message.status = ConstantsConfig.STATUS_SUCCESS;
+		 message.status = ConfigConstants.STATUS_SUCCESS;
 		 message.objects = map;
 		
 		
@@ -83,7 +83,7 @@ public class SettingAction extends ActionModelBase {
 		results.add(hrList);
 		results.add(bsList);
 		
-		message.status = ConstantsConfig.STATUS_SUCCESS;
+		message.status = ConfigConstants.STATUS_SUCCESS;
 		message.objects = results;
 		
 		return Action.NONE;

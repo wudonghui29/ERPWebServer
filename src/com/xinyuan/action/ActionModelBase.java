@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.gson.JsonObject;
+import com.xinyuan.Config.RequestMessage;
 import com.xinyuan.dao.SuperDAO;
-import com.xinyuan.message.RequestMessage;
 
 public abstract class ActionModelBase extends ActionBase {
 

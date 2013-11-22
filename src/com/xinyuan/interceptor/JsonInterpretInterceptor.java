@@ -18,11 +18,12 @@ import com.modules.Util.DLog;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+import com.xinyuan.Config.ConfigConstants;
+import com.xinyuan.Config.ConfigJSON;
+import com.xinyuan.Config.RequestMessage;
 import com.xinyuan.Util.JsonHelper;
 import com.xinyuan.action.ActionModelBase;
 import com.xinyuan.action.SuperAction;
-import com.xinyuan.message.ConstantsConfig;
-import com.xinyuan.message.RequestMessage;
 
 public class JsonInterpretInterceptor extends AbstractInterceptor {
 
@@ -34,7 +35,7 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		ActionModelBase baseAction = (ActionModelBase)invocation.getAction();
 		HttpServletRequest request = ServletActionContext.getRequest();
 		
-		String json = request.getParameter(ConstantsConfig.JSON);
+		String json = request.getParameter(ConfigJSON.JSON);
 		DLog.log(json);
 		RequestMessage requestMessage = JsonHelper.getGson().fromJson(json, RequestMessage.class);
 		DLog.log("RequestMessage : " + requestMessage.toString());
@@ -44,8 +45,8 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		List<Set<String>> voKeys = new ArrayList<Set<String>>();
 		List<Object> vos = new ArrayList<Object>();
 		
-		JsonArray modelsArray = (JsonArray) jsonObject.get(ConstantsConfig.MODELS);			// MODELS
-		JsonArray objectsArray = (JsonArray) jsonObject.get(ConstantsConfig.OBJECTS);		// OBJECTS
+		JsonArray modelsArray = (JsonArray) jsonObject.get(ConfigJSON.MODELS);			// MODELS
+		JsonArray objectsArray = (JsonArray) jsonObject.get(ConfigJSON.OBJECTS);		// OBJECTS
 		
 		if(modelsArray.size() != objectsArray.size()) {
 			DLog.log("Reject : models.size not match objects.size");
@@ -54,7 +55,7 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		
 		// "HumanResource__delete" -> "HumanResource"
 		String actionName = IntrospectHelper.getShortClassName(baseAction);
-		String catagory = actionName.replace(ConstantsConfig.ACTION, "");
+		String catagory = actionName.replace(ConfigConstants.ACTION, ConfigConstants.EMPTY_STRING);
 		
 		for (int i = 0; i < modelsArray.size(); i++) {
 			JsonElement modelElement = modelsArray.get(i);
@@ -63,7 +64,7 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 			// get model
 			String modelString = modelElement.getAsString();					// e.g : ".Employee"
 			String objectString = JsonHelper.getGson().toJson(objectElement);
-			String className = ConstantsConfig.MODELPACKAGE + (baseAction.getClass() == SuperAction.class ?  modelString : ConstantsConfig.PACKAGE_CONNECTOR + catagory + modelString);
+			String className = ConfigConstants.MODELPACKAGE + (baseAction.getClass() == SuperAction.class ?  modelString : ConfigConstants.PACKAGE_CONNECTOR + catagory + modelString);
 			Class<?> modelClass = Class.forName(className);
 			Object vo = JsonHelper.getGson().fromJson(objectString, modelClass);
 			

@@ -1,4 +1,4 @@
-package com.xinyuan.message;
+package com.xinyuan.Config;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import java.util.List;
 
 public class ResponseMessage {
 	
-	public String status = ConstantsConfig.STATUS_FAILED;   // 0 for failed , 1 for success
-	public String action = ConstantsConfig.EMPTY_STRING;
+	public String status = ConfigConstants.STATUS_FAILED;   // 0 for failed , 1 for success
+	public String action = ConfigConstants.EMPTY_STRING;
 	public String apnsStatus = null ;
 	public String description = null;
 	public String exception = null;

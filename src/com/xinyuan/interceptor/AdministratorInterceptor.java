@@ -5,7 +5,7 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
-import com.xinyuan.message.ConstantsConfig;
+import com.xinyuan.Config.ConfigConstants;
 import com.xinyuan.model.User.User;
 
 public class AdministratorInterceptor extends AbstractInterceptor {
@@ -15,7 +15,7 @@ public class AdministratorInterceptor extends AbstractInterceptor {
 		
 		DLog.log("");
 		
-		User user = (User)ActionContext.getContext().getSession().get(ConstantsConfig.SIGNIN_USER);
+		User user = (User)ActionContext.getContext().getSession().get(ConfigConstants.SIGNIN_USER);
 		if (isAdmin(user)) return invocation.invoke();
 		
 		return Action.NONE;

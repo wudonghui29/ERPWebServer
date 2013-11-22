@@ -1,4 +1,4 @@
-package com.xinyuan.Util;
+package com.xinyuan.Query;
 
 import java.util.HashMap;
 import java.util.Map;

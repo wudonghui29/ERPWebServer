@@ -9,11 +9,11 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 
 import com.modules.Introspector.IntrospectHelper;
-import com.xinyuan.Util.QueryCriteriasHelper;
-import com.xinyuan.Util.QueryFieldsHelper;
-import com.xinyuan.Util.QueryLimitsHelper;
-import com.xinyuan.Util.QueryObjectsHelper;
-import com.xinyuan.Util.QuerySortsHelper;
+import com.xinyuan.Query.QueryCriteriasHelper;
+import com.xinyuan.Query.QueryFieldsHelper;
+import com.xinyuan.Query.QueryLimitsHelper;
+import com.xinyuan.Query.QueryObjectsHelper;
+import com.xinyuan.Query.QuerySortsHelper;
 import com.xinyuan.dao.SuperDAO;
 
 public class SuperDAOIMP extends HibernateDAO implements SuperDAO {

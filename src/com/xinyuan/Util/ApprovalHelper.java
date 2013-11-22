@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.xinyuan.Config.ConfigConstants;
 import com.xinyuan.dao.impl.HibernateDAO;
-import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.model.Approval.Approvals;
 
 public class ApprovalHelper {
@@ -18,12 +18,12 @@ public class ApprovalHelper {
 		
 		
 		// orderIdentifier = order type + orderNO 
-		String orderIdentifier = orderType + ConstantsConfig.CONTENT_CONNECTOR + orderNO;				// Employee.YG001,Employee.YG002
+		String orderIdentifier = orderType + ConfigConstants.CONTENT_CONNECTOR + orderNO;				// Employee.YG001,Employee.YG002
 		
 		
 		
 		// do add 
-		pendingApprovals = pendingApprovals == null || pendingApprovals.isEmpty() ? orderIdentifier : pendingApprovals + ConstantsConfig.CONTENT_DIVIDER + orderIdentifier;
+		pendingApprovals = pendingApprovals == null || pendingApprovals.isEmpty() ? orderIdentifier : pendingApprovals + ConfigConstants.CONTENT_DIVIDER + orderIdentifier;
 		pendingApproval.setPendingApprovals(pendingApprovals);
 		
 		hibernateDAO.updateObject(pendingApproval);
@@ -38,20 +38,20 @@ public class ApprovalHelper {
 		
 		
 		// orderIdentifier = order type + orderNO 
-		String orderIdentifier = orderType + ConstantsConfig.CONTENT_CONNECTOR + orderNO;
+		String orderIdentifier = orderType + ConfigConstants.CONTENT_CONNECTOR + orderNO;
 		
 		
 		
 		// do delete
 		// list
-		String[] pendingList = pendingApprovals.split(ConstantsConfig.CONTENT_DIVIDER);
+		String[] pendingList = pendingApprovals.split(ConfigConstants.CONTENT_DIVIDER);
 		List<String> list = new ArrayList<String>(Arrays.asList(pendingList));
 		
 		list.removeAll(Arrays.asList(orderIdentifier));
 		String result = "";
 		for (int i = 0; i < list.size(); i++) {
 			String orderString = list.get(i);
-			if (i != 0) result += ConstantsConfig.CONTENT_DIVIDER;
+			if (i != 0) result += ConfigConstants.CONTENT_DIVIDER;
 			result += orderString ;
 		}
 		pendingApproval.setPendingApprovals(result);
@@ -81,9 +81,9 @@ public class ApprovalHelper {
 		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, username);
 		
 		String apnsTokens = ApprovalHelper.getAPNSToken(username);
-		boolean isLagerThanOne = apnsToken.split(ConstantsConfig.CONTENT_DIVIDER).length > 1 ;
+		boolean isLagerThanOne = apnsToken.split(ConfigConstants.CONTENT_DIVIDER).length > 1 ;
 		
-		pendingApproval.setApnsToken(isLagerThanOne ? apnsTokens.replaceAll(ConstantsConfig.CONTENT_DIVIDER + apnsToken, "") : apnsToken.replaceAll(apnsToken, ""));
+		pendingApproval.setApnsToken(isLagerThanOne ? apnsTokens.replaceAll(ConfigConstants.CONTENT_DIVIDER + apnsToken, "") : apnsToken.replaceAll(apnsToken, ""));
 		hibernateDAO.updateObject(pendingApproval);
 	}
 

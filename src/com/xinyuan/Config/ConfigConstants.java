@@ -1,14 +1,14 @@
-package com.xinyuan.message;
+package com.xinyuan.Config;
 
 import java.io.File;
 
 import org.apache.struts2.ServletActionContext;
 
-public class ConstantsConfig {
+public class ConfigConstants {
 	
 	public static final String contextRealPath = ServletActionContext.getServletContext().getRealPath(File.separator);
 	public static final String fileSeperator = System.getProperty("file.separator");
-	public static final String modelsFilesPath = ConstantsConfig.contextRealPath + "WEB-INF"
+	public static final String modelsFilesPath = ConfigConstants.contextRealPath + "WEB-INF"
 			+ fileSeperator + "classes" + fileSeperator + "com"
 			+ fileSeperator + "xinyuan" + fileSeperator + "model" + fileSeperator;
 	
@@ -16,11 +16,15 @@ public class ConstantsConfig {
 	public static final String APNS_CERTIFICATE_PASSWORD = "12345";
 	public static final String APNS_CERTIFICATE_PATH = contextRealPath + "../apnsDevelop.p12";
 	
+	
+	
 	public static final String SUFFIX_CLASS = ".class";
 	public static final String PACKAGE_CONNECTOR = ".";
 	
 	public static final String CONTENT_DIVIDER = ",";
 	public static final String CONTENT_CONNECTOR = ".";
+	
+	
 	
 	public static final String ACTION = "Action" ;
 	
@@ -39,20 +43,6 @@ public class ConstantsConfig {
 	public static final String DEFAULT_PERMISSION = "{}";
 	
 	
-	public static final String VERIFYCODE = "VERIFYCODE";
-	public static final String VERIFYCODE_TYPE = "VERIFYCODE_TYPE";
-	public static final String VERIFYCODE_COUNT = "VERIFYCODE_COUNT";
-	
-	
-	public static final String APNSTOKEN = "APNSTOKEN";
-	
-	public static final String ORDERNO = "orderNO";
-	public static final String IDENTIFIER = "id";
-	
-	
-	public static final String USERNAME = "username";
-	public static final String PASSWORD = "password";
-	
 	
 	public static final String SIGNIN_USER = "signin_user";
 	
@@ -62,29 +52,8 @@ public class ConstantsConfig {
 
 	
 	
-	
-	public static final String OBJECTS = "OBJECTS";
-	public static final String MODELS = "MODELS";
-	public static final String FIELDS = "FIELDS";			// for multi tables queries
-	public static final String JOINS = "JOINS";				// for cross tables queries with join (left join, right join)
-	public static final String SORTS = "SORTS";
-	public static final String CRITERIAS = "CRITERIAS";		// for query
-	public static final String IDENTITYS = "IDENTITYS";		// for modify， delete
-	public static final String PARAMETERS = "PARAMETERS"; 	// for user connect 's verify code's length or type , and so on ...
-	
-	public static final String PASSWORDS = "PASSWORDS";		// for create user
-	
-	
-	
-	public static final String APNS_CONTENTS = "APNS_CONTENTS";
-	public static final String APNS_FORWARDS = "APNS_FORWARDS";
-	
-	
-	
 	public static final String DENY = "DENY";
-	public static final String JSON = "JSON";
-	public static final String USERS = "USERS";
-	public static final String CATEGORIES = "CATEGORIES";
+
 	public static final String PERMISSIONS = "PERMISSIONS";
 	
 	public static final String REQUEST_ERROR = "REQUEST_ERROR";

@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.Set;
 
 import com.Global.HibernateInitializer;
+import com.xinyuan.Config.ConfigConstants;
 import com.xinyuan.dao.ModelDAO;
-import com.xinyuan.message.ConstantsConfig;
 import com.xinyuan.model.OrderModel;
 
 /**
@@ -23,9 +23,9 @@ public abstract class ModelDAOIMP extends SuperDAOIMP implements ModelDAO {
 	private final String Model_Scope = getModelScope();		// "com.xinyuan.model.Cards"
 	private String getModelScope() {
 		String wholeClassName = getClass().getName();
-		String shortClassName = wholeClassName.substring(wholeClassName.lastIndexOf(ConstantsConfig.PACKAGE_CONNECTOR) + 1);
-		String superModelName = shortClassName.substring(0, shortClassName.indexOf(ConstantsConfig.DAOIMP_SUFFIX));
-		return ConstantsConfig.MODELPACKAGE + ConstantsConfig.PACKAGE_CONNECTOR + superModelName;
+		String shortClassName = wholeClassName.substring(wholeClassName.lastIndexOf(ConfigConstants.PACKAGE_CONNECTOR) + 1);
+		String superModelName = shortClassName.substring(0, shortClassName.indexOf(ConfigConstants.DAOIMP_SUFFIX));
+		return ConfigConstants.MODELPACKAGE + ConfigConstants.PACKAGE_CONNECTOR + superModelName;
 	}
 	private boolean checkModelScope(Object object) {		// check "com.xinyuan.model.Cards.CardsAlbums" is under "com.xinyuan.model.Cards"
 		return object.getClass().getName().indexOf(Model_Scope) == -1;
