@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.Global.HibernateInitializer;
 import com.xinyuan.dao.ModelDAO;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.model.BaseOrder;

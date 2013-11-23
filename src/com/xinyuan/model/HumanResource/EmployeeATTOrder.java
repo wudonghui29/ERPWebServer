@@ -4,10 +4,7 @@ package com.xinyuan.model.HumanResource;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.xinyuan.model.LevelApp_4;
 
@@ -20,6 +17,10 @@ import com.xinyuan.model.LevelApp_4;
 @Table
 public class EmployeeATTOrder extends LevelApp_4 {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// 考核日期的范围
 	private Date attendanceStarDate; 
 	private Date attendanceEndDate;

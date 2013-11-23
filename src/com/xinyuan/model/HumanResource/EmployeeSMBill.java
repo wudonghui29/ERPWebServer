@@ -2,7 +2,10 @@ package com.xinyuan.model.HumanResource;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.xinyuan.model.BaseBill;
@@ -17,6 +20,10 @@ import com.xinyuan.model.BaseBill;
 @Table
 public class EmployeeSMBill extends BaseBill {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// 日期范围
 	private Date startDate;
 	private Date endDate;
@@ -26,6 +33,8 @@ public class EmployeeSMBill extends BaseBill {
 	private boolean morningWork;	// 早班
 	private boolean noonWork;		// 午班
 	private boolean eveningWork;	// 晚班
+	
+	private EmployeeSMOrder order;
 	
 	public Date getStartDate() {
 		return startDate;
@@ -63,5 +72,12 @@ public class EmployeeSMBill extends BaseBill {
 	public void setEveningWork(boolean eveningWork) {
 		this.eveningWork = eveningWork;
 	}
-	
+
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	public EmployeeSMOrder getOrder() {
+		return order;
+	}
+	public void setOrder(EmployeeSMOrder order) {
+		this.order = order;
+	}
 }

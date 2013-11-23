@@ -8,10 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-
 @MappedSuperclass
 public class BaseModel implements Serializable {
-	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected int id ;
 	protected Date createDate; 	// the date of creating this order
 	protected String createUser;	// the username of creating this order

@@ -4,10 +4,7 @@ import java.sql.Time;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.xinyuan.model.LevelApp_4;
 
@@ -22,6 +19,10 @@ import com.xinyuan.model.LevelApp_4;
 @Table
 public class EmployeeOTOrder extends LevelApp_4 {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Date applyDate ;	 // 申请日期
 	private Date overTimeDate; 	// 加班日期
 	

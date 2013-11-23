@@ -15,6 +15,10 @@ import com.xinyuan.model.BaseModel;
 @Entity
 @Table
 public class CardsAlbums extends BaseModel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String albumName ;		// 相冊名称
 	private String albumPassword ;	// 相册密码
 	

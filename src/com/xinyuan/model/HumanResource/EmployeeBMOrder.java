@@ -4,8 +4,6 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.xinyuan.model.LevelApp_1;
 
@@ -21,6 +19,11 @@ import com.xinyuan.model.LevelApp_1;
 @Table
 public class EmployeeBMOrder extends LevelApp_1 {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Date mealDate;		// 日期
 	
 	private String employeeNO ; // 员工编号

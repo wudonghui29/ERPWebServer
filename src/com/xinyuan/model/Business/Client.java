@@ -10,6 +10,10 @@ import com.xinyuan.model.LevelApp_1;
 @Table
 public class Client extends LevelApp_1 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String clientNO ;		// 厂商编号
 	private String clientName ;		// 厂商名称
 	private String clientAlias ; 	// 厂商简称

@@ -5,8 +5,6 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.xinyuan.model.LevelApp_4;
 
@@ -20,6 +18,10 @@ import com.xinyuan.model.LevelApp_4;
 @Table
 public class EmployeeDormitoryOrder extends LevelApp_4 {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Date dormitoryDate; // 实体表中比如: "2013年9月一楼宿舍明细表" 中的 "2013年9月"
 	private int floor ; 		// 实体表中比如: "2013年9月一楼宿舍明细表" 中的 "一楼"
 	

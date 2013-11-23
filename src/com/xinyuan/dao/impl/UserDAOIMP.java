@@ -2,7 +2,6 @@ package com.xinyuan.dao.impl;
 
 import java.util.List;
 
-import org.hibernate.NonUniqueResultException;
 import org.hibernate.Query;
 
 import com.xinyuan.dao.UserDAO;

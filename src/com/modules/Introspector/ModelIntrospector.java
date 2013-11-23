@@ -6,8 +6,6 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.util.Set;
 
-import javax.persistence.criteria.CriteriaBuilder.In;
-
 
 public class ModelIntrospector {
 	

@@ -4,10 +4,7 @@ package com.xinyuan.model.HumanResource;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.xinyuan.model.LevelAPP_5;
 
@@ -20,6 +17,11 @@ import com.xinyuan.model.LevelAPP_5;
 @Entity
 @Table
 public class EmployeeQuitOrder extends LevelAPP_5 {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private String employeeNO;  // the employee want to quit his job
 	

@@ -7,8 +7,6 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -19,6 +17,10 @@ import com.xinyuan.model.LevelAPP_5;
 @Table
 public class Employee extends LevelAPP_5 {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String name ;		// 姓名
 	private String idCard ;		// 身份证号码
 	private boolean gender;  	// 0 , female ; 1 , male  // boolean respect as "true" in json

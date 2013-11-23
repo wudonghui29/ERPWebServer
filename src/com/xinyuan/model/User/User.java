@@ -15,6 +15,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table
 public class User implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int uid ; 				// primary id , id == 1 is administrator for now
 	private String username;		// == employeeNO
 	private String password;		//

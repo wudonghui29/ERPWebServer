@@ -5,10 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.print.DocFlavor.STRING;
-
-import com.xinyuan.model.BaseOrder;
-
 
 public interface SuperDAO {
 	

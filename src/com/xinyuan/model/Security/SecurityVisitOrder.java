@@ -18,6 +18,10 @@ import com.xinyuan.model.LevelApp_1;
 @Table
 public class SecurityVisitOrder extends LevelApp_1 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String visitorCompany;  // 拜访人公司
 	private String visitorName;		// 拜访人名字
 	private int accompanyCount;		// 随同人数
@@ -29,9 +33,10 @@ public class SecurityVisitOrder extends LevelApp_1 {
 	private String interviewNO;		// 已接见人
 	
 	
-	private String enterAuthNO;		// 入厂放行 (保安NO)
-	private String exitAuthNO;		// 出厂放行 (保安NO)
-	private Date	enterDate;		// 入厂时间
+	private String entrySecEmployeeNO ;	// 入厂放行 (保安NO)
+	private String exitSecEmployeeNO;	// 出厂放行 (保安NO)
+	
+	private Date	entryDate;		// 入厂时间
 	private Date	exitDate;		// 出厂时间
 	
 	
@@ -86,23 +91,25 @@ public class SecurityVisitOrder extends LevelApp_1 {
 	public void setInterviewNO(String interviewNO) {
 		this.interviewNO = interviewNO;
 	}
-	public String getEnterAuthNO() {
-		return enterAuthNO;
+	
+	public String getEntrySecEmployeeNO() {
+		return entrySecEmployeeNO;
 	}
-	public void setEnterAuthNO(String enterAuthNO) {
-		this.enterAuthNO = enterAuthNO;
+	public void setEntrySecEmployeeNO(String entrySecEmployeeNO) {
+		this.entrySecEmployeeNO = entrySecEmployeeNO;
 	}
-	public String getExitAuthNO() {
-		return exitAuthNO;
+	public String getExitSecEmployeeNO() {
+		return exitSecEmployeeNO;
 	}
-	public void setExitAuthNO(String exitAuthNO) {
-		this.exitAuthNO = exitAuthNO;
+	public void setExitSecEmployeeNO(String exitSecEmployeeNO) {
+		this.exitSecEmployeeNO = exitSecEmployeeNO;
 	}
-	public Date getEnterDate() {
-		return enterDate;
+	
+	public Date getEntryDate() {
+		return entryDate;
 	}
-	public void setEnterDate(Date enterDate) {
-		this.enterDate = enterDate;
+	public void setEntryDate(Date entryDate) {
+		this.entryDate = entryDate;
 	}
 	public Date getExitDate() {
 		return exitDate;

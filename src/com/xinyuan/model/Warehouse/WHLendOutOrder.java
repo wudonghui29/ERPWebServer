@@ -17,6 +17,10 @@ import com.xinyuan.model.LevelApp_3;
 @Table
 public class WHLendOutOrder extends LevelApp_3 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Date lendDate;			//借出日期
 	private Date planReturnDate; 	//预计还入日期
 	private Date returnDate;		//归还日期
@@ -79,7 +83,7 @@ public class WHLendOutOrder extends LevelApp_3 {
 	}
 
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)	// LAZY : http://stackoverflow.com/a/2192256/1749293
-	@JoinColumn(name="WHLendOutOrder_id")						// This will add a column "WHLendOutOrder_id" in WHLendOutBill table
+	@JoinColumn(name="WHLendOutOrder_id")						// This will add a column "WHLendOutOrder_id" in WHLendOutBill table, if not written, DB will create a middle-join table .
 	public Set<WHLendOutBill> getBills() {
 		return bills;
 	}

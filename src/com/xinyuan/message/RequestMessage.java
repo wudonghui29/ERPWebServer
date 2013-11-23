@@ -1,10 +1,5 @@
 package com.xinyuan.message;
 
-import java.beans.BeanDescriptor;
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 

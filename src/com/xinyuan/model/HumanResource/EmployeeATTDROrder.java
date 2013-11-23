@@ -5,8 +5,6 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.xinyuan.model.LevelApp_3;
 
@@ -24,6 +22,11 @@ import com.xinyuan.model.LevelApp_3;
 @Table
 public class EmployeeATTDROrder extends LevelApp_3{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Date workDate; 		// 出勤日期
 	
 	private int presentCount ;	// 出勤人数

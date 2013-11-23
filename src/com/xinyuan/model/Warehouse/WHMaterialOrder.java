@@ -16,6 +16,10 @@ import com.xinyuan.model.LevelApp_1;
 @Table
 public class WHMaterialOrder extends LevelApp_1 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String productCode ;		// 产品代码
 	private String productName ;		// 品名
 	private String productCategory ;	// 产品分类

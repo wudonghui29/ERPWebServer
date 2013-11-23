@@ -11,6 +11,10 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class BaseOrder extends BaseModel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected String orderNO ; 		// the NO. of this order
 	protected Date expiredDate;		// The expired date
 	protected String forwardUser; 	// the username current forwarding to this order

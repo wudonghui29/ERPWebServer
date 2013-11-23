@@ -1,11 +1,13 @@
 package com.xinyuan.model.HumanResource;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.xinyuan.model.LevelApp_1;
 
@@ -20,6 +22,11 @@ import com.xinyuan.model.LevelApp_1;
 @Table
 public class EmployeeSMOrder extends LevelApp_1 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Date mealDate;		// 日期
 	
 	private String employeeNO ; // 员工编号
@@ -27,6 +34,8 @@ public class EmployeeSMOrder extends LevelApp_1 {
 	private boolean morningMeal;	// 早
 	private boolean noonMeal;		// 午
 	private boolean eveningMeal;	// 晚
+	
+	private Set<EmployeeSMBill> bills;
 	
 	public Date getMealDate() {
 		return mealDate;
@@ -57,6 +66,14 @@ public class EmployeeSMOrder extends LevelApp_1 {
 	}
 	public void setEveningMeal(boolean eveningMeal) {
 		this.eveningMeal = eveningMeal;
+	}
+	
+	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER, mappedBy="order")
+	public Set<EmployeeSMBill> getBills() {
+		return bills;
+	}
+	public void setBills(Set<EmployeeSMBill> bills) {
+		this.bills = bills;
 	}
 	
 }

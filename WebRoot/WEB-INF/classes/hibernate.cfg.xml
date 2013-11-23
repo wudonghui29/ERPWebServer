@@ -89,6 +89,7 @@
 
         <!-- Security Models -->
         <mapping class="com.xinyuan.model.Security.SecurityVisitOrder"/>
+        <mapping class="com.xinyuan.model.Security.SecurityVisitLogOrder"/>
         
         
         <!-- Business Models -->

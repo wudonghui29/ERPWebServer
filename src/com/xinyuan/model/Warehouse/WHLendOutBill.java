@@ -9,6 +9,10 @@ import com.xinyuan.model.BaseBill;
 @Table
 public class WHLendOutBill extends BaseBill {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String productCode ;	// 产品代码
 	private float amount;			// 数量
 	private String unit;			// 单位

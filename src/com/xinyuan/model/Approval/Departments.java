@@ -13,6 +13,10 @@ import javax.persistence.UniqueConstraint;
 @Table(uniqueConstraints= @UniqueConstraint(columnNames = {"name", "subDepartment"}))
 public class Departments implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
 	private String subDepartment;

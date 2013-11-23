@@ -3,9 +3,6 @@ package com.xinyuan.model.Finance;
 
 import java.util.Date;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import com.xinyuan.model.LevelApp_4;
 
 /**
@@ -14,6 +11,11 @@ import com.xinyuan.model.LevelApp_4;
  *
  */
 public class FinanceTemporaryLoanOrder extends LevelApp_4 {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private String employeeNO ; //借款人
 	

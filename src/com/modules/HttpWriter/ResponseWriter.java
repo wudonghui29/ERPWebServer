@@ -1,10 +1,8 @@
 package com.modules.HttpWriter;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
 

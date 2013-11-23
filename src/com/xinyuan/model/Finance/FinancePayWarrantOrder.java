@@ -3,9 +3,6 @@ package com.xinyuan.model.Finance;
 
 import java.util.Date;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import com.xinyuan.model.LevelAPP_5;
 
 /**
@@ -16,6 +13,10 @@ import com.xinyuan.model.LevelAPP_5;
 
 public class FinancePayWarrantOrder extends LevelAPP_5 {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String catalog ; //科目
 	private Date orderDate ; //日期
 	private int number;		 //第几号

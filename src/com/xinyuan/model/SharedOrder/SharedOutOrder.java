@@ -12,6 +12,7 @@ import com.xinyuan.model.LevelApp_1;
 
 
 /**
+ * 
  * Employee Going Out Order (员工外出单)
  * 
  *
@@ -21,6 +22,11 @@ import com.xinyuan.model.LevelApp_1;
 @Table
 public class SharedOutOrder extends LevelApp_1 {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private String employeeNO; 		// employee NO. the employee ask for going out 
 	
 	private String outReason;		// the reason of going out  事由
@@ -28,11 +34,11 @@ public class SharedOutOrder extends LevelApp_1 {
 	private String outCompanyCarrying; 		// the carrying stuff when going out 外携公司物品
 	private String outPersonalCarrying;   	// the carrying stuff when coming back 外携私人物品
 	
-	private Date outDate ; 	// the date of going out  出厂时间 
+	private Date exitDate;	// the date of going out  出厂时间 
 	private Date entryDate; // the date of coming back  入厂时间
 	
-	private String outSecurityEmployeeNO;		// 保安出厂放行
-	private String entrySecurityEmployeeNO;		// 保安入厂放行
+	private String entrySecEmployeeNO;		// 保安入厂放行
+	private String exitSecEmployeeNO;		// 保安出厂放行
 	
 	private String sendAppEmployeeNO;		// 发关主管核准
 	private String notAppEmployeeNO;		// 主管不核准
@@ -65,11 +71,11 @@ public class SharedOutOrder extends LevelApp_1 {
 	public void setOutPersonalCarrying(String outPersonalCarrying) {
 		this.outPersonalCarrying = outPersonalCarrying;
 	}
-	public Date getOutDate() {
-		return outDate;
+	public Date getExitDate() {
+		return exitDate;
 	}
-	public void setOutDate(Date outDate) {
-		this.outDate = outDate;
+	public void setExitDate(Date exitDate) {
+		this.exitDate = exitDate;
 	}
 	public Date getEntryDate() {
 		return entryDate;
@@ -77,17 +83,17 @@ public class SharedOutOrder extends LevelApp_1 {
 	public void setEntryDate(Date entryDate) {
 		this.entryDate = entryDate;
 	}
-	public String getOutSecurityEmployeeNO() {
-		return outSecurityEmployeeNO;
+	public String getEntrySecEmployeeNO() {
+		return entrySecEmployeeNO;
 	}
-	public void setOutSecurityEmployeeNO(String outSecurityEmployeeNO) {
-		this.outSecurityEmployeeNO = outSecurityEmployeeNO;
+	public void setEntrySecEmployeeNO(String entrySecEmployeeNO) {
+		this.entrySecEmployeeNO = entrySecEmployeeNO;
 	}
-	public String getEntrySecurityEmployeeNO() {
-		return entrySecurityEmployeeNO;
+	public String getExitSecEmployeeNO() {
+		return exitSecEmployeeNO;
 	}
-	public void setEntrySecurityEmployeeNO(String entrySecurityEmployeeNO) {
-		this.entrySecurityEmployeeNO = entrySecurityEmployeeNO;
+	public void setExitSecEmployeeNO(String exitSecEmployeeNO) {
+		this.exitSecEmployeeNO = exitSecEmployeeNO;
 	}
 	public String getSendAppEmployeeNO() {
 		return sendAppEmployeeNO;

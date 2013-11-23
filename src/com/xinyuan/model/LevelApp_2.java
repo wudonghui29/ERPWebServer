@@ -5,6 +5,10 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class LevelApp_2 extends LevelApp_1 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String levelApp_2 ;
 
 	public String getLevelApp_2() {

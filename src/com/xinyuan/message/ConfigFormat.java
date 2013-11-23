@@ -14,7 +14,6 @@ import com.xinyuan.model.HumanResource.EmployeeMEOrder;
 import com.xinyuan.model.HumanResource.EmployeeOTOrder;
 import com.xinyuan.model.HumanResource.EmployeeQuitOrder;
 import com.xinyuan.model.HumanResource.EmployeeQuitPassOrder;
-import com.xinyuan.model.HumanResource.EmployeeSMBill;
 import com.xinyuan.model.HumanResource.EmployeeSMOrder;
 import com.xinyuan.model.Security.SecurityVisitOrder;
 import com.xinyuan.model.SharedOrder.SharedOutOrder;
@@ -49,7 +48,6 @@ public class ConfigFormat {
 		
 		orderNOPrefixMap.put(EmployeeQuitPassOrder.class.getName(), 	"FXD");
 		orderNOPrefixMap.put(EmployeeATTFixOrder.class.getName(), 		"BQD");
-		orderNOPrefixMap.put(EmployeeSMBill.class.getName(), 			"ZBD");
 		orderNOPrefixMap.put(EmployeeSMOrder.class.getName(), 			"YCD");
 		
 		

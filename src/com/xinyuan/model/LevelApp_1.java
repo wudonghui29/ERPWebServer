@@ -5,6 +5,10 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class LevelApp_1 extends BaseOrder {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String levelApp_1 ;		// username , employeeNO
 
 	public String getLevelApp_1() {
