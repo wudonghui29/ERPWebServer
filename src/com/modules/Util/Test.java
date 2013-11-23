@@ -88,12 +88,12 @@ public class Test extends HashSet {
 	// Test Permission check 
 	public static void main000(String[] args) {
 		
-		String perssionStr = "{\"Business\":{\"BusinessClient\":[\"read\",\"create\"]},\"Assistant\":{\"ASDeviceBatteryMROrder\":[\"read\",\"create\",\"modify\"]}}";
+		String perssionStr = "{\"Business\":{\"Client\":[\"read\",\"create\"]},\"Assistant\":{\"ASDeviceBatteryMROrder\":[\"read\",\"create\",\"modify\"]}}";
 
 		JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(perssionStr);
 		Map<String, Object> permissions = JsonHelper.translateElementToMap(jsonObject);
 		
-		String modelsStr = ".Assistant.ASDeviceBatteryMROrder, .Business.BusinessClient";
+		String modelsStr = ".Assistant.ASDeviceBatteryMROrder, .Business.Client";
 		String[] array = modelsStr.split(",");
 		List<String> models = Arrays.asList(array);
 		

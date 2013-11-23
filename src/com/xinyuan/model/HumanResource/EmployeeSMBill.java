@@ -4,10 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-import com.xinyuan.model.OrderModel;
+import com.xinyuan.model.BaseBill;
 
 
 /**
@@ -17,7 +15,7 @@ import com.xinyuan.model.OrderModel;
 
 @Entity
 @Table
-public class EmployeeSDOrder extends OrderModel {
+public class EmployeeSMBill extends BaseBill {
 
 	// 日期范围
 	private Date startDate;

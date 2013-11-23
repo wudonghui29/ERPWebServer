@@ -9,7 +9,7 @@ import java.util.Set;
 import com.Global.HibernateInitializer;
 import com.xinyuan.dao.ModelDAO;
 import com.xinyuan.message.ConfigConstants;
-import com.xinyuan.model.OrderModel;
+import com.xinyuan.model.BaseOrder;
 
 /**
  * 
@@ -44,8 +44,8 @@ public abstract class ModelDAOIMP extends SuperDAOIMP implements ModelDAO {
 	public <E extends Object> E readUnique(E model) throws Exception {
 		if (checkModelScope(model)) return null;
 		Set<String> keys = new HashSet<String>();
-		if (model instanceof OrderModel) {
-			OrderModel orderModel = (OrderModel)model;
+		if (model instanceof BaseOrder) {
+			BaseOrder orderModel = (BaseOrder)model;
 			if (orderModel.getOrderNO() != null) keys.add("orderNO");
 			if (orderModel.getId() != 0) keys.add("id");
 		}

@@ -1,5 +1,6 @@
 package com.xinyuan.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,10 +10,9 @@ import javax.persistence.MappedSuperclass;
 
 
 @MappedSuperclass
-public class BaseModel {
+public class BaseModel implements Serializable {
 	
 	protected int id ;
-	protected String orderNO ; 	// the NO. of this order
 	protected Date createDate; 	// the date of creating this order
 	protected String createUser;	// the username of creating this order
 	protected String modifiedUser;	// the username last modified the order
@@ -24,14 +24,6 @@ public class BaseModel {
 	}
 	public void setId(int id) {
 		this.id = id;
-	}
-	
-	@Column(unique=true, updatable=false)
-	public String getOrderNO() {
-		return orderNO;
-	}
-	public void setOrderNO(String orderNO) {
-		this.orderNO = orderNO;
 	}
 	
 	@Column(updatable=false)

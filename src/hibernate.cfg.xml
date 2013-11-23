@@ -45,8 +45,9 @@
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
 
-        <!-- Drop and re-create the database schema on startup -->
+        <!-- Drop and re-create/Update the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>  <!-- create/update -->
+
 
 
 		<!-- ORM -->
@@ -82,8 +83,8 @@
         <mapping class="com.xinyuan.model.HumanResource.EmployeeQuitOrder"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeQuitPassOrder"/>
         
-        <mapping class="com.xinyuan.model.HumanResource.EmployeeSDOrder"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeSMOrder"/>
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeSMBill"/>
         
 
         <!-- Security Models -->
@@ -91,11 +92,17 @@
         
         
         <!-- Business Models -->
-        <mapping class="com.xinyuan.model.Business.BusinessClient"/>
+        <mapping class="com.xinyuan.model.Business.Client"/>
         
         
         <!-- SharedOrder Models -->
         <mapping class="com.xinyuan.model.SharedOrder.SharedOutOrder"/>
+        
+        
+        <!-- Warehouse Models -->
+        <mapping class="com.xinyuan.model.Warehouse.WHMaterialOrder"/>
+        <mapping class="com.xinyuan.model.Warehouse.WHLendOutBill"/>
+        <mapping class="com.xinyuan.model.Warehouse.WHLendOutOrder"/>
         
         
     </session-factory>

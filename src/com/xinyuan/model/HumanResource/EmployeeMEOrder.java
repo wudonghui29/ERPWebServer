@@ -21,7 +21,7 @@ import com.xinyuan.model.LevelApp_4;
 @Table
 public class EmployeeMEOrder extends LevelApp_4 {
 	
-	private Employee employee ; // 考核的员工
+	private String employeeNO ; // 考核的员工
 	
 	
 	private Date examineDate; 	// 考核日期
@@ -65,12 +65,11 @@ public class EmployeeMEOrder extends LevelApp_4 {
 	private String sumupSugget ; 		// 建议
 	
 	
-	@OneToOne
-	public Employee getEmployee() {
-		return employee;
+	public String getEmployeeNO() {
+		return employeeNO;
 	}
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
+	public void setEmployeeNO(String employeeNO) {
+		this.employeeNO = employeeNO;
 	}
 	public Date getExamineDate() {
 		return examineDate;

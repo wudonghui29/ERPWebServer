@@ -25,8 +25,8 @@ public class EmployeeOTOrder extends LevelApp_4 {
 	private Date applyDate ;	 // 申请日期
 	private Date overTimeDate; 	// 加班日期
 	
-	private Employee groupLeader; // 组长
-//	private Employee employee ;  // 加班的员工们   		// List<Employee> employee?????    // TODO: list ???  // or employeeId & employeeName??
+	private String leaderEmployeeNO; // 组长
+	private String employeeNOs ;   // 加班的员工们 e.g. "EH001,EH002"
 	private String overTimeContents; // 加班工作内容
 	
 	private Time startTime; // 加班开始时间
@@ -49,22 +49,22 @@ public class EmployeeOTOrder extends LevelApp_4 {
 		this.overTimeDate = overTimeDate;
 	}
 
-	@OneToOne
-	public Employee getGroupLeader() {
-		return groupLeader;
+	
+	public String getLeaderEmployeeNO() {
+		return leaderEmployeeNO;
 	}
 
-	public void setGroupLeader(Employee groupLeader) {
-		this.groupLeader = groupLeader;
+	public void setLeaderEmployeeNO(String leaderEmployeeNO) {
+		this.leaderEmployeeNO = leaderEmployeeNO;
 	}
 
-//	public Employee getEmployee() {
-//		return employee;
-//	}
-//
-//	public void setEmployee(Employee employee) {
-//		this.employee = employee;
-//	}
+	public String getEmployeeNOs() {
+		return employeeNOs;
+	}
+
+	public void setEmployeeNOs(String employeeNOs) {
+		this.employeeNOs = employeeNOs;
+	}
 
 	public String getOverTimeContents() {
 		return overTimeContents;

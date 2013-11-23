@@ -22,7 +22,7 @@ import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigJSON;
 import com.xinyuan.model.BaseModel;
-import com.xinyuan.model.OrderModel;
+import com.xinyuan.model.BaseOrder;
 import com.xinyuan.model.User.User;
 
 public class SuperAction extends ActionModelBase {
@@ -101,7 +101,7 @@ public class SuperAction extends ActionModelBase {
 			
 			result.put(ConfigJSON.IDENTIFIER, identifier);
 			
-			result.put(ConfigJSON.ORDERNO, model.getOrderNO());
+			if (model instanceof BaseOrder) result.put(ConfigJSON.ORDERNO, ((BaseOrder)model).getOrderNO());
 			
 			results.add(result);
 		}
@@ -179,9 +179,9 @@ public class SuperAction extends ActionModelBase {
 		
 		for (int i = 0; i < models.size(); i++) {
 			
-			OrderModel model = (OrderModel)models.get(i);
+			BaseOrder model = (BaseOrder)models.get(i);
 			
-			OrderModel persistence = ((ModelDAO)dao).readUnique(model);		// get all values
+			BaseOrder persistence = ((ModelDAO)dao).readUnique(model);		// get all values
 			
 //			boolean isAllApproved = ModelHelper.approve(persistence, signinedUser);  // TODO: Handle Exception
 			

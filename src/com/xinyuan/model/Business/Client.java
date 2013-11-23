@@ -8,7 +8,7 @@ import com.xinyuan.model.LevelApp_1;
 
 @Entity
 @Table
-public class BusinessClient extends LevelApp_1 {
+public class Client extends LevelApp_1 {
 
 	private String clientNO ;		// 厂商编号
 	private String clientName ;		// 厂商名称

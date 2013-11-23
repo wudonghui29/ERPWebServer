@@ -4,18 +4,25 @@ package com.xinyuan.model;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 
 
 @MappedSuperclass
-public class OrderModel extends BaseModel {
+public class BaseOrder extends BaseModel {
 	
+	protected String orderNO ; 		// the NO. of this order
 	protected Date expiredDate;		// The expired date
-	
 	protected String forwardUser; 	// the username current forwarding to this order
+	
+	
+	@Column(unique=true, updatable=false)
+	public String getOrderNO() {
+		return orderNO;
+	}
+	public void setOrderNO(String orderNO) {
+		this.orderNO = orderNO;
+	}
 	
 	public Date getExpiredDate() {
 		return expiredDate;

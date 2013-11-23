@@ -21,7 +21,7 @@ import com.xinyuan.model.LevelApp_4;
 @Table
 public class EmployeeQuitPassOrder extends LevelApp_4 {
 
-	private Employee employee;  // the freedom employee 
+	private String employeeNO;  // the freedom employee 
 	
 	// 核准离职日期 来自于 EmployeeQuitOrder's  approvedQuitDate
 	// ... Empty
@@ -30,12 +30,12 @@ public class EmployeeQuitPassOrder extends LevelApp_4 {
 	private String carryingStuff; // 携带物品
 	
 	
-	@OneToOne
-	public Employee getEmployee() {
-		return employee;
+	
+	public String getEmployeeNO() {
+		return employeeNO;
 	}
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
+	public void setEmployeeNO(String employeeNO) {
+		this.employeeNO = employeeNO;
 	}
 	public Date getActualQuitDate() {
 		return actualQuitDate;

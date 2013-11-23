@@ -21,7 +21,7 @@ import com.xinyuan.model.LevelAPP_5;
 @Table
 public class EmployeeQuitOrder extends LevelAPP_5 {
 
-	private Employee employee;  // the employee want to quit his job
+	private String employeeNO;  // the employee want to quit his job
 	
 	private Date applyDate ; // 申请日期
 	
@@ -30,13 +30,13 @@ public class EmployeeQuitOrder extends LevelAPP_5 {
 	
 	private int annualVacation ; // the count of the days of annual vacation 已休年假天数
 
-	@OneToOne
-	public Employee getEmployee() {
-		return employee;
+	
+	public String getEmployeeNO() {
+		return employeeNO;
 	}
 
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
+	public void setEmployeeNO(String employeeNO) {
+		this.employeeNO = employeeNO;
 	}
 
 	public Date getPlanQuitDate() {

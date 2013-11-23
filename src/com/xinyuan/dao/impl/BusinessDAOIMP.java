@@ -8,7 +8,7 @@ public class BusinessDAOIMP extends ModelDAOIMP implements BusinessDAO {
 
 	@Override
 	public List getClientsNOPairs() {
-		String hqlString = "select businessClient.clientNO , businessClient.clientName from BusinessClient as businessClient ";
+		String hqlString = "select client.clientNO , client.clientName from Client as client ";
 		return super.getObjects(hqlString);
 	}
 

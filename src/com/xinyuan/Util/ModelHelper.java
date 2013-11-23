@@ -8,12 +8,12 @@ import com.xinyuan.model.LevelApp_2;
 import com.xinyuan.model.LevelApp_3;
 import com.xinyuan.model.LevelApp_4;
 import com.xinyuan.model.LevelApp_6;
-import com.xinyuan.model.OrderModel;
+import com.xinyuan.model.BaseOrder;
 
 public class ModelHelper {
 	
 	// in BaseAction Apply() method 
-	public static boolean approve(OrderModel model, String username) throws Exception {
+	public static boolean approve(BaseOrder model, String username) throws Exception {
 		boolean isAllApproved = false;
 		
 		try {

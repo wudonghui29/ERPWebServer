@@ -24,7 +24,7 @@ public class EmployeeATTOrder extends LevelApp_4 {
 	private Date attendanceStarDate; 
 	private Date attendanceEndDate;
 	
-	private Employee employee ; // 考核的员工
+	private String employeeNO ; // 考核的员工
 	
 	private String otherDescription ; // 其它
 	
@@ -58,12 +58,11 @@ public class EmployeeATTOrder extends LevelApp_4 {
 		this.attendanceEndDate = attendanceEndDate;
 	}
 	
-	@OneToOne
-	public Employee getEmployee() {
-		return employee;
+	public String getEmployeeNO() {
+		return employeeNO;
 	}
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
+	public void setEmployeeNO(String employeeNO) {
+		this.employeeNO = employeeNO;
 	}
 	public String getOtherDescription() {
 		return otherDescription;

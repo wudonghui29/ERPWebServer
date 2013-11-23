@@ -3,7 +3,7 @@ package com.xinyuan.model;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public class LevelApp_1 extends OrderModel {
+public class LevelApp_1 extends BaseOrder {
 
 	private String levelApp_1 ;		// username , employeeNO
 

@@ -19,6 +19,7 @@ public class HumanResourceAction extends SuperAction {
 		return new HumanResourceDAOIMP();
 	}
 	
+	@Override
 	public String create() throws Exception {
 		super.create();
 		
