@@ -10,9 +10,4 @@ public class SecurityAction extends SuperAction {
 		return new SecurityDAOIMP();
 	}
 	
-
-//	public String switchInform() throws Exception {
-//		return Action.NONE;
-//	}
-	
 }

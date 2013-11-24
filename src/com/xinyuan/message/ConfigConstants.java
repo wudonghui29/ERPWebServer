@@ -2,19 +2,28 @@ package com.xinyuan.message;
 
 import java.io.File;
 
-import org.apache.struts2.ServletActionContext;
+import javax.servlet.ServletContext;
+
 
 public class ConfigConstants {
 	
-	public static final String contextRealPath = ServletActionContext.getServletContext().getRealPath(File.separator);
-	public static final String fileSeperator = System.getProperty("file.separator");
-	public static final String modelsFilesPath = ConfigConstants.contextRealPath + "WEB-INF"
-			+ fileSeperator + "classes" + fileSeperator + "com"
-			+ fileSeperator + "xinyuan" + fileSeperator + "model" + fileSeperator;
+	public static String FS ;
+	public static String Context_Real_Path ;
+	public static String Apns_Certificate_Path ;
+	public static String Models_Class_Files_Path ;
+	
+	public static void initializeContextVariables(ServletContext context) {
+		//ServletActionContext.getServletContext()
+		FS = System.getProperty("file.separator");
+		Context_Real_Path = context.getRealPath(File.separator); 
+		Apns_Certificate_Path = Context_Real_Path + ".." + FS + "apnsDevelop.p12";
+		Models_Class_Files_Path = Context_Real_Path + "WEB-INF" + FS + "classes" + FS + "com" + FS + "xinyuan" + FS + "model" + FS;
+	}
+	
+	
 	
 	public static final boolean APNS_IN_PRODUCTION = false;			// TODO: in production , replace it with true
 	public static final String APNS_CERTIFICATE_PASSWORD = "12345";
-	public static final String APNS_CERTIFICATE_PATH = contextRealPath + "../apnsDevelop.p12";
 	
 	
 	

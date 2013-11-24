@@ -134,8 +134,8 @@ public class SuperAction extends ActionModelBase {
 			
 			dao.modify(persistence);
 		}
-		// push APNS notifications
-		ApnsHelper.sendAPNS(allJsonObject, message);
+		// push APNS notifications, notify somebody to know that some order has been modified
+		if (requestMessage.getAPNS_FORWARDS() != null) ApnsHelper.sendAPNS(allJsonObject, message);			// TODO:
 		
 		message.status = ConfigConstants.STATUS_SUCCESS;
 		return Action.NONE;

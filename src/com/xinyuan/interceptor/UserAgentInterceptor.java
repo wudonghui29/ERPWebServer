@@ -41,7 +41,9 @@ public class UserAgentInterceptor extends AbstractInterceptor {
 		
 		DLog.log("User Agent: " + userAgent);
 		
-		boolean isEmpty = userAgent == null || userAgent.isEmpty();
+		boolean isUserAgentEmpty = userAgent == null || userAgent.isEmpty();
+		
+		if (isUserAgentEmpty) return Action.NONE;
 		
 		boolean isIOSAPP = (
 						userAgent.toLowerCase().contains(CFNETWORK) 		// in Simulator : User Agent: XinYuanERP/1.0 CFNetwork/672.0.2 Darwin/12.5.0
@@ -49,7 +51,7 @@ public class UserAgentInterceptor extends AbstractInterceptor {
 						&& (userAgent.contains(APP_NAME) || userAgent.contains(APP_TEST_NAME))
 						);
 		
-		if (isEmpty || !isIOSAPP) return Action.NONE;
+		if (!isIOSAPP) return Action.NONE;
 		
 		
 		

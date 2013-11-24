@@ -9,6 +9,10 @@ import com.xinyuan.message.RequestMessage;
 
 public abstract class ActionModelBase extends ActionBase {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected SuperDAO dao = getDao() ;
 	protected abstract SuperDAO getDao() ;
 	

@@ -39,31 +39,34 @@ public class IntrospectHelper {
 	
 	/**
 	 * HumanResource.Employee{name,sex,birthday, ... }
+	 * [com.xinyuan.model.Business.Client, com.xinyuan.model.Cards.CardsAlbums, ...] 
+	 * -> 
+	 * { Business={Client=[address, businessEmployee, ... ]}, Cards={CardsAlbums=[albumName, albumPassword, createDate, ..]}, ... }
 	 */
 	public static Map<String, Map<String, List<String>>> translateToPropertiesMap(List<String> wholeClassNames) {
 		Map<String, Map<String, List<String>>> map = new HashMap<String, Map<String, List<String>>>();
 		
-		for (Iterator iterator = wholeClassNames.iterator(); iterator.hasNext();) {
-			String wholeClassName = (String) iterator.next();
+		for (Iterator<String> iterator = wholeClassNames.iterator(); iterator.hasNext();) {
+			String wholeClassName = iterator.next();
 			String parts[] = wholeClassName.split("\\.");
 			int length = parts.length;
 			
 			if (length < 2) continue;
 			
-			String className = parts[length - 1];
-			String categoryName = parts[length - 2];
+			String className = parts[length - 1];			// Client
+			String categoryName = parts[length - 2];		// Business
 			
 			// category map
-			Map<String, List<String>> categoryMap =  map.get(categoryName); 
+			Map<String, List<String>> categoryMap =  map.get(categoryName);  //  Business={Client=[address, businessEmployee, ... ]
 			if (categoryMap == null) {
 				categoryMap = new HashMap<String, List<String>>();
 				map.put(categoryName, categoryMap);
 			}
 			
 			// class properties list
+			List<String> list = new ArrayList<String>();			// [address, businessEmployee, ... ]
+			
 			try {
-				
-				List<String> list = new ArrayList<String>();
 				Class<?> classObj = Class.forName(wholeClassName);
 				for (PropertyDescriptor pd : Introspector.getBeanInfo(classObj).getPropertyDescriptors()) {
 					String propertyname = pd.getName() ;
@@ -71,13 +74,11 @@ public class IntrospectHelper {
 						list.add(propertyname);
 					}
 				}
-				categoryMap.put(className, list);
-				
 			} catch (Exception e) {
-				// TODO: ...... to enhance
-				continue;
+				e.printStackTrace();
 			}
 			
+			categoryMap.put(className, list);					// Client=[address, businessEmployee, ... 			 
 		}
 		
 		return map;
@@ -129,7 +130,7 @@ public class IntrospectHelper {
 	   * @return
 	   * @throws ParseException
 	   */
-	public static Object convert(Object value, Class classObj) throws Exception {
+	public static Object convert(Object value, Class<?> classObj) throws Exception {
 		String valueString = (String) value;
 
 		if (classObj == java.util.Date.class) {

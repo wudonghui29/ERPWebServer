@@ -30,6 +30,12 @@ import com.xinyuan.message.ConfigConstants;
  */
 public class SettingAction extends ActionModelBase {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	@Override
 	protected SuperDAO getDao() { return null; }
 
@@ -39,14 +45,14 @@ public class SettingAction extends ActionModelBase {
 	 */
 	public String getApplicationModelsStructures() {
 		// get the file name list
-		File folder = new File(ConfigConstants.modelsFilesPath);
+		File folder = new File(ConfigConstants.Models_Class_Files_Path);
 		List<String> modelsList = new ArrayList<String>();
 		FileHelper.listFilesForSubFolder(folder, modelsList);
 		
 		// get the model package path class name list
 		List<String> classesNamesList = new ArrayList<String>();
-		for (Iterator iterator = modelsList.iterator(); iterator.hasNext();) {
-			String string = (String) iterator.next();				// "Approval.Approvals.class"  not ".java" 
+		for (Iterator<String> iterator = modelsList.iterator(); iterator.hasNext();) {
+			String string = (String) iterator.next();				// "Approval.Approvals.class" , ".class" not ".java" 
 			
 			if (string.contains(ConfigConstants.CATEGORIE_USER) || string.contains(ConfigConstants.CATEGORIE_APPROVAL)) continue;
 			
@@ -65,14 +71,15 @@ public class SettingAction extends ActionModelBase {
 		return Action.NONE;
 	}
 	
+	
 	/**
 	 * When client singined
 	 * @return
 	 */
-	public String readEmployeeBasicData() {
+	public String readSignedIndData() {
 		
 		HumanResourceDAO humanResourceDAO = new HumanResourceDAOIMP();
-		List hrList = humanResourceDAO.getUsersNOPairs();
+		List<Object> hrList = humanResourceDAO.getUsersNOPairs();
 		
 		BusinessDAO businessDAO = new BusinessDAOIMP();
 		List bsList = businessDAO.getClientsNOPairs();

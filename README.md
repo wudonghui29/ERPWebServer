@@ -5,9 +5,27 @@
 	mv classpath .classpath
 
 
+## Before Launch APP Mysql
+
+	mysql -u***** -p*****
+	
+	(For all databases)
+	SET character_set_client = utf8 ; 
+	SET character_set_server = utf8 ;
+	SET character_set_database = utf8 ; 
+	
+	create database <database_name>;
+	
+	show databases;
+
+	use <database_name>;
+	
+	show variables like 'character%';
+
+	(alter database <database_name> character set utf8 ;)
 
 
-## Mysql
+## After Launch APP Mysql
 
 	mysql -u***** -p*****
 
@@ -15,11 +33,13 @@
 
 	use <database_name>;
 
-	SET character_set_client = utf8 ; 
-
 	show tables;
 
 	DESCRIBE User;
+	
+	SHOW CREATE TABLE User;
+	
+	SHOW FULL COLUMNS FROM User;
 	
 	ALTER TABLE User CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 	
@@ -30,9 +50,11 @@
 	
 ## Initialize Data In Mysql 
 	
-	INSERT INTO `ERPWebServer`.`User` (`username`) VALUES ('administrator');
-	UPDATE `ERPWebServer`.`User` SET `id`='0' WHERE `username`='administrator';
-	INSERT INTO `ERPWebServer`.`Approvals` (`username`) VALUES ('administrator');
+	INSERT INTO `ERPWebServer`.`User` (`username`) VALUES ('xinyuanTMD');
+	UPDATE `ERPWebServer`.`User` SET `id`='0' WHERE `username`='xinyuanTMD';
+	UPDATE `ERPWebServer`.`User` SET `password`='1234' WHERE `id`='0';
+	UPDATE `ERPWebServer`.`User` SET `permissions`='{}' WHERE `id`='0';
+	INSERT INTO `ERPWebServer`.`Approvals` (`username`) VALUES ('xinyuanTMD');
 	
 	
 	

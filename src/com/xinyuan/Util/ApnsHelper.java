@@ -103,7 +103,7 @@ public class ApnsHelper {
 			payload.addCustomDictionary(key, (String) entry.getValue());
 		}
 		
-		sendWithOutThread(payload, ConfigConstants.APNS_CERTIFICATE_PATH, ConfigConstants.APNS_CERTIFICATE_PASSWORD, ConfigConstants.APNS_IN_PRODUCTION, devices);
+		sendWithOutThread(payload, ConfigConstants.Apns_Certificate_Path, ConfigConstants.APNS_CERTIFICATE_PASSWORD, ConfigConstants.APNS_IN_PRODUCTION, devices);
 		
 	}
 	
