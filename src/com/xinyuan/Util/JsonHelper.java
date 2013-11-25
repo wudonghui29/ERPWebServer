@@ -84,7 +84,7 @@ public class JsonHelper {
 	public static String getParameter(JsonObject jsonObject, String parameterName) {
 		Map<String, Object> map = JsonHelper.translateElementToMap(jsonObject);
 		List<Map<String, String>> list = (List<Map<String, String>>) map.get(ConfigJSON.PARAMETERS);
-		if (list == null || list.size() != 0) return null;						// TODO : ...  Just For UserAction now
+		if (list == null || list.size() == 0) return null;						// TODO : ...  Just For UserAction now
 		Map<String, String> parametersMap = (Map<String, String>) list.get(0);
 		return parametersMap != null ? parametersMap.get(parameterName) : null;
 	}

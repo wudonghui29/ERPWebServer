@@ -16,6 +16,11 @@ import com.xinyuan.model.User.User;
 
 public class AuthorizeInterceptor extends AbstractInterceptor {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
 		

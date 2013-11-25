@@ -21,15 +21,11 @@ import com.xinyuan.model.User.User;
 
 public class PermissionInterceptor extends AbstractInterceptor {
 	
-//	private static List<String> methods = new ArrayList<String>();
-//	{
-//		methods.add(ConstantsConfig.METHOD_READ);
-//		methods.add(ConstantsConfig.METHOD_CREATE);
-//		methods.add(ConstantsConfig.METHOD_MODIFY);
-//		methods.add(ConstantsConfig.METHOD_DELETE);
-//		methods.add(ConstantsConfig.METHOD_APPLY);
-//	}
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public static String getContextName() {
 		return ActionContext.getContext().getName();
 	}
@@ -47,8 +43,9 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		DLog.log("");
 
 		// Get the permission the user have
-		Map session = invocation.getInvocationContext().getSession();
-		Map<String, Object> permissions = (Map<String, Object>)session.get(ConfigConstants.PERMISSIONS);
+		Map<String, Object> session = invocation.getInvocationContext().getSession();
+		@SuppressWarnings("unchecked")
+		Map<String, Object> permissions = (Map<String, Object>) session.get(ConfigConstants.PERMISSIONS);
 		
 		// Get the struts Action
 		ActionModelBase baseAction = (ActionModelBase)invocation.getAction();
@@ -128,7 +125,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		try {
 			
 			for (int i = 0; i < modelsSize; i++) {
-				String[] modelCouple = models.get(i).split("\\.");	// "HumanResource.Employee"
+				String[] modelCouple = models.get(i).split("\\.");	// ".HumanResource.Employee"
 				String action = modelCouple[1].trim();				// "HumanResource"
 				String model = modelCouple[2].trim();				// "Employee"
 				if (check(permissions, action, model, method)) throughCount++; 
@@ -153,10 +150,9 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	private static boolean check(Map<String, Object> permissions, String action, String model, String method) {
 		if(action.equals(ConfigConstants.CATEGORIE_APPROVAL) && method.equals(ConfigConstants.METHOD_READ)) return true;	// Let "read" the Approval package permission go through
 		
-//		if (! methods.contains(method)) return true;		// for SecurityAction.inform ... TODO: ...
-		
 		try {
 			
+			@SuppressWarnings("unchecked")
 			Map<String, List<String>> modelsPermissions = (Map<String, List<String>>)permissions.get(action);
 			if (modelsPermissions == null) return false;
 			List<String> methodsPermissions = modelsPermissions.get(model);
@@ -184,7 +180,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		
 		String compare = null;
 		for (int i = 0; i < modelsSize; i++) {
-			String[] modelCouple = models.get(i).split("\\.");	// "HumanResource.Employee"
+			String[] modelCouple = models.get(i).split("\\.");	// ".HumanResource.Employee"
 			String action = modelCouple[1].trim();
 			
 			if (i == 0) {

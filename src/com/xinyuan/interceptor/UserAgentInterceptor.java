@@ -21,11 +21,16 @@ import com.xinyuan.model.User.User;
 
 public class UserAgentInterceptor extends AbstractInterceptor {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static final String USER_AGENT = "user-agent";
 	
 	private static final String CFNETWORK = "cfnetwork";
 	
-	private static final String DEVICE_IOS = "ios";
+//	private static final String DEVICE_IOS = "ios";
 	
 	private static final String APP_NAME = "XinYuanERP";
 	

@@ -12,7 +12,7 @@
 	
 	<listener>
     	<description>ServletContextListener</description>
-    	<listener-class>com.Global.ServerStartupListener</listener-class>
+    	<listener-class>com.Global.ServerEventListener</listener-class>
 	</listener>
   
     <!-- session -->
@@ -21,6 +21,9 @@
     </session-config>
     
     <!-- struts2 -->	
+    
+	<!-- 
+	
 	<filter>
 		<filter-name>TransactionFilter</filter-name>
 		<filter-class>com.Global.TransactionFilter</filter-class>
@@ -29,14 +32,45 @@
 		<filter-name>TransactionFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
 	<filter>
         <filter-name>struts2</filter-name>
         <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
     </filter>
-    
     <filter-mapping>
         <filter-name>struts2</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    
+     -->
+     
+    <filter>
+    	<filter-name>StrutsPrepareFilter</filter-name>
+    	<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareFilter</filter-class>
+    </filter>
+    <filter-mapping>
+    	<filter-name>StrutsPrepareFilter</filter-name>
+    	<url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+	<filter>
+		<filter-name>TransactionFilter</filter-name>
+		<filter-class>com.Global.TransactionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>TransactionFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>StrutsExecuteFilter</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsExecuteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>StrutsExecuteFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+    
+    
     
 </web-app>

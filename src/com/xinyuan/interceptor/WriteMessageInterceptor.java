@@ -18,6 +18,15 @@ import com.xinyuan.message.ResponseMessage;
 
 public class WriteMessageInterceptor extends AbstractInterceptor {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+
+
+
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
 		ActionBase action = (ActionBase)invocation.getAction();

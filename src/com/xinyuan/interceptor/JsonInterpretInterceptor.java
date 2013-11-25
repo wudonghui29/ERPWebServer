@@ -27,6 +27,11 @@ import com.xinyuan.message.RequestMessage;
 
 public class JsonInterpretInterceptor extends AbstractInterceptor {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
 		

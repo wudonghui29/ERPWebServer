@@ -15,6 +15,7 @@ import com.xinyuan.model.HumanResource.EmployeeOTOrder;
 import com.xinyuan.model.HumanResource.EmployeeQuitOrder;
 import com.xinyuan.model.HumanResource.EmployeeQuitPassOrder;
 import com.xinyuan.model.HumanResource.EmployeeSMOrder;
+import com.xinyuan.model.Security.SecurityVisitLogOrder;
 import com.xinyuan.model.Security.SecurityVisitOrder;
 import com.xinyuan.model.SharedOrder.SharedOutOrder;
 import com.xinyuan.model.Warehouse.WHMaterialOrder;
@@ -54,6 +55,7 @@ public class ConfigFormat {
 		// Security
 		orderNOPrefixMap.put(SecurityVisitOrder.class.getName(), 		"FKD");
 		secondOrderTypeMap.put("FKD", ConfigConstants.EMPTY_STRING);
+		orderNOPrefixMap.put(SecurityVisitLogOrder.class.getName(), 	"BARZ");
 		
 		
 		// Finanace

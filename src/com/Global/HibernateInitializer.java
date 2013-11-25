@@ -39,10 +39,10 @@ public class HibernateInitializer
     private static Configuration configuration;
     private static SessionFactory sessionFactory;
 
-    static 
+    public static void initialize() 
     {
         // 从缺省的配置文件创建SessionFactory
-    	DLog.log("--------------- Hibernate initialize ----------------");
+    	DLog.log("--------------- Hibernate initialize Begin ----------------\n");
         try 
         {
         	// 创建默认的Configuration对象的实例
@@ -57,8 +57,7 @@ public class HibernateInitializer
             String interceptorName = configuration.getProperty(INTERCEPTOR_CLASS);
             if (interceptorName != null) 
             {
-                Class interceptorClass =
-                        HibernateInitializer.class.getClassLoader().loadClass(interceptorName);
+                Class interceptorClass = HibernateInitializer.class.getClassLoader().loadClass(interceptorName);
                 Interceptor interceptor = (Interceptor)interceptorClass.newInstance();
                 configuration.setInterceptor(interceptor);
             }
@@ -82,6 +81,7 @@ public class HibernateInitializer
             ex.printStackTrace();
             throw new ExceptionInInitializerError(ex);
         }
+        DLog.log("--------------- Hibernate initialize End ----------------\n");
     }
 
     /**

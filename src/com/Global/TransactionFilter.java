@@ -24,23 +24,24 @@ public class TransactionFilter implements Filter {
 		System.out.println("\n\n\n");			// TODO: Remove it in production!
 		DLog.log("*************************** ----- Begin Transaction");
 		
-		
+//		ActionContext actionContext = ServletActionContext.getContext();
 		
 		Transaction transaction = null;	
 		try {
-			Session session = HibernateInitializer.getSessionFactory().getCurrentSession();
+			Session session = HibernateInitializer.getSessionFactory().getCurrentSession();	
 			transaction = session.beginTransaction();
 			chain.doFilter(request, response);
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null){
 				transaction.rollback();
-				DLog.log("Transaction Roll Back");
+				DLog.log("Transaction Rolled Back");
 			}
 			e.printStackTrace();
-//			throw e;
+			// throw e;
 		} finally{
-			
+			// Close the session or not?
+			// Read : http://stackoverflow.com/questions/4040761/control-the-hibernate-sessionwhen-to-close-it-manually
 		}
 		
 		

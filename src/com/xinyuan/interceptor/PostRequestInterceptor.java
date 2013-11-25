@@ -11,6 +11,10 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 
 public class PostRequestInterceptor extends AbstractInterceptor {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final String POST = "POST";
 	
 	@Override

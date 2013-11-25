@@ -36,6 +36,8 @@
 			</interceptor-stack>
 			
     	</interceptors>
+    	
+    	
         <default-interceptor-ref name="defaultInterceptorsStack" />
         
         
@@ -52,6 +54,8 @@
     	</global-exception-mappings> 
         
 	</package>
+	
+	
 	
 	
 	
@@ -85,7 +89,6 @@
         	<interceptor-ref name="notOnlineIntercepterStack"></interceptor-ref>
         </action>
         
-        
         <!-- has signined / online -->
         <action name="signout" class="com.xinyuan.action.UserAction" method="signout">
         	<interceptor-ref name="onlineIntercepterStack"></interceptor-ref>
@@ -95,6 +98,11 @@
         </action>
         
 	</package>
+	
+	
+	
+	
+	
 	
 	<!-- admin package -->
 	<package name="admin" extends="main" namespace="/admin">
@@ -127,7 +135,6 @@
 	
 	<!-- logic package -->
 	<package name="logic" extends="main">
-	
 		<interceptors>
 			<interceptor name="authorize-check" class="com.xinyuan.interceptor.AuthorizeInterceptor" />
 			<interceptor name="json-interpretor" class="com.xinyuan.interceptor.JsonInterpretInterceptor" />
@@ -139,15 +146,10 @@
 				<interceptor-ref name="permission-check" />
 			</interceptor-stack>
 		</interceptors>
-		
 		<default-interceptor-ref name="logicIntercepterStack" />
-		
 	</package>
-	
 	<package name="specific" extends="logic" namespace="/logic">
-	
 		<action name="*__*" class="com.xinyuan.action.{1}Action" method="{2}"/>
-	
 	</package>
 
 </struts>
