@@ -1,5 +1,7 @@
 package com.xinyuan.model.Security;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -21,18 +23,18 @@ public class SecurityVisitLogOrder extends LevelApp_4 {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String dateRange ;		// 日期时间范围
+	private Date date ;		// 日期时间范围
 	
 	private String annotation;		// 特别记事
 
-	
+
 	@Column(unique=true)
-	public String getDateRange() {
-		return dateRange;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setDateRange(String dateRange) {
-		this.dateRange = dateRange;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	@Column(columnDefinition="TEXT")
