@@ -18,6 +18,7 @@ import com.xinyuan.model.HumanResource.EmployeeSMOrder;
 import com.xinyuan.model.Security.SecurityVisitLogOrder;
 import com.xinyuan.model.Security.SecurityVisitOrder;
 import com.xinyuan.model.SharedOrder.SharedOutOrder;
+import com.xinyuan.model.Warehouse.WHLendOutOrder;
 import com.xinyuan.model.Warehouse.WHMaterialOrder;
 
 public class ConfigFormat {
@@ -63,7 +64,8 @@ public class ConfigFormat {
 		
 		
 		// Warehouse
-		orderNOPrefixMap.put(WHMaterialOrder.class.getName(), "CLD");
+		orderNOPrefixMap.put(WHMaterialOrder.class.getName(), 			"CLD");
+		orderNOPrefixMap.put(WHLendOutOrder.class.getName(), 			"JCD");
 		
 	}
 	
