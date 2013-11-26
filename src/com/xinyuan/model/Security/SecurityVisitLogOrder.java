@@ -23,18 +23,18 @@ public class SecurityVisitLogOrder extends LevelApp_4 {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Date date ;		// 日期时间范围
+	private Date logDate ;		// 日期
 	
 	private String annotation;		// 特别记事
-
+	
 
 	@Column(unique=true)
-	public Date getDate() {
-		return date;
+	public Date getLogDate() {
+		return logDate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setLogDate(Date logDate) {
+		this.logDate = logDate;
 	}
 
 	@Column(columnDefinition="TEXT")
