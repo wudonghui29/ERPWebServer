@@ -1,5 +1,6 @@
 package com.xinyuan.model.Warehouse;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -14,16 +15,26 @@ public class WHLendOutBill extends BaseBill {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String productCode ;	// 产品代码
+	private String spec;			// 规格
 	private float amount;			// 数量
 	private String unit;			// 单位
 	private String comment;			//备注
 
+	@Column(unique=true)
 	public String getProductCode() {
 		return productCode;
 	}
 
 	public void setProductCode(String productCode) {
 		this.productCode = productCode;
+	}
+
+	public String getSpec() {
+		return spec;
+	}
+
+	public void setSpec(String spec) {
+		this.spec = spec;
 	}
 
 	public float getAmount() {
