@@ -87,7 +87,7 @@ public class ApnsHelper {
 		// GET THE APN MESSAGE OUT
 		String message = (String) map.get(APNS_Alert);
 		String badgeString = (String) map.get(APNS_Badge);
-		int badge = badgeString != null && !badgeString.isEmpty() ? Integer.valueOf(badgeString) : -1;
+		int badge = badgeString != null && !badgeString.isEmpty() ? Integer.valueOf(badgeString) : 1;
 		String sound = (String) map.get(APNS_Sound);
 		sound = sound == null || sound.isEmpty() ? APNS_Sound_DEFAULT : sound;
 		
