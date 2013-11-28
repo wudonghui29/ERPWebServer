@@ -14,6 +14,8 @@ public class Client extends LevelApp_1 {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String employeeNO; 		// 业务员
+	
 	private String clientNO ;		// 厂商编号
 	private String clientName ;		// 厂商名称
 	private String clientAlias ; 	// 厂商简称
@@ -33,8 +35,6 @@ public class Client extends LevelApp_1 {
 	private String postCode; 		// 邮政编号
 	
 	
-	private String businessEmployee; 	// 业务员  TODO: TO be remove
-	private String businessEmployeeNO; 	// 业务员
 	
 	@Column(unique=true)
 	public String getClientNO() {
@@ -115,17 +115,10 @@ public class Client extends LevelApp_1 {
 	public void setPostCode(String postCode) {
 		this.postCode = postCode;
 	}
-	public String getBusinessEmployee() {
-		return businessEmployee;
+	public String getEmployeeNO() {
+		return employeeNO;
 	}
-	public void setBusinessEmployee(String businessEmployee) {
-		this.businessEmployee = businessEmployee;
+	public void setEmployeeNO(String employeeNO) {
+		this.employeeNO = employeeNO;
 	}
-	public String getBusinessEmployeeNO() {
-		return businessEmployeeNO;
-	}
-	public void setBusinessEmployeeNO(String businessEmployeeNO) {
-		this.businessEmployeeNO = businessEmployeeNO;
-	}
-	
 }

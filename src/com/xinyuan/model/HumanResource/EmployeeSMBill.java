@@ -24,11 +24,12 @@ public class EmployeeSMBill extends BaseBill {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String employeeNO ; // 员工编号
+	
 	// 日期范围
 	private Date startDate;
 	private Date endDate;
 	
-	private String employeeNO ; // 员工编号
 	
 	private boolean morningWork;	// 早班
 	private boolean noonWork;		// 午班

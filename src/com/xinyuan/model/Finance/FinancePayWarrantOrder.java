@@ -17,16 +17,16 @@ public class FinancePayWarrantOrder extends LevelAPP_5 {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String catalog ; //科目
-	private Date orderDate ; //日期
-	private int number;		 //第几号
-	private String abstracts; //摘要
-	private float quantity; 	//数量
-	private float unit;		//单位
-	private float unitPrice;  //单价
+	private String catalog ; 		//科目
+	private Date orderDate ; 		//日期
+	private int number;		 		//第几号
+	private String abstracts; 		//摘要
+	private float quantity; 		//数量
+	private float unit;				//单位
+	private float unitPrice;  		//单价
 	
-	private String receiver; //收款人
-	private String description; //备注
+	private String receiver; 		//收款人
+	private String description; 	//备注
 	
 	
 	public String getCatalog() {

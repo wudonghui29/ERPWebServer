@@ -23,10 +23,9 @@ public class EmployeeBMOrder extends LevelApp_1 {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String employeeNO ; // 员工编号
 
 	private Date mealDate;		// 日期
-	
-	private String employeeNO ; // 员工编号
 	
 	private boolean morningMeal;	// 早
 	private boolean noonMeal;		// 午

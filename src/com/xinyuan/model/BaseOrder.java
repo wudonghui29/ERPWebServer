@@ -18,9 +18,9 @@ public class BaseOrder extends BaseModel {
 	protected String orderNO ; 		// the NO. of this order
 	protected Date expiredDate;		// The expired date
 	protected String forwardUser; 	// the username current forwarding to this order
+	protected boolean exception;	// Exception or not
 	
-	
-	@Column(unique=true, updatable=false)
+	@Column(unique=true)
 	public String getOrderNO() {
 		return orderNO;
 	}
@@ -40,6 +40,12 @@ public class BaseOrder extends BaseModel {
 	}
 	public void setForwardUser(String forwardUser) {
 		this.forwardUser = forwardUser;
+	}
+	public boolean isException() {
+		return exception;
+	}
+	public void setException(boolean exception) {
+		this.exception = exception;
 	}
 	
 }

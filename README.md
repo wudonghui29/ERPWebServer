@@ -75,6 +75,15 @@
 	rename table BusinessClient to Client;
 
 
+2013-11-28
+
+	use erpwebserver;
+	alter table approvals change username employeeNO varchar(255);
+
+
 ## Document and Convention
 
-	"username" and suffix "*User"/"*EmployeeNO" mean the same . Equivalent to "EmployeeNO"
+	"username" and suffix "*User"/"*EmployeeNO" mean the same , equivalent to "employeeNO" 
+	"*EmployeeNOs" for many "employeeNO"
+	
+	["employeeNO", "EmployeeNO", "EmployeeNOs"]

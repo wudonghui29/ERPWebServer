@@ -23,7 +23,6 @@ public class EmployeeLeaveOrder extends LevelAPP_5 {
 	private static final long serialVersionUID = 1L;
 
 	private String employeeNO;  // the employee ask for leave
-	
 	private String agentEmployeeNO ; // the agent of this leaving employee
 	
 	private Date applyDate ; // 申请日期

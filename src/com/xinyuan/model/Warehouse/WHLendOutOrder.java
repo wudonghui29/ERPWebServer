@@ -21,13 +21,12 @@ public class WHLendOutOrder extends LevelApp_3 {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String staffNO;			//借出人员 (ClientNO, EmployeeNO, ..)
+	private String staffCategory;	//人员类别
+	
 	private Date lendDate;			//借出日期
 	private Date planReturnDate; 	//预计还入日期
 	private Date returnDate;		//归还日期
-	
-	
-	private String staffCategory;	//人员类别
-	private String staffNO;			//借出人员
 	
 	private String annotation;		// 附注
 	

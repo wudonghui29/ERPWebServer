@@ -21,6 +21,7 @@ public class Employee extends LevelAPP_5 {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String employeeNO; 		// employee NO. unique  工号
 	private String name ;		// 姓名
 	private String idCard ;		// 身份证号码
 	private boolean gender;  	// 0 , female ; 1 , male  // boolean respect as "true" in json
@@ -40,7 +41,6 @@ public class Employee extends LevelAPP_5 {
 	private String homeAddress;		// 家地址
 	private String livingAddress;	//现住址
 
-	private String employeeNO; 		// employee NO. unique  工号
 	private Date employDate;  	 	// entry date , sign in date
 	private boolean employing;		// 是否在职  do not use "isEmploying" , cause in mysql , the column name will be "employing" , "is" is gone
 	private boolean inVisitList; 	// 是否列入拜访名单
@@ -56,7 +56,17 @@ public class Employee extends LevelAPP_5 {
 	private boolean drivingLicence ; // 0 , have ; 1 , do not have
 
 
-//	@NotEmpty
+	@NotNull
+	@NotEmpty
+	@Column(unique=true, updatable=false)
+	public String getEmployeeNO() {
+		return employeeNO;
+	}
+	public void setEmployeeNO(String employeeNO) {
+		this.employeeNO = employeeNO;
+	}
+	
+	@NotEmpty
 	public String getName() {
 		return name;
 	}
@@ -65,7 +75,7 @@ public class Employee extends LevelAPP_5 {
 		this.name = name;
 	}
 
-//	@NotEmpty
+	@NotEmpty
 	@Column(unique=true)
 	public String getIdCard() {
 		return idCard;
@@ -170,17 +180,6 @@ public class Employee extends LevelAPP_5 {
 
 	public void setLivingAddress(String livingAddress) {
 		this.livingAddress = livingAddress;
-	}
-	
-	
-	@NotNull
-	@NotEmpty
-	@Column(unique=true, updatable=false)
-	public String getEmployeeNO() {
-		return employeeNO;
-	}
-	public void setEmployeeNO(String employeeNO) {
-		this.employeeNO = employeeNO;
 	}
 
 	public Date getEmployDate() {

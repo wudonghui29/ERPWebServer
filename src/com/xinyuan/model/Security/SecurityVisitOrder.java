@@ -22,19 +22,21 @@ public class SecurityVisitOrder extends LevelApp_1 {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String employeeNO;			// 拜访人员(即拜访本公司的谁)
+	private String agentEmployeeNO; 	// 转接人员(们)
+	private String meetedEmployeeNO;	// 已接见人
+	
+	private String entrySecEmployeeNO ;	// 入厂放行 (保安NO)
+	private String exitSecEmployeeNO;	// 出厂放行 (保安NO)
+	
 	private String visitorCompany;  // 拜访人公司
 	private String visitorName;		// 拜访人名字
 	private int accompanyCount;		// 随同人数
 	
 	private String carNO;			// 车牌号码
 	private String visitReason;		// 事由
-	private String employeeNO;		// 拜访人员(即拜访本公司的谁)
-	private String agentEmployeeNO; // 转接人员(们)
-	private String interviewNO;		// 已接见人
 	
 	
-	private String entrySecEmployeeNO ;	// 入厂放行 (保安NO)
-	private String exitSecEmployeeNO;	// 出厂放行 (保安NO)
 	
 	private Date	entryDate;		// 入厂时间
 	private Date	exitDate;		// 出厂时间
@@ -79,17 +81,19 @@ public class SecurityVisitOrder extends LevelApp_1 {
 	public void setAgentEmployeeNO(String agentEmployeeNO) {
 		this.agentEmployeeNO = agentEmployeeNO;
 	}
+	
+	public String getMeetedEmployeeNO() {
+		return meetedEmployeeNO;
+	}
+	public void setMeetedEmployeeNO(String meetedEmployeeNO) {
+		this.meetedEmployeeNO = meetedEmployeeNO;
+	}
+	
 	public String getVisitReason() {
 		return visitReason;
 	}
 	public void setVisitReason(String visitReason) {
 		this.visitReason = visitReason;
-	}
-	public String getInterviewNO() {
-		return interviewNO;
-	}
-	public void setInterviewNO(String interviewNO) {
-		this.interviewNO = interviewNO;
 	}
 	
 	public String getEntrySecEmployeeNO() {

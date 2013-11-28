@@ -26,6 +26,8 @@ public class EmployeeATTDROrder extends LevelApp_3{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String askLeaveEmployeeNOs ; // 请假人员名单
+	private String beLateEmployeeNOs ;   // 迟到人员名单
 
 	private Date workDate; 		// 出勤日期
 	
@@ -39,8 +41,6 @@ public class EmployeeATTDROrder extends LevelApp_3{
 	private int outContractCount ; // 外承包工地人数
 	
 	
-	private String askLeaveEmployeeNOs ; // 请假人员名单
-	private String beLateEmployeeNOs ;   // 迟到人员名单
 	
 	public Date getWorkDate() {
 		return workDate;

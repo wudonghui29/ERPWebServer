@@ -23,11 +23,12 @@ public class EmployeeOTOrder extends LevelApp_4 {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String overtimeEmployeeNOs ;   		// 加班的员工们 e.g. "EH001,EH002"
+	private String leaderEmployeeNO; 	// 组长
+	
 	private Date applyDate ;	 // 申请日期
 	private Date overTimeDate; 	// 加班日期
 	
-	private String leaderEmployeeNO; // 组长
-	private String employeeNOs ;   // 加班的员工们 e.g. "EH001,EH002"
 	private String overTimeContents; // 加班工作内容
 	
 	private Time startTime; // 加班开始时间
@@ -59,12 +60,12 @@ public class EmployeeOTOrder extends LevelApp_4 {
 		this.leaderEmployeeNO = leaderEmployeeNO;
 	}
 
-	public String getEmployeeNOs() {
-		return employeeNOs;
+	public String getOvertimeEmployeeNOs() {
+		return overtimeEmployeeNOs;
 	}
 
-	public void setEmployeeNOs(String employeeNOs) {
-		this.employeeNOs = employeeNOs;
+	public void setOvertimeEmployeeNOs(String overtimeEmployeeNOs) {
+		this.overtimeEmployeeNOs = overtimeEmployeeNOs;
 	}
 
 	public String getOverTimeContents() {

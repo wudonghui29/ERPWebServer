@@ -32,17 +32,17 @@ public class HumanResourceAction extends SuperAction {
 				Employee newEmployee = (Employee)model;
 				
 				String password = requestMessage.getPASSWORDS().get(0);
-				String username = newEmployee.getEmployeeNO();
+				String employeeNO = newEmployee.getEmployeeNO();
 				
 				// create user
 				User newUser = new User();
 				newUser.setPassword(password);
-				newUser.setUsername(username);
+				newUser.setUsername(employeeNO);
 				newUser.setPermissions(ConfigConstants.DEFAULT_PERMISSION);
 				
 				// create approval
 				Approvals approval = new Approvals();
-				approval.setUsername(username);
+				approval.setEmployeeNO(employeeNO);
 				
 				SuperDAO baseDAO = new SuperDAOIMP();
 				baseDAO.create(newUser);

@@ -21,13 +21,14 @@ public class EmployeeATTFixOrder extends LevelApp_3 {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String employeeNO ; // 员工编号
+	
 	// 补签日期的范围
 	private Date attendanceStarDate; 
 	private Date attendanceEndDate;
 	
 	
 	private Date repairDate ; // 补签日期时间
-	private String employeeNO ; // 员工编号
 	private String reason ; 	// 补签事由
 	private String proof ; 		// 证明
 	

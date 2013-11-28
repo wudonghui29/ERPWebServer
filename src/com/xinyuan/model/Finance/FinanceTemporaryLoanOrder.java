@@ -17,17 +17,17 @@ public class FinanceTemporaryLoanOrder extends LevelApp_4 {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String employeeNO ; //借款人
+	private String employeeNO ; 	//借款人
 	
-	private String reason;		//借款原因
+	private String reason;			//借款原因
 	private float nowAmount ;		//本次借款金额
 	private float beforeAmount;		//之前借款金额
 	
-	private String estimateDescription; //预估费用内容说明
+	private String estimateDescription; 	//预估费用内容说明
 	
-	private Date estimateReturnDate; //预定归还日期
-	private Date autualReturnDate;	 //实际归还日期
-	private float allReturnAmount;	//合计归还
+	private Date estimateReturnDate; 		//预定归还日期
+	private Date autualReturnDate;	 		//实际归还日期
+	private float allReturnAmount;			//合计归还
 	
 	
 	public String getEmployeeNO() {

@@ -22,6 +22,8 @@ public class EmployeeDormitoryOrder extends LevelApp_4 {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String liveInEmployeeNOs ; 		// 住进的员工的编号 比如住了2人: "EH001,EH002"
+	
 	private Date dormitoryDate; // 实体表中比如: "2013年9月一楼宿舍明细表" 中的 "2013年9月"
 	private int floor ; 		// 实体表中比如: "2013年9月一楼宿舍明细表" 中的 "一楼"
 	
@@ -31,12 +33,19 @@ public class EmployeeDormitoryOrder extends LevelApp_4 {
 	private String roomType ;			// 实体表中的"规格": 单人 , 夫妻房 , 4人房
 	private int population ;			// 人数
 	
-	private String employeeNOs ; 		// 住进的员工的编号 比如住了2人: "EH001,EH002"
-	
 	private float expense ; 		// 应缴纳住宿费用
 	
 	private String description; 	// 备注
 	
+	
+	public String getLiveInEmployeeNOs() {
+		return liveInEmployeeNOs;
+	}
+
+	public void setLiveInEmployeeNOs(String liveInEmployeeNOs) {
+		this.liveInEmployeeNOs = liveInEmployeeNOs;
+	}
+
 	public Date getDormitoryDate() {
 		return dormitoryDate;
 	}
@@ -83,14 +92,6 @@ public class EmployeeDormitoryOrder extends LevelApp_4 {
 
 	public void setPopulation(int population) {
 		this.population = population;
-	}
-
-	public String getEmployeeNOs() {
-		return employeeNOs;
-	}
-
-	public void setEmployeeNOs(String employeeNOs) {
-		this.employeeNOs = employeeNOs;
 	}
 
 	public float getExpense() {

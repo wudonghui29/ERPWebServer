@@ -21,11 +21,11 @@ public class EmployeeATTOrder extends LevelApp_4 {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String employeeNO ; // 考核的员工
+	
 	// 考核日期的范围
 	private Date attendanceStarDate; 
 	private Date attendanceEndDate;
-	
-	private String employeeNO ; // 考核的员工
 	
 	private String otherDescription ; // 其它
 	
