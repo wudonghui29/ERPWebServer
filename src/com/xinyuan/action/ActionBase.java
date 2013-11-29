@@ -16,4 +16,5 @@ public abstract class ActionBase extends ActionSupport {
 		return responseMessage;
 	}
 	
+	
 }
