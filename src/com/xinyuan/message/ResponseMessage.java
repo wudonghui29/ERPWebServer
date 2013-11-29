@@ -6,8 +6,9 @@ import java.util.List;
 
 public class ResponseMessage {
 	
-	public String status = ConfigConstants.STATUS_FAILED;   // 0 for failed , 1 for success
+	public String status = ConfigConstants.STATUS_NEGATIVE;   // 0 for failed , 1 for success
 	public String action = ConfigConstants.EMPTY_STRING;
+	public String denyStatus = null;
 	public String apnsStatus = null ;
 	public String description = null;
 	public String exception = null;
@@ -63,6 +64,12 @@ public class ResponseMessage {
 	}
 	public void setNumbers(List<String> numbers) {
 		this.numbers = numbers;
+	}
+	public String getDenyStatus() {
+		return denyStatus;
+	}
+	public void setDenyStatus(String denyStatus) {
+		this.denyStatus = denyStatus;
 	}
 
 }

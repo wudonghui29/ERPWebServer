@@ -30,7 +30,7 @@ public class WriteMessageInterceptor extends AbstractInterceptor {
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
 		ActionBase action = (ActionBase)invocation.getAction();
-		ResponseMessage message = action.getMessage();
+		ResponseMessage message = action.getResponseMessage();
 		String url = ServletActionContext.getRequest().getRequestURL().toString();
 		message.action = url.substring(url.lastIndexOf("/") + 1);
 		
@@ -45,7 +45,7 @@ public class WriteMessageInterceptor extends AbstractInterceptor {
 			
 			String description = message.description == null || message.description.isEmpty() ? getDescription(e) : message.description;
 			
-			message.status = ConfigConstants.STATUS_FAILED;
+			message.status = ConfigConstants.STATUS_NEGATIVE;
 			message.description = description == null || description.isEmpty() ? ConfigConstants.REQUEST_ERROR : description;
 			message.objects = null;
 			message.exception += (new Date()).toString() + " : " + e.getClass().getName() ;

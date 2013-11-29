@@ -11,6 +11,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.xinyuan.message.ConfigFormat;
 import com.xinyuan.message.ConfigJSON;
+import com.xinyuan.message.RequestMessage;
 
 public class JsonHelper {
 	
@@ -81,11 +82,13 @@ public class JsonHelper {
 	}
 	 *  For the parameters value inside "PARAMETERS"
 	 */
-	public static String getParameter(JsonObject jsonObject, String parameterName) {
-		Map<String, Object> map = JsonHelper.translateElementToMap(jsonObject);
-		List<Map<String, String>> list = (List<Map<String, String>>) map.get(ConfigJSON.PARAMETERS);
-		if (list == null || list.size() == 0) return null;						// TODO : ...  Just For UserAction now
-		Map<String, String> parametersMap = (Map<String, String>) list.get(0);
+	public static String getParameter(RequestMessage requestMessage, String parameterName) {
+		List<Map<String, String>> list = requestMessage.getPARAMETERS();
+		
+		if (list == null || list.size() == 0) return null;
+		
+		Map<String, String> parametersMap = list.get(0);			// TODO: Index 0 For now
+		
 		return parametersMap != null ? parametersMap.get(parameterName) : null;
 	}
 	

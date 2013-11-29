@@ -20,7 +20,7 @@ public class PostRequestInterceptor extends AbstractInterceptor {
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
-		DLog.log("Request URL : " + request.getRequestURL());
+		DLog.log("");
 		
 //		PrintHelper.printServeletRequestHeader();
 		

@@ -49,15 +49,13 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		
 		// Get the struts Action
 		ActionModelBase baseAction = (ActionModelBase)invocation.getAction();
-		ResponseMessage message = baseAction.getMessage();
+		ResponseMessage responseMessage = baseAction.getResponseMessage();
 		
 		// Get the permission needed
 		String method = PermissionInterceptor.getContextMethod().trim();   		// A . method needeD  // TODO: Be careful of ActionModelBase's method !! important !!
-		JsonObject jsonObject = baseAction.getAllJsonObject();
-		JsonArray jsonArray = (JsonArray) jsonObject.get(ConfigJSON.MODELS);
-		List<String> models = JsonHelper.translateJsonArrayToList(jsonArray); 	// B. models needed
+		List<String> models = baseAction.getRequestMessage().getMODELS(); 	// B. models needed
 		
-		message.models = models;
+		responseMessage.models = models;
 		
 		
 		// ok , check if administrator  	//TODO: For test , remove it , in production, give all the permission to administrator, or , just leave it?
@@ -77,7 +75,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		
 		if (isAllowable) return invocation.invoke();	// ok , let it pass
 		
-		message.description = ConfigConstants.DENY;
+		responseMessage.denyStatus = ConfigConstants.STATUS_POSITIVE;
 		
 		return Action.NONE;
 	}

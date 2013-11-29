@@ -8,6 +8,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -22,6 +23,7 @@ public class TransactionFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		System.out.println("\n\n\n");			// TODO: Remove it in production!
+		DLog.log("" + ((HttpServletRequest)request).getRequestURL());
 		DLog.log("*************************** ----- Begin Transaction");
 		
 //		ActionContext actionContext = ServletActionContext.getContext();

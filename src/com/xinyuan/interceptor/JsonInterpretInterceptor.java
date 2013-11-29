@@ -9,10 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.modules.Introspector.IntrospectHelper;
 import com.modules.Util.DLog;
 import com.opensymphony.xwork2.Action;
@@ -41,17 +37,18 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		
 		String json = request.getParameter(ConfigJSON.JSON);
-		DLog.log(json);
 		RequestMessage requestMessage = JsonHelper.getGson().fromJson(json, RequestMessage.class);
 		DLog.log("RequestMessage : " + requestMessage.toString());
-		JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(json);
+		
+//		DLog.log(json);
+//		JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(json);
 		
 		
 		List<Set<String>> voKeys = new ArrayList<Set<String>>();
 		List<Object> vos = new ArrayList<Object>();
 		
-		JsonArray modelsArray = (JsonArray) jsonObject.get(ConfigJSON.MODELS);			// MODELS
-		JsonArray objectsArray = (JsonArray) jsonObject.get(ConfigJSON.OBJECTS);		// OBJECTS
+		List<String> modelsArray = requestMessage.getMODELS();						// MODELS
+		List<Map<String, Object>> objectsArray = requestMessage.getOBJECTS();		// OBJECTS
 		
 		if(modelsArray.size() != objectsArray.size()) {
 			DLog.log("Reject : models.size not match objects.size");
@@ -63,19 +60,17 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		String catagory = actionName.replace(ConfigConstants.ACTION, ConfigConstants.EMPTY_STRING);
 		
 		for (int i = 0; i < modelsArray.size(); i++) {
-			JsonElement modelElement = modelsArray.get(i);
-			JsonElement objectElement = objectsArray.get(i);
+			String modelStr = modelsArray.get(i);		// e.g : ".Employee"
+			Map<String, Object> objectMap = objectsArray.get(i);
 			
 			// get model
-			String modelString = modelElement.getAsString();					// e.g : ".Employee"
-			String objectString = JsonHelper.getGson().toJson(objectElement);
-			String className = ConfigConstants.MODELPACKAGE + (baseAction.getClass() == SuperAction.class ?  modelString : ConfigConstants.PACKAGE_CONNECTOR + catagory + modelString);
+			String objectJsonStr = JsonHelper.getGson().toJson(objectMap);
+			String className = ConfigConstants.MODELPACKAGE + (baseAction.getClass() == SuperAction.class ?  modelStr : ConfigConstants.PACKAGE_CONNECTOR + catagory + modelStr);
 			Class<?> modelClass = Class.forName(className);
-			Object vo = JsonHelper.getGson().fromJson(objectString, modelClass);
+			Object vo = JsonHelper.getGson().fromJson(objectJsonStr, modelClass);
 			
 			// get keys
-			Map<String, Object> map = JsonHelper.translateElementToMap(objectElement);
-			Set<String> keys = map.keySet();
+			Set<String> keys = objectMap.keySet();
 			
 			vos.add(vo);				// MODELS
 			voKeys.add(keys);			// KEYS
@@ -84,7 +79,6 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		
 		baseAction.setModels(vos);
 		baseAction.setObjectKeys(voKeys);
-		baseAction.setAllJsonObject(jsonObject);
 		baseAction.setRequestMessage(requestMessage);
 		
 		return invocation.invoke();

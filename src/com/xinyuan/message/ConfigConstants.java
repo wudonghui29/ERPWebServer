@@ -7,16 +7,16 @@ import javax.servlet.ServletContext;
 
 public class ConfigConstants {
 	
-	public static String FS ;
+	public static String FS = System.getProperty("file.separator");
+	public static String Apns_Certificate_Path = ".." + FS + "apnsDevelop.p12";
+	
 	public static String Context_Real_Path ;
-	public static String Apns_Certificate_Path ;
 	public static String Models_Class_Files_Path ;
 	
 	public static void initializeContextVariables(ServletContext context) {
 		//ServletActionContext.getServletContext()
-		FS = System.getProperty("file.separator");
 		Context_Real_Path = context.getRealPath(File.separator); 
-		Apns_Certificate_Path = Context_Real_Path + ".." + FS + "apnsDevelop.p12";
+		Apns_Certificate_Path = Context_Real_Path + Apns_Certificate_Path;
 		Models_Class_Files_Path = Context_Real_Path + "WEB-INF" + FS + "classes" + FS + "com" + FS + "xinyuan" + FS + "model" + FS;
 	}
 	
@@ -69,8 +69,8 @@ public class ConfigConstants {
 	
 
 	public static final String EMPTY_STRING = "";
-	public static final String STATUS_FAILED = "0";
-	public static final String STATUS_SUCCESS = "1";
+	public static final String STATUS_NEGATIVE = "0";
+	public static final String STATUS_POSITIVE = "1";
 	
 	public static class USER {
 		public static final String VerifyCodeError = "VerifyCode_Error";

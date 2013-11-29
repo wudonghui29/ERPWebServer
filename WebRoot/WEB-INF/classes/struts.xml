@@ -82,9 +82,6 @@
 	<package name="user" extends="main" namespace="/user" >
 		
 		<!-- not signin / not online -->
-        <action name="connect" class="com.xinyuan.action.UserAction" method="connect">
-        	<interceptor-ref name="notOnlineIntercepterStack"></interceptor-ref>
-        </action>
         <action name="signin" class="com.xinyuan.action.UserAction" method="signin">
         	<interceptor-ref name="notOnlineIntercepterStack"></interceptor-ref>
         </action>

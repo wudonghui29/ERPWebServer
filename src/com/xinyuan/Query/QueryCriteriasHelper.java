@@ -60,12 +60,12 @@ public class QueryCriteriasHelper {
      *
 	 * @return
 	 */
-	public static String assembleCriteriasWhereClause(Map<String, Map> criterias) {
+	public static String assembleCriteriasWhereClause(Map<String, Map<String,String>> criterias) {
 		if (criterias == null || criterias.size() == 0) return "";
 		
 		String criterialClause = "";
 		
-		for (Map.Entry<String, Map> entry : criterias.entrySet()) {
+		for (Map.Entry<String, Map<String,String>> entry : criterias.entrySet()) {
 			String key = entry.getKey();
 			
 			if (! (key.startsWith(CRITERIAS_PRE_OR) || key.startsWith(CRITERIAS_PRE_AND)) ) continue;		// key "and*" , "or*"
@@ -73,7 +73,7 @@ public class QueryCriteriasHelper {
 			boolean isOR = key.startsWith(CRITERIAS_PRE_OR);
 			String relation = isOR ? "OR" : "AND";
 			
-			Map value = entry.getValue();
+			Map<String,String> value = entry.getValue();
 			String subClause = getSubClause(value, relation);
 			
 			if (!subClause.isEmpty()) {
@@ -143,10 +143,10 @@ public class QueryCriteriasHelper {
 	 * @param criterias		the values in it
 	 * @throws Exception
 	 */
-	public static void setCriteriasWhereValues(Query query, Map<String, Map> criterias) throws Exception {
+	public static void setCriteriasWhereValues(Query query, Map<String, Map<String,String>> criterias) throws Exception {
 		if (criterias == null || criterias.size() == 0) return;
 		
-		for (Map.Entry<String, Map> entry : criterias.entrySet()) {			// keys : "and*",  "or*"
+		for (Map.Entry<String, Map<String,String>> entry : criterias.entrySet()) {			// keys : "and*",  "or*"
 			Map<String, String> valueMap = entry.getValue();
 			
 			for (Map.Entry<String, String> subEntry : valueMap.entrySet()) {

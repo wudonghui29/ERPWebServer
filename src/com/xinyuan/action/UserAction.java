@@ -27,34 +27,16 @@ import com.xinyuan.model.User.User;
 
 public class UserAction extends ActionModelBase {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	@Override
 	protected SuperDAO getDao() { return null; }
 	
 	private UserDAO userDAO = new UserDAOIMP();
-	
-	
-	public String connect() throws Exception {
-		String VERIFYCODE_TYPE = JsonHelper.getParameter(allJsonObject, ConfigJSON.VERIFYCODE_TYPE);
-		String VERIFYCODE_COUNT = JsonHelper.getParameter(allJsonObject, ConfigJSON.VERIFYCODE_COUNT);
-		
-		int count = 7;
-		try {
-			count = VERIFYCODE_COUNT == null ? 4 : Integer.valueOf(VERIFYCODE_COUNT) ;
-		} catch (NumberFormatException e) {
-			//
-		}
-		
-		boolean randomBool = (VERIFYCODE_TYPE == null) ? (new Random()).nextBoolean() : Boolean.valueOf(VERIFYCODE_TYPE);
-		String verifyCode = randomBool ? VerifyCode.generateCode(count) : SecurityCode.getSecurityCode(count);
-		byte[] imageBytes = randomBool ? VerifyCode.generateImageBytes(verifyCode) : SecurityCode.getImageAsBytes(verifyCode);
-
-		SessionManager.put(ConfigJSON.VERIFYCODE, verifyCode);
-		ResponseWriter.write(imageBytes);
-		message.status = ConfigConstants.STATUS_SUCCESS;
-		DLog.log(ConfigJSON.VERIFYCODE + " : " + verifyCode);
-
-		return Action.NONE;
-	}
 
 	
 	
@@ -69,11 +51,11 @@ public class UserAction extends ActionModelBase {
 		
 		String username = model.getUsername();
 		String password = model.getPassword();
-		String apnsToken = JsonHelper.getParameter(allJsonObject,ConfigJSON.APNSTOKEN);
+		String apnsToken = JsonHelper.getParameter(requestMessage,ConfigJSON.APNSTOKEN);
 		
 		User user = userDAO.getUser(username);
 		if (user == null) {
-			message.description = ConfigConstants.USER.UserNotExist;
+			responseMessage.description = ConfigConstants.USER.UserNotExist;
 		} else if (password.equals(user.getPassword())) {
 			
 			// update the apnsToken in db
@@ -84,12 +66,12 @@ public class UserAction extends ActionModelBase {
 			
 			// put result in response
 			Map<String, Object> map = new HashMap<String, Object>();
-			message.status = ConfigConstants.STATUS_SUCCESS;
-			message.description = ConfigConstants.USER.UserLoginSuccess;
+			responseMessage.status = ConfigConstants.STATUS_POSITIVE;
+			responseMessage.description = ConfigConstants.USER.UserLoginSuccess;
 			
 			map.put(ConfigJSON.IDENTIFIER, user.getId());
 			map.put(ConfigConstants.PERMISSIONS, userDAO.getAllUsers());
-			message.objects = map;
+			responseMessage.objects = map;
 			
 			// put the permission in session
 			String perssionStr = user.getPermissions();
@@ -101,7 +83,7 @@ public class UserAction extends ActionModelBase {
 			
 			
 		} else {
-			message.description = ConfigConstants.USER.UserPasswordError;
+			responseMessage.description = ConfigConstants.USER.UserPasswordError;
 		}
 			
 //		}
@@ -119,7 +101,7 @@ public class UserAction extends ActionModelBase {
 //		ApprovalHelper.deleteAPNSToken(username, apnsToken);
 		ApprovalHelper.setAPNSToken(user.getUsername(), "");
 		
-		message.status = ConfigConstants.STATUS_SUCCESS;
+		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
 		return Action.NONE;
 	}
 	
@@ -135,15 +117,15 @@ public class UserAction extends ActionModelBase {
 	
 	/**
 	 * 
-	 * Admin Begin
+	 * Admin 
 	 * 
 	 * 
 	 * 
 	 */
 	
-	
 	public String adminModify() throws Exception {
-//		if (models.size() != 1) return Action.NONE;		// Forbid modified multi-
+		if (models.size() != 1) return Action.NONE;		// Forbid modified multi-
+		
 		List<Map<String, String>> identities = requestMessage.getIDENTITYS();
 		for (int i = 0; i < models.size(); i++) {
 			User model = (User)models.get(i);
@@ -156,29 +138,9 @@ public class UserAction extends ActionModelBase {
 			userDAO.modify(persistence);
 		}
 		
-		message.status = ConfigConstants.STATUS_SUCCESS;
+		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
 		return Action.NONE;
 	}
-	
-	
-	public String signup() throws Exception {
-		return Action.NONE; // TODO: ...
-	}
-	
-	
-	
-	
-	/**
-	 * 
-	 * Admin End
-	 * 
-	 * 
-	 * 
-	 */
-	
-	
-	
-	
 	
 	
 	
@@ -189,12 +151,12 @@ public class UserAction extends ActionModelBase {
 	 */
 	private boolean isVerifyCodeError() {
 		
-		String userVerifyCode = JsonHelper.getParameter(allJsonObject, ConfigJSON.VERIFYCODE);
+		String userVerifyCode = JsonHelper.getParameter(requestMessage, ConfigJSON.VERIFYCODE);
 		String verifyCode = (String) SessionManager.get(ConfigJSON.VERIFYCODE);
 		SessionManager.remove(ConfigJSON.VERIFYCODE);
 		
 		boolean isError = userVerifyCode == null || userVerifyCode.isEmpty() || !userVerifyCode.equals(verifyCode);
-		if (isError) message.description = ConfigConstants.USER.VerifyCodeError;
+		if (isError) responseMessage.description = ConfigConstants.USER.VerifyCodeError;
 		
 //		return isError;
 		

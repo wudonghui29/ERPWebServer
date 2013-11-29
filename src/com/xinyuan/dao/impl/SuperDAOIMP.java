@@ -58,7 +58,7 @@ public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 	}
 	
 	@Override
-	public <E extends Object> String getTotalRows(E object,  Set<String> keys,  List<String> fields,  Map<String, Map> criterias) throws Exception {
+	public <E extends Object> String getTotalRows(E object,  Set<String> keys,  List<String> fields,  Map<String, Map<String,String>> criterias) throws Exception {
 		/**
 		 * 0. the from clause need 'object' and the where A.a = a clause need 'keys'
 		 * 1. select clause need 'fields'
@@ -76,7 +76,7 @@ public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 	}
 	
 	@Override
-	public <E extends Object> List<E> read( E object,  Set<String> keys,  List<String> fields,  Map<String, Map> criterias, List<String> sorts, List<String> limits) throws Exception {
+	public <E extends Object> List<E> read( E object,  Set<String> keys,  List<String> fields,  Map<String, Map<String,String>> criterias, List<String> sorts, List<String> limits) throws Exception {
 		/**
 		 * 0. the from clause need 'object' and the where A.a = a clause need 'keys'
 		 * 1. select clause need 'fields'
@@ -98,7 +98,7 @@ public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 													List<Object> outterObjects, 
 													List<Set<String>> outterKeys, 
 													List<List<String>> outterFields, 
-													List<Map<String, Map>> outterCriterials, 
+													List<Map<String, Map<String, String>>> outterCriterials, 
 													List<Map<String, String>> outterJoins,
 													List<List<String>> outterSorts,
 													List<List<String>> outterLimits
@@ -120,7 +120,7 @@ public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 			List<String> sorts = outterSorts == null ? null : outterSorts.get(i);
 			List<String> fields = outterFields == null ? null : outterFields.get(i);
 			Map<String, String> joins = outterJoins == null ? null : outterJoins.get(i);
-			Map<String, Map> criterias = outterCriterials == null ? null : outterCriterials.get(i);
+			Map<String, Map<String,String>> criterias = outterCriterials == null ? null : outterCriterials.get(i);
 			
 			// alias , table too
 			String alias = IntrospectHelper.getShortClassName(object);
@@ -181,7 +181,7 @@ public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 		for (int i = 0; i < outterObjects.size(); i++) {
 			Object object = outterObjects.get(i);
 			Set<String> keys = outterKeys.get(i);
-			Map<String, Map> criterias = null;
+			Map<String, Map<String,String>> criterias = null;
 			if (outterCriterials != null) criterias = outterCriterials.get(i);
 			QueryObjectsHelper.setObjectsWhereValues(query, object, keys);
 			QueryCriteriasHelper.setCriteriasWhereValues(query, criterias);
@@ -193,7 +193,7 @@ public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 	}
 	
 	
-	private <E extends Object> Query createHQLQuery(String hqlString, E object, Set<String> keys, Map<String, Map> criterias, List<String> limits) throws Exception {
+	private <E extends Object> Query createHQLQuery(String hqlString, E object, Set<String> keys, Map<String, Map<String,String>> criterias, List<String> limits) throws Exception {
 		// Create HQL Query From Query String
 		Query query = super.getSession().createQuery(hqlString);
 		
@@ -208,7 +208,7 @@ public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 	}
 	
 	
-	private <E extends Object> String createHQLString(E object, Set<String> keys, List<String> fields, Map<String, Map> criterias, List<String> sorts) {
+	private <E extends Object> String createHQLString(E object, Set<String> keys, List<String> fields, Map<String, Map<String,String>> criterias, List<String> sorts) {
 		String fromClause 		= "";
 		String selectClause 	= "";
 		String orderByClause 	= "";

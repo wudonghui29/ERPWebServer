@@ -12,12 +12,11 @@ import javapns.notification.PushNotificationPayload;
 import javapns.notification.PushedNotification;
 import javapns.notification.ResponsePacket;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.opensymphony.xwork2.ActionContext;
 import com.xinyuan.action.ActionBase;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigJSON;
+import com.xinyuan.message.RequestMessage;
 import com.xinyuan.message.ResponseMessage;
 
 
@@ -28,39 +27,32 @@ public class ApnsHelper {
 	private static final String APNS_Sound_DEFAULT = "default";
 	
 	
-	public static boolean sendAPNS(JsonObject allJsonObject, ResponseMessage message) {
+	public static void sendAPNS(RequestMessage requestMessage, ResponseMessage responseMessage) {
+		if (requestMessage.getAPNS_FORWARDS() == null) return;
 		try {
-			message.apnsStatus = ConfigConstants.STATUS_SUCCESS;
-			
+			responseMessage.apnsStatus = ConfigConstants.STATUS_POSITIVE;
 			// push APNS notifications
-			ApnsHelper.inform(allJsonObject);
-			
+			ApnsHelper.inform(requestMessage.getAPNS_FORWARDS(), requestMessage.getAPNS_CONTENTS());
 		} catch (Exception e) {
 			e.printStackTrace();
-			
-			message.apnsStatus = ConfigConstants.STATUS_FAILED;
-			message.description = ConfigConstants.MESSAGE.PushAPNSFailed;
+			responseMessage.apnsStatus = ConfigConstants.STATUS_NEGATIVE;
+			responseMessage.description = ConfigConstants.MESSAGE.PushAPNSFailed;
 		}
-		
-		return message.apnsStatus.equalsIgnoreCase(ConfigConstants.STATUS_SUCCESS) ;
 	}
 	
 	/**
 	 * @param allJsonObject		{ "APNS_FORWARDS" : [] , "APNS_CONTENTS" : [] }
 	 * @throws Exception
 	 */
-	private static void inform(JsonObject allJsonObject) throws Exception {
-		JsonArray forwardsList = allJsonObject.getAsJsonArray(ConfigJSON.APNS_FORWARDS);
-		JsonArray forwardContents = allJsonObject.getAsJsonArray(ConfigJSON.APNS_CONTENTS);
+	private static void inform(List<String> forwardList, List<Map<String, String>> forwardContents) throws Exception {
 		
-		int forwardsCount = forwardsList != null ? forwardsList.size() : 0 ;
+		int forwardsCount = forwardList != null ? forwardList.size() : 0 ;
 		
 		for (int index = 0; index < forwardsCount; index++) {
 			
-			String forwardUsername = forwardsList.get(index).getAsString();
+			String forwardUsername = forwardList.get(index);
 			String[] apnsTokens = ApprovalHelper.getAPNSToken(forwardUsername).split(ConfigConstants.CONTENT_DIVIDER);
-			Map<String, Object> apnsMap = JsonHelper.translateElementToMap(forwardContents.get(index));
-			
+			Map<String, String> apnsMap = forwardContents.get(index);
 			push(apnsMap, apnsTokens);
 		}
 	}
@@ -73,7 +65,7 @@ public class ApnsHelper {
 	 * @throws Exception
 	 */
 	
-	public static void push(Map<String, Object>map , String[] apnsTokens) throws Exception {
+	public static void push(Map<String, String>map , String[] apnsTokens) throws Exception {
 		String APNS_Alert = ConfigJSON.APNS_Alert;
 		String APNS_Badge = ConfigJSON.APNS_Badge;
 		String APNS_Sound = ConfigJSON.APNS_Sound;
@@ -85,22 +77,24 @@ public class ApnsHelper {
 		}
 		
 		// GET THE APN MESSAGE OUT
-		String message = (String) map.get(APNS_Alert);
-		String badgeString = (String) map.get(APNS_Badge);
-		int badge = badgeString != null && !badgeString.isEmpty() ? Integer.valueOf(badgeString) : 1;
-		String sound = (String) map.get(APNS_Sound);
+		String message = map.get(APNS_Alert);
+		String badgeStr = map.get(APNS_Badge);
+		int badge = badgeStr != null && !badgeStr.isEmpty() ? Integer.valueOf(badgeStr) : 1;
+		String sound = map.get(APNS_Sound);
 		sound = sound == null || sound.isEmpty() ? APNS_Sound_DEFAULT : sound;
 		
 		
-		/* Build a blank payload to customize */ 
+		/* Build a blank payload  */ 
 		PushNotificationPayload payload = PushNotificationPayload.complex();
 		payload.addAlert(message);
 		payload.addBadge(badge);
 		payload.addSound(sound);
-		for (Entry<String, Object> entry : map.entrySet()) {
+		
+		// set the customize contents
+		for (Entry<String, String> entry : map.entrySet()) {
 			String key = entry.getKey();
 			if (key.equals(APNS_Alert) || key.equals(APNS_Badge) || key.equals(APNS_Sound)) continue;
-			payload.addCustomDictionary(key, (String) entry.getValue());
+			payload.addCustomDictionary(key, (String) entry.getValue());		// the custom contents
 		}
 		
 		sendWithOutThread(payload, ConfigConstants.Apns_Certificate_Path, ConfigConstants.APNS_CERTIFICATE_PASSWORD, ConfigConstants.APNS_IN_PRODUCTION, devices);
@@ -143,10 +137,6 @@ public class ApnsHelper {
 			throw e;
 		}
 			
-		/* App Message */
-		ActionBase action = (ActionBase)ActionContext.getContext().getActionInvocation().getAction();
-		ResponseMessage message = action.getMessage();
-		
 		for (PushedNotification notification : notifications) {
             if (notification.isSuccessful()) {
                     /* Apple accepted the notification and should deliver it */  
@@ -154,8 +144,8 @@ public class ApnsHelper {
                     /* Still need to query the Feedback Service regularly */  
                     
             } else {
-            		message.apnsStatus = ConfigConstants.STATUS_FAILED;
-            		
+            		// TODO: Some notifications failed . 
+            	
                     String invalidToken = notification.getDevice().getToken();
                     /* Add code here to remove invalidToken from your database */  
 

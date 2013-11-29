@@ -39,7 +39,7 @@ public class Employee extends LevelAPP_5 {
 	private String nationality ;  	// human race 民族
 	private String nativePlace;  	// native place 籍贯
 	private String homeAddress;		// 家地址
-	private String livingAddress;	//现住址
+	private String livingAddress;	// 现住址
 
 	private Date employDate;  	 	// entry date , sign in date
 	private boolean employing;		// 是否在职  do not use "isEmploying" , cause in mysql , the column name will be "employing" , "is" is gone
@@ -49,7 +49,7 @@ public class Employee extends LevelAPP_5 {
 	private String departmentName;
 	private String subDepartmentName;
 	private int jobLevel = 10;			//级别
-	private String jobTitle;		//职称
+	private String jobTitle;			//职称
 	
 	private String wordMask;		//password mask 
 	

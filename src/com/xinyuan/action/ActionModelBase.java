@@ -16,14 +16,10 @@ public abstract class ActionModelBase extends ActionBase {
 	protected SuperDAO dao = getDao() ;
 	protected abstract SuperDAO getDao() ;
 	
-	
-	protected JsonObject allJsonObject;
 	protected List<Object> models;				// vos
 	protected List<Set<String>> objectKeys;		// vos' keys
 	
-	
 	protected RequestMessage requestMessage;
-	
 	
 	
 	public List<Object> getModels() {
@@ -39,15 +35,6 @@ public abstract class ActionModelBase extends ActionBase {
 	public void setObjectKeys(List<Set<String>> objectKeys) {
 		this.objectKeys = objectKeys;
 	}
-	
-	public JsonObject getAllJsonObject() {
-		return allJsonObject;
-	}
-	public void setAllJsonObject(JsonObject allJsonObject) {
-		this.allJsonObject = allJsonObject;
-	}
-	
-	
 	
 	public RequestMessage getRequestMessage() {
 		return requestMessage;

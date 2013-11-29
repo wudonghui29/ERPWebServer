@@ -27,6 +27,13 @@ import com.xinyuan.model.User.User;
 
 public class SuperAction extends ActionModelBase {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+
 	@Override
 	public String execute() {
 		return Action.NONE;
@@ -43,7 +50,7 @@ public class SuperAction extends ActionModelBase {
 		List<List<String>> outterFields = requestMessage.getFIELDS();
 		List<List<String>> outterLimits = requestMessage.getLIMITS();
 		List<Map<String, String>> outterJoins = requestMessage.getJOINS();
-		List<Map<String, Map>> outterCriterials = requestMessage.getCRITERIAS();
+		List<Map<String, Map<String, String>>> outterCriterials = requestMessage.getCRITERIAS();
 		
 		List<Object> results = new ArrayList<Object>();
 		if (outterJoins != null && outterJoins.size() != 0) {
@@ -51,8 +58,8 @@ public class SuperAction extends ActionModelBase {
 			results = dao.readJoined(models, objectKeys, outterFields, outterCriterials, outterJoins, outterSorts, outterLimits);
 			
 			if (QueryLimitsHelper.isJoinedNeedLimits(outterLimits)) {
-				if (message.numbers == null) message.numbers = new ArrayList<String>();
-				message.numbers.add(dao.getJoinedTotalRows());
+				if (responseMessage.numbers == null) responseMessage.numbers = new ArrayList<String>();
+				responseMessage.numbers.add(dao.getJoinedTotalRows());
 			}
 			
 		} else {
@@ -64,20 +71,20 @@ public class SuperAction extends ActionModelBase {
 				List<String> sorts = outterSorts == null ? null : outterSorts.get(i);
 				List<String> limits= outterLimits == null ? null : outterLimits.get(i);
 				List<String> fields = outterFields == null ? null : outterFields.get(i);
-				Map<String, Map> criterias = outterCriterials == null ? null : outterCriterials.get(i);
+				Map<String, Map<String,String>> criterias = outterCriterials == null ? null : outterCriterials.get(i);
 				
 				results.add(dao.read(model, keys, fields, criterias, sorts, limits));
 				
 				if (QueryLimitsHelper.isNeedLimit(limits)) {
-					if (message.numbers == null) message.numbers = new ArrayList<String>();
-					message.numbers.add(dao.getTotalRows(model, keys, fields, criterias));
+					if (responseMessage.numbers == null) responseMessage.numbers = new ArrayList<String>();
+					responseMessage.numbers.add(dao.getTotalRows(model, keys, fields, criterias));
 				}
 			}
 			
 		}
 		
-		message.objects = results;
-		message.status = ConfigConstants.STATUS_SUCCESS;
+		responseMessage.objects = results;
+		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
 		
 		return Action.NONE;
 	}
@@ -98,16 +105,13 @@ public class SuperAction extends ActionModelBase {
 			Integer identifier = (Integer) dao.create(model);
 			
 			Map result = new HashMap();
-			
 			result.put(ConfigJSON.IDENTIFIER, identifier);
-			
 			if (model instanceof BaseOrder) result.put(ConfigJSON.ORDERNO, ((BaseOrder)model).getOrderNO());
-			
 			results.add(result);
 		}
 		
-		message.status = ConfigConstants.STATUS_SUCCESS ;
-		message.objects = results;
+		responseMessage.status = ConfigConstants.STATUS_POSITIVE ;
+		responseMessage.objects = results;
 		
 		return Action.NONE;
 	}
@@ -117,8 +121,7 @@ public class SuperAction extends ActionModelBase {
 	public String modify() throws Exception {
 		if (models.size() != 1) return Action.NONE;		// Forbid modified multi-
 		
-		Map<String, Object> allJsonMap = JsonHelper.translateElementToMap(allJsonObject);
-		List identityList = (List)allJsonMap.get(ConfigJSON.IDENTITYS);		// key - value
+		List<Map<String, String>> identityList = requestMessage.getIDENTITYS();	
 		
 		for (int i = 0; i < models.size(); i++) {
 			
@@ -135,9 +138,9 @@ public class SuperAction extends ActionModelBase {
 			dao.modify(persistence);
 		}
 		// push APNS notifications, notify somebody to know that some order has been modified
-		if (requestMessage.getAPNS_FORWARDS() != null) ApnsHelper.sendAPNS(allJsonObject, message);			// TODO:
+		ApnsHelper.sendAPNS(requestMessage, responseMessage);			// TODO:
 		
-		message.status = ConfigConstants.STATUS_SUCCESS;
+		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
 		return Action.NONE;
 	}
 	
@@ -146,8 +149,9 @@ public class SuperAction extends ActionModelBase {
 	public String delete() throws Exception {
 		if (models.size() != 1) return Action.NONE;		// Forbid delete multi-
 		
-		Map<String, Object> allJsonMap = JsonHelper.translateElementToMap(allJsonObject);
-		List identityList = (List)allJsonMap.get(ConfigJSON.IDENTITYS);			// key -value
+//		List<Map<String,String>> results = new ArrayList<Map<String,String>>();
+		
+		List<Map<String, String>> identityList = requestMessage.getIDENTITYS();	
 		
 		for (int i = 0; i < models.size(); i++) {
 					
@@ -161,9 +165,16 @@ public class SuperAction extends ActionModelBase {
 			
 			// check if delete successfully
 			if (((ModelDAO)dao).readUnique(persistenceWithID) == null) {
-				message.status = ConfigConstants.STATUS_SUCCESS;
+//				Map result = new HashMap();
+//				result.put(ConfigJSON.IDENTIFIER, persistence.getId());
+//				if (persistence instanceof BaseOrder) result.put(ConfigJSON.ORDERNO, ((BaseOrder)persistence).getOrderNO());
+//				results.add(result);
+			} else {
+				throw new Exception();
 			}
 		}
+		
+		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
 		
 		return Action.NONE;
 	}
@@ -175,7 +186,7 @@ public class SuperAction extends ActionModelBase {
 		
 		String signinedUser = ((User)SessionManager.get(ConfigConstants.SIGNIN_USER)).getUsername();
 		
-		JsonArray forwardsList = allJsonObject.getAsJsonArray(ConfigJSON.APNS_FORWARDS);
+		List<String> forwardsList = requestMessage.getAPNS_FORWARDS();
 		
 		for (int i = 0; i < models.size(); i++) {
 			
@@ -186,7 +197,7 @@ public class SuperAction extends ActionModelBase {
 //			boolean isAllApproved = ModelHelper.approve(persistence, signinedUser);  // TODO: Handle Exception
 			
 			// update the Order Table
-			String forwardUsername = forwardsList.get(i).getAsString();
+			String forwardUsername = forwardsList.get(i);
 			persistence.setForwardUser(forwardUsername);
 			dao.modify(persistence);
 			
@@ -199,9 +210,9 @@ public class SuperAction extends ActionModelBase {
 		}
 		
 		// push APNS notifications
-		ApnsHelper.sendAPNS(allJsonObject, message);
+		ApnsHelper.sendAPNS(requestMessage, responseMessage);
 		
-		message.status = ConfigConstants.STATUS_SUCCESS;
+		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
 		return Action.NONE;
 	}
 	

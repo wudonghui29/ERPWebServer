@@ -50,7 +50,7 @@ public interface SuperDAO {
 	 * for hql string
 	 * @return
 	 */
-	<E extends Object> String getTotalRows(E object,  Set<String> keys,  List<String> fields,  Map<String, Map> criterias) throws Exception;
+	<E extends Object> String getTotalRows(E object,  Set<String> keys,  List<String> fields,  Map<String, Map<String,String>> criterias) throws Exception;
 	
 	/**
    
@@ -70,7 +70,7 @@ public interface SuperDAO {
 	 * 						but the above method will return all column values
 	 * @throws Exception
 	 */
-	<E extends Object> List<E> read(E object, Set<String> keys, List<String> fields, Map<String, Map> criterias, List<String> sorts, List<String> limits) throws Exception ;
+	<E extends Object> List<E> read(E object, Set<String> keys, List<String> fields, Map<String, Map<String,String>> criterias, List<String> sorts, List<String> limits) throws Exception ;
 	
 	
 	
@@ -81,7 +81,7 @@ public interface SuperDAO {
 	String getJoinedTotalRows() ;
 	
 	
-	<E extends Object> List<E> readJoined(List<Object> outterObjects, List<Set<String>> outterKeys, List<List<String>> outterFields, List<Map<String, Map>> outterCriterials, List<Map<String, String>> outterJoins, List<List<String>> outterSorts, List<List<String>> outterLimits) throws Exception;
+	<E extends Object> List<E> readJoined(List<Object> outterObjects, List<Set<String>> outterKeys, List<List<String>> outterFields, List<Map<String, Map<String, String>>> outterCriterials, List<Map<String, String>> outterJoins, List<List<String>> outterSorts, List<List<String>> outterLimits) throws Exception;
 	
 	
 	
