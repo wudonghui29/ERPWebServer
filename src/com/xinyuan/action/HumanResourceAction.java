@@ -14,6 +14,11 @@ import com.xinyuan.model.User.User;
 
 public class HumanResourceAction extends SuperAction {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected SuperDAO getDao() {
 		return new HumanResourceDAOIMP();
@@ -48,9 +53,7 @@ public class HumanResourceAction extends SuperAction {
 				baseDAO.create(newUser);
 				baseDAO.create(approval);
 			}
-			
 		}
-		
 		return Action.NONE;
 	}
 	
@@ -77,12 +80,8 @@ public class HumanResourceAction extends SuperAction {
 					userDao.modify(user);
 				}
 			}
-			
 		}
-		
 		return Action.NONE;
-		
-		
 	}
 	
 }
