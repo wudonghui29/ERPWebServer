@@ -3,18 +3,13 @@ package com.xinyuan.action;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 
 import com.Global.SessionManager;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.modules.HttpWriter.ResponseWriter;
 import com.modules.Introspector.ModelIntrospector;
-import com.modules.Util.DLog;
-import com.modules.Util.SecurityCode;
 import com.modules.Util.StringHelper;
-import com.modules.Util.VerifyCode;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.Util.ApprovalHelper;
 import com.xinyuan.Util.JsonHelper;
@@ -42,7 +37,9 @@ public class UserAction extends ActionModelBase {
 	
 	public String signin() throws Exception {
 		if (models.size() != 1) return Action.NONE;		// Forbid modified multi-
-		if (this.isVerifyCodeError()) return Action.NONE;
+		
+		String userVerifyCode = JsonHelper.getParameter(requestMessage, ConfigJSON.VERIFYCODE);
+		if (this.isVerifyCodeError(userVerifyCode)) return Action.NONE;
 		
 //		for (int i = 0; i < models.size(); i++) {
 			
@@ -149,9 +146,8 @@ public class UserAction extends ActionModelBase {
 	 * Private Methods
 	 * @return
 	 */
-	private boolean isVerifyCodeError() {
+	private boolean isVerifyCodeError(String userVerifyCode) {
 		
-		String userVerifyCode = JsonHelper.getParameter(requestMessage, ConfigJSON.VERIFYCODE);
 		String verifyCode = (String) SessionManager.get(ConfigJSON.VERIFYCODE);
 		SessionManager.remove(ConfigJSON.VERIFYCODE);
 		

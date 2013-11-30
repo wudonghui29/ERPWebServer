@@ -83,13 +83,11 @@ public class JsonHelper {
 	 *  For the parameters value inside "PARAMETERS"
 	 */
 	public static String getParameter(RequestMessage requestMessage, String parameterName) {
-		List<Map<String, String>> list = requestMessage.getPARAMETERS();
+		Map<String, String> parameters = requestMessage.getPARAMETERS();
 		
-		if (list == null || list.size() == 0) return null;
+		if (parameters == null || parameters.size() == 0) return null;
 		
-		Map<String, String> parametersMap = list.get(0);			// TODO: Index 0 For now
-		
-		return parametersMap != null ? parametersMap.get(parameterName) : null;
+		return parameters.get(parameterName) ;
 	}
 	
 }

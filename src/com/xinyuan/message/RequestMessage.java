@@ -17,7 +17,7 @@ public class RequestMessage {
 	
 	private List<Map<String, Map<String,String>>> CRITERIAS;
 	private List<Map<String, String>> IDENTITYS;
-	private List<Map<String, String>> PARAMETERS;
+	private Map<String, String> PARAMETERS;
 	
 	private List<String> PASSWORDS;
 	private List<String> APNS_FORWARDS;
@@ -110,12 +110,12 @@ public class RequestMessage {
 	}
 
 
-	public List<Map<String, String>> getPARAMETERS() {
+	public Map<String, String> getPARAMETERS() {
 		return PARAMETERS;
 	}
 
 
-	public void setPARAMETERS(List<Map<String, String>> pARAMETERS) {
+	public void setPARAMETERS(Map<String, String> pARAMETERS) {
 		PARAMETERS = pARAMETERS;
 	}
 
