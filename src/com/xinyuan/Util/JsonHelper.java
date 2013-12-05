@@ -10,7 +10,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.xinyuan.message.ConfigFormat;
-import com.xinyuan.message.ConfigJSON;
 import com.xinyuan.message.RequestMessage;
 
 public class JsonHelper {

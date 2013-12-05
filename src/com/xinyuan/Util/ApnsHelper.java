@@ -12,8 +12,6 @@ import javapns.notification.PushNotificationPayload;
 import javapns.notification.PushedNotification;
 import javapns.notification.ResponsePacket;
 
-import com.opensymphony.xwork2.ActionContext;
-import com.xinyuan.action.ActionBase;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigJSON;
 import com.xinyuan.message.RequestMessage;

@@ -118,8 +118,7 @@
 		
 		<default-interceptor-ref name="adminIntercepterStack" />
 		
-		<action name="adminModify" class="com.xinyuan.action.UserAction" method="adminModify" />
-		<action name="signup" class="com.xinyuan.action.UserAction" method="signup" />
+		<action name="modifyPermission" class="com.xinyuan.action.AdministratorAction" method="modifyPermission" />
 	
 	</package>
 	

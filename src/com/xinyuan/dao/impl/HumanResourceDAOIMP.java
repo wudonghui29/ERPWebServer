@@ -16,7 +16,7 @@ public class HumanResourceDAOIMP extends ModelDAOIMP implements HumanResourceDAO
 
 	@Override
 	public List<Object> getUsersNOPairs() {
-		String hqlString = "select employee.employeeNO , employee.name, employee.jobLevel, employee.inVisitList from Employee as employee ";
+		String hqlString = "select employee.employeeNO , employee.name, employee.jobLevel, employee.inVisitList, employee.departmentName, employee.subDepartmentName from Employee as employee ";
 		return super.getObjects(hqlString);
 	}
 

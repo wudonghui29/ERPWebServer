@@ -36,7 +36,7 @@ import com.xinyuan.message.ConfigJSON;
  * 
  *
  */
-public class SettingAction extends ActionModelBase {
+public class SettingAction extends ActionBase {
 	
 	/**
 	 * 
@@ -103,7 +103,6 @@ public class SettingAction extends ActionModelBase {
 		 responseMessage.status = ConfigConstants.STATUS_POSITIVE;
 		 responseMessage.objects = map;
 		
-		
 		return Action.NONE;
 	}
 	
@@ -139,4 +138,8 @@ public class SettingAction extends ActionModelBase {
 		ApnsHelper.sendAPNS(requestMessage, responseMessage);
 		return Action.NONE;
 	}
+	
+	
+	
 }
+

@@ -27,19 +27,19 @@ public class SharedOutOrder extends LevelApp_1 {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String employeeNO; 		// employee NO. the employee ask for going out 
+	private String employeeNO; 				// employee NO. the employee ask for going out 
 	private String entrySecEmployeeNO;		// 保安入厂放行
 	private String exitSecEmployeeNO;		// 保安出厂放行
 	private String sendAppEmployeeNO;		// 发关主管核准
 	private String notAppEmployeeNO;		// 主管不核准
 	
-	private String outReason;		// the reason of going out  事由
+	private String outReason;				// the reason of going out  事由
 	
 	private String outCompanyCarrying; 		// the carrying stuff when going out 外携公司物品
 	private String outPersonalCarrying;   	// the carrying stuff when coming back 外携私人物品
 	
-	private Date exitDate;	// the date of going out  出厂时间 
-	private Date entryDate; // the date of coming back  入厂时间
+	private Date exitDate;					// the date of going out  出厂时间 
+	private Date entryDate; 				// the date of coming back  入厂时间
 	
 	
 	@NotEmpty

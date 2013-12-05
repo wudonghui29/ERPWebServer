@@ -4,18 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.Global.SessionManager;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.modules.Util.DLog;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
-import com.xinyuan.Util.JsonHelper;
-import com.xinyuan.action.ActionModelBase;
+import com.xinyuan.action.ActionBase;
 import com.xinyuan.action.SuperAction;
 import com.xinyuan.message.ConfigConstants;
-import com.xinyuan.message.ConfigJSON;
 import com.xinyuan.message.ResponseMessage;
 import com.xinyuan.model.User.User;
 
@@ -48,7 +44,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		Map<String, Object> permissions = (Map<String, Object>) session.get(ConfigConstants.PERMISSIONS);
 		
 		// Get the struts Action
-		ActionModelBase baseAction = (ActionModelBase)invocation.getAction();
+		ActionBase baseAction = (ActionBase)invocation.getAction();
 		ResponseMessage responseMessage = baseAction.getResponseMessage();
 		
 		// Get the permission needed

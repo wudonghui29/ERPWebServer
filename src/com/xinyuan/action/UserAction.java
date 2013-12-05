@@ -1,14 +1,11 @@
 package com.xinyuan.action;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.Global.SessionManager;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.modules.Introspector.ModelIntrospector;
 import com.modules.Util.StringHelper;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.Util.ApprovalHelper;
@@ -20,14 +17,12 @@ import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigJSON;
 import com.xinyuan.model.User.User;
 
-public class UserAction extends ActionModelBase {
+public class UserAction extends ActionBase {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-
 	@Override
 	protected SuperDAO getDao() { return null; }
 	
@@ -84,8 +79,6 @@ public class UserAction extends ActionModelBase {
 		}
 			
 //		}
-		
-		
 
 		return Action.NONE;
 	}
@@ -107,38 +100,6 @@ public class UserAction extends ActionModelBase {
 		
 		return Action.NONE;
 	}
-	
-	
-	
-	
-	
-	/**
-	 * 
-	 * Admin 
-	 * 
-	 * 
-	 * 
-	 */
-	
-	public String adminModify() throws Exception {
-		if (models.size() != 1) return Action.NONE;		// Forbid modified multi-
-		
-		List<Map<String, String>> identities = requestMessage.getIDENTITYS();
-		for (int i = 0; i < models.size(); i++) {
-			User model = (User)models.get(i);
-			Set<String> keys = objectKeys.get(i);
-			
-			String username = identities.get(i).get(ConfigJSON.USERNAME);
-			User persistence = userDAO.getUser(username); 	// po
-			ModelIntrospector.copyVoToPo(model, persistence, keys);
-			
-			userDAO.modify(persistence);
-		}
-		
-		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
-		return Action.NONE;
-	}
-	
 	
 	
 	

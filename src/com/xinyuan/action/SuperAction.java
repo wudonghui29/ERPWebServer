@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 
 import com.Global.SessionManager;
-import com.google.gson.JsonArray;
 import com.modules.Introspector.IntrospectHelper;
 import com.modules.Introspector.ModelIntrospector;
 import com.opensymphony.xwork2.Action;
@@ -25,7 +24,7 @@ import com.xinyuan.model.BaseModel;
 import com.xinyuan.model.BaseOrder;
 import com.xinyuan.model.User.User;
 
-public class SuperAction extends ActionModelBase {
+public class SuperAction extends ActionBase {
 	
 	/**
 	 * 
