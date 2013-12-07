@@ -48,7 +48,8 @@ public class HibernateInitializer
         	// 创建默认的Configuration对象的实例
         	// 如果你不使用JDK 5.0或者注释请使用new Configuration()
         	// 来创建Configuration()对象的实例
-            configuration = new AnnotationConfiguration();
+//            configuration = new AnnotationConfiguration();
+            configuration = new Configuration();
 
             // 读取hibernate.properties或者hibernate.cfg.xml文件
             configuration.configure();

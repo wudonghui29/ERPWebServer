@@ -41,6 +41,8 @@ public class ConfigConstants {
 	
 	public static final String CATEGORIE_USER = "User";
 	public static final String CATEGORIE_APPROVAL = "Approval";  // every user have Approval Package read permission
+	public static final String CATEGORIE_EXTENSIONS = "Extensions";
+	
 	
 	public static final String METHOD_READ = "read";
 	public static final String METHOD_CREATE = "create";
@@ -52,13 +54,11 @@ public class ConfigConstants {
 	public static final String DEFAULT_PERMISSION = "{}";
 	
 	
-	
 	public static final String SIGNIN_USER = "signin_user";
 	
 	
 	public static final String DAOIMP_SUFFIX = "DAOIMP";
 	public static final String MODELPACKAGE = "com.xinyuan.model";
-
 	
 	
 	public static final String DENY = "DENY";
@@ -71,6 +71,14 @@ public class ConfigConstants {
 	public static final String EMPTY_STRING = "";
 	public static final String STATUS_NEGATIVE = "0";
 	public static final String STATUS_POSITIVE = "1";
+	
+	
+	
+	// --------------------------    Against to DB
+	
+	
+	
+	
 	
 	public static class USER {
 		public static final String VerifyCodeError = "VerifyCode_Error";

@@ -8,9 +8,11 @@ import com.modules.Introspector.ModelIntrospector;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.UserDAO;
+import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigJSON;
+import com.xinyuan.model.Extensions.APPOrderAttributes;
 import com.xinyuan.model.User.User;
 
 public class AdministratorAction extends ActionBase {
@@ -23,7 +25,7 @@ public class AdministratorAction extends ActionBase {
 	protected SuperDAO getDao() { return null; }
 	
 
-	public String modifyPermission() throws Exception {
+	public String modifyPermissions() throws Exception {
 		if (models.size() != 1) return Action.NONE;		// Forbid modified multi-
 		
 		UserDAO userDAO = new UserDAOIMP();
@@ -41,6 +43,34 @@ public class AdministratorAction extends ActionBase {
 		}
 		
 		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
+		return Action.NONE;
+	}
+	
+	
+	public String modifyApprovals() throws Exception {
+		if (models.size() != 1) return Action.NONE;
+		
+		List<Map<String, String>> identities = requestMessage.getIDENTITYS();
+		
+		SuperDAO dao = new SuperDAOIMP();
+		for(int i = 0 ; i < models.size(); i++) {
+			Map<String, String> idenfier = identities.get(i);
+			
+			APPOrderAttributes attributesVO = (APPOrderAttributes) models.get(i);
+			ModelIntrospector.setProperty(attributesVO, idenfier);
+			APPOrderAttributes attributesPO =  dao.readUnique(attributesVO, idenfier.keySet());
+			if (attributesPO == null) {
+				attributesPO = attributesVO;
+				dao.create(attributesPO);
+			} else {
+				Set<String> keys = objectKeys.get(i);
+				ModelIntrospector.copyVoToPo(attributesVO, attributesPO, keys);
+				dao.modify(attributesPO);
+			}
+		}
+		
+		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
+		
 		return Action.NONE;
 	}
 

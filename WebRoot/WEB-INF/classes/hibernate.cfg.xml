@@ -52,7 +52,12 @@
 
 		<!-- ORM -->
 		
-		<!-- User Model -->
+		<!-- Extensions Models -->
+		<mapping class="com.xinyuan.model.Extensions.APPOrderAttributes" />
+		
+		
+		
+		<!-- User Models -->
         <mapping class="com.xinyuan.model.User.User"/>
         
         
@@ -64,7 +69,6 @@
         
         <!-- Approval Models -->
         <mapping class="com.xinyuan.model.Approval.Approvals"/>
-        <mapping class="com.xinyuan.model.Approval.Departments"/>
         
         
 		

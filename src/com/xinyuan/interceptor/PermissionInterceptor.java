@@ -12,6 +12,7 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.xinyuan.action.ActionBase;
 import com.xinyuan.action.SuperAction;
 import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.message.RequestMessage;
 import com.xinyuan.message.ResponseMessage;
 import com.xinyuan.model.User.User;
 
@@ -46,10 +47,11 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		// Get the struts Action
 		ActionBase baseAction = (ActionBase)invocation.getAction();
 		ResponseMessage responseMessage = baseAction.getResponseMessage();
+		RequestMessage requestMessage = baseAction.getRequestMessage();
 		
 		// Get the permission needed
 		String method = PermissionInterceptor.getContextMethod().trim();   		// A . method needeD  // TODO: Be careful of ActionModelBase's method !! important !!
-		List<String> models = baseAction.getRequestMessage().getMODELS(); 	// B. models needed
+		List<String> models = requestMessage.getMODELS(); 	// B. models needed
 		
 		responseMessage.models = models;
 		
@@ -65,8 +67,8 @@ public class PermissionInterceptor extends AbstractInterceptor {
 			isAllowable = isCrossActions(models) ? checkPermission(method, models, permissions) : false;	// URL:Super__read, MODELS:["HumanResource.Employee","Finance.FinancePayWarrantOrder"]
 		// not the super action
 		} else {
-			String action = PermissionInterceptor.getContextAction().trim();   // C. action needed
-			isAllowable = checkPermission(action, method, models, permissions); 			// URL:HumanResource__read, MODELS:[".Employee",".EmplyeeOutOrder"]
+			String action = PermissionInterceptor.getContextAction().trim();   					// C. action needed
+			isAllowable = checkPermission(action, method, models, permissions); 				// URL:HumanResource__read, MODELS:[".Employee",".EmplyeeOutOrder"]
 		}
 		
 		if (isAllowable) return invocation.invoke();	// ok , let it pass

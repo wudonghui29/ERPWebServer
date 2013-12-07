@@ -81,6 +81,10 @@
 	alter table approvals change username employeeNO varchar(255);
 
 
+2013-12-06
+	
+	DROP TABLE DEPARTMENTS;
+
 ## Document and Convention
 
 	"username" and suffix "*User"/"*EmployeeNO" mean the same , equivalent to "employeeNO" 

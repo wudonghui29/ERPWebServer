@@ -1,6 +1,9 @@
 package com.modules.Util;
 
 import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -31,4 +34,17 @@ public class PrintHelper {
 //			System.out.println(name + " - " + value);
 //		}
 	}
+	
+	
+	public static void printMapKeysValues(Map map) {
+	    Iterator iterator = map.entrySet().iterator();
+	    while (iterator.hasNext()) {
+	        Map.Entry pairs = (Map.Entry)iterator.next();
+	        String key = (String) pairs.getKey(); 
+	        Object value = pairs.getValue();
+	        System.out.println(key + " = " + value);
+	        iterator.remove(); // avoids a ConcurrentModificationException
+	    }
+	}
+	
 }

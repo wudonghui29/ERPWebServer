@@ -21,6 +21,7 @@ import com.xinyuan.dao.BusinessDAO;
 import com.xinyuan.dao.HumanResourceDAO;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.BusinessDAOIMP;
+import com.xinyuan.dao.impl.HibernateDAO;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigJSON;
@@ -90,7 +91,9 @@ public class SettingAction extends ActionBase {
 		for (Iterator<String> iterator = modelsList.iterator(); iterator.hasNext();) {
 			String string = (String) iterator.next();				// "Approval.Approvals.class" , ".class" not ".java" 
 			
-			if (string.contains(ConfigConstants.CATEGORIE_USER) || string.contains(ConfigConstants.CATEGORIE_APPROVAL)) continue;
+			if (string.contains(ConfigConstants.CATEGORIE_USER) 
+					|| string.contains(ConfigConstants.CATEGORIE_APPROVAL)
+					|| string.contains(ConfigConstants.CATEGORIE_EXTENSIONS)) continue;		// exclude user and approval, extensions
 			
 			String className = string.replaceAll(ConfigConstants.SUFFIX_CLASS, ConfigConstants.EMPTY_STRING);
 			String wholeClassName = ConfigConstants.MODELPACKAGE + ConfigConstants.PACKAGE_CONNECTOR + className;			// MODELPACKAGE + "Approval.Approvals"
@@ -111,7 +114,7 @@ public class SettingAction extends ActionBase {
 	 * When client singined
 	 * @return
 	 */
-	public String readSignedIndData() {
+	public String readSignedIndData() {			// need to refresh 
 		
 		HumanResourceDAO humanResourceDAO = new HumanResourceDAOIMP();
 		List<Object> hrList = humanResourceDAO.getUsersNOPairs();
@@ -119,9 +122,13 @@ public class SettingAction extends ActionBase {
 		BusinessDAO businessDAO = new BusinessDAOIMP();
 		List bsList = businessDAO.getClientsNOPairs();
 		
-		List<List> results = new ArrayList<List>();
+		HibernateDAO dao = new HibernateDAO();
+		List<Object> orList = dao.getObjects("select apporderattributes.category, apporderattributes.model, apporderattributes.settings from APPOrderAttributes apporderattributes ");
+		
+		List<Object> results = new ArrayList<Object>();
 		results.add(hrList);
 		results.add(bsList);
+		results.add(orList);
 		
 		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
 		responseMessage.objects = results;

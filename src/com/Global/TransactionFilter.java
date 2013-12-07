@@ -26,8 +26,6 @@ public class TransactionFilter implements Filter {
 		DLog.log("" + ((HttpServletRequest)request).getRequestURL());
 		DLog.log("*************************** ----- Begin Transaction");
 		
-//		ActionContext actionContext = ServletActionContext.getContext();
-		
 		Transaction transaction = null;	
 		try {
 			Session session = HibernateInitializer.getSessionFactory().getCurrentSession();	

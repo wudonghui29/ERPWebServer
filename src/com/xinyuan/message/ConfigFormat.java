@@ -23,16 +23,16 @@ import com.xinyuan.model.Warehouse.WHMaterialOrder;
 
 public class ConfigFormat {
 
-	public static final String STRING_TO_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-	public static final String DATESTRING_WITH_SECOND_FORMAT = "yyyyMMddHHmmss";
-	public static final String DATESTRING_WITHOUT_SECOND_FORMAT = "yyyyMMddHHmm";
+	public static final String STRING_TO_DATE_FORMAT			 	=	"yyyy-MM-dd HH:mm:ss";
+	public static final String DATESTRING_WITH_SECOND_FORMAT	 	= 	"yyyyMMddHHmmss";
+	public static final String DATESTRING_WITHOUT_SECOND_FORMAT 	= 	"yyyyMMddHHmm";
 	
 	
 	
 	// Order NO Prefix
-	public static final Map<String, String> orderNOPrefixMap = new HashMap<String, String>();
-	public static final Map<String, String> previousOrderNOMap = new HashMap<String, String>();
-	public static final Map<String, String> secondOrderTypeMap = new HashMap<String, String>();
+	public static final Map<String, String> orderNOPrefixMap 	= new HashMap<String, String>();
+	public static final Map<String, String> previousOrderNOMap 	= new HashMap<String, String>();
+	public static final Map<String, String> secondOrderTypeMap 	= new HashMap<String, String>();
 	static {
 		
 		// HumanResource

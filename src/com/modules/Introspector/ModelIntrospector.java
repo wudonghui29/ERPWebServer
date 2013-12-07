@@ -4,13 +4,20 @@ import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
+import java.util.Map;
 import java.util.Set;
 
 
 public class ModelIntrospector {
 	
 	
-	
+	public static void setProperty(Object object, Map<String, ?> keyValues) throws Exception { 
+		for(Map.Entry<String, ?> entry : keyValues.entrySet()) {
+			String key = entry.getKey();
+			Object value = entry.getValue();
+			setProperty(object, key, value);
+		}
+	}
 	
 	/**
 	 * 

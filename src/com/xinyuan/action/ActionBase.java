@@ -23,6 +23,9 @@ public abstract class ActionBase extends ActionSupport {
 	protected RequestMessage requestMessage;
 	
 	protected ResponseMessage responseMessage = new ResponseMessage();					// for subclass use
+	public ResponseMessage getResponseMessage() {										// for intercepter and ApnsHelper
+		return responseMessage;
+	}
 	
 	
 	public List<Object> getModels() {
@@ -46,8 +49,5 @@ public abstract class ActionBase extends ActionSupport {
 		this.requestMessage = requestMessage;
 	}
 
-	public ResponseMessage getResponseMessage() {										// for intercepter and ApnsHelper
-		return responseMessage;
-	}
 	
 }

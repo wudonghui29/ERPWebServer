@@ -22,11 +22,12 @@
 	           <interceptor-ref name="write-message"/>
 	        </interceptor-stack>
 	        
-	        
 			<interceptor name="json-interpretor" class="com.xinyuan.interceptor.JsonInterpretInterceptor" />
+	        <interceptor name="models-interpretor" class="com.xinyuan.interceptor.ModelsInterceptor"/>
 			<interceptor-stack name="notOnlineIntercepterStack">
 				<interceptor-ref name="defaultInterceptorsStack" />
 				<interceptor-ref name="json-interpretor" />
+				<interceptor-ref name="models-interpretor"/>
 			</interceptor-stack>
 			
 	        <interceptor name="authorize-check" class="com.xinyuan.interceptor.AuthorizeInterceptor" />
@@ -77,7 +78,6 @@
 	
 	
 	
-	
 	<!-- user package -->
 	<package name="user" extends="main" namespace="/user" >
 		
@@ -101,26 +101,26 @@
 	
 	
 	
+	
 	<!-- admin package -->
 	<package name="admin" extends="main" namespace="/admin">
 	
 		<interceptors>
-			<interceptor name="authorize-check" class="com.xinyuan.interceptor.AuthorizeInterceptor" />
-			<interceptor name="json-interpretor" class="com.xinyuan.interceptor.JsonInterpretInterceptor" />
 			<interceptor name="admin-check" class="com.xinyuan.interceptor.AdministratorInterceptor"/>
 			<interceptor-stack name="adminIntercepterStack">
-				<interceptor-ref name="defaultInterceptorsStack" />
-				<interceptor-ref name="authorize-check" />
+				<interceptor-ref name="onlineIntercepterStack" />
 				<interceptor-ref name="admin-check" />
-				<interceptor-ref name="json-interpretor" />
 			</interceptor-stack>
 		</interceptors>
 		
 		<default-interceptor-ref name="adminIntercepterStack" />
 		
-		<action name="modifyPermission" class="com.xinyuan.action.AdministratorAction" method="modifyPermission" />
+		<action name="modifyPermissions" class="com.xinyuan.action.AdministratorAction" method="modifyPermissions" />
+		<action name="modifyApprovals" class="com.xinyuan.action.AdministratorAction" method="modifyApprovals" />
 	
 	</package>
+	
+	
 	
 	
 	
@@ -132,17 +132,13 @@
 	<!-- logic package -->
 	<package name="logic" extends="main">
 		<interceptors>
-			<interceptor name="authorize-check" class="com.xinyuan.interceptor.AuthorizeInterceptor" />
-			<interceptor name="json-interpretor" class="com.xinyuan.interceptor.JsonInterpretInterceptor" />
 			<interceptor name="permission-check" class="com.xinyuan.interceptor.PermissionInterceptor" />
-			<interceptor-stack name="logicIntercepterStack">
-				<interceptor-ref name="defaultInterceptorsStack" />
-				<interceptor-ref name="authorize-check" />
-				<interceptor-ref name="json-interpretor" />
+			<interceptor-stack name="permissionIntercepterStack">
+				<interceptor-ref name="onlineIntercepterStack" />
 				<interceptor-ref name="permission-check" />
 			</interceptor-stack>
 		</interceptors>
-		<default-interceptor-ref name="logicIntercepterStack" />
+		<default-interceptor-ref name="permissionIntercepterStack" />
 	</package>
 	<package name="specific" extends="logic" namespace="/logic">
 		<action name="*__*" class="com.xinyuan.action.{1}Action" method="{2}"/>
