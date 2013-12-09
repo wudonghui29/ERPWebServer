@@ -5,6 +5,7 @@ public class ConfigJSON {
 	
 	public static final String JSON = "JSON";
 	
+	public static final String BINARY_LENGHT = "Binary-Length";
 	
 	public static final String OBJECTS = "OBJECTS";
 	public static final String MODELS = "MODELS";

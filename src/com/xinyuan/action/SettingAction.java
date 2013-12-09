@@ -7,6 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.ServletActionContext;
+
 import com.Global.SessionManager;
 import com.modules.HttpWriter.ResponseWriter;
 import com.modules.Introspector.IntrospectHelper;
@@ -66,21 +71,28 @@ public class SettingAction extends ActionBase {
 		boolean randomBool = (VERIFYCODE_TYPE == null) ? (new Random()).nextBoolean() : Boolean.valueOf(VERIFYCODE_TYPE);
 		String verifyCode = randomBool ? VerifyCode.generateCode(count) : SecurityCode.getSecurityCode(count);
 		byte[] imageBytes = randomBool ? VerifyCode.generateImageBytes(verifyCode) : SecurityCode.getImageAsBytes(verifyCode);
+		
+		HttpServletResponse response = ResponseWriter.getResponse();
+		response.addIntHeader(ConfigJSON.BINARY_LENGHT, imageBytes.length);		// before write data
 
 		SessionManager.put(ConfigJSON.VERIFYCODE, verifyCode);
 		ResponseWriter.write(imageBytes);
+		
+		// For the first time connect , send the structures
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String cookie = request.getHeader("cookie");
+		if (cookie == null) this.applicationModelsStructures();
+		
+		
 		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
-		DLog.log(ConfigJSON.VERIFYCODE + " : " + verifyCode);
+		
+		DLog.log(ConfigJSON.VERIFYCODE + " : " + verifyCode + " . " + imageBytes.length );
 
+		
 		return Action.NONE;
 	}
 
-	
-	/**
-	 * when client launch app
-	 * @return
-	 */
-	public String getApplicationModelsStructures() {
+	private void applicationModelsStructures() {
 		// get the file name list
 		File folder = new File(ConfigConstants.Models_Class_Files_Path);
 		List<String> modelsList = new ArrayList<String>();
@@ -103,10 +115,7 @@ public class SettingAction extends ActionBase {
 		// translate classes properties name to map
 		 Map<String, Map<String, List<String>>> map = IntrospectHelper.translateToPropertiesMap(classesNamesList);
 		 
-		 responseMessage.status = ConfigConstants.STATUS_POSITIVE;
 		 responseMessage.objects = map;
-		
-		return Action.NONE;
 	}
 	
 	

@@ -183,8 +183,8 @@ public class Test extends HashSet {
 	 
 	 
 	 public static void main____________(String[] args) {
-		 SettingAction settingAction = new SettingAction();
-		 settingAction.getApplicationModelsStructures();
+//		 SettingAction settingAction = new SettingAction();
+//		 settingAction.getApplicationModelsStructures();
 	}
 	 
 	 

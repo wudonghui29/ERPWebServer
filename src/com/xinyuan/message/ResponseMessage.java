@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ResponseMessage {
 	
-	public String status = ConfigConstants.STATUS_NEGATIVE;   // 0 for failed , 1 for success
+	public String status = ConfigConstants.STATUS_NEGATIVE; // 0 failed, 1 success. Important only 0 and 1 value , cause in client end use if (data.status) to judge. .
 	public String action = ConfigConstants.EMPTY_STRING;
 	public String denyStatus = null;
 	public String apnsStatus = null ;
