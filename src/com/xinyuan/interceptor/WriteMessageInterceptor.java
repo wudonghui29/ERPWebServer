@@ -2,7 +2,6 @@ package com.xinyuan.interceptor;
 
 
 import java.io.IOException;
-import java.util.Date;
 
 import org.apache.struts2.ServletActionContext;
 
@@ -43,12 +42,11 @@ public class WriteMessageInterceptor extends AbstractInterceptor {
 			exceptionInvoke = e;
 			e.printStackTrace();
 			
-			String description = message.description == null || message.description.isEmpty() ? getDescription(e) : message.description;
-			
 			message.status = ConfigConstants.STATUS_NEGATIVE;
+			String description = message.description == null || message.description.isEmpty() ? getDescription(e) : message.description;
 			message.description = description == null || description.isEmpty() ? ConfigConstants.REQUEST_ERROR : description;
 			message.objects = null;
-			message.exception += (new Date()).toString() + " : " + e.getClass().getName() ;
+			message.exception = e.getClass().getName() + " : " + getDescription(e) ;
 		}
 		
 		

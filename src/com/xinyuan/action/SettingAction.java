@@ -53,7 +53,7 @@ public class SettingAction extends ActionBase {
 	protected SuperDAO getDao() { return null; }
 	
 	/**
-	 * connect the server , get the cookie
+	 * connect the server , get the cookie, no db operation here now
 	 * @return
 	 * @throws Exception
 	 */

@@ -14,7 +14,9 @@ public class ServerEventListener implements ServletContextListener {
 		
 		ConfigConstants.initializeContextVariables(sce.getServletContext());
 		
+		DLog.log("--------------- Hibernate initialize Begin ----------------\n");
 		HibernateInitializer.initialize();
+		DLog.log("--------------- Hibernate initialize End 	 ----------------\n");
 	}
 
 	@Override

@@ -2,7 +2,7 @@ package com.modules.Util;
 
 public class DLog {
 	
-	public static boolean isDebugingMode = true;
+	public static boolean isDebugingMode = true;		// Set it to no when in production
 	
 	public static void log(String message) {
 		if (! isDebugingMode) return; 
