@@ -62,14 +62,12 @@
 	
 2013-11-11
 	
-	use erpwebserver;
 	alter table Employee alter jobLevel set default 10;
 	alter table BusinessClient add unique (clientNO);
 	
 	
 2013-11-22
 
-	use erpwebserver;
 	drop table EmployeeSDOrder;
 	drop table WHMaterialBill;
 	rename table BusinessClient to Client;
@@ -77,7 +75,6 @@
 
 2013-11-28
 
-	use erpwebserver;
 	alter table approvals change username employeeNO varchar(255);
 
 
