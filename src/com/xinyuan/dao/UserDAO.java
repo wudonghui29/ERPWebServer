@@ -19,7 +19,9 @@ public interface UserDAO {
 
 	User getUser(String username);
 
-	List getAllUsers();
+	public List<Object> getAllUsersPermissions() ;
 	
 	public String getUserApnsToken(String username) ;
+	
+	public void setUserApnsToken(String username, String apnsToke) ;
 }

@@ -12,6 +12,8 @@ import javapns.notification.PushNotificationPayload;
 import javapns.notification.PushedNotification;
 import javapns.notification.ResponsePacket;
 
+import com.xinyuan.dao.UserDAO;
+import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigJSON;
 import com.xinyuan.message.RequestMessage;
@@ -45,11 +47,11 @@ public class ApnsHelper {
 	private static void inform(List<String> forwardList, List<Map<String, String>> forwardContents) throws Exception {
 		
 		int forwardsCount = forwardList != null ? forwardList.size() : 0 ;
-		
+		UserDAO userDAO = new UserDAOIMP();
 		for (int index = 0; index < forwardsCount; index++) {
-			
 			String forwardUsername = forwardList.get(index);
-			String[] apnsTokens = ApprovalHelper.getAPNSToken(forwardUsername).split(ConfigConstants.CONTENT_DIVIDER);
+			String tokenString = userDAO.getUserApnsToken(forwardUsername);
+			String[] apnsTokens =  tokenString.split(ConfigConstants.CONTENT_DIVIDER);
 			Map<String, String> apnsMap = forwardContents.get(index);
 			push(apnsMap, apnsTokens);
 		}

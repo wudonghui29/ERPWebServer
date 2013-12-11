@@ -2,8 +2,6 @@ package com.xinyuan.dao.impl;
 
 import java.util.List;
 
-import org.hibernate.Query;
-
 import com.xinyuan.dao.UserDAO;
 import com.xinyuan.model.User.User;
 
@@ -21,26 +19,29 @@ public class UserDAOIMP extends HibernateDAO implements UserDAO {
 	}
 
 	public User getUser(String username) {
-		String hql = "from User user Where user.username=:username";
-		Query query = super.getSession().createQuery(hql);
-		query.setParameter("username", username);
-		return (User)query.uniqueResult();
+		return (User)super.getObject(User.class, "username", username);
 	}
 	
-
-	public List getAllUsers() {
-		String hqlString = "select user.username , user.permissions, user.categories from User as user Where id > 0";
-		return super.getObjects(hqlString);
-	}
-
 	public boolean createUser(User user) {
 		return this.isSignup(user.getUsername()) ? false : (Integer)super.saveObject(user) > 0;
 	}
 	
+
+	public List<Object> getAllUsersPermissions() {
+		String queryString = "select user.username , user.permissions, user.categories from User as user Where id > 0";
+		return super.getObjects(queryString);
+	}
+
 	
 	public String getUserApnsToken(String username) {
-		String hqlString = "select user.apnsToken from User as user Where user.username = '" + username + "'";
-		return (String) super.getObject(hqlString);
+		String queryString = "SELECT user.apnsToken from User as user WHERE user.username = '" + username + "'";
+		return (String) super.getObject(queryString);
+	}
+	
+	
+	public void setUserApnsToken(String username, String apnsToke) {
+		String queryString = "UPDATE User as user SET user.apnsToken = '" + apnsToke + "'" + " WHERE user.username = '" + username + "'";
+		super.createQuery(queryString).executeUpdate();
 	}
 
 }

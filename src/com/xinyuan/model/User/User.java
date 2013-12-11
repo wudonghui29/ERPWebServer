@@ -28,6 +28,7 @@ public class User implements Serializable{
 	
 	private String deviceInfo; 		// ipad or iphone or ...
 	private String deviceId;
+	private String apnsToken = "";
 	
 	@Id
 	@GeneratedValue
@@ -83,6 +84,14 @@ public class User implements Serializable{
 	}
 	public void setDeviceId(String deviceId) {
 		this.deviceId = deviceId;
+	}
+	
+	@Column(length=255, columnDefinition="varchar(255) default ''")
+	public String getApnsToken() {
+		return apnsToken;
+	}
+	public void setApnsToken(String apnsToken) {
+		this.apnsToken = apnsToken;
 	}
 	
 }

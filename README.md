@@ -24,6 +24,9 @@
 
 	(alter database <database_name> character set utf8 ;)
 
+	DELETE FROM mysql.user WHERE User='';
+	UPDATE mysql.user SET Password = PASSWORD('test123') WHERE User = 'root';
+	FLUSH PRIVILEGES;
 
 ## After Launch APP Mysql
 
@@ -81,6 +84,11 @@
 2013-12-06
 	
 	DROP TABLE DEPARTMENTS;
+	
+	
+2013-12-06
+
+	alter table approvals drop column apnsToken;
 
 ## Document and Convention
 

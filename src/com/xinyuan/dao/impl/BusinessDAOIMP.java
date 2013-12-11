@@ -7,7 +7,7 @@ import com.xinyuan.dao.BusinessDAO;
 public class BusinessDAOIMP extends ModelDAOIMP implements BusinessDAO {
 
 	@Override
-	public List getClientsNOPairs() {
+	public List<Object> getClientsNOPairs() {
 		String hqlString = "select client.clientNO , client.clientName from Client as client ";
 		return super.getObjects(hqlString);
 	}

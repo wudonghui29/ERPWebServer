@@ -26,7 +26,6 @@ public class Approvals implements Serializable {
 	private String employeeNO;		// TODO: all employeeNO can not be modified again once it has value . In the set method , check it .
 	private String pendingApprovals = "";  	// the pending approval orders , split with "," e.g. "JH201304050901.HumanResource.Employee,JH201304050901.HumanResource.EmployeeOutOrder"
 	private String pendingInforms = "";		// the pending inform APNS. Some times the APNS would failed , so put it here .
-	private String apnsToken = "";
 	
 	@Id
 	@GenericGenerator(name = "idGenerator", strategy = "assigned")
@@ -54,13 +53,5 @@ public class Approvals implements Serializable {
 	}
 	public void setPendingInforms(String pendingInforms) {
 		this.pendingInforms = pendingInforms;
-	}
-	
-	@Column(length=255, columnDefinition="varchar(255) default ''")
-	public String getApnsToken() {
-		return apnsToken;
-	}
-	public void setApnsToken(String apnsToken) {
-		this.apnsToken = apnsToken;
 	}
 }

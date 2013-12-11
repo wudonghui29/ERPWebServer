@@ -1,6 +1,7 @@
 package com.xinyuan.action;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.Global.SessionManager;
@@ -8,7 +9,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.modules.Util.StringHelper;
 import com.opensymphony.xwork2.Action;
-import com.xinyuan.Util.ApprovalHelper;
 import com.xinyuan.Util.JsonHelper;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.UserDAO;
@@ -43,7 +43,7 @@ public class UserAction extends ActionBase {
 		
 		String username = model.getUsername();
 		String password = model.getPassword();
-		String apnsToken = JsonHelper.getParameter(requestMessage,ConfigJSON.APNSTOKEN);
+		String newApnsToken = JsonHelper.getParameter(requestMessage,ConfigJSON.APNSTOKEN);
 		
 		User user = userDAO.getUser(username);
 		if (user == null) {
@@ -51,9 +51,9 @@ public class UserAction extends ActionBase {
 		} else if (password.equals(user.getPassword())) {
 			
 			// update the apnsToken in db
-			String userToken = ApprovalHelper.getAPNSToken(user.getUsername());
-			if (apnsToken != null && !apnsToken.equals(userToken)) {	// TODO: when update token , logout first and clear auto login
-				ApprovalHelper.setAPNSToken(username, apnsToken);
+			String apnsToken = userDAO.getUserApnsToken(user.getUsername());
+			if (newApnsToken != null && !newApnsToken.trim().equalsIgnoreCase("")){
+				if (!newApnsToken.equals(apnsToken)) userDAO.setUserApnsToken(username, newApnsToken);
 			}
 			
 			// put result in response
@@ -62,7 +62,7 @@ public class UserAction extends ActionBase {
 			responseMessage.description = ConfigConstants.USER.UserLoginSuccess;
 			
 			map.put(ConfigJSON.IDENTIFIER, user.getId());
-			map.put(ConfigConstants.PERMISSIONS, userDAO.getAllUsers());
+			map.put(ConfigConstants.PERMISSIONS, userDAO.getAllUsersPermissions());
 			responseMessage.objects = map;
 			
 			// put the permission in session
@@ -88,8 +88,6 @@ public class UserAction extends ActionBase {
 		SessionManager.remove(ConfigConstants.SIGNIN_USER);
 		
 		User user = (User) SessionManager.get(ConfigConstants.SIGNIN_USER);
-//		ApprovalHelper.deleteAPNSToken(username, apnsToken);
-		ApprovalHelper.setAPNSToken(user.getUsername(), "");
 		
 		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
 		return Action.NONE;

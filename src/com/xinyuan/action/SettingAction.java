@@ -57,7 +57,7 @@ public class SettingAction extends ActionBase {
 	 * @return
 	 * @throws Exception
 	 */
-	public String getConnect() throws Exception {
+	public String getConnection() throws Exception {
 		String VERIFYCODE_TYPE = JsonHelper.getParameter(requestMessage, ConfigJSON.VERIFYCODE_TYPE);
 		String VERIFYCODE_COUNT = JsonHelper.getParameter(requestMessage, ConfigJSON.VERIFYCODE_COUNT);
 		
@@ -129,7 +129,7 @@ public class SettingAction extends ActionBase {
 		List<Object> hrList = humanResourceDAO.getUsersNOPairs();
 		
 		BusinessDAO businessDAO = new BusinessDAOIMP();
-		List bsList = businessDAO.getClientsNOPairs();
+		List<Object> bsList = businessDAO.getClientsNOPairs();
 		
 		HibernateDAO dao = new HibernateDAO();
 		List<Object> orList = dao.getObjects("select apporderattributes.category, apporderattributes.model, apporderattributes.settings from APPOrderAttributes apporderattributes ");
