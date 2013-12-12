@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.xinyuan.model.LevelApp_1;
+import com.xinyuan.model.App1;
 
 
 /**
@@ -20,7 +20,7 @@ import com.xinyuan.model.LevelApp_1;
 
 @Entity
 @Table
-public class SharedOutOrder extends LevelApp_1 {
+public class SharedOutOrder extends App1 {
 	
 	/**
 	 * 

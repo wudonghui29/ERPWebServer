@@ -85,10 +85,18 @@
 	
 	DROP TABLE DEPARTMENTS;
 	
-	
 2013-12-06
 
 	alter table approvals drop column apnsToken;
+	
+2013-12-06
+
+	alter table employee drop column levelApp_1, drop column levelApp_2, drop column levelApp_3, drop column levelApp_4, drop column levelApp_5;
+	alter table employee change departmentName department varchar(255), change subDepartmentName subDepartment varchar(255);
+	
+	alter table [table_name] change levelApp_1 app1 varchar(255), change levelApp_2 app2 varchar(255), change levelApp_3 app3 varchar(255), change levelApp_4 app4 varchar(255);
+	
+
 
 ## Document and Convention
 

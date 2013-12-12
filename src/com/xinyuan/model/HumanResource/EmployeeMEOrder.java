@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.xinyuan.model.LevelApp_4;
+import com.xinyuan.model.App4;
 
 /**
  * 员工月终考核表
@@ -16,7 +16,7 @@ import com.xinyuan.model.LevelApp_4;
 
 @Entity
 @Table
-public class EmployeeMEOrder extends LevelApp_4 {
+public class EmployeeMEOrder extends App4 {
 	
 	/**
 	 * 

@@ -9,7 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.xinyuan.model.LevelApp_1;
+import com.xinyuan.model.App1;
 
 
 /**
@@ -20,7 +20,7 @@ import com.xinyuan.model.LevelApp_1;
 
 @Entity
 @Table
-public class EmployeeSMOrder extends LevelApp_1 {
+public class EmployeeSMOrder extends App1 {
 
 	/**
 	 * 

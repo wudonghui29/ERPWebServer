@@ -4,11 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.xinyuan.model.LevelApp_1;
+import com.xinyuan.model.App1;
 
 @Entity
 @Table
-public class Client extends LevelApp_1 {
+public class Client extends App1 {
 
 	/**
 	 * 

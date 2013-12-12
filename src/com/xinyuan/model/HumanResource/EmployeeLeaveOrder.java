@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.xinyuan.model.LevelAPP_5;
+import com.xinyuan.model.App4;
 
 /**
  * Employee Ask for Leave Order (员工请假单)
@@ -15,7 +15,7 @@ import com.xinyuan.model.LevelAPP_5;
 
 @Entity
 @Table
-public class EmployeeLeaveOrder extends LevelAPP_5 {
+public class EmployeeLeaveOrder extends App4 {
 	
 	/**
 	 * 

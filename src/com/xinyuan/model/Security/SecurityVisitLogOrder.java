@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.xinyuan.model.LevelApp_4;
+import com.xinyuan.model.App4;
 
 /**
  *
@@ -16,7 +16,7 @@ import com.xinyuan.model.LevelApp_4;
 
 @Entity
 @Table
-public class SecurityVisitLogOrder extends LevelApp_4 {
+public class SecurityVisitLogOrder extends App4 {
 	
 	/**
 	 * 

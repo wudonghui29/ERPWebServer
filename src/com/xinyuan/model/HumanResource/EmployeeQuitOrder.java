@@ -6,7 +6,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.xinyuan.model.LevelAPP_5;
+import com.xinyuan.model.App4;
 
 /**
  * Employee Quit His Job Order (离职申请表)
@@ -16,7 +16,7 @@ import com.xinyuan.model.LevelAPP_5;
 
 @Entity
 @Table
-public class EmployeeQuitOrder extends LevelAPP_5 {
+public class EmployeeQuitOrder extends App4 {
 
 	/**
 	 * 

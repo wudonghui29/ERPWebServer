@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.xinyuan.model.LevelApp_3;
+import com.xinyuan.model.App3;
 
 
 /**
@@ -15,7 +15,7 @@ import com.xinyuan.model.LevelApp_3;
 
 @Entity
 @Table
-public class EmployeeATTFixOrder extends LevelApp_3 {
+public class EmployeeATTFixOrder extends App3 {
 	
 	/**
 	 * 

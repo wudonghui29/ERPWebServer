@@ -11,17 +11,18 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.xinyuan.model.LevelAPP_5;
+import com.xinyuan.model.BaseOrder;
 
 @Entity
 @Table
-public class Employee extends LevelAPP_5 {
+public class Employee extends BaseOrder {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private String employeeNO; 		// employee NO. unique  工号
+	
 	private String name ;		// 姓名
 	private String idCard ;		// 身份证号码
 	private boolean gender;  	// 0 , female ; 1 , male  // boolean respect as "true" in json
@@ -46,8 +47,8 @@ public class Employee extends LevelAPP_5 {
 	private boolean inVisitList; 	// 是否列入拜访名单
 	private String experience;		// 经历   e.g. "腾讯公司.2013-06~2013-08.CEO"
 	
-	private String departmentName;
-	private String subDepartmentName;
+	private String department;		// 部门,工作岗位
+	private String subDepartment;	// 子部门,制作组
 	private int jobLevel = 10;			//级别
 	private String jobTitle;			//职称
 	
@@ -190,22 +191,19 @@ public class Employee extends LevelAPP_5 {
 		this.employDate = employDate;
 	}
 	
-	public String getDepartmentName() {
-		return departmentName;
+	public String getDepartment() {
+		return department;
 	}
-
-	public void setDepartmentName(String departmentName) {
-		this.departmentName = departmentName;
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 	
-	public String getSubDepartmentName() {
-		return subDepartmentName;
+	public String getSubDepartment() {
+		return subDepartment;
 	}
-
-	public void setSubDepartmentName(String subDepartmentName) {
-		this.subDepartmentName = subDepartmentName;
+	public void setSubDepartment(String subDepartment) {
+		this.subDepartment = subDepartment;
 	}
-
 	@Column(nullable=false, columnDefinition="int default 10")
 	public int getJobLevel() {
 		return jobLevel;

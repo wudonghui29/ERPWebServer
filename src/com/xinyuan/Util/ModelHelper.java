@@ -2,13 +2,11 @@ package com.xinyuan.Util;
 
 import java.lang.reflect.Method;
 
+import com.xinyuan.model.App1;
+import com.xinyuan.model.App2;
+import com.xinyuan.model.App3;
+import com.xinyuan.model.App4;
 import com.xinyuan.model.BaseOrder;
-import com.xinyuan.model.LevelAPP_5;
-import com.xinyuan.model.LevelApp_1;
-import com.xinyuan.model.LevelApp_2;
-import com.xinyuan.model.LevelApp_3;
-import com.xinyuan.model.LevelApp_4;
-import com.xinyuan.model.LevelApp_6;
 
 public class ModelHelper {
 	
@@ -20,29 +18,23 @@ public class ModelHelper {
 			
 			int level = 0;
 			
-			if (model instanceof LevelApp_6) {
-				level = 6;
-			} else if (model instanceof LevelAPP_5) {
-				level = 5;
-			} else if (model instanceof LevelApp_4) {
+			if (model instanceof App4) {
 				level = 4;
-			} else if (model instanceof LevelApp_3) {
+			} else if (model instanceof App3) {
 				level = 3;
-			} else if (model instanceof LevelApp_2) {
+			} else if (model instanceof App2) {
 				level = 2;
-			} else if (model instanceof LevelApp_1) {
+			} else if (model instanceof App1) {
 				level = 1;
 			}
 		
 			for (int i = 0; i < level; i++) {
-				Method readMethod = model.getClass().getMethod( "get" + "LevelApp_" + (i + 1));
+				Method readMethod = model.getClass().getMethod( "get" + "App" + (i + 1));
 				Object value = readMethod.invoke(model);
 				if(value == null) {
-					Method writeMethod = model.getClass().getMethod("set" + "LevelApp_" + (i + 1) , String.class);
+					Method writeMethod = model.getClass().getMethod("set" + "App" + (i + 1) , String.class);
 					writeMethod.invoke(model, username);
-					
 					if ( i == level -1 ) isAllApproved = true;
-					
 					break;
 				}
 			}
