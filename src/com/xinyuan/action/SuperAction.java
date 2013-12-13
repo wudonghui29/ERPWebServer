@@ -54,7 +54,8 @@ public class SuperAction extends ActionBase {
 		List<Object> results = new ArrayList<Object>();
 		if (outterJoins != null && outterJoins.size() != 0) {
 			
-			results = dao.readJoined(models, objectKeys, outterFields, outterCriterials, outterJoins, outterSorts, outterLimits);
+			List<Object> joinedResults = dao.readJoined(models, objectKeys, outterFields, outterCriterials, outterJoins, outterSorts, outterLimits);
+			results.add(joinedResults);
 			
 			if (QueryLimitsHelper.isJoinedNeedLimits(outterLimits)) {
 				if (responseMessage.numbers == null) responseMessage.numbers = new ArrayList<String>();

@@ -17,6 +17,7 @@ import com.xinyuan.Query.QuerySortsHelper;
 import com.xinyuan.dao.SuperDAO;
 
 public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
+	private static final String k_COMMA = ", ";
 	private static final String k_AND = " AND";
 	private static final String k_FROM = " FROM ";
 	private static final String k_SELECT = "SELECT ";
@@ -123,7 +124,7 @@ public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 			Map<String, Map<String,String>> criterias = outterCriterials == null ? null : outterCriterials.get(i);
 			
 			// alias , table too
-			String alias = IntrospectHelper.getShortClassName(object);
+			String alias = getAlias(object);
 			
 			// joined on :  A Left Join B on A.a = B.b Left Join C on A.a = C.c
 			if (i == 0) {
@@ -139,19 +140,27 @@ public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 			
 			// select fields :
 			String selectClauseTemp = QueryFieldsHelper.assembleFieldsSelectClause(alias, fields);
-			selectClause += (selectClause.isEmpty() ? selectClauseTemp : ", " + selectClauseTemp);
+			if (! selectClauseTemp.isEmpty()) {
+				selectClause += selectClause.isEmpty() ? selectClauseTemp : (k_COMMA + selectClauseTemp);
+			}
 			
 			// where keys (=) :
 			String whereEqualsClauseTemp = QueryObjectsHelper.assembleObjectsWhereClause(alias, keys);
-			whereEqualsClause += ( whereEqualsClause.isEmpty() ? whereEqualsClauseTemp : (k_AND + whereEqualsClauseTemp));
+			if (! whereEqualsClauseTemp.isEmpty()) {
+				whereEqualsClause += ( whereEqualsClause.isEmpty() ? whereEqualsClauseTemp : (k_AND + whereEqualsClauseTemp));
+			}
 			
 			// where criterias (>, < , != , like , between ...) :
-			String whereCriterialClauseTemp = QueryCriteriasHelper.assembleCriteriasWhereClause(criterias);
-			whereCriterialsClause += (whereCriterialsClause.isEmpty() ? whereCriterialClauseTemp : (k_AND + whereCriterialClauseTemp));
+			String whereCriterialClauseTemp = QueryCriteriasHelper.assembleCriteriasWhereClause(alias, criterias);
+			if (! whereCriterialClauseTemp.isEmpty()) {
+				whereCriterialsClause += (whereCriterialsClause.isEmpty() ? whereCriterialClauseTemp : (k_AND + whereCriterialClauseTemp));
+			}
 			
 			// order by sorts :
 			String orderByClauseTemp = QuerySortsHelper.assembleOrderByClause(alias, sorts);
-			orderByClause += orderByClause.isEmpty() ? orderByClauseTemp : ", " + orderByClauseTemp;
+			if (!orderByClauseTemp.isEmpty()) {
+				orderByClause += orderByClause.isEmpty() ? orderByClauseTemp : (k_COMMA + orderByClauseTemp);
+			}
 			
 		}
 		
@@ -180,11 +189,12 @@ public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 		// Set Parameters to Query
 		for (int i = 0; i < outterObjects.size(); i++) {
 			Object object = outterObjects.get(i);
+			String alias = getAlias(object);
 			Set<String> keys = outterKeys.get(i);
 			Map<String, Map<String,String>> criterias = null;
 			if (outterCriterials != null) criterias = outterCriterials.get(i);
 			QueryObjectsHelper.setObjectsWhereValues(query, object, keys);
-			QueryCriteriasHelper.setCriteriasWhereValues(query, criterias);
+			QueryCriteriasHelper.setCriteriasWhereValues(alias,query, criterias);
 		}
 		
 		if (!limitsClause.isEmpty() && QueryLimitsHelper.isFirstTimeGetLimitsNumber(outterLimits.get(0))) query.list();	// Fix the weird result in first time 
@@ -197,9 +207,11 @@ public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 		// Create HQL Query From Query String
 		Query query = super.getSession().createQuery(hqlString);
 		
+		String alias = getAlias(object);
+		
 		// Set Parameters to Query
 		QueryObjectsHelper.setObjectsWhereValues(query, object, keys);
-		QueryCriteriasHelper.setCriteriasWhereValues(query, criterias);
+		QueryCriteriasHelper.setCriteriasWhereValues(alias, query, criterias);
 		
 		// Set the limit scope
 		if (QueryLimitsHelper.isNeedLimit(limits)) query.setFirstResult(Integer.valueOf(limits.get(0))).setMaxResults(Integer.valueOf(limits.get(1)));		
@@ -216,7 +228,7 @@ public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 		String whereCriterialsClause 	= "";
 		
 		// alias
-		String alias = IntrospectHelper.getShortClassName(object);
+		String alias = getAlias(object);
 		
 		// from Clause :
 		fromClause = object.getClass().getName() + " " + alias;
@@ -228,7 +240,7 @@ public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 		whereEqualsClause = QueryObjectsHelper.assembleObjectsWhereClause(alias, keys);
 		
 		// where criterias (>, < , != , like , between ...) :
-		whereCriterialsClause = QueryCriteriasHelper.assembleCriteriasWhereClause(criterias);
+		whereCriterialsClause = QueryCriteriasHelper.assembleCriteriasWhereClause(alias, criterias);
 		
 		// order by sorts :
 		orderByClause = QuerySortsHelper.assembleOrderByClause(alias, sorts);
@@ -248,6 +260,11 @@ public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 		hqlString += orderByClause;
 		
 		return hqlString;
+	}
+	
+	
+	private String getAlias(Object object) {
+		return IntrospectHelper.getShortClassName(object);
 	}
 	
 }

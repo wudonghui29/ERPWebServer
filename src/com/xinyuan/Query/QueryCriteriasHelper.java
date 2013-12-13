@@ -60,7 +60,7 @@ public class QueryCriteriasHelper {
      *
 	 * @return
 	 */
-	public static String assembleCriteriasWhereClause(Map<String, Map<String,String>> criterias) {
+	public static String assembleCriteriasWhereClause(String alias, Map<String, Map<String,String>> criterias) {
 		if (criterias == null || criterias.size() == 0) return "";
 		
 		String criterialClause = "";
@@ -74,7 +74,7 @@ public class QueryCriteriasHelper {
 			String relation = isOR ? "OR" : "AND";
 			
 			Map<String,String> value = entry.getValue();
-			String subClause = getSubClause(value, relation);
+			String subClause = getSubClause(alias, value, relation);
 			
 			if (!subClause.isEmpty()) {
 				if (isOR) subClause = " (" + subClause + ") "; 
@@ -93,7 +93,7 @@ public class QueryCriteriasHelper {
 	 * @param relation   may be "and*" / "or*"
 	 * @return
 	 */
-	private static String getSubClause(Map<String, String> map, String relation) {
+	private static String getSubClause(String alias, Map<String, String> map, String relation) {
 		if (map == null || map.size() == 0) return "";
 		
 		String subClause = "";
@@ -117,9 +117,9 @@ public class QueryCriteriasHelper {
 				
 				// Pair A
 				if (flag.equals(BETWEEN)) {
-					subClause += (" " + key + " " + flag + " " + ":" + getQueryParameterPlaceHoder(criteriaFLAG, key, i)  + BETWEEN_AND + ":" + getQueryParameterPlaceHoder(criteriaFLAG, key, i) + MARK );
+					subClause += (" " + alias + "." + key + " " + flag + " " + ":" + getQueryParameterPlaceHoder(alias, criteriaFLAG, key, i)  + BETWEEN_AND + ":" + getQueryParameterPlaceHoder(alias, criteriaFLAG, key, i) + MARK );
 				} else {
-					subClause += (" " + key + " " + flag + " " + ":" + getQueryParameterPlaceHoder(criteriaFLAG, key, i));
+					subClause += (" " + alias + "." + key + " " + flag + " " + ":" + getQueryParameterPlaceHoder(alias, criteriaFLAG, key, i));
 				}
 				if (i != conditions.length -1) subClause += " " + relation;
 				
@@ -143,7 +143,7 @@ public class QueryCriteriasHelper {
 	 * @param criterias		the values in it
 	 * @throws Exception
 	 */
-	public static void setCriteriasWhereValues(Query query, Map<String, Map<String,String>> criterias) throws Exception {
+	public static void setCriteriasWhereValues(String alias, Query query, Map<String, Map<String,String>> criterias) throws Exception {
 		if (criterias == null || criterias.size() == 0) return;
 		
 		for (Map.Entry<String, Map<String,String>> entry : criterias.entrySet()) {			// keys : "and*",  "or*"
@@ -166,11 +166,11 @@ public class QueryCriteriasHelper {
 					// Pair B
 					if (flag.equals(BETWEEN)) {
 						String[] betweenValues = criteriaVALUE.split(SPILT_BETWEEN_CONNECTOR);
-						query.setParameter( getQueryParameterPlaceHoder(criteriaFLAG, key, i), betweenValues[0]);
-						query.setParameter( getQueryParameterPlaceHoder(criteriaFLAG, key, i) + MARK, betweenValues[1]);
+						query.setParameter( getQueryParameterPlaceHoder(alias, criteriaFLAG, key, i), betweenValues[0]);
+						query.setParameter( getQueryParameterPlaceHoder(alias, criteriaFLAG, key, i) + MARK, betweenValues[1]);
 					} else {
 						if (flag.equals(LIKE)) criteriaVALUE = criteriaVALUE.replaceAll(REPLACE_LIKE_PERCENT, "%"); 
-						query.setParameter( getQueryParameterPlaceHoder(criteriaFLAG, key, i), criteriaVALUE);
+						query.setParameter( getQueryParameterPlaceHoder(alias, criteriaFLAG, key, i), criteriaVALUE);
 					}
 				}
 				
@@ -179,9 +179,12 @@ public class QueryCriteriasHelper {
 	}
 	
 	
-	private static String getQueryParameterPlaceHoder (String criteriaFLAG, String key, int i){
-		return MARK + criteriaFLAG + key + i;
+	private static String getQueryParameterPlaceHoder(String alias, String criteriaFLAG, String key, int i){
+		return MARK + criteriaFLAG + alias + key + i;
 	}
+	
+	
+	
 	
 	
 	/**
@@ -202,7 +205,7 @@ public class QueryCriteriasHelper {
 		for (Map.Entry<String, String> entry : joins.entrySet()) {
 			count ++ ;
 			
-			String key = entry.getKey();
+			String key = entry.getKey();			// no need alias
 			String value = entry.getValue();
 			
 			String flagValue[] = value.split(SPILT_FLAG_VALUE_CONNECTOR);
