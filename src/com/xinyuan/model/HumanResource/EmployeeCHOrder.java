@@ -26,6 +26,8 @@ public class EmployeeCHOrder extends App4 {
 	private String jobTitle_N;
 	private String phoneNO_N;
 	
+	private String password_N;
+	
 	public String getEmployeeNO() {
 		return employeeNO;
 	}
@@ -92,5 +94,10 @@ public class EmployeeCHOrder extends App4 {
 	public void setPhoneNO_N(String phoneNO_N) {
 		this.phoneNO_N = phoneNO_N;
 	}
-
+	public String getPassword_N() {
+		return password_N;
+	}
+	public void setPassword_N(String password_N) {
+		this.password_N = password_N;
+	}
 }
