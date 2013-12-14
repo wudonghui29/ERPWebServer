@@ -105,6 +105,9 @@
         <mapping class="com.xinyuan.model.Security.SecurityVisitOrder"/>
         <mapping class="com.xinyuan.model.Security.SecurityVisitLogOrder"/>
         
+        <mapping class="com.xinyuan.model.Security.SecurityPatrolOrder"/>
+        <mapping class="com.xinyuan.model.Security.SecurityPatrolBill"/>
+        
         
         <!-- Business Models -->
         <mapping class="com.xinyuan.model.Business.Client"/>
@@ -112,6 +115,9 @@
         
         <!-- SharedOrder Models -->
         <mapping class="com.xinyuan.model.SharedOrder.SharedOutOrder"/>
+        
+        <mapping class="com.xinyuan.model.SharedOrder.SharedReleaseOrder"/>
+        <mapping class="com.xinyuan.model.SharedOrder.SharedReleaseBill"/>
         
         
         <!-- Warehouse Models -->
