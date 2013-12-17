@@ -50,6 +50,7 @@ public class ConfigConstants {
 	public static final String METHOD_DELETE = "delete";
 	public static final String METHOD_APPLY = "apply";
 	
+	public static final String APP_PREFIX = "app";
 	
 	public static final String DEFAULT_PERMISSION = "{}";
 	

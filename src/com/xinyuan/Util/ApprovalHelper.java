@@ -1,62 +1,80 @@
 package com.xinyuan.Util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
+import com.Global.SessionManager;
+import com.modules.Introspector.IntrospectHelper;
+import com.modules.Util.CollectionHelper;
 import com.xinyuan.dao.impl.HibernateDAO;
 import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.message.RequestMessage;
+import com.xinyuan.model.BaseOrder;
 import com.xinyuan.model.Approval.Approvals;
+import com.xinyuan.model.User.User;
 
 public class ApprovalHelper {
 	
-	public static void addPendingApprove(String forwardUserName, String orderNO, String orderType) {
+	
+	public static void handlePendingApprovals(RequestMessage requestMessage , int index, BaseOrder persistence ) {
+		String signinedUser = ((User)SessionManager.get(ConfigConstants.SIGNIN_USER)).getUsername();
+		
+		List<String> forwardsList = requestMessage.getAPNS_FORWARDS();
+		if (forwardsList == null || forwardsList.size() < index) return;
+		
+		String forwardUsername = forwardsList.get(index);
+		if (forwardUsername == null) return;
+		
+		ApprovalHelper.addPendingApprove(forwardUsername, persistence);
+		ApprovalHelper.deletePendingApprove(signinedUser, persistence);
+	}
+	
+	
+	public static void addPendingApprove(String userName, BaseOrder order) {
 		HibernateDAO hibernateDAO = new HibernateDAO();
-		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, forwardUserName);
+		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, userName);
 		
-		String pendingApprovals = pendingApproval.getPendingApprovals();
+		String oldPendingApprovalsJSON = pendingApproval.getPendingApprovals();
+		Map<String, Map<String, List<String>>> pendingApprovalsMap = JsonHelper.getGson().fromJson(oldPendingApprovalsJSON, Map.class);
+		
+		String department = IntrospectHelper.getParentPackageName(order);
+		String orderType = IntrospectHelper.getShortClassName(order);
+		String orderNO = order.getOrderNO();
+		
+		List<String> list = pendingApprovalsMap.get(department).get(orderType);
 		
 		
-		// orderIdentifier = order type + orderNO 
-		String orderIdentifier = orderType + ConfigConstants.CONTENT_CONNECTOR + orderNO;				// Employee.YG001,Employee.YG002
+		// --------- do add
+		if(!CollectionHelper.isContains(list, orderNO)) list.add(orderNO);
 		
 		
-		
-		// do add 
-		pendingApprovals = pendingApprovals == null || pendingApprovals.isEmpty() ? orderIdentifier : pendingApprovals + ConfigConstants.CONTENT_DIVIDER + orderIdentifier;
-		pendingApproval.setPendingApprovals(pendingApprovals);
-		
+		String newPendingApprovalsJSON = JsonHelper.getGson().toJson(pendingApprovalsMap);
+		pendingApproval.setPendingApprovals(newPendingApprovalsJSON);
 		hibernateDAO.updateObject(pendingApproval);
 	}
 	
-	public static void deletePendingApprove(String approveUserName, String orderNO, String orderType) {
+	public static void deletePendingApprove(String userName, BaseOrder order) {
 		HibernateDAO hibernateDAO = new HibernateDAO();
-		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, approveUserName);
+		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, userName);
 		
-		String pendingApprovals = pendingApproval.getPendingApprovals() ;
+		String oldPendingApprovalsJSON = pendingApproval.getPendingApprovals();
+		Map<String, Map<String, List<String>>> pendingApprovalsMap = JsonHelper.getGson().fromJson(oldPendingApprovalsJSON, Map.class);
+		
+		String department = IntrospectHelper.getParentPackageName(order);
+		String orderType = IntrospectHelper.getShortClassName(order);
+		String orderNO = order.getOrderNO();
+		
+		List<String> list = pendingApprovalsMap.get(department).get(orderType);
+		
+		
+		// --------- do delete
+		CollectionHelper.removeElement(list, orderNO);
 		
 		
 		
-		// orderIdentifier = order type + orderNO 
-		String orderIdentifier = orderType + ConfigConstants.CONTENT_CONNECTOR + orderNO;
-		
-		
-		
-		// do delete
-		// list
-		String[] pendingList = pendingApprovals.split(ConfigConstants.CONTENT_DIVIDER);
-		List<String> list = new ArrayList<String>(Arrays.asList(pendingList));
-		
-		list.removeAll(Arrays.asList(orderIdentifier));
-		String result = "";
-		for (int i = 0; i < list.size(); i++) {
-			String orderString = list.get(i);
-			if (i != 0) result += ConfigConstants.CONTENT_DIVIDER;
-			result += orderString ;
-		}
-		pendingApproval.setPendingApprovals(result);
-		
+		String newPendingApprovalsJSON = JsonHelper.getGson().toJson(pendingApprovalsMap);
+		pendingApproval.setPendingApprovals(newPendingApprovalsJSON);
 		hibernateDAO.updateObject(pendingApproval);
 	}
-
+	
 }

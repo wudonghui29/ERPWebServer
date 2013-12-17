@@ -16,7 +16,7 @@ public class IntrospectHelper {
 	
 	private static final String DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
 	
-	
+	// i.e. A.B.C -> return B
 	public static String getParentPackageName(Object object) {
 		String wholeClassName = object.getClass().getName();
 		String packageParts[] = wholeClassName.split("\\.");

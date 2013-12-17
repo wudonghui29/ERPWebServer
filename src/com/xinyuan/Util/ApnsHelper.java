@@ -26,7 +26,6 @@ public class ApnsHelper {
 	
 	private static final String APNS_Sound_DEFAULT = "default";
 	
-	
 	public static void sendAPNS(RequestMessage requestMessage, ResponseMessage responseMessage) {
 		if (requestMessage.getAPNS_FORWARDS() == null) return;
 		try {
@@ -39,12 +38,8 @@ public class ApnsHelper {
 			responseMessage.description = ConfigConstants.MESSAGE.PushAPNSFailed;
 		}
 	}
-	
-	/**
-	 * @param allJsonObject		{ "APNS_FORWARDS" : [] , "APNS_CONTENTS" : [] }
-	 * @throws Exception
-	 */
-	private static void inform(List<String> forwardList, List<Map<String, String>> forwardContents) throws Exception {
+
+	public static void inform(List<String> forwardList, List<Map<String, String>> forwardContents) throws Exception {
 		
 		int forwardsCount = forwardList != null ? forwardList.size() : 0 ;
 		UserDAO userDAO = new UserDAOIMP();

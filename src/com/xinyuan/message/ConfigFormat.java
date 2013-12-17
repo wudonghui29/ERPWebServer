@@ -8,6 +8,7 @@ import com.xinyuan.model.HumanResource.EmployeeATTDROrder;
 import com.xinyuan.model.HumanResource.EmployeeATTFixOrder;
 import com.xinyuan.model.HumanResource.EmployeeATTOrder;
 import com.xinyuan.model.HumanResource.EmployeeBMOrder;
+import com.xinyuan.model.HumanResource.EmployeeCHOrder;
 import com.xinyuan.model.HumanResource.EmployeeDormitoryOrder;
 import com.xinyuan.model.HumanResource.EmployeeLeaveOrder;
 import com.xinyuan.model.HumanResource.EmployeeMEOrder;
@@ -37,6 +38,8 @@ public class ConfigFormat {
 		
 		// HumanResource
 		orderNOPrefixMap.put(Employee.class.getName(), 					"YG");
+		orderNOPrefixMap.put(EmployeeCHOrder.class.getName(), 			"YGYDB");
+		
 		orderNOPrefixMap.put(EmployeeATTOrder.class.getName(), 			"KQD");
 		orderNOPrefixMap.put(EmployeeBMOrder.class.getName(), 			"CCHWCD");
 		orderNOPrefixMap.put(EmployeeATTDROrder.class.getName(), 		"CQD");

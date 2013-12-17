@@ -150,10 +150,10 @@ public class SettingAction extends ActionBase {
 	 * Push notifications
 	 * @return
 	 */
-	public String inform() {
-		ApnsHelper.sendAPNS(requestMessage, responseMessage);
-		return Action.NONE;
-	}
+//	public String inform() {
+//		ApnsHelper.sendAPNS(requestMessage, responseMessage);
+//		return Action.NONE;
+//	}
 	
 	
 	

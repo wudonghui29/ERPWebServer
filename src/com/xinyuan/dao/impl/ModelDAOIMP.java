@@ -1,14 +1,12 @@
 package com.xinyuan.dao.impl;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import com.xinyuan.dao.ModelDAO;
 import com.xinyuan.message.ConfigConstants;
-import com.xinyuan.model.BaseOrder;
 
 /**
  * 
@@ -29,33 +27,6 @@ public abstract class ModelDAOIMP extends SuperDAOIMP implements ModelDAO {
 	private boolean checkModelScope(Object object) {		// check "com.xinyuan.model.Cards.CardsAlbums" is under "com.xinyuan.model.Cards"
 		return object.getClass().getName().indexOf(Model_Scope) == -1;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	// Implement ModelDAO Methods:
-	
-	@Override
-	public <E extends Object> E readUnique(E model) throws Exception {
-		if (checkModelScope(model)) return null;
-		Set<String> keys = new HashSet<String>();
-		if (model instanceof BaseOrder) {
-			BaseOrder orderModel = (BaseOrder)model;
-			if (orderModel.getOrderNO() != null) keys.add("orderNO");
-			if (orderModel.getId() != 0) keys.add("id");
-		}
-		setUniqueResultKeys(model, keys);
-		return readUnique(model, keys);
-	}
-	protected void setUniqueResultKeys(Object model, Set<String> keys) {}
-
-	
-	
-	
 	
 	
 	

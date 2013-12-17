@@ -1,7 +1,12 @@
 package com.xinyuan.model.HumanResource;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.xinyuan.model.App4;
 
+@Entity
+@Table
 public class EmployeeCHOrder extends App4 {
 
 	/**
