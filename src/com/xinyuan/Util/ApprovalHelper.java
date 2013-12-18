@@ -1,5 +1,7 @@
 package com.xinyuan.Util;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,21 +33,34 @@ public class ApprovalHelper {
 	
 	
 	public static void addPendingApprove(String userName, BaseOrder order) {
+		if (userName == null || userName.isEmpty()) return;
+		
+		String department = IntrospectHelper.getParentPackageName(order);
+		String orderType = IntrospectHelper.getShortClassName(order);
+		String orderNO = order.getOrderNO();
+		
+		
 		HibernateDAO hibernateDAO = new HibernateDAO();
 		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, userName);
 		
 		String oldPendingApprovalsJSON = pendingApproval.getPendingApprovals();
 		Map<String, Map<String, List<String>>> pendingApprovalsMap = JsonHelper.getGson().fromJson(oldPendingApprovalsJSON, Map.class);
 		
-		String department = IntrospectHelper.getParentPackageName(order);
-		String orderType = IntrospectHelper.getShortClassName(order);
-		String orderNO = order.getOrderNO();
 		
-		List<String> list = pendingApprovalsMap.get(department).get(orderType);
+		Map<String, List<String>> departmentMap = pendingApprovalsMap.get(department);
+		if (departmentMap == null) {
+			departmentMap = new HashMap<String, List<String>>();
+			pendingApprovalsMap.put(department, departmentMap);
+		}
+		List<String> orderList = departmentMap.get(orderType);
+		if (orderList == null) {
+			orderList = new ArrayList<String>();
+			departmentMap.put(orderType, orderList);
+		}
 		
 		
 		// --------- do add
-		if(!CollectionHelper.isContains(list, orderNO)) list.add(orderNO);
+		if(!CollectionHelper.isContains(orderList, orderNO)) orderList.add(orderNO);
 		
 		
 		String newPendingApprovalsJSON = JsonHelper.getGson().toJson(pendingApprovalsMap);
@@ -54,21 +69,32 @@ public class ApprovalHelper {
 	}
 	
 	public static void deletePendingApprove(String userName, BaseOrder order) {
+		if (userName == null || userName.isEmpty()) return;
+		
+		String department = IntrospectHelper.getParentPackageName(order);
+		String orderType = IntrospectHelper.getShortClassName(order);
+		String orderNO = order.getOrderNO();
+		
+		
 		HibernateDAO hibernateDAO = new HibernateDAO();
 		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, userName);
 		
 		String oldPendingApprovalsJSON = pendingApproval.getPendingApprovals();
 		Map<String, Map<String, List<String>>> pendingApprovalsMap = JsonHelper.getGson().fromJson(oldPendingApprovalsJSON, Map.class);
 		
-		String department = IntrospectHelper.getParentPackageName(order);
-		String orderType = IntrospectHelper.getShortClassName(order);
-		String orderNO = order.getOrderNO();
 		
-		List<String> list = pendingApprovalsMap.get(department).get(orderType);
+		Map<String, List<String>> departmentMap = pendingApprovalsMap.get(department);
+		if (departmentMap == null) {
+			return;
+		}
+		List<String> orderList = departmentMap.get(orderType);
+		if (orderList == null) {
+			return;
+		}
 		
 		
 		// --------- do delete
-		CollectionHelper.removeElement(list, orderNO);
+		CollectionHelper.removeElement(orderList, orderNO);
 		
 		
 		

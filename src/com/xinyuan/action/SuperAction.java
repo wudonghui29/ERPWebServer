@@ -96,6 +96,8 @@ public class SuperAction extends ActionBase {
 			if (model instanceof BaseOrder) {
 				BaseOrder order = (BaseOrder)model;
 				result.put(ConfigJSON.ORDERNO, order.getOrderNO());
+				
+				ApprovalHelper.addPendingApprove(order.getForwardUser(), order);
 			}
 			results.add(result);
 		}
@@ -197,6 +199,11 @@ public class SuperAction extends ActionBase {
 			
 			// check if delete successfully
 			if (getPersistenceByIdentity(identityList.get(i), clazz) != null) throw new Exception();
+			
+			if (persistence instanceof BaseOrder) {
+				BaseOrder order = (BaseOrder)persistence;
+				ApprovalHelper.addPendingApprove(order.getForwardUser(), order);
+			}
 		}
 		
 		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
