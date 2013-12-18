@@ -14,11 +14,22 @@ public class SecurityPatrolBill extends BaseBill {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String routine;		// 例行项目
+	private int sequence;				// 顺序
 	
-	private String checkEmployeeNO;	// 检查人员
+	private String routine;				// 例行项目
+	
+	private String employeeNO;		// 检查人员
 	
 	private String repairOrderNO;		// 报修单
+
+	
+	public int getSequence() {
+		return sequence;
+	}
+
+	public void setSequence(int sequence) {
+		this.sequence = sequence;
+	}
 
 	public String getRoutine() {
 		return routine;
@@ -28,12 +39,12 @@ public class SecurityPatrolBill extends BaseBill {
 		this.routine = routine;
 	}
 
-	public String getCheckEmployeeNO() {
-		return checkEmployeeNO;
+	public String getEmployeeNO() {
+		return employeeNO;
 	}
 
-	public void setCheckEmployeeNO(String checkEmployeeNO) {
-		this.checkEmployeeNO = checkEmployeeNO;
+	public void setEmployeeNO(String employeeNO) {
+		this.employeeNO = employeeNO;
 	}
 
 	public String getRepairOrderNO() {
