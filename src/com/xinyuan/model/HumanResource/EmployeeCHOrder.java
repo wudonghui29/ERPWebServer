@@ -3,6 +3,8 @@ package com.xinyuan.model.HumanResource;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.xinyuan.model.App4;
 
 @Entity
@@ -33,6 +35,7 @@ public class EmployeeCHOrder extends App4 {
 	
 	private String password_N;
 	
+	@NotEmpty
 	public String getEmployeeNO() {
 		return employeeNO;
 	}

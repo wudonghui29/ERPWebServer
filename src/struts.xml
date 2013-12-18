@@ -70,11 +70,9 @@
 			<interceptor-ref name="onlineIntercepterStack"></interceptor-ref>
 		</action>
 		
-		<!-- 
 		<action name="inform" class="com.xinyuan.action.SettingAction" method="inform">
 			<interceptor-ref name="onlineIntercepterStack"></interceptor-ref>
 		</action>
-		 -->
 		 
 	</package>
 	
