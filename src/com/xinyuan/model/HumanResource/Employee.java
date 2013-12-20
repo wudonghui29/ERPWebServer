@@ -34,8 +34,6 @@ public class Employee extends BaseOrder {
 
 	
 	private String phoneNO;
-	private String urgencyContact;  // his name and relationship and his phone NO. e.g. "Sam.Brother.13828899987"
-	private String education;		// e.g.  "广州美术学院.本科.2013-06.毕业"
 	private String country;			// 国籍
 	private String nationality ;  	// human race 民族
 	private String nativePlace;  	// native place 籍贯
@@ -45,7 +43,9 @@ public class Employee extends BaseOrder {
 	private Date employDate;  	 	// entry date , sign in date
 	private boolean employing;		// 是否在职  do not use "isEmploying" , cause in mysql , the column name will be "employing" , "is" is gone
 	private boolean inVisitList; 	// 是否列入拜访名单
-	private String experience;		// 经历   e.g. "腾讯公司.2013-06~2013-08.CEO"
+	private String education;		// 教育经历   e.g.  "广州美术学院.本科.2013-06.毕业"
+	private String experience;		// 工作经历   e.g. "腾讯公司.2013-06~2013-08.CEO"
+	private String urgencyContact;  // 紧急联系人 name.relationship.phoneNO. e.g. "Sam.Brother.13828899987"
 	
 	private String department;		// 部门,工作岗位
 	private String subDepartment;	// 子部门,制作组
