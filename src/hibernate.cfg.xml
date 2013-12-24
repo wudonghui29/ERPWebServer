@@ -88,7 +88,7 @@
         
         <mapping class="com.xinyuan.model.HumanResource.EmployeeCHOrder"/>
         
-        <mapping class="com.xinyuan.model.HumanResource.EmployeeDormitoryOrder"/>
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeDormOrder"/>
         
         <mapping class="com.xinyuan.model.HumanResource.EmployeeLeaveOrder"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeMEOrder"/>

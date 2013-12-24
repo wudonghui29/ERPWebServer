@@ -1,7 +1,5 @@
 package com.xinyuan.model.HumanResource;
 
-
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -21,11 +19,11 @@ public class Employee extends BaseOrder {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String employeeNO; 		// employee NO. unique  工号
+	private String employeeNO; 			// employee NO. unique  工号
 	
-	private String name ;		// 姓名
-	private String idCard ;		// 身份证号码
-	private boolean gender;  	// 0 , female ; 1 , male  // boolean respect as "true" in json
+	private String name ;				// 姓名
+	private String idCard ;				// 身份证号码
+	private boolean gender;  			// 0 , female ; 1 , male  // boolean respect as "true" in json
 	private Date birthday;
 	
 	private float height;
@@ -42,19 +40,20 @@ public class Employee extends BaseOrder {
 
 	private Date employDate;  	 	// entry date , sign in date
 	private boolean employing;		// 是否在职  do not use "isEmploying" , cause in mysql , the column name will be "employing" , "is" is gone
-	private boolean inVisitList; 	// 是否列入拜访名单
+	private boolean inVisits; 		// 是否列入拜访名单
+	private boolean inDrives ; 		// 具有驾驶证  0 , have ; 1 , do not have
+	private boolean ownDevice;		// 具有Apple设备
 	private String education;		// 教育经历   e.g.  "广州美术学院.本科.2013-06.毕业"
 	private String experience;		// 工作经历   e.g. "腾讯公司.2013-06~2013-08.CEO"
 	private String urgencyContact;  // 紧急联系人 name.relationship.phoneNO. e.g. "Sam.Brother.13828899987"
 	
 	private String department;		// 部门,工作岗位
 	private String subDepartment;	// 子部门,制作组
-	private int jobLevel = 10;			//级别
-	private String jobTitle;			//职称
+	private int jobLevel = 10;		//级别
+	private String jobTitle;		//职称
 	
 	private String wordMask;		//password mask 
 	
-	private boolean drivingLicence ; // 0 , have ; 1 , do not have
 
 
 	@NotNull
@@ -220,16 +219,28 @@ public class Employee extends BaseOrder {
 	public void setJobTitle(String jobTitle) {
 		this.jobTitle = jobTitle;
 	}
-
+	
+	public boolean isInVisits() {
+		return inVisits;
+	}
+	public void setInVisits(boolean inVisits) {
+		this.inVisits = inVisits;
+	}
+	
 	@Column(nullable=false, columnDefinition="boolean default false")  
-	public boolean isDrivingLicence() {
-		return drivingLicence;
+	public boolean isInDrives() {
+		return inDrives;
 	}
-
-	public void setDrivingLicence(boolean drivingLicence) {
-		this.drivingLicence = drivingLicence;
+	public void setInDrives(boolean inDrives) {
+		this.inDrives = inDrives;
 	}
-
+	
+	public boolean isOwnDevice() {
+		return ownDevice;
+	}
+	public void setOwnDevice(boolean ownDevice) {
+		this.ownDevice = ownDevice;
+	}
 	public String getEducation() {
 		return education;
 	}
@@ -244,14 +255,6 @@ public class Employee extends BaseOrder {
 
 	public void setEmploying(boolean employing) {
 		this.employing = employing;
-	}
-
-	public boolean isInVisitList() {
-		return inVisitList;
-	}
-
-	public void setInVisitList(boolean inVisitList) {
-		this.inVisitList = inVisitList;
 	}
 
 	public String getExperience() {

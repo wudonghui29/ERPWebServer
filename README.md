@@ -96,10 +96,14 @@
 	
 	alter table [table_name] change levelApp_1 app1 varchar(255), change levelApp_2 app2 varchar(255), change levelApp_3 app3 varchar(255), change levelApp_4 app4 varchar(255);
 	
+2013-12-24
+
+	rename table EmployeeDormitoryOrder to EmployeeDormOrder
+
 
 
 ## Document and Convention
-
+	
 	"username" and suffix "*User"/"*EmployeeNO" mean the same , equivalent to "employeeNO" 
 	"*EmployeeNOs" for many "employeeNO"
 	

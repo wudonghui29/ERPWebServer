@@ -10,7 +10,7 @@ import com.xinyuan.model.App4;
  * 临时借据单
  *
  */
-public class FinanceTemporaryLoanOrder extends App4 {
+public class FinanceTempLoanOrder extends App4 {
 
 	/**
 	 * 

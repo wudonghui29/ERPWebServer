@@ -16,7 +16,7 @@ import com.xinyuan.model.App4;
 
 @Entity
 @Table
-public class EmployeeDormitoryOrder extends App4 {
+public class EmployeeDormOrder extends App4 {
 	
 	/**
 	 * 
