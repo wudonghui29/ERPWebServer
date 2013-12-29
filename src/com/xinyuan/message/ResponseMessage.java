@@ -10,7 +10,7 @@ public class ResponseMessage {
 	public String action = ConfigConstants.EMPTY_STRING;
 	public String denyStatus = null;
 	public String apnsStatus = null ;
-	public String description = null;
+	public String descriptions = null;
 	public String exception = null;
 	
 	public Object objects = null;
@@ -29,11 +29,11 @@ public class ResponseMessage {
 	public void setAction(String action) {
 		this.action = action;
 	}
-	public String getDescription() {
-		return description;
+	public String getDescriptions() {
+		return descriptions;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescriptions(String descriptions) {
+		this.descriptions = descriptions;
 	}
 	public String getException() {
 		return exception;

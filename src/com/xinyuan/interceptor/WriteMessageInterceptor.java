@@ -43,10 +43,15 @@ public class WriteMessageInterceptor extends AbstractInterceptor {
 			e.printStackTrace();
 			
 			message.status = ConfigConstants.STATUS_NEGATIVE;
-			String description = message.description == null || message.description.isEmpty() ? getDescription(e) : message.description;
-			message.description = description == null || description.isEmpty() ? ConfigConstants.REQUEST_ERROR : description;
+			if (message.descriptions == null || message.descriptions.isEmpty()) {
+				String descriptions = getDescription(e) ;
+				if (descriptions.isEmpty()) {
+					descriptions = ConfigConstants.REQUEST_ERROR;
+				}
+				message.descriptions = descriptions;
+			}
 			message.objects = null;
-			message.exception = e.getClass().getName() + " : " + getDescription(e) ;
+			message.exception = e.getClass().getName();
 		}
 		
 		
@@ -97,8 +102,8 @@ public class WriteMessageInterceptor extends AbstractInterceptor {
 			String causeMessage = cause.getLocalizedMessage();
 			if (causeMessage != null) messageBuilder.append(" | " + causeMessage);
 		}
-		
-		return messageBuilder.toString().replaceAll("\\'", "|");
+		return messageBuilder.toString();
+//		return messageBuilder.toString().replaceAll("\\'", "|");
 	}
 
 }

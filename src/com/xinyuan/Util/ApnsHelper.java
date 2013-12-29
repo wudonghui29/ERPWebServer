@@ -35,7 +35,7 @@ public class ApnsHelper {
 		} catch (Exception e) {
 			e.printStackTrace();
 			responseMessage.apnsStatus = ConfigConstants.STATUS_NEGATIVE;
-			responseMessage.description = ConfigConstants.MESSAGE.PushAPNSFailed;
+			responseMessage.descriptions = ConfigConstants.MESSAGE.PushAPNSFailed;
 		}
 	}
 

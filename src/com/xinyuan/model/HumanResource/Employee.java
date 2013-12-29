@@ -38,7 +38,7 @@ public class Employee extends BaseOrder {
 	private String homeAddress;		// 家地址
 	private String livingAddress;	// 现住址
 
-	private Date employDate;  	 	// entry date , sign in date
+	private Date employDate;  	 	// 到职日期  entry date , sign in date
 	private boolean employing;		// 是否在职  do not use "isEmploying" , cause in mysql , the column name will be "employing" , "is" is gone
 	private boolean inVisits; 		// 是否列入拜访名单
 	private boolean inDrives ; 		// 具有驾驶证  0 , have ; 1 , do not have
@@ -49,8 +49,8 @@ public class Employee extends BaseOrder {
 	
 	private String department;		// 部门,工作岗位
 	private String subDepartment;	// 子部门,制作组
-	private int jobLevel = 10;		//级别
 	private String jobTitle;		//职称
+	private int jobLevel = 10;		//级别
 	
 	private String wordMask;		//password mask 
 	
@@ -220,6 +220,7 @@ public class Employee extends BaseOrder {
 		this.jobTitle = jobTitle;
 	}
 	
+	@Column(columnDefinition="boolean default false")
 	public boolean isInVisits() {
 		return inVisits;
 	}
@@ -235,6 +236,7 @@ public class Employee extends BaseOrder {
 		this.inDrives = inDrives;
 	}
 	
+	@Column(columnDefinition="boolean default false")
 	public boolean isOwnDevice() {
 		return ownDevice;
 	}

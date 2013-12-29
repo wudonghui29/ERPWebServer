@@ -3,7 +3,9 @@ package com.xinyuan.model.HumanResource;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.xinyuan.model.App4;
@@ -23,14 +25,12 @@ public class EmployeeQuitPassOrder extends App4 {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String employeeNO;  // the freedom employee 
+	private String employeeNO;  	// the freedom employee 
 	
-	// 核准离职日期 来自于 EmployeeQuitOrder's  approvedQuitDate
-	// ... Empty
+	private Date passDate ; 		// 实际离厂日期
+	private String carryingStuff; 	// 携带物品
 	
-	private Date actualQuitDate ; // 实际离职日期
-	private String carryingStuff; // 携带物品
-	
+	private EmployeeQuitOrder quitOrder;
 	
 	
 	public String getEmployeeNO() {
@@ -39,11 +39,11 @@ public class EmployeeQuitPassOrder extends App4 {
 	public void setEmployeeNO(String employeeNO) {
 		this.employeeNO = employeeNO;
 	}
-	public Date getActualQuitDate() {
-		return actualQuitDate;
+	public Date getPassDate() {
+		return passDate;
 	}
-	public void setActualQuitDate(Date actualQuitDate) {
-		this.actualQuitDate = actualQuitDate;
+	public void setPassDate(Date passDate) {
+		this.passDate = passDate;
 	}
 	public String getCarryingStuff() {
 		return carryingStuff;
@@ -52,7 +52,12 @@ public class EmployeeQuitPassOrder extends App4 {
 		this.carryingStuff = carryingStuff;
 	}
 	
-	
-	
-	
+	//  http://www.blogjava.net/freeman1984/archive/2011/09/30/359857.html
+	@OneToOne(cascade=CascadeType.ALL,optional=false,mappedBy="quitPassOrder")
+	public EmployeeQuitOrder getQuitOrder() {
+		return quitOrder;
+	}
+	public void setQuitOrder(EmployeeQuitOrder quitOrder) {
+		this.quitOrder = quitOrder;
+	}
 }

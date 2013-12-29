@@ -47,7 +47,7 @@ public class UserAction extends ActionBase {
 		
 		User user = userDAO.getUser(username);
 		if (user == null) {
-			responseMessage.description = ConfigConstants.USER.UserNotExist;
+			responseMessage.descriptions = ConfigConstants.USER.UserNotExist;
 		} else if (password.equals(user.getPassword())) {
 			
 			// update the apnsToken in db
@@ -59,7 +59,7 @@ public class UserAction extends ActionBase {
 			// put result in response
 			Map<String, Object> map = new HashMap<String, Object>();
 			responseMessage.status = ConfigConstants.STATUS_POSITIVE;
-			responseMessage.description = ConfigConstants.USER.UserLoginSuccess;
+			responseMessage.descriptions = ConfigConstants.USER.UserLoginSuccess;
 			
 			map.put(ConfigJSON.IDENTIFIER, user.getId());
 			map.put(ConfigConstants.PERMISSIONS, userDAO.getAllUsersPermissions());
@@ -75,7 +75,7 @@ public class UserAction extends ActionBase {
 			
 			
 		} else {
-			responseMessage.description = ConfigConstants.USER.UserPasswordError;
+			responseMessage.descriptions = ConfigConstants.USER.UserPasswordError;
 		}
 			
 //		}
@@ -111,7 +111,7 @@ public class UserAction extends ActionBase {
 		SessionManager.remove(ConfigJSON.VERIFYCODE);
 		
 		boolean isError = userVerifyCode == null || userVerifyCode.isEmpty() || !userVerifyCode.equals(verifyCode);
-		if (isError) responseMessage.description = ConfigConstants.USER.VerifyCodeError;
+		if (isError) responseMessage.descriptions = ConfigConstants.USER.VerifyCodeError;
 		
 //		return isError;
 		
