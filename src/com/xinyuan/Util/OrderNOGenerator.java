@@ -22,7 +22,7 @@ public class OrderNOGenerator {
 		if (model instanceof BaseOrder) {
 			// Generate the orderNO
 			String modelClassName = model.getClass().getName();
-			String orederPrefix = ConfigFormat.orderNOPrefixMap.get(modelClassName);
+			String orederPrefix = ConfigFormat.serialProperties.getProperty(modelClassName);
 			String previousOrderNO = ConfigFormat.previousOrderNOMap.get(modelClassName);
 			
 			String format = ConfigFormat.secondOrderTypeMap.containsKey(orederPrefix) ? ConfigFormat.DATESTRING_WITH_SECOND_FORMAT : ConfigFormat.DATESTRING_WITHOUT_SECOND_FORMAT;

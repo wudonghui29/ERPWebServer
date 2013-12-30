@@ -14,7 +14,6 @@ public class ConfigJSON {
 	public static final String SORTS = "SORTS";
 	public static final String CRITERIAS = "CRITERIAS";		// for query
 	public static final String IDENTITYS = "IDENTITYS";		// for modify， delete
-	public static final String PASSWORDS = "PASSWORDS";		// for create user
 	public static final String PARAMETERS = "PARAMETERS"; 	// for user connect 's verify code's length or type , and so on ... checkout PART In PARAMETERS
 	
 	public static final String APNS_CONTENTS = "APNS_CONTENTS";
@@ -29,8 +28,6 @@ public class ConfigJSON {
 	public static final String VERIFYCODE_TYPE 	= "VERIFYCODE_TYPE";
 	public static final String VERIFYCODE_COUNT = "VERIFYCODE_COUNT";
 	public static final String APNSTOKEN 		= "APNSTOKEN";
-	
-	
 	
 	
 	

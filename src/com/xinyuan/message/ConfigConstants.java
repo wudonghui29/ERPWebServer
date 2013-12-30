@@ -1,6 +1,11 @@
 package com.xinyuan.message;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Hashtable;
+import java.util.Properties;
 
 import javax.servlet.ServletContext;
 
@@ -13,12 +18,27 @@ public class ConfigConstants {
 	public static String Context_Real_Path ;
 	public static String Models_Class_Files_Path ;
 	
+	
 	public static void initializeContextVariables(ServletContext context) {
+		
 		//ServletActionContext.getServletContext()
 		Context_Real_Path = context.getRealPath(File.separator); 
 		Apns_Certificate_Path = Context_Real_Path + Apns_Certificate_Path;
 		Models_Class_Files_Path = Context_Real_Path + "WEB-INF" + FS + "classes" + FS + "com" + FS + "xinyuan" + FS + "model" + FS;
+		
+//		String serialFile = Context_Real_Path + "resources/serials.properties";
+		String serialPath = context.getRealPath("resources/serials.properties");
+		try {
+			InputStream inputStream = new BufferedInputStream(new FileInputStream(serialPath));
+			ConfigFormat.serialProperties = new Properties();
+			ConfigFormat.serialProperties.load(inputStream);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
+	
+	
 	
 	
 	

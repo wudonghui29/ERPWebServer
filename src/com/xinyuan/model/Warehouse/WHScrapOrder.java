@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.xinyuan.model.App4;
 
@@ -27,6 +29,7 @@ public class WHScrapOrder extends App4 {
 	private int amout;//数量
 	
 	private Date scrapTime;//报废时间
+	
 	private String scrapReason;//报废理由
 	
 	

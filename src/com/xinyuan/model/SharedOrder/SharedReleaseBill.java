@@ -16,9 +16,9 @@ public class SharedReleaseBill extends BaseBill {
 	private static final long serialVersionUID = 1L;
 	
 	private String productName ;		// 品名
-	private float amount;			// 数量
-	private String unit;			// 单位
-	private String comment;			//备注
+	private float amount;				// 数量
+	private String unit;				// 单位
+	private String comment;				//备注
 	
 	public String getProductName() {
 		return productName;

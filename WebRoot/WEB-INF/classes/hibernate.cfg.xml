@@ -127,6 +127,12 @@
         <mapping class="com.xinyuan.model.Warehouse.WHScrapOrder"/>
         
         
+        
+        <!-- Finance Models -->
+        <mapping class="com.xinyuan.model.Finance.FinanceCHOrder"/>
+        <mapping class="com.xinyuan.model.Finance.FinancePettyCashOrder"/>
+        
+        
     </session-factory>
 
 </hibernate-configuration>

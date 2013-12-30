@@ -100,7 +100,10 @@
 
 	rename table EmployeeDormitoryOrder to EmployeeDormOrder
 
+2013-12-27
 
+	alter table Employee alter inVisits set default false;
+	alter table employee drop inVisitList, drop drivingLicence;
 
 ## Document and Convention
 	

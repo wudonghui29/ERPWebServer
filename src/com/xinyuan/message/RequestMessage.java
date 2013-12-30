@@ -19,7 +19,6 @@ public class RequestMessage {
 	private List<Map<String, String>> IDENTITYS;
 	private Map<String, String> PARAMETERS;
 	
-	private List<String> PASSWORDS;
 	private List<String> APNS_FORWARDS;
 	private List<Map<String, String>> APNS_CONTENTS;
 	
@@ -117,16 +116,6 @@ public class RequestMessage {
 
 	public void setPARAMETERS(Map<String, String> pARAMETERS) {
 		PARAMETERS = pARAMETERS;
-	}
-
-
-	public List<String> getPASSWORDS() {
-		return PASSWORDS;
-	}
-
-
-	public void setPASSWORDS(List<String> pASSWORDS) {
-		PASSWORDS = pASSWORDS;
 	}
 
 

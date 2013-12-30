@@ -34,7 +34,7 @@ public class AuthorizeInterceptor extends AbstractInterceptor {
 			
 			ActionBase action = (ActionBase)invocation.getAction();
 			ResponseMessage message = action.getResponseMessage();
-			message.description = ConfigConstants.USER.UserNotSignIn;
+			message.descriptions = ConfigConstants.USER.UserNotSignIn;
 			
 			return Action.NONE;
 		}

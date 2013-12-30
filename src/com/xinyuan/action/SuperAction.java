@@ -117,10 +117,10 @@ public class SuperAction extends ActionBase {
 		
 		for (int i = 0; i < models.size(); i++) {
 			
-			BaseModel model = (BaseModel)models.get(i);
+			Object model = models.get(i);
 			
-			Class<BaseModel> clazz = (Class<BaseModel>)model.getClass();
-			BaseModel persistence = getPersistenceByIdentity(identityList.get(i), clazz);
+			Class<?> clazz = model.getClass();
+			Object persistence = getPersistenceByIdentity(identityList.get(i), clazz);
 			
 			Set<String> keys = objectKeys.get(i);
 			CollectionHelper.removeStartWithElement(keys, ConfigConstants.APP_PREFIX);
@@ -164,7 +164,7 @@ public class SuperAction extends ActionBase {
 				String app = (String) keys.toArray()[0];
 				String appValue = (String) ModelIntrospector.getProperty(model, app);
 				if (!appValue.equals(signinedUser)){
-					responseMessage.description = "Not_The_Same_User";
+					responseMessage.descriptions = "Not_The_Same_User";
 					throw new Exception();
 				}
 				ModelIntrospector.setProperty(persistence, app, signinedUser);
@@ -190,10 +190,10 @@ public class SuperAction extends ActionBase {
 		
 		for (int i = 0; i < models.size(); i++) {
 					
-			BaseModel model = (BaseModel)models.get(i);
+			Object model = models.get(i);
 			
-			Class<BaseModel> clazz = (Class<BaseModel>)model.getClass();
-			BaseModel persistence = getPersistenceByIdentity(identityList.get(i), clazz);
+			Class<?> clazz = model.getClass();
+			Object persistence = getPersistenceByIdentity(identityList.get(i), clazz);
 			
 			dao.delete(persistence);
 			
@@ -213,7 +213,7 @@ public class SuperAction extends ActionBase {
 	
 	
 	
-	private <E extends BaseModel> E getPersistenceByIdentity(Map<String, String> keyValues, Class<E> clazz) throws Exception {
+	private <E extends Object> E getPersistenceByIdentity(Map<String, String> keyValues, Class<E> clazz) throws Exception {
 		String identityJSON = JsonHelper.getGson().toJson(keyValues);
 		E identityVo = JsonHelper.getGson().fromJson(identityJSON, clazz);
 		E persistence = dao.readUnique(identityVo, keyValues.keySet());

@@ -3,7 +3,9 @@ package com.xinyuan.model.HumanResource;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.xinyuan.model.App4;
@@ -23,14 +25,16 @@ public class EmployeeQuitOrder extends App4 {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String employeeNO;  // the employee want to quit his job
+	private String employeeNO; 		 	// the employee want to quit his job
 	
-	private Date applyDate ; // 申请日期
+	private Date planQuitDate ;  		// 拟定离职日期 the date plan to quit  
+	private Date approvedQuitDate ; 	// 核定离职日期 the date approve to quit  
 	
-	private Date planQuitDate ;  // the date plan to quit  拟定离职日期
-	private Date approvedQuitDate ; // the date approve to quit  核定离职日期
+	private Date filingDate ; 			// 申请日期
+	private String quitReason; 			// 离职原因
 	
-	private int annualVacation ; // the count of the days of annual vacation 已休年假天数
+	
+	private EmployeeQuitPassOrder quitPassOrder;
 
 	
 	public String getEmployeeNO() {
@@ -57,22 +61,29 @@ public class EmployeeQuitOrder extends App4 {
 		this.approvedQuitDate = approvedQuitDate;
 	}
 
-	public int getAnnualVacation() {
-		return annualVacation;
+	public Date getFilingDate() {
+		return filingDate;
 	}
 
-	public void setAnnualVacation(int annualVacation) {
-		this.annualVacation = annualVacation;
+	public void setFilingDate(Date filingDate) {
+		this.filingDate = filingDate;
 	}
 
-	public Date getApplyDate() {
-		return applyDate;
+	public String getQuitReason() {
+		return quitReason;
 	}
 
-	public void setApplyDate(Date applyDate) {
-		this.applyDate = applyDate;
+	public void setQuitReason(String quitReason) {
+		this.quitReason = quitReason;
 	}
-	
-	
+
+	@OneToOne(cascade=CascadeType.ALL,optional=true)
+	public EmployeeQuitPassOrder getQuitPassOrder() {
+		return quitPassOrder;
+	}
+
+	public void setQuitPassOrder(EmployeeQuitPassOrder quitPassOrder) {
+		this.quitPassOrder = quitPassOrder;
+	}
 	
 }
