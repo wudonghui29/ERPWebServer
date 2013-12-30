@@ -3,6 +3,7 @@ package com.modules.Util;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -50,4 +51,21 @@ public class CollectionHelper {
 		}
 	}
 
+	
+	public static void combineTowMap(Map<String, Object> source, Map<String, Object> destination) {
+		for(Map.Entry<String, Object> entry : source.entrySet()) {
+			String key = entry.getKey();
+			Object value = entry.getValue();
+			if (value == null) continue;
+			
+			Object desValue = destination.get(key);
+			
+			if ( desValue != null && desValue instanceof Map && value instanceof Map) {
+				CollectionHelper.combineTowMap((Map<String, Object>)value, (Map<String, Object>)desValue);
+			} else {
+				 destination.put(key, value);
+				
+			}
+		}
+	}
 }

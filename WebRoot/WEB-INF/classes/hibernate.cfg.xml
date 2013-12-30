@@ -60,7 +60,7 @@
 		<!-- ORM -->
 		
 		<!-- Extensions Models -->
-		<mapping class="com.xinyuan.model.Extensions.APPOrderAttributes" />
+		<mapping class="com.xinyuan.model.Extensions.APPSettings" />
 		
 		
 		

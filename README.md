@@ -63,47 +63,57 @@
 	
 	
 	
-2013-11-11
+-- 2013-11-11
 	
 	alter table Employee alter jobLevel set default 10;
 	alter table BusinessClient add unique (clientNO);
 	
 	
-2013-11-22
+-- 2013-11-22
 
 	drop table EmployeeSDOrder;
 	drop table WHMaterialBill;
 	rename table BusinessClient to Client;
 
 
-2013-11-28
+-- 2013-11-28
 
 	alter table approvals change username employeeNO varchar(255);
 
 
-2013-12-06
+-- 2013-12-06
 	
 	DROP TABLE DEPARTMENTS;
 	
-2013-12-06
+	
+-- 2013-12-06
 
 	alter table approvals drop column apnsToken;
 	
-2013-12-06
+	
+-- 2013-12-06
 
 	alter table employee drop column levelApp_1, drop column levelApp_2, drop column levelApp_3, drop column levelApp_4, drop column levelApp_5;
 	alter table employee change departmentName department varchar(255), change subDepartmentName subDepartment varchar(255);
 	
 	alter table [table_name] change levelApp_1 app1 varchar(255), change levelApp_2 app2 varchar(255), change levelApp_3 app3 varchar(255), change levelApp_4 app4 varchar(255);
 	
-2013-12-24
+	
+-- 2013-12-24
 
 	rename table EmployeeDormitoryOrder to EmployeeDormOrder
 
-2013-12-27
+
+-- 2013-12-27
 
 	alter table Employee alter inVisits set default false;
 	alter table employee drop inVisitList, drop drivingLicence;
+	
+	
+-- 2013-12-30
+
+	drop table APPOrderAttributes	
+
 
 ## Document and Convention
 	

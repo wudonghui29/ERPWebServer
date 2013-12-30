@@ -132,12 +132,12 @@ public class SettingAction extends ActionBase {
 		List<Object> bsList = businessDAO.getClientsNOPairs();
 		
 		HibernateDAO dao = new HibernateDAO();
-		List<Object> orList = dao.getObjects("select apporderattributes.category, apporderattributes.model, apporderattributes.settings from APPOrderAttributes apporderattributes ");
+		List<Object> settingList = dao.getObjects("select settings.settings from APPSettings settings where settings.type = '" + ConfigConstants.APPSETTINGS_APPROVALS +"'");
 		
 		List<Object> results = new ArrayList<Object>();
 		results.add(hrList);
 		results.add(bsList);
-		results.add(orList);
+		results.add(settingList);
 		
 		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
 		responseMessage.objects = results;

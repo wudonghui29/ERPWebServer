@@ -29,11 +29,13 @@ public class ApnsHelper {
 	public static void sendAPNS(RequestMessage requestMessage, ResponseMessage responseMessage) {
 		if (requestMessage.getAPNS_FORWARDS() == null) return;
 		try {
-			responseMessage.apnsStatus = ConfigConstants.STATUS_POSITIVE;
 			// push APNS notifications
 			ApnsHelper.inform(requestMessage.getAPNS_FORWARDS(), requestMessage.getAPNS_CONTENTS());
+			responseMessage.status = ConfigConstants.STATUS_POSITIVE;
+			responseMessage.apnsStatus = ConfigConstants.STATUS_POSITIVE;
 		} catch (Exception e) {
 			e.printStackTrace();
+			responseMessage.status = ConfigConstants.STATUS_POSITIVE;
 			responseMessage.apnsStatus = ConfigConstants.STATUS_NEGATIVE;
 			responseMessage.descriptions = ConfigConstants.MESSAGE.PushAPNSFailed;
 		}

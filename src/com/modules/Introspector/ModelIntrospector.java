@@ -60,6 +60,7 @@ public class ModelIntrospector {
 	  
 	
 	/**
+	 * no recursive , just one deep depth, need to extend
 	 * 
 	 * @param vo			the vo object
 	 * @param po			the po object

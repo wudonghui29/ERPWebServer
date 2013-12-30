@@ -10,23 +10,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class APPOrderAttributes implements Serializable{
+public class APPSettings implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
 	
 	private int id;
 	
-	private String category;
+	private String type;
 	
-	private String model;
-	
-	private String settings;
+	private String settings = "{}";
 
-	
 	@Id
 	@GeneratedValue
 	public int getId() {
@@ -37,21 +30,13 @@ public class APPOrderAttributes implements Serializable{
 		this.id = id;
 	}
 
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
 	@Column(unique=true)
-	public String getModel() {
-		return model;
+	public String getType() {
+		return type;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	@Column(columnDefinition="TEXT")

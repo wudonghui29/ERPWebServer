@@ -97,6 +97,8 @@ public class ConfigConstants {
 	
 	// --------------------------    Against to DB
 	
+	public static final String APPSETTINGS_APPROVALS = "APPROVALS";
+	
 	
 	
 	

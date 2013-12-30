@@ -5,14 +5,17 @@ import java.util.Map;
 import java.util.Set;
 
 import com.modules.Introspector.ModelIntrospector;
+import com.modules.Util.CollectionHelper;
 import com.opensymphony.xwork2.Action;
+import com.xinyuan.Util.JsonHelper;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.UserDAO;
 import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigJSON;
-import com.xinyuan.model.Extensions.APPOrderAttributes;
+import com.xinyuan.model.Approval.Approvals;
+import com.xinyuan.model.Extensions.APPSettings;
 import com.xinyuan.model.User.User;
 
 public class AdministratorAction extends ActionBase {
@@ -50,22 +53,33 @@ public class AdministratorAction extends ActionBase {
 	public String modifyApprovals() throws Exception {
 		if (models.size() != 1) return Action.NONE;
 		
+		SuperDAO superDao = new SuperDAOIMP();
+		
 		List<Map<String, String>> identities = requestMessage.getIDENTITYS();
 		
-		SuperDAO dao = new SuperDAOIMP();
 		for(int i = 0 ; i < models.size(); i++) {
-			Map<String, String> idenfier = identities.get(i);
+			APPSettings appSettingVO = (APPSettings) models.get(i);
 			
-			APPOrderAttributes attributesVO = (APPOrderAttributes) models.get(i);
-			ModelIntrospector.setProperty(attributesVO, idenfier);
-			APPOrderAttributes attributesPO =  dao.readUnique(attributesVO, idenfier.keySet());
-			if (attributesPO == null) {
-				attributesPO = attributesVO;
-				dao.create(attributesPO);
+			// get PO
+			Map<String, String> idenfier = identities.get(i);
+			ModelIntrospector.setProperty(appSettingVO, idenfier);
+			APPSettings appSettingPO =  superDao.readUnique(appSettingVO, idenfier.keySet());
+			
+			if (appSettingPO == null) {
+				appSettingPO = appSettingVO;
+				superDao.create(appSettingPO);
 			} else {
-				Set<String> keys = objectKeys.get(i);
-				ModelIntrospector.copyVoToPo(attributesVO, attributesPO, keys);
-				dao.modify(attributesPO);
+				String approvalVoSettings = appSettingVO.getSettings();
+				String approvalPoSettings = appSettingPO.getSettings();
+				
+				//"{"HumanResource":{"Employee": {"app1":[], "app2":[]}} , ...}"
+				Map<String,Object> settingsPoMap = JsonHelper.getGson().fromJson(approvalPoSettings, Map.class);
+				Map<String,Object> settingsVoMap = JsonHelper.getGson().fromJson(approvalVoSettings, Map.class);
+				CollectionHelper.combineTowMap(settingsVoMap, settingsPoMap);
+				
+				String newSettingsPoJSON = JsonHelper.getGson().toJson(settingsPoMap);
+				appSettingPO.setSettings(newSettingsPoJSON);
+				superDao.modify(appSettingPO);
 			}
 		}
 		
