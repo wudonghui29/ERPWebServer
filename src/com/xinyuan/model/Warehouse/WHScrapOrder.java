@@ -29,7 +29,6 @@ public class WHScrapOrder extends App4 {
 	private int amout;//数量
 	
 	private Date scrapTime;//报废时间
-	
 	private String scrapReason;//报废理由
 	
 	
