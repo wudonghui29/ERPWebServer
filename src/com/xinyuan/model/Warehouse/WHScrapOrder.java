@@ -19,7 +19,7 @@ import com.xinyuan.model.App4;
 public class WHScrapOrder extends App4 {
 
 	/**
-	 * 
+	 * wwwwwwwwwwwwww
 	 */
 	private static final long serialVersionUID = 1L;
 	
@@ -28,6 +28,7 @@ public class WHScrapOrder extends App4 {
 	
 	private int amout;//数量
 	
+	@Temporal(TemporalType.DATE)
 	private Date scrapTime;//报废时间
 	private String scrapReason;//报废理由
 	
