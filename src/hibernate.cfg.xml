@@ -124,6 +124,7 @@
         <mapping class="com.xinyuan.model.Warehouse.WHMaterialOrder"/>
         <mapping class="com.xinyuan.model.Warehouse.WHLendOutBill"/>
         <mapping class="com.xinyuan.model.Warehouse.WHLendOutOrder"/>
+        <mapping class="com.xinyuan.model.Warehouse.WHScrapOrder"/>
         
         
     </session-factory>
