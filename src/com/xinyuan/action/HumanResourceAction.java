@@ -11,16 +11,10 @@ import com.xinyuan.model.User.User;
 
 
 public class HumanResourceAction extends SuperAction {
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected SuperDAO getDao() {
-		return new HumanResourceDAOIMP();
-	}
+	protected SuperDAO getDao() { return new HumanResourceDAOIMP(); }
 	
 	@Override
 	public String create() throws Exception {

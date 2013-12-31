@@ -1,13 +1,14 @@
 package com.xinyuan.action;
 
 import com.xinyuan.dao.SuperDAO;
-import com.xinyuan.dao.impl.CardsDAOIMP;
+import com.xinyuan.dao.impl.FinanceDAOIMP;
 
-public class CardsAction extends SuperAction {
+public class FinanceAction extends SuperAction {
 	private static final long serialVersionUID = 1L;
-
+	
 	@Override
 	protected SuperDAO getDao() {
-		return new CardsDAOIMP();
+		return new FinanceDAOIMP();
 	}
+
 }
