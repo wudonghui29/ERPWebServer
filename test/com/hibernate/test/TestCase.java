@@ -1,8 +1,8 @@
 package com.hibernate.test;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,8 +11,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.xinyuan.model.HumanResource.EmployeeSMBill;
-import com.xinyuan.model.HumanResource.EmployeeSMOrder;
+import com.xinyuan.model.Warehouse.WHScrapOrder;
 
 public class TestCase {
 
@@ -32,30 +31,23 @@ public class TestCase {
 	
 	@Test
 	public void testBill() {
-		EmployeeSMOrder employeeSMOrder = new EmployeeSMOrder();
-		employeeSMOrder.setCreateDate(new Date());
-		
-		EmployeeSMBill bill1 = new EmployeeSMBill();
-		bill1.setOrder(employeeSMOrder);
-		bill1.setEndDate(new Date());
-		
-		EmployeeSMBill bill2 = new EmployeeSMBill();
-		bill2.setOrder(employeeSMOrder);
-		bill2.setEndDate(new Date());
-		
-		Set<EmployeeSMBill> set = new HashSet<EmployeeSMBill>();
-		set.add(bill1);
-		set.add(bill2);
-		employeeSMOrder.setBills(set);
-		
+//		EmployeeSMOrder employeeSMOrder = new EmployeeSMOrder();
+//	
+//		session.beginTransaction();
+//		session.save(employeeSMOrder);
+//		session.getTransaction().commit(); 
+//		
+//		System.out.println("Done!");
+	}
+	
+	@Test
+	public void testDate() throws ParseException {
+		WHScrapOrder eeOrder = new WHScrapOrder();
+		Date date = new Date();
+		eeOrder.setScrapTime(date);
+	
 		session.beginTransaction();
-//		session.save(bill1);
-//		session.save(bill2);
-		session.save(employeeSMOrder);
-//		EmployeeSMOrder order = (EmployeeSMOrder) session.get(EmployeeSMOrder.class, 1);
-//		EmployeeSMBill bill = (EmployeeSMBill)session.get(EmployeeSMBill.class, 1);
-//		EmployeeSMOrder order = bill.getOrder();
-//		session.delete(session.get(EmployeeSMOrder.class, 1));
+		session.save(eeOrder);
 		session.getTransaction().commit();
 		
 		System.out.println("Done!");
@@ -64,9 +56,7 @@ public class TestCase {
 	@Test
 	public void test() {
 //		 new SchemaExport(new AnnotationConfiguration().configure()).create(true, true);		// it will drop all tables and create
-		 
-		try {
-			
+//		try {
 //			String textString = "{\"annotation\":\"annotation\",\"bills\":[{\"comment\":\"comment\"}]}";
 //			WHLendOutOrder whLendOutOrder = JsonHelper.getGson().fromJson(textString, WHLendOutOrder.class);
 			
@@ -88,7 +78,6 @@ public class TestCase {
 //			session.beginTransaction();
 //			session.persist(whLendOutOrder);
 //			session.getTransaction().commit();
-			
 //			session.beginTransaction();
 //			WHLendOutOrder obj = (WHLendOutOrder) session.get(WHLendOutOrder.class, 2);``
 //			
@@ -96,19 +85,16 @@ public class TestCase {
 //			int size = set.size();
 //			System.out.println("size : " + size);
 //			session.getTransaction().commit();
-			
 //			Iterator<WHLendOutBill> it = set.iterator();  
 //			while (it.hasNext()) {  
 //			  WHLendOutBill str = it.next();  
 //			  System.out.println(str.getComment()); 
 //			  System.out.println(str.getId());
 //			}  
-			  
-			System.out.println("Done");
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//			System.out.println("Done");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 
 }

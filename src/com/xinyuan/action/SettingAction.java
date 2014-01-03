@@ -15,6 +15,7 @@ import org.apache.struts2.ServletActionContext;
 import com.Global.SessionManager;
 import com.modules.HttpWriter.ResponseWriter;
 import com.modules.Introspector.IntrospectHelper;
+import com.modules.Introspector.ModelIntrospector;
 import com.modules.Util.DLog;
 import com.modules.Util.FileHelper;
 import com.modules.Util.SecurityCode;
@@ -28,8 +29,10 @@ import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.BusinessDAOIMP;
 import com.xinyuan.dao.impl.HibernateDAO;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
+import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigJSON;
+import com.xinyuan.model.Setting.APPSettings;
 
 /**
  * 
@@ -105,7 +108,7 @@ public class SettingAction extends ActionBase {
 			
 			if (string.contains(ConfigConstants.CATEGORIE_USER) 
 					|| string.contains(ConfigConstants.CATEGORIE_APPROVAL)
-					|| string.contains(ConfigConstants.CATEGORIE_EXTENSIONS)) continue;		// exclude user and approval, extensions
+					|| string.contains(ConfigConstants.CATEGORIE_SETTING)) continue;		// exclude user and approval, extensions
 			
 			String className = string.replaceAll(ConfigConstants.SUFFIX_CLASS, ConfigConstants.EMPTY_STRING);
 			String wholeClassName = ConfigConstants.MODELPACKAGE + ConfigConstants.PACKAGE_CONNECTOR + className;			// MODELPACKAGE + "Approval.Approvals"
@@ -155,6 +158,57 @@ public class SettingAction extends ActionBase {
 		return Action.NONE;
 	}
 	
+	
+	/**
+	 * Product Category Modify
+	 * @return
+	 * @throws Exception
+	 */
+	public String modifyProductCategory() throws Exception {
+        if (models.size() != 1) return Action.NONE;
+		
+		SuperDAO superDao = new SuperDAOIMP();
+		
+		List<Map<String, String>> identities = requestMessage.getIDENTITYS();
+		
+		APPSettings appSettingVO = (APPSettings) models.get(0);
+			
+		// get PO
+		Map<String, String> idenfier = identities.get(0);
+		ModelIntrospector.setProperty(appSettingVO, idenfier);
+		APPSettings appSettingPO =  superDao.readUnique(appSettingVO, idenfier.keySet());
+			
+		if (appSettingPO == null) {
+			appSettingPO = appSettingVO;
+			superDao.create(appSettingPO);
+		} else {
+			ModelIntrospector.copyVoToPo(appSettingVO, appSettingPO, objectKeys.get(0));
+			superDao.modify(appSettingPO);
+		}
+		
+		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
+		
+		return Action.NONE;
+	}
+	
+	/** 
+	 * Product Category Read
+	 * @return
+	 * @throws Exception
+	 */
+	public String readProductCategory() throws Exception{
+		
+		HibernateDAO productDAO = new HibernateDAO();
+		List<Object> productCategoryList = productDAO.getObjects("select settings.settings from APPSettings settings where settings.type = '" + ConfigConstants.APPSETTINGS_PRODUCTCATEGORY +"'");
+		
+		List<Object> results = new ArrayList<Object>();
+		results.add(productCategoryList);
+		
+		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
+		responseMessage.objects = results;
+		
+		return Action.NONE;
+	}
 	
 	
 }
