@@ -61,7 +61,7 @@ public class ConfigConstants {
 	
 	public static final String CATEGORIE_USER = "User";
 	public static final String CATEGORIE_APPROVAL = "Approval";  // every user have Approval Package read permission
-	public static final String CATEGORIE_EXTENSIONS = "Extensions";
+	public static final String CATEGORIE_SETTING = "Setting";
 	
 	
 	public static final String METHOD_READ = "read";
@@ -98,7 +98,7 @@ public class ConfigConstants {
 	// --------------------------    Against to DB
 	
 	public static final String APPSETTINGS_APPROVALS = "APPROVALS";
-	
+	public static final String APPSETTINGS_PRODUCTCATEGORY = "PRODUCTCATEGORY";
 	
 	
 	

@@ -70,6 +70,10 @@
 			<interceptor-ref name="onlineIntercepterStack"></interceptor-ref>
 		</action>
 		
+		<action name="modify*" class="com.xinyuan.action.SettingAction" method="modify{1}">
+			<interceptor-ref name="onlineIntercepterStack"></interceptor-ref>
+		</action>
+		
 		<action name="inform" class="com.xinyuan.action.SettingAction" method="inform">
 			<interceptor-ref name="onlineIntercepterStack"></interceptor-ref>
 		</action>
