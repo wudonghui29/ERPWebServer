@@ -18,11 +18,31 @@ public class SecurityPatrolBill extends BaseBill {
 	
 	private String routine;				// 例行项目
 	
-	private String employeeNO;		// 检查人员
+	private String employeeNO;			// 检查人员
 	
 	private String repairOrderNO;		// 报修单
 
+	private String configID;			//配置文件id
 	
+	private String photoURL;			//photo exists?
+	
+	
+	public String getPhotoURL() {
+		return photoURL;
+	}
+
+	public void setPhotoURL(String photoURL) {
+		this.photoURL = photoURL;
+	}
+
+	public String getConfigID() {
+		return configID;
+	}
+
+	public void setConfigID(String configID) {
+		this.configID = configID;
+	}
+
 	public int getSequence() {
 		return sequence;
 	}
