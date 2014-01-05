@@ -14,7 +14,7 @@ import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigJSON;
-import com.xinyuan.model.Extensions.APPSettings;
+import com.xinyuan.model.Setting.APPSettings;
 import com.xinyuan.model.User.User;
 
 public class AdministratorAction extends ActionBase {

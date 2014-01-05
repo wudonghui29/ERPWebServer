@@ -59,8 +59,8 @@
 
 		<!-- ORM -->
 		
-		<!-- Extensions Models -->
-		<mapping class="com.xinyuan.model.Extensions.APPSettings" />
+		<!-- Setting Models -->
+		<mapping class="com.xinyuan.model.Setting.APPSettings" />
 		
 		
 		
@@ -126,8 +126,8 @@
         <mapping class="com.xinyuan.model.Warehouse.WHLendOutBill"/>
         <mapping class="com.xinyuan.model.Warehouse.WHLendOutOrder"/>
         <mapping class="com.xinyuan.model.Warehouse.WHScrapOrder"/>
-        
-        
+        <mapping class="com.xinyuan.model.Warehouse.WHInventoryOrder"/>
+        <mapping class="com.xinyuan.model.Warehouse.WHProductCategory"/>
         
         <!-- Finance Models -->
         <mapping class="com.xinyuan.model.Finance.FinanceCHOrder"/>

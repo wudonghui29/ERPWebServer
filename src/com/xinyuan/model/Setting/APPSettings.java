@@ -1,4 +1,4 @@
-package com.xinyuan.model.Extensions;
+package com.xinyuan.model.Setting;
 
 import java.io.Serializable;
 

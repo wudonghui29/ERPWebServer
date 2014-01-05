@@ -39,7 +39,7 @@ public class Employee extends BaseOrder {
 	private String livingAddress;	// 现住址
 
 	private Date employDate;  	 	// 到职日期  entry date , sign in date
-	private boolean employing;		// 是否在职  do not use "isEmploying" , cause in mysql , the column name will be "employing" , "is" is gone
+	private boolean resign;			// 已离职  do not use "isEmploying" , cause in mysql , the column name will be "employing" , "is" is gone
 	private boolean inVisits; 		// 是否列入拜访名单
 	private boolean inDrives ; 		// 具有驾驶证  0 , have ; 1 , do not have
 	private boolean ownDevice;		// 具有Apple设备
@@ -251,14 +251,12 @@ public class Employee extends BaseOrder {
 		this.education = education;
 	}
 
-	public boolean isEmploying() {
-		return employing;
+	public boolean isResign() {
+		return resign;
 	}
-
-	public void setEmploying(boolean employing) {
-		this.employing = employing;
+	public void setResign(boolean resign) {
+		this.resign = resign;
 	}
-
 	public String getExperience() {
 		return experience;
 	}

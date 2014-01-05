@@ -2,10 +2,10 @@ package com.xinyuan.model.Warehouse;
 
 import java.util.Date;
 
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 
 import com.xinyuan.model.App4;
 
@@ -19,19 +19,17 @@ import com.xinyuan.model.App4;
 public class WHScrapOrder extends App4 {
 
 	/**
-	 * wwwwwwwwwwwwww
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	
 	private String productCode; //产品代码
 	private String productName; //品   名
 	
-	private int amout;//数量
+	private int amount;//数量
 	
-	@Temporal(TemporalType.DATE)
 	private Date scrapTime;//报废时间
 	private String scrapReason;//报废理由
-	
 	
 	public String getProductCode() {
 		return productCode;
@@ -45,11 +43,13 @@ public class WHScrapOrder extends App4 {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-	public int getAmout() {
-		return amout;
+	
+	
+	public int getAmount() {
+		return amount;
 	}
-	public void setAmout(int amout) {
-		this.amout = amout;
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 	public Date getScrapTime() {
 		return scrapTime;

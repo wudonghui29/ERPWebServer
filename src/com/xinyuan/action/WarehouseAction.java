@@ -14,6 +14,6 @@ public class WarehouseAction extends SuperAction {
 	protected SuperDAO getDao() {
 		return new WarehouseDAOIMP();
 	}
-
+	
 	
 }
