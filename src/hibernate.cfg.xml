@@ -115,6 +115,7 @@
         
         <!-- SharedOrder Models -->
         <mapping class="com.xinyuan.model.SharedOrder.SharedOutOrder"/>
+        <mapping class="com.xinyuan.model.SharedOrder.SharedMaterialOrder"/>
         
         <mapping class="com.xinyuan.model.SharedOrder.SharedReleaseOrder"/>
         <mapping class="com.xinyuan.model.SharedOrder.SharedReleaseBill"/>
