@@ -1,64 +1,58 @@
 package com.xinyuan.model.Warehouse;
 
-import javax.persistence.Column;
+import java.util.Date;
+
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.xinyuan.model.BaseBill;
+import com.xinyuan.model.BillApp2;
 
 @Entity
 @Table
-public class WHLendOutBill extends BaseBill {
+public class WHLendOutBill extends BillApp2 {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String productCode ;	// 产品代码
-	private String spec;			// 规格
-	private float amount;			// 数量
-	private String unit;			// 单位
-	private String comment;			//备注
-
-	@Column(unique=true)
-	public String getProductCode() {
-		return productCode;
+	
+	private float returnAmount; //还入数量
+	private Date returnDate; //还入日期
+	
+	private String billCreateUser; //制单人
+	private String returnImageName;//还入图片名
+	
+	
+	
+	public String getReturnImageName() {
+		return returnImageName;
 	}
-
-	public void setProductCode(String productCode) {
-		this.productCode = productCode;
+	public void setReturnImageName(String returnImageName) {
+		this.returnImageName = returnImageName;
 	}
-
-	public String getSpec() {
-		return spec;
+	public float getReturnAmount() {
+		return returnAmount;
 	}
-
-	public void setSpec(String spec) {
-		this.spec = spec;
+	public void setReturnAmount(float returnAmount) {
+		this.returnAmount = returnAmount;
 	}
-
-	public float getAmount() {
-		return amount;
+	public Date getReturnDate() {
+		return returnDate;
 	}
-
-	public void setAmount(float amount) {
-		this.amount = amount;
+	public void setReturnDate(Date returnDate) {
+		this.returnDate = returnDate;
 	}
-
-	public String getUnit() {
-		return unit;
+	public String getBillCreateUser() {
+		return billCreateUser;
 	}
-
-	public void setUnit(String unit) {
-		this.unit = unit;
+	public void setBillCreateUser(String billCreateUser) {
+		this.billCreateUser = billCreateUser;
 	}
-
-	public String getComment() {
-		return comment;
-	}
-
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
+	
+	
+	
+	
+	
 	
 }
