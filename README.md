@@ -116,10 +116,15 @@
 
 -- 2014-1-5
    
-   drop table WHLendOutBill
-   drop table WHLendOutOrder
-   drop table WHInventoryOrder
-   drop table WHScrapOrder
+   drop table WHLendOutBill;
+   drop table WHLendOutOrder;
+   drop table WHInventoryOrder;
+   drop table WHScrapOrder;
+   
+-- 2013-1-13
+
+	alter table employee drop column photopath;
+	
 
 ## Document and Convention
 	
