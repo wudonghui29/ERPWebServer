@@ -114,6 +114,12 @@
 
 	drop table APPOrderAttributes;	
 
+-- 2014-1-5
+   
+   drop table WHLendOutBill
+   drop table WHLendOutOrder
+   drop table WHInventoryOrder
+   drop table WHScrapOrder
 
 ## Document and Convention
 	
