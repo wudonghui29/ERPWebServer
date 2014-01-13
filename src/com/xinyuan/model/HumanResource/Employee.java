@@ -44,7 +44,7 @@ public class Employee extends BaseOrder {
 	private boolean inDrives ; 		// 具有驾驶证  0 , have ; 1 , do not have
 	private boolean ownDevice;		// 具有Apple设备
 	private String education;		// 教育经历   e.g.  "广州美术学院.本科.2013-06.毕业"
-	private String experience;		// 工作经历   e.g.  "腾讯公司.2013-06~2013-08.CEO"
+	private String experience;		// 工作经历   e.g.  "2013-06.2013-08.腾讯公司.CEO"
 	private String urgencyContact;  // 紧急联系人 name.relationship.phoneNO. e.g. "Sam.Brother.13828899987"
 	
 	private String department;		// 部门,工作岗位

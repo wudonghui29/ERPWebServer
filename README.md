@@ -101,7 +101,7 @@
 	
 -- 2013-12-24
 
-	rename table EmployeeDormitoryOrder to EmployeeDormOrder
+	rename table EmployeeDormitoryOrder to EmployeeDormOrder;
 
 
 -- 2013-12-27
@@ -112,7 +112,7 @@
 	
 -- 2013-12-30
 
-	drop table APPOrderAttributes	
+	drop table APPOrderAttributes;	
 
 
 ## Document and Convention

@@ -17,7 +17,7 @@ public class FinanceCHOrder extends App4 {
 	private static final long serialVersionUID = 1L;
 
 	private String employeeNO;
-	private Date adjustDate;
+	private Date adjustDate;			// 本次调整日期
 
 	// _O for Old , _N for New.
 	
