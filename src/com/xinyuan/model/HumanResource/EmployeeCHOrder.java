@@ -5,11 +5,11 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.xinyuan.model.App4;
+import com.xinyuan.model.OrderApp4;
 
 @Entity
 @Table
-public class EmployeeCHOrder extends App4 {
+public class EmployeeCHOrder extends OrderApp4 {
 
 	/**
 	 * 

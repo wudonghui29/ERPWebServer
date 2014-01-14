@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.xinyuan.model.App3;
+import com.xinyuan.model.OrderApp3;
 
 /**
  * 巡查日志
@@ -19,7 +19,7 @@ import com.xinyuan.model.App3;
 
 @Entity
 @Table
-public class SecurityPatrolOrder extends App3 {
+public class SecurityPatrolOrder extends OrderApp3 {
 
 	/**
 	 * 

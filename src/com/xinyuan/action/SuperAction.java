@@ -19,9 +19,9 @@ import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigJSON;
-import com.xinyuan.model.App1;
 import com.xinyuan.model.BaseModel;
 import com.xinyuan.model.BaseOrder;
+import com.xinyuan.model.IApp1;
 import com.xinyuan.model.User.User;
 
 public class SuperAction extends ActionBase {
@@ -87,17 +87,20 @@ public class SuperAction extends ActionBase {
 		List<Map<String,String>> results = new ArrayList<Map<String,String>>();
 		
 		for (int i = 0; i < models.size(); i++) {
-			BaseModel model = (BaseModel)models.get(i);
-			OrderNOGenerator.setOrderBasicCreateDetail(model);
-			Integer identifier = (Integer) dao.create(model);
+			Object persistence = models.get(i);
+			if (persistence instanceof BaseModel) {
+				OrderNOGenerator.setOrderBasicCreateDetail((BaseModel)persistence);
+			}
 			
+			Integer identifier = (Integer) dao.create(persistence);
 			Map result = new HashMap();
 			result.put(ConfigJSON.IDENTIFIER, identifier);
-			if (model instanceof BaseOrder) {
-				BaseOrder order = (BaseOrder)model;
-				result.put(ConfigJSON.ORDERNO, order.getOrderNO());
-				
-				ApprovalHelper.addPendingApprove(order.getForwardUser(), order);
+			
+			if (persistence instanceof BaseOrder) {
+				result.put(ConfigJSON.ORDERNO, ((BaseOrder)persistence).getOrderNO());
+				if (persistence instanceof IApp1) {
+					ApprovalHelper.addPendingApprove(((IApp1)persistence).getForwardUser(), (BaseOrder)persistence);
+				}
 			}
 			results.add(result);
 		}
@@ -116,11 +119,9 @@ public class SuperAction extends ActionBase {
 		List<Map<String, String>> identityList = requestMessage.getIDENTITYS();	
 		
 		for (int i = 0; i < models.size(); i++) {
-			
 			Object model = models.get(i);
 			
-			Class<?> clazz = model.getClass();
-			Object persistence = getPersistenceByIdentity(identityList.get(i), clazz);
+			Object persistence = getPersistenceByUniqueKeyValue(identityList.get(i), model.getClass());
 			
 			Set<String> keys = objectKeys.get(i);
 			CollectionHelper.removeStartWithElement(keys, ConfigConstants.APP_PREFIX);
@@ -128,7 +129,9 @@ public class SuperAction extends ActionBase {
 			
 			dao.modify(persistence);
 			
-			if (persistence instanceof BaseOrder) ApprovalHelper.handlePendingApprovals(requestMessage, i, (BaseOrder)persistence);
+			if (persistence instanceof BaseOrder) {
+				ApprovalHelper.handlePendingApprovals(requestMessage, i, (BaseOrder)persistence);
+			}
 		}
 		// push APNS notifications, notify somebody to know that some order has been modified
 		ApnsHelper.sendAPNS(requestMessage, responseMessage);
@@ -148,31 +151,27 @@ public class SuperAction extends ActionBase {
 		
 		for (int i = 0; i < models.size(); i++) {
 			
-			BaseOrder model = (BaseOrder)models.get(i);
+			Object model = models.get(i);
 			
-			Class<BaseOrder> clazz = (Class<BaseOrder>)model.getClass();
-			BaseOrder persistence = getPersistenceByIdentity(identityList.get(i), clazz);
+			Object persistence = getPersistenceByUniqueKeyValue(identityList.get(i), model.getClass());
 			
-			String forwardUsername = forwardsList.get(i);
-			persistence.setForwardUser(forwardUsername);
-
-			
-			if (persistence instanceof App1) {
-				Set<String> keys = objectKeys.get(i);
-				CollectionHelper.removeNotStartWithElement(keys, ConfigConstants.APP_PREFIX);
-				if (keys.size() != 1) continue;		// only one 
-				String app = (String) keys.toArray()[0];
-				String appValue = (String) ModelIntrospector.getProperty(model, app);
-				if (!appValue.equals(signinedUser)){
-					responseMessage.descriptions = "Not_The_Same_User";
-					throw new Exception();
+			if (persistence instanceof IApp1) {
+				
+				((IApp1)persistence).setForwardUser(forwardsList.get(i));
+				
+				String appKey = JsonHelper.getParameter(requestMessage, ConfigJSON.APPLEVEL);
+				if (appKey.startsWith(ConfigConstants.APP_PREFIX) && ModelIntrospector.getProperty(persistence, appKey) == null) {
+					
+					ModelIntrospector.setProperty(persistence, appKey, signinedUser);
+					
+					// update the Order Table
+					dao.modify(persistence);
 				}
-				ModelIntrospector.setProperty(persistence, app, signinedUser);
 			}
-			// update the Order Table
-			dao.modify(persistence);
 			
-			ApprovalHelper.handlePendingApprovals(requestMessage, i, persistence);
+			if (persistence instanceof BaseOrder) {
+				ApprovalHelper.handlePendingApprovals(requestMessage, i, (BaseOrder)persistence);
+			}
 		}
 		// push APNS notifications
 		ApnsHelper.sendAPNS(requestMessage, responseMessage);
@@ -193,16 +192,16 @@ public class SuperAction extends ActionBase {
 			Object model = models.get(i);
 			
 			Class<?> clazz = model.getClass();
-			Object persistence = getPersistenceByIdentity(identityList.get(i), clazz);
+			
+			Object persistence = getPersistenceByUniqueKeyValue(identityList.get(i), clazz);
 			
 			dao.delete(persistence);
 			
 			// check if delete successfully
-			if (getPersistenceByIdentity(identityList.get(i), clazz) != null) throw new Exception();
+			if (getPersistenceByUniqueKeyValue(identityList.get(i), clazz) != null) throw new Exception();
 			
-			if (persistence instanceof BaseOrder) {
-				BaseOrder order = (BaseOrder)persistence;
-				ApprovalHelper.addPendingApprove(order.getForwardUser(), order);
+			if (persistence instanceof IApp1 && persistence instanceof BaseOrder) {
+				ApprovalHelper.addPendingApprove(((IApp1)persistence).getForwardUser(), (BaseOrder)persistence);
 			}
 		}
 		
@@ -213,7 +212,7 @@ public class SuperAction extends ActionBase {
 	
 	
 	
-	private <E extends Object> E getPersistenceByIdentity(Map<String, String> keyValues, Class<E> clazz) throws Exception {
+	private <E extends Object> E getPersistenceByUniqueKeyValue(Map<String, String> keyValues, Class<E> clazz) throws Exception {
 		String identityJSON = JsonHelper.getGson().toJson(keyValues);
 		E identityVo = JsonHelper.getGson().fromJson(identityJSON, clazz);
 		E persistence = dao.readUnique(identityVo, keyValues.keySet());

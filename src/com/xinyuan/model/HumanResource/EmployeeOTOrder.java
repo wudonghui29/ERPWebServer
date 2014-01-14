@@ -6,7 +6,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.xinyuan.model.App4;
+import com.xinyuan.model.OrderApp4;
 
 /**
  * 加班申请确认单
@@ -17,7 +17,7 @@ import com.xinyuan.model.App4;
 
 @Entity
 @Table
-public class EmployeeOTOrder extends App4 {
+public class EmployeeOTOrder extends OrderApp4 {
 	
 	/**
 	 * 

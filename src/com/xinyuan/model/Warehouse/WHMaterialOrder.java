@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.xinyuan.model.App1;
+import com.xinyuan.model.OrderApp1;
 
 /**
  * 
@@ -14,7 +14,7 @@ import com.xinyuan.model.App1;
 
 @Entity
 @Table
-public class WHMaterialOrder extends App1 {
+public class WHMaterialOrder extends OrderApp1 {
 
 	/**
 	 * 

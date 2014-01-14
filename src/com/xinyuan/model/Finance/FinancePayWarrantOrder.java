@@ -3,7 +3,7 @@ package com.xinyuan.model.Finance;
 
 import java.util.Date;
 
-import com.xinyuan.model.App4;
+import com.xinyuan.model.OrderApp4;
 
 /**
  * 
@@ -11,7 +11,7 @@ import com.xinyuan.model.App4;
  *
  */
 
-public class FinancePayWarrantOrder extends App4 {
+public class FinancePayWarrantOrder extends OrderApp4 {
 	
 	/**
 	 * 
