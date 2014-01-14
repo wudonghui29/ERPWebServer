@@ -17,6 +17,8 @@ public class WHLendOutBill extends BillApp2 {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private String billNO;     //Bill单号
+	
 	private float returnAmount; //还入数量
 	private Date returnDate; //还入日期
 	
@@ -25,6 +27,13 @@ public class WHLendOutBill extends BillApp2 {
 	
 	
 	
+	
+	public String getBillNO() {
+		return billNO;
+	}
+	public void setBillNO(String billNO) {
+		this.billNO = billNO;
+	}
 	public String getReturnImageName() {
 		return returnImageName;
 	}

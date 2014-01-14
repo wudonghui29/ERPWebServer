@@ -63,13 +63,13 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		boolean isAllowable = false;
 		
 		// check if super action
-		if (baseAction.getClass() == SuperAction.class) {
-			isAllowable = isCrossActions(models) ? checkPermission(method, models, permissions) : false;	// URL:Super__read, MODELS:["HumanResource.Employee","Finance.FinancePayWarrantOrder"]
-		// not the super action
-		} else {
-			String action = PermissionInterceptor.getContextAction().trim();   					// C. action needed
-			isAllowable = checkPermission(action, method, models, permissions); 				// URL:HumanResource__read, MODELS:[".Employee",".EmplyeeOutOrder"]
-		}
+//		if (baseAction.getClass() == SuperAction.class) {
+//			isAllowable = isCrossActions(models) ? checkPermission(method, models, permissions) : false;	// URL:Super__read, MODELS:["HumanResource.Employee","Finance.FinancePayWarrantOrder"]
+//		// not the super action
+//		} else {
+//			String action = PermissionInterceptor.getContextAction().trim();   					// C. action needed
+//			isAllowable = checkPermission(action, method, models, permissions); 				// URL:HumanResource__read, MODELS:[".Employee",".EmplyeeOutOrder"]
+//		}
 		
 		if (true) return invocation.invoke();	// ok , let it pass
 		
