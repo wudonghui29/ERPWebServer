@@ -58,7 +58,7 @@ public class ApprovalHelper {
 	 * @param orderType
 	 * @param orderNO
 	 */
-	private static void addPendingApprove(String userName, String department, String orderType, String orderNO) {
+	public static void addPendingApprove(String userName, String department, String orderType, String orderNO) {
 		if (userName == null || userName.isEmpty()) return;
 		
 		HibernateDAO hibernateDAO = new HibernateDAO();
@@ -97,7 +97,7 @@ public class ApprovalHelper {
 	 * @param orderType
 	 * @param orderNO
 	 */
-	private static void deletePendingApprove(String userName,  String department, String orderType, String orderNO) {
+	public static void deletePendingApprove(String userName,  String department, String orderType, String orderNO) {
 		if (userName == null || userName.isEmpty()) return;
 		
 		HibernateDAO hibernateDAO = new HibernateDAO();

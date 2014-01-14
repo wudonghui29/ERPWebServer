@@ -3,6 +3,7 @@ package com.xinyuan.model;
 public class BillApp1 extends BaseBill implements IApp1 {
 
 	private static final long serialVersionUID = 1L;
+
 	
 	private String app1 ;		// username , employeeNO
 	protected String forwardUser; 	// the username current forwarding to this order

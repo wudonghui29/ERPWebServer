@@ -212,7 +212,7 @@ public class SuperAction extends ActionBase {
 	
 	
 	
-	private <E extends Object> E getPersistenceByUniqueKeyValue(Map<String, String> keyValues, Class<E> clazz) throws Exception {
+	public <E extends Object> E getPersistenceByUniqueKeyValue(Map<String, String> keyValues, Class<E> clazz) throws Exception {
 		String identityJSON = JsonHelper.getGson().toJson(keyValues);
 		E identityVo = JsonHelper.getGson().fromJson(identityJSON, clazz);
 		E persistence = dao.readUnique(identityVo, keyValues.keySet());

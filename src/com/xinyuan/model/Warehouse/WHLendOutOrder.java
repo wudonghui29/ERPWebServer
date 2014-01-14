@@ -37,7 +37,6 @@ public class WHLendOutOrder extends OrderApp2 {
 	private float notReturnAmount;        //未还入数量
 	
 	
-	private Set<WHLendOutBill> bills;		// 借出列表
 	
 	
 	public String getProductCode() {
@@ -121,14 +120,14 @@ public class WHLendOutOrder extends OrderApp2 {
 		this.staffNO = staffNO;
 	}
 
-	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)	// LAZY : http://stackoverflow.com/a/2192256/1749293
-	@JoinColumn(name="WHLendOutOrder_id")						// This will add a column "WHLendOutOrder_id" in WHLendOutBill table, if not written, DB will create a middle-join table .
-	public Set<WHLendOutBill> getBills() {
-		return bills;
-	}
-
-	public void setBills(Set<WHLendOutBill> bills) {
-		this.bills = bills;
-	}
+//	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)	// LAZY : http://stackoverflow.com/a/2192256/1749293
+//	@JoinColumn(name="WHLendOutOrder_id")						// This will add a column "WHLendOutOrder_id" in WHLendOutBill table, if not written, DB will create a middle-join table .
+//	public Set<WHLendOutBill> getBills() {
+//		return bills;
+//	}
+//
+//	public void setBills(Set<WHLendOutBill> bills) {
+//		this.bills = bills;
+//	}
 	
 }
