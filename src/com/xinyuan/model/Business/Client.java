@@ -4,15 +4,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.xinyuan.model.App1;
+import com.xinyuan.model.OrderApp1;
 
 @Entity
 @Table
-public class Client extends App1 {
+public class Client extends OrderApp1 {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private String employeeNO; 		// 业务员
 	

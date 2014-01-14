@@ -1,19 +1,16 @@
 package com.xinyuan.model;
 
-public class BillApp2 extends BillApp1 {
+public class BillApp2 extends BillApp1 implements IApp2 {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	private String billApp2 ;
 	
+	private String app2 ;		// username , employeeNO
 	
-	public String getBillApp2() {
-		return billApp2;
+	public String getApp2() {
+		return app2;
 	}
-	public void setBillApp2(String billApp2) {
-		this.billApp2 = billApp2;
+	public void setApp2(String app2) {
+		this.app2 = app2;
 	}
 	
 	

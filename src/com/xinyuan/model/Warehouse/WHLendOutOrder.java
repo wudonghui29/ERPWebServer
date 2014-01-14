@@ -11,11 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.xinyuan.model.App2;
+import com.xinyuan.model.OrderApp2;
 
 @Entity
 @Table
-public class WHLendOutOrder extends App2 {
+public class WHLendOutOrder extends OrderApp2 {
 
 	/**
 	 * 

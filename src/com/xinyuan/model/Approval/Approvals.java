@@ -4,11 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
 
 /**
  * User Pending approvals
@@ -18,18 +15,13 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table
 public class Approvals implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	private String employeeNO;				// TODO: all employeeNO can not be modified again once it has value . In the set method , check it .
-	private String pendingApprovals = "{}";  	// the pending approval orders , split with "," e.g. "JH201304050901.HumanResource.Employee,JH201304050901.HumanResource.EmployeeOutOrder"
+	
+	private String employeeNO;					// TODO: all employeeNO can not be modified again once it has value . In the set method , check it .
+	private String pendingApprovals = "{}";  	// the pending approval orders
 	private String pendingInforms = "{}";		// the pending inform APNS. Some times the APNS would failed , so put it here .
 	
 	@Id
-	@GenericGenerator(name = "idGenerator", strategy = "assigned")
-	@GeneratedValue(generator = "idGenerator")
 	@Column(updatable=false)
 	public String getEmployeeNO() {
 		return employeeNO;

@@ -15,21 +15,31 @@ import com.xinyuan.model.BaseOrder;
 @Table
 public class Employee extends BaseOrder {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	private String employeeNO; 			// employee NO. unique  工号
 	
-	private String name ;				// 姓名
-	private String idCard ;				// 身份证号码
-	private boolean gender;  			// 0 , female ; 1 , male  // boolean respect as "true" in json
+	private String employeeNO; 		// employee NO. unique  工号
+	
+	private String name ;			// 姓名
+	
+	private String department;		// 部门,工作岗位
+	private String subDepartment;	// 子部门,制作组
+	private String jobTitle;		//职称
+	private int jobLevel = 10;		//级别
+	
+	
+	private boolean resign;			// 已离职  do not use "isEmploying" , cause in mysql , the column name will be "employing" , "is" is gone
+	private boolean inVisits; 		// 是否列入拜访名单
+	private boolean inDrives ; 		// 具有驾驶证  0 , have ; 1 , do not have
+	private boolean ownDevice;		// 具有Apple设备
+	
+	
+	private String idCard ;			// 身份证号码
+	private boolean gender;  		// 0 , female ; 1 , male  // boolean respect as "true" in json
 	private Date birthday;
+	private Date employDate;  	 	// 到职日期  entry date , sign in date
 	
 	private float height;
 	private float weight;
-	private String photoPath;
-
 	
 	private String phoneNO;
 	private String country;			// 国籍
@@ -38,23 +48,12 @@ public class Employee extends BaseOrder {
 	private String homeAddress;		// 家地址
 	private String livingAddress;	// 现住址
 
-	private Date employDate;  	 	// 到职日期  entry date , sign in date
-	private boolean employing;		// 是否在职  do not use "isEmploying" , cause in mysql , the column name will be "employing" , "is" is gone
-	private boolean inVisits; 		// 是否列入拜访名单
-	private boolean inDrives ; 		// 具有驾驶证  0 , have ; 1 , do not have
-	private boolean ownDevice;		// 具有Apple设备
 	private String education;		// 教育经历   e.g.  "广州美术学院.本科.2013-06.毕业"
-	private String experience;		// 工作经历   e.g. "腾讯公司.2013-06~2013-08.CEO"
+	private String experience;		// 工作经历   e.g.  "2013-06.2013-08.腾讯公司.CEO"
 	private String urgencyContact;  // 紧急联系人 name.relationship.phoneNO. e.g. "Sam.Brother.13828899987"
-	
-	private String department;		// 部门,工作岗位
-	private String subDepartment;	// 子部门,制作组
-	private String jobTitle;		//职称
-	private int jobLevel = 10;		//级别
 	
 	private String wordMask;		//password mask 
 	
-
 
 	@NotNull
 	@NotEmpty
@@ -132,14 +131,6 @@ public class Employee extends BaseOrder {
 
 	public void setWeight(float weight) {
 		this.weight = weight;
-	}
-
-	public String getPhotoPath() {
-		return photoPath;
-	}
-
-	public void setPhotoPath(String photoPath) {
-		this.photoPath = photoPath;
 	}
 
 	public String getPhoneNO() {
@@ -251,14 +242,12 @@ public class Employee extends BaseOrder {
 		this.education = education;
 	}
 
-	public boolean isEmploying() {
-		return employing;
+	public boolean isResign() {
+		return resign;
 	}
-
-	public void setEmploying(boolean employing) {
-		this.employing = employing;
+	public void setResign(boolean resign) {
+		this.resign = resign;
 	}
-
 	public String getExperience() {
 		return experience;
 	}

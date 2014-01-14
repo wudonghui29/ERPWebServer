@@ -3,14 +3,14 @@ package com.xinyuan.model.Finance;
 
 import java.util.Date;
 
-import com.xinyuan.model.App4;
+import com.xinyuan.model.OrderApp4;
 
 /**
  * 
  * 临时借据单
  *
  */
-public class FinanceTempLoanOrder extends App4 {
+public class FinanceTempLoanOrder extends OrderApp4 {
 
 	/**
 	 * 

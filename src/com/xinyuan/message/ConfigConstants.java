@@ -4,7 +4,6 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.Hashtable;
 import java.util.Properties;
 
 import javax.servlet.ServletContext;
@@ -117,5 +116,6 @@ public class ConfigConstants {
 	
 	public static class MESSAGE {
 		public static final String PushAPNSFailed = "Push_APNS_Failed";
+		public static final String ApprovalFailed = "Approval_Failed";
 	}
 }

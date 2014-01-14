@@ -1,7 +1,6 @@
 package com.xinyuan.action;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.Global.SessionManager;
@@ -19,9 +18,6 @@ import com.xinyuan.model.User.User;
 
 public class UserAction extends ActionBase {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@Override
 	protected SuperDAO getDao() { return null; }

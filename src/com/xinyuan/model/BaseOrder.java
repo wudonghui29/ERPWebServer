@@ -11,13 +11,9 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class BaseOrder extends BaseModel {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	protected String orderNO ; 		// the NO. of this order
 	protected Date expiredDate;		// The expired date
-	protected String forwardUser; 	// the username current forwarding to this order
 	protected boolean exception;	// Exception or not
 	
 	@Column(unique=true)
@@ -35,12 +31,6 @@ public class BaseOrder extends BaseModel {
 		this.expiredDate = expiredDate;
 	}
 	
-	public String getForwardUser() {
-		return forwardUser;
-	}
-	public void setForwardUser(String forwardUser) {
-		this.forwardUser = forwardUser;
-	}
 	public boolean isException() {
 		return exception;
 	}

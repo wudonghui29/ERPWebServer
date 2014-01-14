@@ -115,6 +115,7 @@
         
         <!-- SharedOrder Models -->
         <mapping class="com.xinyuan.model.SharedOrder.SharedOutOrder"/>
+        <mapping class="com.xinyuan.model.SharedOrder.SharedMaterialOrder"/>
         
         <mapping class="com.xinyuan.model.SharedOrder.SharedReleaseOrder"/>
         <mapping class="com.xinyuan.model.SharedOrder.SharedReleaseBill"/>
@@ -128,9 +129,15 @@
         <mapping class="com.xinyuan.model.Warehouse.WHInventoryOrder"/>
         <mapping class="com.xinyuan.model.Warehouse.WHProductCategory"/>
         
+        
         <!-- Finance Models -->
         <mapping class="com.xinyuan.model.Finance.FinanceCHOrder"/>
         <mapping class="com.xinyuan.model.Finance.FinancePettyCashOrder"/>
+        
+        
+        
+        <!-- Purchase Models -->
+        <mapping class="com.xinyuan.model.Purchase.Vendor"/>
         
         
     </session-factory>

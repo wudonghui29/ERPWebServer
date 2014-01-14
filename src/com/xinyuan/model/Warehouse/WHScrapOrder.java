@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 
-import com.xinyuan.model.App4;
+import com.xinyuan.model.OrderApp4;
 
 /**
  * 报废单
@@ -16,7 +16,7 @@ import com.xinyuan.model.App4;
  */
 @Entity
 @Table
-public class WHScrapOrder extends App4 {
+public class WHScrapOrder extends OrderApp4 {
 
 	/**
 	 *

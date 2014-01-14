@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.xinyuan.model.App4;
+import com.xinyuan.model.OrderApp4;
 
 /**
  * 
@@ -18,7 +18,7 @@ import com.xinyuan.model.App4;
  */
 @Entity
 @Table
-public class EmployeeQuitPassOrder extends App4 {
+public class EmployeeQuitPassOrder extends OrderApp4 {
 
 	/**
 	 * 

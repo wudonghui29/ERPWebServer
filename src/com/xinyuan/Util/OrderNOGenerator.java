@@ -20,23 +20,29 @@ public class OrderNOGenerator {
 		model.setCreateUser(user.getUsername());
 		
 		if (model instanceof BaseOrder) {
-			// Generate the orderNO
-			String modelClassName = model.getClass().getName();
-			String orederPrefix = ConfigFormat.serialProperties.getProperty(modelClassName);
-			String previousOrderNO = ConfigFormat.previousOrderNOMap.get(modelClassName);
-			
-			String format = ConfigFormat.secondOrderTypeMap.containsKey(orederPrefix) ? ConfigFormat.DATESTRING_WITH_SECOND_FORMAT : ConfigFormat.DATESTRING_WITHOUT_SECOND_FORMAT;
-			
-			SimpleDateFormat sdf = new SimpleDateFormat(format);  
-			String dateString = sdf.format(date);
-			String orderNO = orederPrefix + dateString;
-			if (previousOrderNO != null && previousOrderNO.contains(orderNO)) {
-				orderNO = generateOrderNO(orederPrefix, sdf, date, previousOrderNO);
-			}
-			
+			String orderNO = getNewOrderNO(model, date);
 			((BaseOrder)model).setOrderNO(orderNO);		// TODO: check the database if already have this no.
-			ConfigFormat.previousOrderNOMap.put(modelClassName, orderNO);
 		}
+	}
+	
+	private static String getNewOrderNO(BaseModel model, Date date) {
+		// Generate the orderNO
+		String modelClassName = model.getClass().getName();
+		String orederPrefix = ConfigFormat.serialProperties.getProperty(modelClassName);
+		String previousOrderNO = ConfigFormat.previousOrderNOMap.get(modelClassName);
+		
+		String format = ConfigFormat.secondOrderTypeMap.containsKey(orederPrefix) ? ConfigFormat.DATESTRING_WITH_SECOND_FORMAT : ConfigFormat.DATESTRING_WITHOUT_SECOND_FORMAT;
+		
+		SimpleDateFormat sdf = new SimpleDateFormat(format);  
+		String dateString = sdf.format(date);
+		String orderNO = orederPrefix + dateString;
+		// If have 
+		if (previousOrderNO != null && previousOrderNO.contains(orderNO)) {
+			orderNO = generateOrderNO(orederPrefix, sdf, date, previousOrderNO);
+		}
+		ConfigFormat.previousOrderNOMap.put(modelClassName, orderNO);
+		
+		return orderNO;
 	}
 	
 	private static String generateOrderNO(String orederPrefix, SimpleDateFormat sdf, Date date, String previousOrderNO) {
