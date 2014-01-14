@@ -25,28 +25,7 @@ public class WarehouseAction extends SuperAction {
 	protected SuperDAO getDao() {
 		return new WarehouseDAOIMP();
 	}
-	
-	public String createBill() throws Exception{
-		
-	if (models.size() != 1) return Action.NONE;		
-		
-		List<Map<String,String>> results = new ArrayList<Map<String,String>>();
-		
-		for (int i = 0; i < models.size(); i++) {
-			WHLendOutBill model = (WHLendOutBill)models.get(i);
-			Integer identifier = (Integer) dao.create(model);
-			
-			Map result = new HashMap();
-			result.put(ConfigJSON.IDENTIFIER, identifier);
-			result.put(ConfigJSON.ORDERNO, model.getBillNO());
-			results.add(result);
-		}
-		
-		responseMessage.status = ConfigConstants.STATUS_POSITIVE ;
-		responseMessage.objects = results;
-		
-		return Action.NONE;
-	}
+
 
 	@Override
 	public String apply() throws Exception {
