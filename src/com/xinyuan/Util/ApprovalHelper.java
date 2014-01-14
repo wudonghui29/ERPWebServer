@@ -31,14 +31,35 @@ public class ApprovalHelper {
 		ApprovalHelper.deletePendingApprove(signinedUser, persistence);
 	}
 	
-	
 	public static void addPendingApprove(String userName, BaseOrder order) {
-		if (userName == null || userName.isEmpty()) return;
-		
 		String department = IntrospectHelper.getParentPackageName(order);
 		String orderType = IntrospectHelper.getShortClassName(order);
 		String orderNO = order.getOrderNO();
 		
+		addPendingApprove(userName, department, orderType, orderNO);
+	}
+	
+	public static void deletePendingApprove(String userName, BaseOrder order) {
+		String department = IntrospectHelper.getParentPackageName(order);
+		String orderType = IntrospectHelper.getShortClassName(order);
+		String orderNO = order.getOrderNO();
+		
+		deletePendingApprove(userName, department, orderType, orderNO);
+	}
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * @param userName
+	 * @param department
+	 * @param orderType
+	 * @param orderNO
+	 */
+	public static void addPendingApprove(String userName, String department, String orderType, String orderNO) {
+		if (userName == null || userName.isEmpty()) return;
 		
 		HibernateDAO hibernateDAO = new HibernateDAO();
 		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, userName);
@@ -69,13 +90,15 @@ public class ApprovalHelper {
 		hibernateDAO.updateObject(pendingApproval);
 	}
 	
-	public static void deletePendingApprove(String userName, BaseOrder order) {
+	/**
+	 * 
+	 * @param userName
+	 * @param department
+	 * @param orderType
+	 * @param orderNO
+	 */
+	public static void deletePendingApprove(String userName,  String department, String orderType, String orderNO) {
 		if (userName == null || userName.isEmpty()) return;
-		
-		String department = IntrospectHelper.getParentPackageName(order);
-		String orderType = IntrospectHelper.getShortClassName(order);
-		String orderNO = order.getOrderNO();
-		
 		
 		HibernateDAO hibernateDAO = new HibernateDAO();
 		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, userName);

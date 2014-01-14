@@ -3,12 +3,10 @@ package com.xinyuan.model;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public class App3 extends App2 {
+public class OrderApp3 extends OrderApp2 implements IApp3 {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	private String app3 ;		// username , employeeNO
 	
 	public String getApp3() {

@@ -3,11 +3,11 @@ package com.xinyuan.model.Finance;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.xinyuan.model.App4;
+import com.xinyuan.model.OrderApp4;
 
 @Entity
 @Table
-public class FinancePettyCashOrder extends App4 {
+public class FinancePettyCashOrder extends OrderApp4 {
 
 	private static final long serialVersionUID = 1L;
 	
