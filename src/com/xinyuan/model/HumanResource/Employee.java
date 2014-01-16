@@ -9,11 +9,11 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.xinyuan.model.BaseOrder;
+import com.xinyuan.model.BaseModel;
 
 @Entity
 @Table
-public class Employee extends BaseOrder {
+public class Employee extends BaseModel {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -26,6 +26,7 @@ public class Employee extends BaseOrder {
 	private String jobTitle;		//职称
 	private int jobLevel = 10;		//级别
 	
+	private String phoneNO;
 	
 	private boolean resign;			// 已离职  do not use "isEmploying" , cause in mysql , the column name will be "employing" , "is" is gone
 	private boolean inVisits; 		// 是否列入拜访名单
@@ -41,7 +42,6 @@ public class Employee extends BaseOrder {
 	private float height;
 	private float weight;
 	
-	private String phoneNO;
 	private String country;			// 国籍
 	private String nationality ;  	// human race 民族
 	private String nativePlace;  	// native place 籍贯
