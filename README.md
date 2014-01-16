@@ -129,6 +129,14 @@
 -- 2013-1-15
 
 	alter table employee drop column orderNO, drop expiredDate, drop exception;
+
+-- 2014-1-16
+
+	drop table WHLendOutBill;
+	drop table WHLendOutOrder;
+	drop table WHInventoryOrder;
+	drop table WHScrapOrder;
+   
 	
 
 ## Document and Convention

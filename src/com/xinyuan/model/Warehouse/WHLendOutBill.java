@@ -23,7 +23,6 @@ public class WHLendOutBill extends BillApp2 {
 	private Date returnDate; //还入日期
 	
 	private String billCreateUser; //制单人
-	private String returnImageName;//还入图片名
 	
 	
 	
@@ -34,12 +33,7 @@ public class WHLendOutBill extends BillApp2 {
 	public void setBillNO(String billNO) {
 		this.billNO = billNO;
 	}
-	public String getReturnImageName() {
-		return returnImageName;
-	}
-	public void setReturnImageName(String returnImageName) {
-		this.returnImageName = returnImageName;
-	}
+	
 	public float getReturnAmount() {
 		return returnAmount;
 	}

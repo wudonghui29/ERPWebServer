@@ -3,6 +3,7 @@ package com.xinyuan.model.Warehouse;
 import java.util.Date;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -29,6 +30,7 @@ public class WHScrapOrder extends OrderApp4 {
 	private float amount;//数量
 	
 	private Date scrapTime;//报废时间
+	
 	private String scrapReason;//报废理由
 	
 	public String getProductCode() {
@@ -57,6 +59,8 @@ public class WHScrapOrder extends OrderApp4 {
 	public void setScrapTime(Date scrapTime) {
 		this.scrapTime = scrapTime;
 	}
+	
+	@Column(columnDefinition = "TEXT")
 	public String getScrapReason() {
 		return scrapReason;
 	}
