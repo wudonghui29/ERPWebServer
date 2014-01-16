@@ -125,6 +125,14 @@
 
 	alter table employee drop column photopath;
 	
+-- 2014-1-16
+
+   drop table WHLendOutBill;
+   drop table WHLendOutOrder;
+   drop table WHInventoryOrder;
+   drop table WHScrapOrder;
+   
+	
 
 ## Document and Convention
 	

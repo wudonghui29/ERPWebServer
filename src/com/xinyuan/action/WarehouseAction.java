@@ -8,6 +8,7 @@ import java.util.Map;
 import com.modules.Introspector.IntrospectHelper;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.Util.ApprovalHelper;
+import com.xinyuan.Util.JsonHelper;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.WarehouseDAOIMP;
 import com.xinyuan.message.ConfigConstants;
@@ -25,12 +26,15 @@ public class WarehouseAction extends SuperAction {
 	protected SuperDAO getDao() {
 		return new WarehouseDAOIMP();
 	}
-
-
+	
 	@Override
 	public String apply() throws Exception {
 		// TODO Auto-generated method stub
 		super.apply();
+		
+		String billKey = JsonHelper.getParameter(requestMessage, ConfigJSON.ISBILL);
+		if (billKey == null || !Boolean.valueOf(billKey))return Action.NONE;
+		
 		Object model = models.get(0);
 		
 		Object persistence = getPersistenceByUniqueKeyValue(requestMessage.getIDENTITYS().get(0), model.getClass());

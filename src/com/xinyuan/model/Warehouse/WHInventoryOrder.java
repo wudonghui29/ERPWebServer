@@ -33,8 +33,13 @@ public class WHInventoryOrder extends BaseOrder {
 	private float amount;               //数量
 	private String unit;                //单位
 	
-	private String productDesc;         //产品描述
 	private float priceBasicUnit;       //平均价格_基本单位
+	private String productLocation;     //产品位置
+	
+	private String productDesc;         //产品描述
+	private String productDescPDF;      //产品描述PDF
+	
+	private String supplierDesc;        //供应商
 	
 	@NotNull
 	@NotEmpty
@@ -104,6 +109,8 @@ public class WHInventoryOrder extends BaseOrder {
 	public void setUnit(String unit) {
 		this.unit = unit;
 	}
+	
+	@Column(columnDefinition = "TEXT")
 	public String getProductDesc() {
 		return productDesc;
 	}
@@ -116,6 +123,28 @@ public class WHInventoryOrder extends BaseOrder {
 	public void setPriceBasicUnit(float priceBasicUnit) {
 		this.priceBasicUnit = priceBasicUnit;
 	}
+	
+	@Column(columnDefinition = "TEXT")
+	public String getProductLocation() {
+		return productLocation;
+	}
+	public void setProductLocation(String productLocation) {
+		this.productLocation = productLocation;
+	}
+	public String getProductDescPDF() {
+		return productDescPDF;
+	}
+	public void setProductDescPDF(String productDescPDF) {
+		this.productDescPDF = productDescPDF;
+	}
+	@Column(columnDefinition = "TEXT")
+	public String getSupplierDesc() {
+		return supplierDesc;
+	}
+	public void setSupplierDesc(String supplierDesc) {
+		this.supplierDesc = supplierDesc;
+	}
+	
 	
 	
 	
