@@ -11,26 +11,82 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.xinyuan.model.App3;
+import com.xinyuan.model.OrderApp2;
 
 @Entity
 @Table
-public class WHLendOutOrder extends App3 {
+public class WHLendOutOrder extends OrderApp2 {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String staffNO;					//借出人员 (ClientNO, EmployeeNO, ..)
-	private String staffCategory;			//人员类别
 	
-	private Date lendDate;					//借出日期
-	private Date planReturnDate; 			//预计还入日期
-	private Date returnDate;				//归还日期
+	private Date lendDate;                //借出日期
+	private Date planReturnDate;          //预计还入日期
 	
-	private String annotation;				// 附注
+	private String staffNO;				  //借出人员 
+	private String staffCategory;		  //人员类别
 	
-	private Set<WHLendOutBill> bills;		// 借出列表		//  OneToMany , and the relationship is unidirectional.
+	private String productCode;           //产品代码
+	private String productName;           //产品名称
+	private float lendAmount;             //借出数量
+	private String unit;                  //单位
+	
+	private String remark;                //备注
+	private float notReturnAmount;        //未还入数量
+	
+	
+	
+	
+	public String getProductCode() {
+		return productCode;
+	}
+
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public float getLendAmount() {
+		return lendAmount;
+	}
+
+	public void setLendAmount(float lendAmount) {
+		this.lendAmount = lendAmount;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+	
+	@Column(columnDefinition="TEXT")
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public float getNotReturnAmount() {
+		return notReturnAmount;
+	}
+
+	public void setNotReturnAmount(float notReturnAmount) {
+		this.notReturnAmount = notReturnAmount;
+	}
 
 	public Date getLendDate() {
 		return lendDate;
@@ -46,14 +102,6 @@ public class WHLendOutOrder extends App3 {
 
 	public void setPlanReturnDate(Date planReturnDate) {
 		this.planReturnDate = planReturnDate;
-	}
-
-	public Date getReturnDate() {
-		return returnDate;
-	}
-
-	public void setReturnDate(Date returnDate) {
-		this.returnDate = returnDate;
 	}
 
 	public String getStaffCategory() {
@@ -72,23 +120,14 @@ public class WHLendOutOrder extends App3 {
 		this.staffNO = staffNO;
 	}
 
-	@Column(columnDefinition="TEXT")
-	public String getAnnotation() {
-		return annotation;
-	}
-
-	public void setAnnotation(String annotation) {
-		this.annotation = annotation;
-	}
-
-	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)	// LAZY : http://stackoverflow.com/a/2192256/1749293
-	@JoinColumn(name="WHLendOutOrder_id")						// This will add a column "WHLendOutOrder_id" in WHLendOutBill table, if not written, DB will create a middle-join table .
-	public Set<WHLendOutBill> getBills() {
-		return bills;
-	}
-
-	public void setBills(Set<WHLendOutBill> bills) {
-		this.bills = bills;
-	}
+//	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)	// LAZY : http://stackoverflow.com/a/2192256/1749293
+//	@JoinColumn(name="WHLendOutOrder_id")						// This will add a column "WHLendOutOrder_id" in WHLendOutBill table, if not written, DB will create a middle-join table .
+//	public Set<WHLendOutBill> getBills() {
+//		return bills;
+//	}
+//
+//	public void setBills(Set<WHLendOutBill> bills) {
+//		this.bills = bills;
+//	}
 	
 }

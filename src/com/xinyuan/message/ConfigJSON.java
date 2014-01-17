@@ -27,7 +27,11 @@ public class ConfigJSON {
 	public static final String VERIFYCODE 		= "VERIFYCODE";
 	public static final String VERIFYCODE_TYPE 	= "VERIFYCODE_TYPE";
 	public static final String VERIFYCODE_COUNT = "VERIFYCODE_COUNT";
+	
 	public static final String APNSTOKEN 		= "APNSTOKEN";
+	
+	public static final String APPLEVEL			= "APPLEVEL";
+	public static final String ISBILL			= "ISBILL";
 	
 	
 	

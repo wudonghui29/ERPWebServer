@@ -5,7 +5,7 @@ import java.sql.Date;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.xinyuan.model.App3;
+import com.xinyuan.model.OrderApp3;
 
 /**
  * 
@@ -15,7 +15,7 @@ import com.xinyuan.model.App3;
 
 @Entity
 @Table
-public class SharedMaterialOrder extends App3 {
+public class SharedMaterialOrder extends OrderApp3 {
 	private static final long serialVersionUID = 1L;
 
 	private String contractNO;		//合同单号

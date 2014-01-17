@@ -71,8 +71,7 @@ public class JsonHelper {
 	 * 
 	 * 
 	 {
-    	"OBJECTS": 
-    	[ { } ]
+    	"OBJECTS": [ { } ]
   	 	,"MODELS": [".User"]
   		,"PARAMETERS": {
     		"VERIFYCODE_COUNT":"5",

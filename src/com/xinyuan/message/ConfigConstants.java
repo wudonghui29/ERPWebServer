@@ -116,5 +116,6 @@ public class ConfigConstants {
 	
 	public static class MESSAGE {
 		public static final String PushAPNSFailed = "Push_APNS_Failed";
+		public static final String ApprovalFailed = "Approval_Failed";
 	}
 }

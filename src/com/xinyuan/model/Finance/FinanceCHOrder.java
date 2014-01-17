@@ -5,11 +5,11 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.xinyuan.model.App4;
+import com.xinyuan.model.OrderApp4;
 
 @Entity
 @Table
-public class FinanceCHOrder extends App4 {
+public class FinanceCHOrder extends OrderApp4 {
 
 	/**
 	 * 
@@ -17,7 +17,7 @@ public class FinanceCHOrder extends App4 {
 	private static final long serialVersionUID = 1L;
 
 	private String employeeNO;
-	private Date adjustDate;
+	private Date adjustDate;			// 本次调整日期
 
 	// _O for Old , _N for New.
 	
