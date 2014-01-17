@@ -27,7 +27,7 @@ public class SharedReleaseOrder extends OrderApp2 {
 	private String exitSecEmployeeNO;	// 出厂放行 (保安NO)
 	
 	
-	private Set<SharedReleaseBill> bills;
+	private Set<SharedPassBill> bills;
 
 	public Date getReleaseDate() {
 		return releaseDate;
@@ -47,11 +47,11 @@ public class SharedReleaseOrder extends OrderApp2 {
 
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name="SharedReleaseOrder_id")
-	public Set<SharedReleaseBill> getBills() {
+	public Set<SharedPassBill> getBills() {
 		return bills;
 	}
 
-	public void setBills(Set<SharedReleaseBill> bills) {
+	public void setBills(Set<SharedPassBill> bills) {
 		this.bills = bills;
 	}
 	

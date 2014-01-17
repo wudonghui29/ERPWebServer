@@ -8,7 +8,7 @@ import com.xinyuan.model.BaseBill;
 
 @Entity
 @Table
-public class SharedReleaseBill extends BaseBill {
+public class SharedPassBill extends BaseBill {
 
 	/**
 	 * 

@@ -119,8 +119,8 @@
         <mapping class="com.xinyuan.model.SharedOrder.SharedCahierOrder"/>
         <mapping class="com.xinyuan.model.SharedOrder.SharedEventReportOrder"/>
         
-        <mapping class="com.xinyuan.model.SharedOrder.SharedReleaseOrder"/>
-        <mapping class="com.xinyuan.model.SharedOrder.SharedReleaseBill"/>
+        <mapping class="com.xinyuan.model.SharedOrder.SharedPassOrder"/>
+        <mapping class="com.xinyuan.model.SharedOrder.SharedPassBill"/>
         
         
         <!-- Warehouse Models -->
