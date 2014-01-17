@@ -115,15 +115,28 @@
 	drop table APPOrderAttributes;	
 
 -- 2014-1-5
-   
-   drop table WHLendOutBill;
-   drop table WHLendOutOrder;
-   drop table WHInventoryOrder;
-   drop table WHScrapOrder;
+
+	drop table WHLendOutBill;
+	drop table WHLendOutOrder;
+	drop table WHInventoryOrder;
+	drop table WHScrapOrder;
    
 -- 2013-1-13
 
 	alter table employee drop column photopath;
+	
+	
+-- 2013-1-15
+
+	alter table employee drop column orderNO, drop expiredDate, drop exception;
+
+-- 2014-1-16
+
+	drop table WHLendOutBill;
+	drop table WHLendOutOrder;
+	drop table WHInventoryOrder;
+	drop table WHScrapOrder;
+   
 	
 
 ## Document and Convention

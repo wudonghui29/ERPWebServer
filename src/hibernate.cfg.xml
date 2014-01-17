@@ -102,8 +102,8 @@
         
 
         <!-- Security Models -->
-        <mapping class="com.xinyuan.model.Security.SecurityVisitOrder"/>
         <mapping class="com.xinyuan.model.Security.SecurityVisitLogOrder"/>
+        <mapping class="com.xinyuan.model.Security.SecurityVisitorOrder"/>
         
         <mapping class="com.xinyuan.model.Security.SecurityPatrolOrder"/>
         <mapping class="com.xinyuan.model.Security.SecurityPatrolBill"/>
@@ -116,6 +116,8 @@
         <!-- SharedOrder Models -->
         <mapping class="com.xinyuan.model.SharedOrder.SharedOutOrder"/>
         <mapping class="com.xinyuan.model.SharedOrder.SharedMaterialOrder"/>
+        <mapping class="com.xinyuan.model.SharedOrder.SharedCahierOrder"/>
+        <mapping class="com.xinyuan.model.SharedOrder.SharedEventReportOrder"/>
         
         <mapping class="com.xinyuan.model.SharedOrder.SharedReleaseOrder"/>
         <mapping class="com.xinyuan.model.SharedOrder.SharedReleaseBill"/>
