@@ -148,3 +148,9 @@
 	"*EmployeeNOs" for many "employeeNO"
 	
 	["employeeNO", "EmployeeNO", "EmployeeNOs"]
+	
+	
+-- 2014-1-17
+-- Note: drop bill first to avoid foreign key constraint exception.
+  drop table SharedReleaseBill;
+  drop table SharedReleaseOrder;
