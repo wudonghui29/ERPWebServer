@@ -6,11 +6,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.xinyuan.model.App3;
+import com.xinyuan.model.OrderApp3;
 
 @Entity
 @Table
-public class SharedCahierOrder extends App3 {
+public class SharedCahierOrder extends OrderApp3 {
 	/**
 	 * 
 	 */
