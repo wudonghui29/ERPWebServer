@@ -93,6 +93,19 @@ public class SharedMaterialOrder extends App3 {
 	private String steelSurfacePaintDormer;		//钢架面漆： 气楼
 	
 	
+	public String getContractNO() {
+		return contractNO;
+	}
+	public void setContractNO(String contractNO) {
+		this.contractNO = contractNO;
+	}
+	public String getFormat() {
+		return format;
+	}
+	public void setFormat(String format) {
+		this.format = format;
+	}
+	
 	public String getProjectName() {
 		return projectName;
 	}
