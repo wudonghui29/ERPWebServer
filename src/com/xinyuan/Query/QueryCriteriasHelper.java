@@ -161,21 +161,18 @@ public class QueryCriteriasHelper {
 					String criteriaFLAG = duplicatedKeyValues[0];		// "BT", "EQ" , "GT" and so on... 
 					String criteriaVALUE = duplicatedKeyValues[1];		// "18-25" , (2) -> 2 is int
 					
-					if (criteriaVALUE.startsWith("(") && criteriaVALUE.endsWith(")")) {
-						
-					}
-					
 					String flag = criteriasMap.get(criteriaFLAG);
 					
 					// Pair B
 					if (flag.equals(BETWEEN)) {
 						String[] betweenValues = criteriaVALUE.split(SPILT_BETWEEN_CONNECTOR);
-						query.setParameter( getQueryParameterPlaceHoder(alias, criteriaFLAG, key, i), betweenValues[0]);
-						query.setParameter( getQueryParameterPlaceHoder(alias, criteriaFLAG, key, i) + MARK, betweenValues[1]);
+						
+						query.setParameter( getQueryParameterPlaceHoder(alias, criteriaFLAG, key, i), getQueryParameterValue(betweenValues[0]));
+						query.setParameter( getQueryParameterPlaceHoder(alias, criteriaFLAG, key, i) + MARK, getQueryParameterValue(betweenValues[1]));
 					} else {
 						if (flag.equals(LIKE)) criteriaVALUE = criteriaVALUE.replaceAll(REPLACE_LIKE_PERCENT, "%"); 
 						
-						query.setParameter( getQueryParameterPlaceHoder(alias, criteriaFLAG, key, i), criteriaVALUE);
+						query.setParameter( getQueryParameterPlaceHoder(alias, criteriaFLAG, key, i), getQueryParameterValue(criteriaVALUE));
 					}
 				}
 				
@@ -189,7 +186,18 @@ public class QueryCriteriasHelper {
 	}
 	
 	
-	
+	private static Object getQueryParameterValue(String criteriaVALUE) {
+		Object value = criteriaVALUE;
+		if (criteriaVALUE.startsWith("(") && criteriaVALUE.endsWith(")")) {
+			criteriaVALUE = criteriaVALUE.substring(1, criteriaVALUE.length()-1);
+			if (criteriaVALUE.contains(".")) {
+				value = Float.parseFloat(criteriaVALUE);
+			} else {
+				value = Integer.parseInt(criteriaVALUE);
+			}
+		}
+		return value;
+	}
 	
 	
 	/**

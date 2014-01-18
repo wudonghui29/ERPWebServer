@@ -185,12 +185,16 @@ public class Test extends HashSet {
 	 public static void main(String[] args) throws Exception {
 //		 SettingAction settingAction = new SettingAction();
 //		 settingAction.getApplicationModelsStructures();
-		 int foo = Integer.parseInt("1234");
+		 float foo = Float.parseFloat("1234");
 		 
-		 System.out.println("");
+		 System.out.println(foo);
 		 
 		 com.xinyuan.model.Business.Client client = new com.xinyuan.model.Business.Client();
 		 client.setId(999);
+		 
+		 
+		 String str = "()";
+		 String result = str.substring(1, str.length()-1);
 		 
 		 
 		 Class<?> aaaObject  = PoIntrospector.getPropertyType(client, "id");
