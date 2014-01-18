@@ -76,6 +76,7 @@ public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 		return totalRow;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public <E extends Object> List<E> read( E object,  Set<String> keys,  List<String> fields,  Map<String, Map<String,String>> criterias, List<String> sorts, List<String> limits) throws Exception {
 		/**

@@ -137,6 +137,9 @@
 	drop table WHInventoryOrder;
 	drop table WHScrapOrder;
    
+-- 2014-1-17
+
+	drop table Client;
 	
 
 ## Document and Convention

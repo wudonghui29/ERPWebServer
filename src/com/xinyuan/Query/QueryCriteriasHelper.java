@@ -159,7 +159,11 @@ public class QueryCriteriasHelper {
 					String duplicatedKeyValues[] = conditions[i].split(SPILT_FLAG_VALUE_CONNECTOR);		// "employeeNO":"EQ.WQ0008*EQ.AE0009" -> "employeeNO":"EQ.WQ0008" OR "employeeNO":"EQ.AE0009"
 					
 					String criteriaFLAG = duplicatedKeyValues[0];		// "BT", "EQ" , "GT" and so on... 
-					String criteriaVALUE = duplicatedKeyValues[1];		// "18-25"
+					String criteriaVALUE = duplicatedKeyValues[1];		// "18-25" , (2) -> 2 is int
+					
+					if (criteriaVALUE.startsWith("(") && criteriaVALUE.endsWith(")")) {
+						
+					}
 					
 					String flag = criteriasMap.get(criteriaFLAG);
 					
@@ -170,6 +174,7 @@ public class QueryCriteriasHelper {
 						query.setParameter( getQueryParameterPlaceHoder(alias, criteriaFLAG, key, i) + MARK, betweenValues[1]);
 					} else {
 						if (flag.equals(LIKE)) criteriaVALUE = criteriaVALUE.replaceAll(REPLACE_LIKE_PERCENT, "%"); 
+						
 						query.setParameter( getQueryParameterPlaceHoder(alias, criteriaFLAG, key, i), criteriaVALUE);
 					}
 				}

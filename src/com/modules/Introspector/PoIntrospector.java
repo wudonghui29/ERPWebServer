@@ -8,9 +8,6 @@ import java.lang.reflect.Method;
 public class PoIntrospector {
 	
 	
-	
-	
-	
 
 	/**
 	 * 
@@ -29,7 +26,7 @@ public class PoIntrospector {
 	                break;  
 	            }  
 	        }  
-	    }
+	  }
 	  
 	  
 	  
@@ -52,6 +49,29 @@ public class PoIntrospector {
 	            }
 	        }
 	        return retValue;  
-	    }  
+	  }  
 	  
+	  
+	  /**
+	   * 
+	   * @param object
+	   * @param propertyName
+	   * @return
+	   * @throws Exception
+	   */
+	  public static Class<?> getPropertyType(Object object, String propertyName)  throws Exception {  
+	        return getPropertyType(object.getClass(), propertyName);  
+	  }
+	  public static Class<?> getPropertyType(Class<?> clazz, String propertyName)  throws Exception {  
+	        BeanInfo beanInfo = Introspector.getBeanInfo(clazz);  
+	        PropertyDescriptor[] pds = beanInfo.getPropertyDescriptors();  
+	        Class<?> retValue = null;  
+	        for (PropertyDescriptor pd : pds) {  
+	            if (pd.getName().equals(propertyName)) {  
+	                retValue = pd.getPropertyType();  
+	                break;  
+	            }
+	        }
+	        return retValue;  
+	  }
 }

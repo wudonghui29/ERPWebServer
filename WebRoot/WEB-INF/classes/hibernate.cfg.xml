@@ -111,6 +111,7 @@
         
         <!-- Business Models -->
         <mapping class="com.xinyuan.model.Business.Client"/>
+        <mapping class="com.xinyuan.model.Business.BSConsultOrder"/>
         
         
         <!-- SharedOrder Models -->
