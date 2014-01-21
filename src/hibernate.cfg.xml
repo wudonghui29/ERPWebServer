@@ -105,6 +105,10 @@
         <mapping class="com.xinyuan.model.Security.SecurityVisitLogOrder"/>
         <mapping class="com.xinyuan.model.Security.SecurityVisitorOrder"/>
         
+        
+
+        <mapping class="com.xinyuan.model.Security.SecurityPatrolTracker"/>
+        
         <mapping class="com.xinyuan.model.Security.SecurityPatrolOrder"/>
         <mapping class="com.xinyuan.model.Security.SecurityPatrolBill"/>
         
