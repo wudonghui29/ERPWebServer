@@ -114,6 +114,8 @@ public class WHLendOutOrder extends OrderApp2 {
 	public void setStaffNO(String staffNO) {
 		this.staffNO = staffNO;
 	}
+	
+	
 
 //	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)	// LAZY : http://stackoverflow.com/a/2192256/1749293
 //	@JoinColumn(name="WHLendOutOrder_id")						// This will add a column "WHLendOutOrder_id" in WHLendOutBill table, if not written, DB will create a middle-join table .

@@ -14,6 +14,7 @@ import com.xinyuan.Query.QueryLimitsHelper;
 import com.xinyuan.Util.ApnsHelper;
 import com.xinyuan.Util.ApprovalHelper;
 import com.xinyuan.Util.JsonHelper;
+import com.xinyuan.Util.OrderHelper;
 import com.xinyuan.Util.OrderNOGenerator;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.SuperDAOIMP;
@@ -121,7 +122,7 @@ public class SuperAction extends ActionBase {
 		for (int i = 0; i < models.size(); i++) {
 			Object model = models.get(i);
 			
-			Object persistence = getPersistenceByUniqueKeyValue(identityList.get(i), model.getClass());
+			Object persistence = OrderHelper.getPersistenceByUniqueKeyValue(dao,identityList.get(i), model.getClass());
 			
 			Set<String> keys = objectKeys.get(i);
 			CollectionHelper.removeStartWithElement(keys, ConfigConstants.APP_PREFIX);
@@ -153,7 +154,7 @@ public class SuperAction extends ActionBase {
 			
 			Object model = models.get(i);
 			
-			Object persistence = getPersistenceByUniqueKeyValue(identityList.get(i), model.getClass());
+			Object persistence = OrderHelper.getPersistenceByUniqueKeyValue(dao,identityList.get(i), model.getClass());
 			
 			if (persistence instanceof IApp1) {
 				
@@ -193,12 +194,12 @@ public class SuperAction extends ActionBase {
 			
 			Class<?> clazz = model.getClass();
 			
-			Object persistence = getPersistenceByUniqueKeyValue(identityList.get(i), clazz);
+			Object persistence = OrderHelper.getPersistenceByUniqueKeyValue(dao,identityList.get(i), clazz);
 			
 			dao.delete(persistence);
 			
 			// check if delete successfully
-			if (getPersistenceByUniqueKeyValue(identityList.get(i), clazz) != null) throw new Exception();
+			if (OrderHelper.getPersistenceByUniqueKeyValue(dao,identityList.get(i), clazz) != null) throw new Exception();
 			
 			if (persistence instanceof IApp1 && persistence instanceof BaseOrder) {
 				ApprovalHelper.addPendingApprove(((IApp1)persistence).getForwardUser(), (BaseOrder)persistence);
@@ -211,12 +212,5 @@ public class SuperAction extends ActionBase {
 	}
 	
 	
-	
-	public <E extends Object> E getPersistenceByUniqueKeyValue(Map<String, String> keyValues, Class<E> clazz) throws Exception {
-		String identityJSON = JsonHelper.getGson().toJson(keyValues);
-		E identityVo = JsonHelper.getGson().fromJson(identityJSON, clazz);
-		E persistence = dao.readUnique(identityVo, keyValues.keySet());
-		return persistence;
-	}
 	
 }
