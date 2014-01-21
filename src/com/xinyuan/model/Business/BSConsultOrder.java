@@ -1,7 +1,5 @@
 package com.xinyuan.model.Business;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
