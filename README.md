@@ -61,6 +61,12 @@
 	
 	
 	
+## Document and Convention
+	
+	"username" and suffix "*User"/"*EmployeeNO" mean the same , equivalent to "employeeNO" 
+	"*EmployeeNOs" for many "employeeNO"
+	
+	["employeeNO", "EmployeeNO", "EmployeeNOs"]
 	
 	
 -- 2013-11-11
@@ -145,17 +151,9 @@
 
 	alter table WHLendOutOrder drop column notReturnAmount;
 	
-
-## Document and Convention
 	
-	"username" and suffix "*User"/"*EmployeeNO" mean the same , equivalent to "employeeNO" 
-	"*EmployeeNOs" for many "employeeNO"
-	
-	["employeeNO", "EmployeeNO", "EmployeeNOs"]
-	
-	
--- 2014-1-17
--- Note: drop bill first to avoid foreign key constraint exception.
-  drop table SharedReleaseBill;
-  drop table SharedReleaseOrder;
+-- 2014-1-17 Note: drop bill first to avoid foreign key constraint exception.
+ 	
+ 	drop table SharedReleaseBill;
+	drop table SharedReleaseOrder;
   
