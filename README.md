@@ -140,6 +140,10 @@
 -- 2014-1-17
 
 	drop table Client;
+
+-- 2014-1-21
+
+	alter table WHLendOutOrder drop column notReturnAmount;
 	
 
 ## Document and Convention
