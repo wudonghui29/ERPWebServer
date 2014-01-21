@@ -158,3 +158,4 @@
 -- Note: drop bill first to avoid foreign key constraint exception.
   drop table SharedReleaseBill;
   drop table SharedReleaseOrder;
+  
