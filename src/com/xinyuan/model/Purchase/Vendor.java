@@ -23,13 +23,13 @@ public class Vendor extends BaseModel {
 	private String number ;		// 厂商编号
 	private String name ;		// 厂商名称
 	private String category ; 	// 厂商类别
-	private String webSite;		// 网址
 	
 	private String principal;	// 负责人
 	private String phoneNO;		// 电话
 	private String faxNO;		// 传真
 	private String address;		// 地址
 	private String postcode;	// 邮政编码
+	private String webSite;		// 网址
 	
 	private String contactOne;	// 联络人1 "name.phoneNO" , i.e. "小明.1381123456", photo name "小明.1381123456.png"
 	private String contactTwo;	// 联络人2

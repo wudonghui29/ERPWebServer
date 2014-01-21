@@ -10,7 +10,6 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.xinyuan.action.ActionBase;
-import com.xinyuan.action.SuperAction;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.RequestMessage;
 import com.xinyuan.message.ResponseMessage;

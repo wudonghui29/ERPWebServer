@@ -1,6 +1,5 @@
 package com.hibernate.test;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
 

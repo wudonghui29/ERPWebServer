@@ -8,8 +8,8 @@
     <session-factory>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.url">jdbc:mysql://localhost:3306/ERPWebServer</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">test123</property>
+        <property name="connection.username">tmd</property>
+        <property name="connection.password">tmd0099</property>
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         
   		<!--
@@ -102,8 +102,8 @@
         
 
         <!-- Security Models -->
-        <mapping class="com.xinyuan.model.Security.SecurityVisitOrder"/>
         <mapping class="com.xinyuan.model.Security.SecurityVisitLogOrder"/>
+        <mapping class="com.xinyuan.model.Security.SecurityVisitorOrder"/>
         
         <mapping class="com.xinyuan.model.Security.SecurityPatrolOrder"/>
         <mapping class="com.xinyuan.model.Security.SecurityPatrolBill"/>
@@ -111,14 +111,17 @@
         
         <!-- Business Models -->
         <mapping class="com.xinyuan.model.Business.Client"/>
+        <mapping class="com.xinyuan.model.Business.BSConsultOrder"/>
         
         
         <!-- SharedOrder Models -->
         <mapping class="com.xinyuan.model.SharedOrder.SharedOutOrder"/>
         <mapping class="com.xinyuan.model.SharedOrder.SharedMaterialOrder"/>
+        <mapping class="com.xinyuan.model.SharedOrder.SharedCahierOrder"/>
+        <mapping class="com.xinyuan.model.SharedOrder.SharedEventReportOrder"/>
         
-        <mapping class="com.xinyuan.model.SharedOrder.SharedReleaseOrder"/>
-        <mapping class="com.xinyuan.model.SharedOrder.SharedReleaseBill"/>
+        <mapping class="com.xinyuan.model.SharedOrder.SharedPassOrder"/>
+        <mapping class="com.xinyuan.model.SharedOrder.SharedPassBill"/>
         
         
         <!-- Warehouse Models -->

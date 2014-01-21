@@ -4,84 +4,61 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.xinyuan.model.OrderApp1;
+import com.xinyuan.model.BaseModel;
+
+/**
+ * 
+ * 客户资料
+ *
+ */
 
 @Entity
 @Table
-public class Client extends OrderApp1 {
+public class Client extends BaseModel {
 
 
 	private static final long serialVersionUID = 1L;
-	private String employeeNO; 		// 业务员
 	
-	private String clientNO ;		// 厂商编号
-	private String clientName ;		// 厂商名称
-	private String clientAlias ; 	// 厂商简称
-	private String clientCategory ; // 厂商类别
+	private String number ;		// 客户编号
+	private String name ;		// 客户名称
+	private String category ; 	// 客户类别
 	
-	private String unifiedCode ; 	// 统一编号
-	private String contactOne  ;	// 联络人1
-	private String contactTwo  ; 	// 联络人2
-	private String address		;	// 地址
+	private String principal;	// 负责人
+	private String phoneNO;		// 电话
+	private String faxNO;		// 传真
+	private String address;		// 地址
+	private String postcode;	// 邮政编码
+	private String webSite;		// 网址
 	
+	private String contactOne;	// 联络人1 "name.phoneNO" , i.e. "小明.1381123456", photo name "小明.1381123456.png"
+	private String contactTwo;	// 联络人2
 	
-	private String principal;		// 负责人
+	// Same as Vendor Above
+	//--------------------------------
 	
-	private String phoneNO ; 		// 电话
-	private String faxNO;			// 传真
-	private String homePage;  		// 网址
-	private String postCode; 		// 邮政编号
-	
+	private String taxNumber;	// 纳税编号
+	private String bankDeposit;	// 开户行
+	private String bankAccount;	// 账号
 	
 	
 	@Column(unique=true)
-	public String getClientNO() {
-		return clientNO;
+	public String getNumber() {
+		return number;
 	}
-	public void setClientNO(String clientNO) {
-		this.clientNO = clientNO;
+	public void setNumber(String number) {
+		this.number = number;
 	}
-	public String getClientName() {
-		return clientName;
+	public String getName() {
+		return name;
 	}
-	public void setClientName(String clientName) {
-		this.clientName = clientName;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getClientAlias() {
-		return clientAlias;
+	public String getCategory() {
+		return category;
 	}
-	public void setClientAlias(String clientAlias) {
-		this.clientAlias = clientAlias;
-	}
-	public String getClientCategory() {
-		return clientCategory;
-	}
-	public void setClientCategory(String clientCategory) {
-		this.clientCategory = clientCategory;
-	}
-	public String getUnifiedCode() {
-		return unifiedCode;
-	}
-	public void setUnifiedCode(String unifiedCode) {
-		this.unifiedCode = unifiedCode;
-	}
-	public String getContactOne() {
-		return contactOne;
-	}
-	public void setContactOne(String contactOne) {
-		this.contactOne = contactOne;
-	}
-	public String getContactTwo() {
-		return contactTwo;
-	}
-	public void setContactTwo(String contactTwo) {
-		this.contactTwo = contactTwo;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	public String getPrincipal() {
 		return principal;
@@ -101,22 +78,53 @@ public class Client extends OrderApp1 {
 	public void setFaxNO(String faxNO) {
 		this.faxNO = faxNO;
 	}
-	public String getHomePage() {
-		return homePage;
+	public String getAddress() {
+		return address;
 	}
-	public void setHomePage(String homePage) {
-		this.homePage = homePage;
+	public void setAddress(String address) {
+		this.address = address;
 	}
-	public String getPostCode() {
-		return postCode;
+	public String getPostcode() {
+		return postcode;
 	}
-	public void setPostCode(String postCode) {
-		this.postCode = postCode;
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
 	}
-	public String getEmployeeNO() {
-		return employeeNO;
+	public String getWebSite() {
+		return webSite;
 	}
-	public void setEmployeeNO(String employeeNO) {
-		this.employeeNO = employeeNO;
+	public void setWebSite(String webSite) {
+		this.webSite = webSite;
 	}
+	public String getContactOne() {
+		return contactOne;
+	}
+	public void setContactOne(String contactOne) {
+		this.contactOne = contactOne;
+	}
+	public String getContactTwo() {
+		return contactTwo;
+	}
+	public void setContactTwo(String contactTwo) {
+		this.contactTwo = contactTwo;
+	}
+	public String getTaxNumber() {
+		return taxNumber;
+	}
+	public void setTaxNumber(String taxNumber) {
+		this.taxNumber = taxNumber;
+	}
+	public String getBankDeposit() {
+		return bankDeposit;
+	}
+	public void setBankDeposit(String bankDeposit) {
+		this.bankDeposit = bankDeposit;
+	}
+	public String getBankAccount() {
+		return bankAccount;
+	}
+	public void setBankAccount(String bankAccount) {
+		this.bankAccount = bankAccount;
+	}
+	
 }

@@ -1,7 +1,5 @@
 package com.xinyuan.action;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +11,6 @@ import com.xinyuan.Util.OrderHelper;
 import com.xinyuan.constraint.WarehouseConstraint;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.WarehouseDAOIMP;
-import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigJSON;
 import com.xinyuan.model.Warehouse.WHLendOutBill;
 
@@ -34,6 +31,7 @@ public class WarehouseAction extends SuperAction {
 		// TODO Auto-generated method stub
 		super.apply();
 		
+
 		Object model = models.get(0);
 		
 		List<Map<String, String>> identityList = requestMessage.getIDENTITYS();

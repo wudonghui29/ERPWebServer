@@ -115,23 +115,31 @@
 	drop table APPOrderAttributes;	
 
 -- 2014-1-5
-   
-   drop table WHLendOutBill;
-   drop table WHLendOutOrder;
-   drop table WHInventoryOrder;
-   drop table WHScrapOrder;
+
+	drop table WHLendOutBill;
+	drop table WHLendOutOrder;
+	drop table WHInventoryOrder;
+	drop table WHScrapOrder;
    
 -- 2013-1-13
 
 	alter table employee drop column photopath;
 	
+	
+-- 2013-1-15
+
+	alter table employee drop column orderNO, drop expiredDate, drop exception;
+
 -- 2014-1-16
 
-   drop table WHLendOutBill;
-   drop table WHLendOutOrder;
-   drop table WHInventoryOrder;
-   drop table WHScrapOrder;
+	drop table WHLendOutBill;
+	drop table WHLendOutOrder;
+	drop table WHInventoryOrder;
+	drop table WHScrapOrder;
    
+-- 2014-1-17
+
+	drop table Client;
 	
 
 ## Document and Convention
@@ -140,3 +148,9 @@
 	"*EmployeeNOs" for many "employeeNO"
 	
 	["employeeNO", "EmployeeNO", "EmployeeNOs"]
+	
+	
+-- 2014-1-17
+-- Note: drop bill first to avoid foreign key constraint exception.
+  drop table SharedReleaseBill;
+  drop table SharedReleaseOrder;
