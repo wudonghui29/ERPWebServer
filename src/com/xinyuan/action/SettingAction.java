@@ -118,7 +118,7 @@ public class SettingAction extends ActionBase {
 		// translate classes properties name to map
 		 Map<String, Map<String, List<String>>> map = IntrospectHelper.translateToPropertiesMap(classesNamesList);
 		 
-		 responseMessage.objects = map;
+		 responseMessage.results = map;
 	}
 	
 	
@@ -143,7 +143,7 @@ public class SettingAction extends ActionBase {
 		results.add(settingList);
 		
 		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
-		responseMessage.objects = results;
+		responseMessage.results = results;
 		
 		return Action.NONE;
 	}
@@ -154,7 +154,11 @@ public class SettingAction extends ActionBase {
 	 * @return
 	 */
 	public String inform() {
-		ApnsHelper.sendAPNS(requestMessage, responseMessage);
+		try {
+			ApnsHelper.inform(requestMessage.getAPNS_FORWARDS(), requestMessage.getAPNS_CONTENTS());
+		} catch (Exception e) {
+			responseMessage.apnsStatus = ConfigConstants.STATUS_NEGATIVE;
+		}
 		return Action.NONE;
 	}
 	
@@ -182,7 +186,7 @@ public class SettingAction extends ActionBase {
 			appSettingPO = appSettingVO;
 			superDao.create(appSettingPO);
 		} else {
-			ModelIntrospector.copyVoToPo(appSettingVO, appSettingPO, objectKeys.get(0));
+			ModelIntrospector.copyVoToPo(appSettingVO, appSettingPO, modelsKeys.get(0));
 			superDao.modify(appSettingPO);
 		}
 		
@@ -205,7 +209,7 @@ public class SettingAction extends ActionBase {
 		results.add(productCategoryList);
 		
 		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
-		responseMessage.objects = results;
+		responseMessage.results = results;
 		
 		return Action.NONE;
 	}

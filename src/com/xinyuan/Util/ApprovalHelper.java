@@ -7,27 +7,37 @@ import java.util.Map;
 
 import com.Global.SessionManager;
 import com.modules.Introspector.IntrospectHelper;
+import com.modules.Introspector.ModelIntrospector;
 import com.modules.Util.CollectionHelper;
+import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.HibernateDAO;
 import com.xinyuan.message.ConfigConstants;
-import com.xinyuan.message.RequestMessage;
 import com.xinyuan.model.BaseOrder;
+import com.xinyuan.model.IApp;
 import com.xinyuan.model.Approval.Approvals;
 import com.xinyuan.model.User.User;
 
+
+interface Callable {
+	public void invoke(String username, BaseOrder order);
+}
+
 public class ApprovalHelper {
 	
-	
-	public static void handlePendingApprovals(RequestMessage requestMessage , int index, BaseOrder persistence ) {
+	public static void handlePendingApprovals(SuperDAO dao, String appKey, String forwardUsername, BaseOrder persistence ) throws Exception {
+		if (forwardUsername == null) return;
+		ApprovalHelper.addPendingApprove(forwardUsername, persistence);
 		String signinedUser = ((User)SessionManager.get(ConfigConstants.SIGNIN_USER)).getUsername();
 		
-		List<String> forwardsList = requestMessage.getAPNS_FORWARDS();
-		if (forwardsList == null || forwardsList.size() < index) return;
+		// app
+		if (persistence instanceof IApp) {
+			((IApp) persistence).setForwardUser(forwardUsername);
+			if (appKey != null && appKey.startsWith(ConfigConstants.APP_PREFIX) && ModelIntrospector.getProperty(persistence, appKey) == null) {
+				ModelIntrospector.setProperty(persistence, appKey, signinedUser);
+				dao.modify(persistence);
+			}
+		}
 		
-		String forwardUsername = forwardsList.get(index);
-		if (forwardUsername == null) return;
-		
-		ApprovalHelper.addPendingApprove(forwardUsername, persistence);
 		ApprovalHelper.deletePendingApprove(signinedUser, persistence);
 	}
 	
@@ -65,7 +75,8 @@ public class ApprovalHelper {
 		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, userName);
 		
 		String oldPendingApprovalsJSON = pendingApproval.getPendingApprovals();
-		Map<String, Map<String, List<String>>> pendingApprovalsMap = JsonHelper.getGson().fromJson(oldPendingApprovalsJSON, Map.class);
+		@SuppressWarnings("unchecked")
+		Map<String, Map<String, List<String>>> pendingApprovalsMap = GsonHelper.getGson().fromJson(oldPendingApprovalsJSON, Map.class);
 		
 		
 		Map<String, List<String>> departmentMap = pendingApprovalsMap.get(department);
@@ -85,7 +96,7 @@ public class ApprovalHelper {
 		if(orderList.contains(orderNO)) orderList.add(orderNO);
 		
 		
-		String newPendingApprovalsJSON = JsonHelper.getGson().toJson(pendingApprovalsMap);
+		String newPendingApprovalsJSON = GsonHelper.getGson().toJson(pendingApprovalsMap);
 		pendingApproval.setPendingApprovals(newPendingApprovalsJSON);
 		hibernateDAO.updateObject(pendingApproval);
 	}
@@ -104,7 +115,8 @@ public class ApprovalHelper {
 		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, userName);
 		
 		String oldPendingApprovalsJSON = pendingApproval.getPendingApprovals();
-		Map<String, Map<String, List<String>>> pendingApprovalsMap = JsonHelper.getGson().fromJson(oldPendingApprovalsJSON, Map.class);
+		@SuppressWarnings("unchecked")
+		Map<String, Map<String, List<String>>> pendingApprovalsMap = GsonHelper.getGson().fromJson(oldPendingApprovalsJSON, Map.class);
 		
 		
 		Map<String, List<String>> departmentMap = pendingApprovalsMap.get(department);
@@ -122,7 +134,7 @@ public class ApprovalHelper {
 		
 		
 		
-		String newPendingApprovalsJSON = JsonHelper.getGson().toJson(pendingApprovalsMap);
+		String newPendingApprovalsJSON = GsonHelper.getGson().toJson(pendingApprovalsMap);
 		pendingApproval.setPendingApprovals(newPendingApprovalsJSON);
 		hibernateDAO.updateObject(pendingApproval);
 	}

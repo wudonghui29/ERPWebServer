@@ -10,23 +10,17 @@ import com.xinyuan.message.ResponseMessage;
 
 public abstract class ActionBase extends ActionSupport {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	protected SuperDAO dao = getDao() ;
 	protected abstract SuperDAO getDao() ;
 	
+	// ---------
 	protected List<Object> models;				// vos
-	protected List<Set<String>> objectKeys;		// vos' keys
+	protected List<Set<String>> modelsKeys;		// vos' keys
 	
+	// ---------
 	protected RequestMessage requestMessage;
-	
-	protected ResponseMessage responseMessage = new ResponseMessage();					// for subclass use
-	public ResponseMessage getResponseMessage() {										// for intercepter and ApnsHelper
-		return responseMessage;
-	}
-	
+	protected ResponseMessage responseMessage;
 	
 	public List<Object> getModels() {
 		return models;
@@ -35,11 +29,11 @@ public abstract class ActionBase extends ActionSupport {
 		this.models = models;
 	}
 	
-	public List<Set<String>> getObjectKeys() {
-		return objectKeys;
+	public List<Set<String>> getModelsKeys() {
+		return modelsKeys;
 	}
-	public void setObjectKeys(List<Set<String>> objectKeys) {
-		this.objectKeys = objectKeys;
+	public void setModelsKeys(List<Set<String>> modelsKeys) {
+		this.modelsKeys = modelsKeys;
 	}
 	
 	public RequestMessage getRequestMessage() {
@@ -48,6 +42,12 @@ public abstract class ActionBase extends ActionSupport {
 	public void setRequestMessage(RequestMessage requestMessage) {
 		this.requestMessage = requestMessage;
 	}
-
+	
+	public ResponseMessage getResponseMessage() {
+		return responseMessage;
+	}
+	public void setResponseMessage(ResponseMessage responseMessage) {
+		this.responseMessage = responseMessage;
+	}
 	
 }

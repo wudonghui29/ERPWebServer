@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.modules.Util.StringHelper;
 import com.opensymphony.xwork2.Action;
+import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.Util.JsonHelper;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.UserDAO;
@@ -59,13 +60,13 @@ public class UserAction extends ActionBase {
 			
 			map.put(ConfigJSON.IDENTIFIER, user.getId());
 			map.put(ConfigConstants.PERMISSIONS, userDAO.getAllUsersPermissions());
-			responseMessage.objects = map;
+			responseMessage.results = map;
 			
 			// put the permission in session
 			String perssionStr = user.getPermissions();
 			perssionStr = StringHelper.isEmpty(perssionStr) ? ConfigConstants.DEFAULT_PERMISSION : perssionStr;
 			JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(perssionStr);
-			Map<String, Object> permissions = JsonHelper.translateElementToMap(jsonObject);
+			Map<String, Object> permissions = GsonHelper.translateElementToMap(jsonObject);
 			SessionManager.put(ConfigConstants.PERMISSIONS, permissions);
 			SessionManager.put(ConfigConstants.SIGNIN_USER, user);
 			

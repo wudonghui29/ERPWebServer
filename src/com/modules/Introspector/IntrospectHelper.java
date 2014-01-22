@@ -7,10 +7,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import com.sun.media.sound.AlawCodec;
 
 public class IntrospectHelper {
 	
@@ -84,7 +87,17 @@ public class IntrospectHelper {
 		return map;
 	}
 	
-	
+	public static Set<String> getAllProperties(Object object) throws Exception {
+		Set<String> allProperties = new HashSet<String>();
+		
+		for (PropertyDescriptor pd : Introspector.getBeanInfo(object.getClass()).getPropertyDescriptors()) {
+			String propertyname = pd.getName() ;
+			if (!isClassPropertyName(propertyname)) {
+				allProperties.add(propertyname);
+			}
+		}
+		return allProperties;
+	}
 	
 	
 	/**

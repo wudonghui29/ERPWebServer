@@ -3,67 +3,58 @@ package com.xinyuan.interceptor;
 
 import java.io.IOException;
 
-import org.apache.struts2.ServletActionContext;
-
 import com.modules.HttpWriter.ResponseWriter;
 import com.modules.Util.DLog;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
-import com.xinyuan.Util.JsonHelper;
+import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.action.ActionBase;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ResponseMessage;
 
 public class WriteMessageInterceptor extends AbstractInterceptor {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
-
-
-
 
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
-		ActionBase action = (ActionBase)invocation.getAction();
-		ResponseMessage message = action.getResponseMessage();
-		String url = ServletActionContext.getRequest().getRequestURL().toString();
-		message.action = url.substring(url.lastIndexOf("/") + 1);
 		
 		DLog.log("");
 		
-		Exception exceptionInvoke = null;
+		Exception exception = null;
 		try {
 			invocation.invoke();
 		} catch (Exception e) {
-			exceptionInvoke = e;
+			exception = e;
 			e.printStackTrace();
-			
-			message.status = ConfigConstants.STATUS_NEGATIVE;
-			if (message.descriptions == null || message.descriptions.isEmpty()) {
-				String descriptions = getDescription(e) ;
+		}
+		
+		ActionBase action = (ActionBase)invocation.getAction();
+		ResponseMessage responseMessage = action.getResponseMessage();
+		
+		if (exception != null) {
+			responseMessage.status = ConfigConstants.STATUS_NEGATIVE;
+			if (responseMessage.descriptions == null || responseMessage.descriptions.isEmpty()) {
+				String descriptions = getDescription(exception) ;
 				if (descriptions.isEmpty()) {
 					descriptions = ConfigConstants.REQUEST_ERROR;
 				}
-				message.descriptions = descriptions;
+				responseMessage.descriptions = descriptions;
 			}
-			message.objects = null;
-			message.exception = e.getClass().getName();
+			responseMessage.results = null;
+			responseMessage.exception = exception.getClass().getName();
 		}
-		
 		
 		
 		// Write data to client
 		
 		try {
-			String json = JsonHelper.getGson().toJson(message);
+			String json = GsonHelper.getGson().toJson(responseMessage);
 			ResponseWriter.write(json.getBytes("UTF-8"));
 			DLog.log("Response JSON : " + json);
 		} catch (IOException e) {
-			exceptionInvoke = e;
+			exception = e;
 			e.printStackTrace();
 			DLog.log("ResponseWriter.write() Error Important!!! Cause DB Will Roll Back");
 		} finally {
@@ -74,9 +65,9 @@ public class WriteMessageInterceptor extends AbstractInterceptor {
 		
 		
 		
-		if (exceptionInvoke != null) {
+		if (exception != null) {
 //		if (true) {		 // for test transaction roll back 
-			throw new RuntimeException(exceptionInvoke);
+			throw new RuntimeException(exception);
 		}
 		
 		return Action.NONE;

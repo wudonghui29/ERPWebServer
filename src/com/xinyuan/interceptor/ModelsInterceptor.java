@@ -10,7 +10,7 @@ import com.modules.Util.DLog;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
-import com.xinyuan.Util.JsonHelper;
+import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.action.ActionBase;
 import com.xinyuan.action.AdministratorAction;
 import com.xinyuan.action.SuperAction;
@@ -51,9 +51,9 @@ public class ModelsInterceptor extends AbstractInterceptor {
 			Map<String, Object> objectMap = objectsArray.get(i);
 			
 			// get model
-			String objectJsonStr = JsonHelper.getGson().toJson(objectMap);
+			String objectJsonStr = GsonHelper.getGson().toJson(objectMap);
 			String className = getModelClassWholeName(baseAction, catagory, modelStr);
-			Object vo = JsonHelper.getGson().fromJson(objectJsonStr, Class.forName(className));
+			Object vo = GsonHelper.getGson().fromJson(objectJsonStr, Class.forName(className));
 			
 			// get keys
 			Set<String> keys = objectMap.keySet();
@@ -64,7 +64,7 @@ public class ModelsInterceptor extends AbstractInterceptor {
 		
 		
 		baseAction.setModels(vos);
-		baseAction.setObjectKeys(voKeys);
+		baseAction.setModelsKeys(voKeys);
 		
 		return invocation.invoke();
 	}

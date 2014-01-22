@@ -13,7 +13,7 @@ import com.modules.Util.DLog;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
-import com.xinyuan.Util.JsonHelper;
+import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.dao.UserDAO;
 import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConfigConstants;
@@ -69,7 +69,7 @@ public class UserAgentInterceptor extends AbstractInterceptor {
 //		invocation.getInvocationContext().getSession().put(ConfigConstants.SIGNIN_USER, userTest);
 			String perssionStr = userTest.getPermissions();
 			JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(perssionStr);
-			Map<String, Object> permissions = JsonHelper.translateElementToMap(jsonObject);
+			Map<String, Object> permissions = GsonHelper.translateElementToMap(jsonObject);
 			SessionManager.put(ConfigConstants.PERMISSIONS, permissions);
 			SessionManager.put(ConfigConstants.SIGNIN_USER, userTest);
 		}

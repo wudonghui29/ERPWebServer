@@ -7,7 +7,7 @@ import java.util.Set;
 import com.modules.Introspector.ModelIntrospector;
 import com.modules.Util.CollectionHelper;
 import com.opensymphony.xwork2.Action;
-import com.xinyuan.Util.JsonHelper;
+import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.UserDAO;
 import com.xinyuan.dao.impl.SuperDAOIMP;
@@ -35,7 +35,7 @@ public class AdministratorAction extends ActionBase {
 		List<Map<String, String>> identities = requestMessage.getIDENTITYS();
 		for (int i = 0; i < models.size(); i++) {
 			User model = (User)models.get(i);
-			Set<String> keys = objectKeys.get(i);
+			Set<String> keys = modelsKeys.get(i);
 			
 			String username = identities.get(i).get(ConfigJSON.USERNAME);
 			User persistence = userDAO.getUser(username); 	// po
@@ -72,11 +72,11 @@ public class AdministratorAction extends ActionBase {
 				String approvalPoSettings = appSettingPO.getSettings();
 				
 				//"{"HumanResource":{"Employee": {"app1":[], "app2":[]}} , ...}"
-				Map<String,Object> settingsPoMap = JsonHelper.getGson().fromJson(approvalPoSettings, Map.class);
-				Map<String,Object> settingsVoMap = JsonHelper.getGson().fromJson(approvalVoSettings, Map.class);
+				Map<String,Object> settingsPoMap = GsonHelper.getGson().fromJson(approvalPoSettings, Map.class);
+				Map<String,Object> settingsVoMap = GsonHelper.getGson().fromJson(approvalVoSettings, Map.class);
 				CollectionHelper.combineTowMap(settingsVoMap, settingsPoMap);
 				
-				String newSettingsPoJSON = JsonHelper.getGson().toJson(settingsPoMap);
+				String newSettingsPoJSON = GsonHelper.getGson().toJson(settingsPoMap);
 				appSettingPO.setSettings(newSettingsPoJSON);
 				superDao.modify(appSettingPO);
 			}

@@ -7,20 +7,26 @@ import com.modules.Introspector.IntrospectHelper;
 
 public class RequestMessage {
 
+	// basic
 	private List<String> MODELS;
 	private List<Map<String, Object>> OBJECTS;
 	
+	// read
 	private List<List<String>> FIELDS;
 	private List<Map<String, String>> JOINS;
 	private List<List<String>> SORTS;
 	private List<List<String>> LIMITS;
-	
 	private List<Map<String, Map<String,String>>> CRITERIAS;
-	private List<Map<String, String>> IDENTITYS;
-	private Map<String, String> PARAMETERS;
 	
+	// modify , delete 
+	private List<Map<String, String>> IDENTITYS;
+	
+	// apns
 	private List<String> APNS_FORWARDS;
 	private List<Map<String, String>> APNS_CONTENTS;
+	
+	// additional
+	private Map<String, String> PARAMETERS;
 	
 	
 	@Override

@@ -13,9 +13,11 @@ public class ResponseMessage {
 	public String descriptions = null;
 	public String exception = null;
 	
-	public Object objects = null;
-	public List<String> models = null;
+	public Object results = null;
 	public List<String> numbers = null;
+	
+	public List<String> models = null;
+	
 	
 	public String getStatus() {
 		return status;
@@ -47,11 +49,11 @@ public class ResponseMessage {
 	public void setApnsStatus(String apnsStatus) {
 		this.apnsStatus = apnsStatus;
 	}
-	public Object getObjects() {
-		return objects;
+	public Object getResults() {
+		return results;
 	}
-	public void setObjects(Object objects) {
-		this.objects = objects;
+	public void setResults(Object results) {
+		this.results = results;
 	}
 	public List<String> getModels() {
 		return models;

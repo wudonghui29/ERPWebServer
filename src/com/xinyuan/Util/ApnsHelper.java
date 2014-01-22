@@ -16,8 +16,6 @@ import com.xinyuan.dao.UserDAO;
 import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigJSON;
-import com.xinyuan.message.RequestMessage;
-import com.xinyuan.message.ResponseMessage;
 
 
 // Reference : http://demo.netfoucs.com/truenaruto/article/details/9165011
@@ -25,21 +23,7 @@ import com.xinyuan.message.ResponseMessage;
 public class ApnsHelper {
 	
 	private static final String APNS_Sound_DEFAULT = "default";
-	
-	public static void sendAPNS(RequestMessage requestMessage, ResponseMessage responseMessage) {
-		if (requestMessage.getAPNS_FORWARDS() == null) return;
-		try {
-			// push APNS notifications
-			ApnsHelper.inform(requestMessage.getAPNS_FORWARDS(), requestMessage.getAPNS_CONTENTS());
-			responseMessage.status = ConfigConstants.STATUS_POSITIVE;
-			responseMessage.apnsStatus = ConfigConstants.STATUS_POSITIVE;
-		} catch (Exception e) {
-			e.printStackTrace();
-			responseMessage.status = ConfigConstants.STATUS_POSITIVE;
-			responseMessage.apnsStatus = ConfigConstants.STATUS_NEGATIVE;
-			responseMessage.descriptions = ConfigConstants.MESSAGE.PushAPNSFailed;
-		}
-	}
+
 
 	public static void inform(List<String> forwardList, List<Map<String, String>> forwardContents) throws Exception {
 		
@@ -146,6 +130,8 @@ public class ApnsHelper {
                     String invalidToken = notification.getDevice().getToken();
                     /* Add code here to remove invalidToken from your database */  
 
+                    System.out.println("Push notification sent failed to: " + notification.getDevice().getToken());
+                    
                     /* Find out more about what the problem was */  
                     Exception theProblem = notification.getException();
                     theProblem.printStackTrace();

@@ -13,7 +13,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.modules.Introspector.PoIntrospector;
 import com.xinyuan.Util.ApnsHelper;
-import com.xinyuan.Util.JsonHelper;
+import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.action.HumanResourceAction;
 import com.xinyuan.action.SuperAction;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
@@ -91,7 +91,7 @@ public class Test extends HashSet {
 		String perssionStr = "{\"Business\":{\"Client\":[\"read\",\"create\"]},\"Assistant\":{\"ASDeviceBatteryMROrder\":[\"read\",\"create\",\"modify\"]}}";
 
 		JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(perssionStr);
-		Map<String, Object> permissions = JsonHelper.translateElementToMap(jsonObject);
+		Map<String, Object> permissions = GsonHelper.translateElementToMap(jsonObject);
 		
 		String modelsStr = ".Assistant.ASDeviceBatteryMROrder, .Business.Client";
 		String[] array = modelsStr.split(",");
