@@ -20,8 +20,6 @@ public class WriteMessageInterceptor extends AbstractInterceptor {
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
 		
-		DLog.log("");
-		
 		Exception exception = null;
 		try {
 			invocation.invoke();

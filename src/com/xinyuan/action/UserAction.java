@@ -9,12 +9,15 @@ import com.google.gson.JsonParser;
 import com.modules.Util.StringHelper;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.Util.GsonHelper;
-import com.xinyuan.Util.JsonHelper;
+import com.xinyuan.Util.ParametersHelper;
+import com.xinyuan.Util.SettingHelper;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.UserDAO;
+import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigJSON;
+import com.xinyuan.model.Setting.APPSettings;
 import com.xinyuan.model.User.User;
 
 public class UserAction extends ActionBase {
@@ -23,14 +26,14 @@ public class UserAction extends ActionBase {
 	@Override
 	protected SuperDAO getDao() { return null; }
 	
-	private UserDAO userDAO = new UserDAOIMP();
+	private UserDAOIMP userDAO = new UserDAOIMP();
 
 	
 	
 	public String signin() throws Exception {
 		if (models.size() != 1) return Action.NONE;		// Forbid modified multi-
 		
-		String userVerifyCode = JsonHelper.getParameter(requestMessage, ConfigJSON.VERIFYCODE);
+		String userVerifyCode = ParametersHelper.getParameter(requestMessage, ConfigJSON.VERIFYCODE);
 		if (this.isVerifyCodeError(userVerifyCode)) return Action.NONE;
 		
 //		for (int i = 0; i < models.size(); i++) {
@@ -40,7 +43,7 @@ public class UserAction extends ActionBase {
 		
 		String username = model.getUsername();
 		String password = model.getPassword();
-		String newApnsToken = JsonHelper.getParameter(requestMessage,ConfigJSON.APNSTOKEN);
+		String newApnsToken = ParametersHelper.getParameter(requestMessage,ConfigJSON.APNSTOKEN);
 		
 		User user = userDAO.getUser(username);
 		if (user == null) {
@@ -59,7 +62,7 @@ public class UserAction extends ActionBase {
 			responseMessage.descriptions = ConfigConstants.USER.UserLoginSuccess;
 			
 			map.put(ConfigJSON.IDENTIFIER, user.getId());
-			map.put(ConfigConstants.PERMISSIONS, userDAO.getAllUsersPermissions());
+			map.put(ConfigConstants.ALLUSER_PERMISSIONS, userDAO.getAllUsersPermissions());
 			responseMessage.results = map;
 			
 			// put the permission in session
@@ -67,7 +70,7 @@ public class UserAction extends ActionBase {
 			perssionStr = StringHelper.isEmpty(perssionStr) ? ConfigConstants.DEFAULT_PERMISSION : perssionStr;
 			JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(perssionStr);
 			Map<String, Object> permissions = GsonHelper.translateElementToMap(jsonObject);
-			SessionManager.put(ConfigConstants.PERMISSIONS, permissions);
+			SessionManager.put(ConfigConstants.ALLUSER_PERMISSIONS, permissions);
 			SessionManager.put(ConfigConstants.SIGNIN_USER, user);
 			
 			
@@ -81,12 +84,56 @@ public class UserAction extends ActionBase {
 	}
 	
 	public String signout() throws Exception {
-		SessionManager.remove(ConfigConstants.PERMISSIONS);
+		SessionManager.remove(ConfigConstants.ALLUSER_PERMISSIONS);
 		SessionManager.remove(ConfigConstants.SIGNIN_USER);
 		
 		User user = (User) SessionManager.get(ConfigConstants.SIGNIN_USER);
 		
 		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
+		return Action.NONE;
+	}
+	
+	
+	public String signup() throws Exception {
+
+		// signup administrator
+		if (SettingHelper.isUserTableEmpty()) {
+			
+			for (int i = 0; i < models.size(); i++) {
+				User user = (User) models.get(i);
+				
+				
+				if (i != 0) {
+					// AppSettings : APPROVALS - {"HumanResource":{"Employee":{"app1":[["0000"],""]}}}
+					SuperDAO superDao = new SuperDAOIMP();
+					APPSettings appSetting = new APPSettings();
+					appSetting.setType(ConfigConstants.APPSETTINGS_APPROVALS);
+					String settings = "{\"HumanResource\":{\"Employee\":{\"app1\":[[\""+user.getUsername()+"\"],\"\"]}}}";
+					appSetting.setSettings(settings);
+					
+					superDao.create(appSetting);
+					
+					
+					// User : permissions - {"HumanResource":{"Employee":["read","create","modify","delete","apply"]}} , categories - ["HumanResource"]
+					String createEmployeePermission = "{\"HumanResource\":{\"Employee\":[\"read\",\"create\",\"modify\",\"delete\",\"apply\"]}}";
+					user.setPermissions(createEmployeePermission);
+					String humanResouceCategory = "[\"HumanResource\"]";
+					user.setCategories(humanResouceCategory);
+				}
+				
+				userDAO.createUser(user);
+				
+				
+				
+				String queryString = "UPDATE USER SET id = " + -i + " WHERE username = '" + user.getUsername()+"'";
+				userDAO.createSQLQuery(queryString).executeUpdate();
+				
+			}
+			
+			SettingAction.isInitilized = true;
+			responseMessage.status = ConfigConstants.STATUS_POSITIVE;
+		}
+		
 		return Action.NONE;
 	}
 	

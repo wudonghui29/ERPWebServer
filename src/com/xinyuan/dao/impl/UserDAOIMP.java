@@ -5,7 +5,7 @@ import java.util.List;
 import com.xinyuan.dao.UserDAO;
 import com.xinyuan.model.User.User;
 
-public class UserDAOIMP extends HibernateDAO implements UserDAO {
+public class UserDAOIMP extends AbstractHibernateDAOIMP implements UserDAO {
 
 	public boolean isSignup(String username) {
 		return this.getUser(username) != null;
@@ -28,7 +28,7 @@ public class UserDAOIMP extends HibernateDAO implements UserDAO {
 	
 
 	public List<Object> getAllUsersPermissions() {
-		String queryString = "select user.username , user.permissions, user.categories from User as user Where id > 0";
+		String queryString = "select user.username , user.permissions, user.categories from User as user Where id != 0";
 		return super.getObjects(queryString);
 	}
 

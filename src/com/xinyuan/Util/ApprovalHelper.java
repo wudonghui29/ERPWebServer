@@ -10,7 +10,7 @@ import com.modules.Introspector.IntrospectHelper;
 import com.modules.Introspector.ModelIntrospector;
 import com.modules.Util.CollectionHelper;
 import com.xinyuan.dao.SuperDAO;
-import com.xinyuan.dao.impl.HibernateDAO;
+import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.model.BaseOrder;
 import com.xinyuan.model.IApp;
@@ -32,7 +32,7 @@ public class ApprovalHelper {
 		// app
 		if (persistence instanceof IApp) {
 			((IApp) persistence).setForwardUser(forwardUsername);
-			if (appKey != null && appKey.startsWith(ConfigConstants.APP_PREFIX) && ModelIntrospector.getProperty(persistence, appKey) == null) {
+			if (appKey != null && appKey.startsWith(ConfigConstants.APPKEY_PREFIX) && ModelIntrospector.getProperty(persistence, appKey) == null) {
 				ModelIntrospector.setProperty(persistence, appKey, signinedUser);
 				dao.modify(persistence);
 			}
@@ -71,8 +71,13 @@ public class ApprovalHelper {
 	public static void addPendingApprove(String userName, String department, String orderType, String orderNO) {
 		if (userName == null || userName.isEmpty()) return;
 		
-		HibernateDAO hibernateDAO = new HibernateDAO();
-		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, userName);
+		SuperDAOIMP superDAO = new SuperDAOIMP();
+		Approvals pendingApproval = (Approvals)superDAO.getObject(Approvals.class, userName);
+		
+		if (pendingApproval == null) {
+			// just user , such as the administrator , not the employee
+			return;
+		}
 		
 		String oldPendingApprovalsJSON = pendingApproval.getPendingApprovals();
 		@SuppressWarnings("unchecked")
@@ -98,7 +103,7 @@ public class ApprovalHelper {
 		
 		String newPendingApprovalsJSON = GsonHelper.getGson().toJson(pendingApprovalsMap);
 		pendingApproval.setPendingApprovals(newPendingApprovalsJSON);
-		hibernateDAO.updateObject(pendingApproval);
+		superDAO.updateObject(pendingApproval);
 	}
 	
 	/**
@@ -111,8 +116,13 @@ public class ApprovalHelper {
 	public static void deletePendingApprove(String userName,  String department, String orderType, String orderNO) {
 		if (userName == null || userName.isEmpty()) return;
 		
-		HibernateDAO hibernateDAO = new HibernateDAO();
-		Approvals pendingApproval = (Approvals)hibernateDAO.getObject(Approvals.class, userName);
+		SuperDAOIMP superDAO = new SuperDAOIMP();
+		Approvals pendingApproval = (Approvals)superDAO.getObject(Approvals.class, userName);
+		
+		if (pendingApproval == null) {
+			// just user , such as the administrator , not the employee
+			return;
+		}
 		
 		String oldPendingApprovalsJSON = pendingApproval.getPendingApprovals();
 		@SuppressWarnings("unchecked")
@@ -136,7 +146,7 @@ public class ApprovalHelper {
 		
 		String newPendingApprovalsJSON = GsonHelper.getGson().toJson(pendingApprovalsMap);
 		pendingApproval.setPendingApprovals(newPendingApprovalsJSON);
-		hibernateDAO.updateObject(pendingApproval);
+		superDAO.updateObject(pendingApproval);
 	}
 	
 }

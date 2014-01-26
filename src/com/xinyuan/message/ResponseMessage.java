@@ -8,10 +8,9 @@ public class ResponseMessage {
 	
 	public String status = ConfigConstants.STATUS_NEGATIVE; // 0 failed, 1 success. Important only 0 and 1 value , cause in client end use if (data.status) to judge. .
 	public String action = ConfigConstants.EMPTY_STRING;
-	public String denyStatus = null;
-	public String apnsStatus = null ;
-	public String descriptions = null;
 	public String exception = null;
+	public String denyStatus = null;
+	public String descriptions = null;
 	
 	public Object results = null;
 	public List<String> numbers = null;
@@ -42,12 +41,6 @@ public class ResponseMessage {
 	}
 	public void setException(String exception) {
 		this.exception = exception;
-	}
-	public String getApnsStatus() {
-		return apnsStatus;
-	}
-	public void setApnsStatus(String apnsStatus) {
-		this.apnsStatus = apnsStatus;
 	}
 	public Object getResults() {
 		return results;

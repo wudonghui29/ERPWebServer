@@ -10,6 +10,9 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.Global.HibernateInitializer;
+import com.xinyuan.Util.SettingHelper;
+import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.model.Warehouse.WHScrapOrder;
 
 public class TestCase {
@@ -19,7 +22,8 @@ public class TestCase {
 
 	@BeforeClass
 	public static void beforeClass() {
-		sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+		HibernateInitializer.initialize();
+		sessionFactory = HibernateInitializer.getSessionFactory();
 		session = sessionFactory.getCurrentSession();
 	}
 
@@ -30,26 +34,30 @@ public class TestCase {
 	
 	@Test
 	public void testBill() {
-//		EmployeeSMOrder employeeSMOrder = new EmployeeSMOrder();
-//	
-//		session.beginTransaction();
-//		session.save(employeeSMOrder);
-//		session.getTransaction().commit(); 
-//		
-//		System.out.println("Done!");
+		session.beginTransaction();
+		
+		
+//		HumanResourceDAOIMP daoimp = new HumanResourceDAOIMP();
+//		boolean ise = daoimp.isTableEmpty("User");
+		
+		boolean ise = SettingHelper.isUserTableEmpty();
+		
+		session.getTransaction().commit(); 
+		
+		System.out.println("Done!  " + ise);
 	}
 	
 	@Test
 	public void testDate() throws ParseException {
-		WHScrapOrder eeOrder = new WHScrapOrder();
-		Date date = new Date();
-		eeOrder.setScrapTime(date);
-	
-		session.beginTransaction();
-		session.save(eeOrder);
-		session.getTransaction().commit();
-		
-		System.out.println("Done!");
+//		WHScrapOrder eeOrder = new WHScrapOrder();
+//		Date date = new Date();
+//		eeOrder.setScrapTime(date);
+//	
+//		session.beginTransaction();
+//		session.save(eeOrder);
+//		session.getTransaction().commit();
+//		
+//		System.out.println("Done!");
 	}
 
 	@Test

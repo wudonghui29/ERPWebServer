@@ -20,6 +20,7 @@ public class SuperAction extends ActionBase {
 	@Override
 	protected SuperDAO getDao() { return new SuperDAOIMP(); }
 	
+	
 	public String read() throws Exception {
 		Command readCommand = new CommandRead();
 		readCommand.execute(dao, responseMessage, requestMessage, models, modelsKeys);

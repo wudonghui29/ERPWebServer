@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.xinyuan.message.RequestMessage;
 
-public class JsonHelper {
+public class ParametersHelper {
 	
 	
 	/**

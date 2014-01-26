@@ -6,7 +6,7 @@ import java.util.Map;
 import com.modules.Introspector.IntrospectHelper;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.Util.ApprovalHelper;
-import com.xinyuan.Util.JsonHelper;
+import com.xinyuan.Util.ParametersHelper;
 import com.xinyuan.Util.OrderHelper;
 import com.xinyuan.constraint.WarehouseConstraint;
 import com.xinyuan.dao.SuperDAO;
@@ -37,7 +37,7 @@ public class WarehouseAction extends SuperAction {
 		List<Map<String, String>> identityList = requestMessage.getIDENTITYS();
 		WarehouseConstraint.applyModify(model, identityList.get(0));
 		
-		String billKey = JsonHelper.getParameter(requestMessage, ConfigJSON.ISBILL);
+		String billKey = ParametersHelper.getParameter(requestMessage, ConfigJSON.ISBILL);
 		if (billKey == null || !Boolean.valueOf(billKey)) return Action.NONE;
 		
 		

@@ -9,24 +9,25 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.xinyuan.model.BaseModel;
+import com.xinyuan.model.OrderApp1;
 
 @Entity
 @Table
-public class Employee extends BaseModel {
+public class Employee extends OrderApp1 {
 	
 	private static final long serialVersionUID = 1L;
 	
+	// ----------------------------- Basic Info.
 	private String employeeNO; 		// employee NO. unique  工号
 	
 	private String name ;			// 姓名
 	
 	private String department;		// 部门,工作岗位
 	private String subDepartment;	// 子部门,制作组
-	private String jobTitle;		//职称
-	private int jobLevel = 10;		//级别
+	private String jobTitle;		// 职称
+	private int jobLevel = 10;		// 级别
 	
-	private String phoneNO;
+	private String phoneNO;			// 电话
 	
 	private boolean resign;			// 已离职  do not use "isEmploying" , cause in mysql , the column name will be "employing" , "is" is gone
 	private boolean inVisits; 		// 是否列入拜访名单

@@ -22,17 +22,6 @@ public class HibernateInitializer
     private static SessionFactory sessionFactory;
     private static ServiceRegistry serviceRegistry;
 
-    /**
-     * http://stackoverflow.com/a/8830848/1749293
-     * @throws HibernateException
-     */
-    private static void configureSessionFactory() throws HibernateException {
-        configuration = new Configuration();
-        configuration.configure();		// "/hibernate.cfg.xml"
-        serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();        
-        sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-    }
-
     public static void initialize() {
     	try {
     		configureSessionFactory();
@@ -44,6 +33,18 @@ public class HibernateInitializer
     public static SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
+    
+    
+    /**
+     * http://stackoverflow.com/a/8830848/1749293
+     * @throws HibernateException
+     */
+    private static void configureSessionFactory() throws HibernateException {
+    	configuration = new Configuration();
+    	configuration.configure();		// "/hibernate.cfg.xml"
+    	serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();        
+    	sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+    }
 
 }
 

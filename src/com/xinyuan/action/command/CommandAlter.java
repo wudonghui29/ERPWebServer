@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.xinyuan.Util.ApnsHelper;
-import com.xinyuan.Util.JsonHelper;
+import com.xinyuan.Util.ParametersHelper;
 import com.xinyuan.Util.OrderHelper;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.UserDAO;
@@ -42,12 +42,12 @@ public abstract class CommandAlter implements Command {
 				
 				// add pending
 				String forwardUser = null;
-				if (forwardsList == null || forwardsList.size() < i) {
+				if (forwardsList != null && forwardsList.size() > i) {
 					forwardUser = forwardsList.get(i);
 				}
 				
 				// subclass
-				String appKey = JsonHelper.getParameter(requestMessage, ConfigJSON.APPLEVEL);
+				String appKey = ParametersHelper.getParameter(requestMessage, ConfigJSON.APPLEVEL);
 				handleApprovals(dao, appKey, forwardUser, order);
 				
 				// send apns

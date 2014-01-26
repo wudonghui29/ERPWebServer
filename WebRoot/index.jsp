@@ -34,6 +34,6 @@ response.sendRedirect("welcomeLink.action");
   </head>
   
   <body>
-    Index Page <br>
+    Welcome <br>
   </body>
 </html>
