@@ -133,7 +133,7 @@
         <mapping class="com.xinyuan.model.Warehouse.WHLendOutOrder"/>
         <mapping class="com.xinyuan.model.Warehouse.WHScrapOrder"/>
         <mapping class="com.xinyuan.model.Warehouse.WHInventoryOrder"/>
-        
+        <mapping class="com.xinyuan.model.Warehouse.WHPurchaseOrder"/>
         
         
         <!-- Finance Models -->
