@@ -22,12 +22,12 @@ import com.modules.Util.SecurityCode;
 import com.modules.Util.VerifyCode;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.Util.ApnsHelper;
-import com.xinyuan.Util.JsonHelper;
+import com.xinyuan.Util.ParametersHelper;
+import com.xinyuan.Util.SettingHelper;
 import com.xinyuan.dao.BusinessDAO;
 import com.xinyuan.dao.HumanResourceDAO;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.BusinessDAOIMP;
-import com.xinyuan.dao.impl.HibernateDAO;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.message.ConfigConstants;
@@ -47,13 +47,14 @@ import com.xinyuan.model.Setting.APPSettings;
  */
 public class SettingAction extends ActionBase {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
+	public static boolean isInitilized = false;
 	
 	@Override
 	protected SuperDAO getDao() { return null; }
+	
+	
 	
 	/**
 	 * connect the server , get the cookie, no db operation here now
@@ -61,41 +62,51 @@ public class SettingAction extends ActionBase {
 	 * @throws Exception
 	 */
 	public String getConnection() throws Exception {
-		String VERIFYCODE_TYPE = JsonHelper.getParameter(requestMessage, ConfigJSON.VERIFYCODE_TYPE);
-		String VERIFYCODE_COUNT = JsonHelper.getParameter(requestMessage, ConfigJSON.VERIFYCODE_COUNT);
+		if (!isInitilized && SettingHelper.isUserTableEmpty()) {
+			responseMessage.descriptions = ConfigConstants.SystemNeedInitialed;
+		} 
 		
-		int count = 7;
+		this.sendVerifyCode();
+		Map<String, Map<String, List<String>>> map = this.sendModelsStructures();
+		responseMessage.results = map;
+		
+		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
+		return Action.NONE;
+	}
+	
+	private void sendVerifyCode() throws Exception {
+		String VERIFYCODE_TYPE = ParametersHelper.getParameter(requestMessage, ConfigJSON.VERIFYCODE_TYPE);
+		String VERIFYCODE_COUNT = ParametersHelper.getParameter(requestMessage, ConfigJSON.VERIFYCODE_COUNT);
+		
+		int count = 4;		// default
+		boolean randomBool = new Random().nextBoolean() ;		// default
 		try {
-			count = VERIFYCODE_COUNT == null ? 4 : Integer.valueOf(VERIFYCODE_COUNT) ;
+			if (VERIFYCODE_COUNT != null) count = Integer.valueOf(VERIFYCODE_COUNT) ;
+			if (VERIFYCODE_TYPE != null) randomBool = Boolean.valueOf(VERIFYCODE_TYPE);
 		} catch (NumberFormatException e) {
-			//
+			// 
 		}
-		
-		boolean randomBool = (VERIFYCODE_TYPE == null) ? (new Random()).nextBoolean() : Boolean.valueOf(VERIFYCODE_TYPE);
 		String verifyCode = randomBool ? VerifyCode.generateCode(count) : SecurityCode.getSecurityCode(count);
 		byte[] imageBytes = randomBool ? VerifyCode.generateImageBytes(verifyCode) : SecurityCode.getImageAsBytes(verifyCode);
 		
+		// header
 		HttpServletResponse response = ResponseWriter.getResponse();
 		response.addIntHeader(ConfigJSON.BINARY_LENGHT, imageBytes.length);		// before write data
 
+		// send binary data
 		SessionManager.put(ConfigJSON.VERIFYCODE, verifyCode);
 		ResponseWriter.write(imageBytes);
 		
+		DLog.log(ConfigJSON.VERIFYCODE + " : " + verifyCode + " . " + imageBytes.length );
+	}
+	
+	private Map<String, Map<String, List<String>>> sendModelsStructures() {
 		// For the first time connect , send the structures
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String cookie = request.getHeader("cookie");
-		if (cookie == null) this.applicationModelsStructures();
-		
-		
-		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
-		
-		DLog.log(ConfigJSON.VERIFYCODE + " : " + verifyCode + " . " + imageBytes.length );
-
-		
-		return Action.NONE;
-	}
-
-	private void applicationModelsStructures() {
+		if (cookie != null)
+			return null;
+	
 		// get the file name list
 		File folder = new File(ConfigConstants.Models_Class_Files_Path);
 		List<String> modelsList = new ArrayList<String>();
@@ -116,9 +127,7 @@ public class SettingAction extends ActionBase {
 		}
 		
 		// translate classes properties name to map
-		 Map<String, Map<String, List<String>>> map = IntrospectHelper.translateToPropertiesMap(classesNamesList);
-		 
-		 responseMessage.results = map;
+		  return IntrospectHelper.translateToPropertiesMap(classesNamesList);
 	}
 	
 	
@@ -134,7 +143,7 @@ public class SettingAction extends ActionBase {
 		BusinessDAO businessDAO = new BusinessDAOIMP();
 		List<Object> bsList = businessDAO.getClientsNOPairs();
 		
-		HibernateDAO dao = new HibernateDAO();
+		SuperDAOIMP dao = new SuperDAOIMP();
 		List<Object> settingList = dao.getObjects("select settings.settings from APPSettings settings where settings.type = '" + ConfigConstants.APPSETTINGS_APPROVALS +"'");
 		
 		List<Object> results = new ArrayList<Object>();
@@ -155,10 +164,56 @@ public class SettingAction extends ActionBase {
 	 */
 	public String inform() {
 		try {
-			ApnsHelper.inform(requestMessage.getAPNS_FORWARDS(), requestMessage.getAPNS_CONTENTS());
+			boolean isAllSuccess = ApnsHelper.inform(requestMessage.getAPNS_FORWARDS(), requestMessage.getAPNS_CONTENTS());
+			if (isAllSuccess) responseMessage.status = ConfigConstants.STATUS_POSITIVE;
 		} catch (Exception e) {
-			responseMessage.apnsStatus = ConfigConstants.STATUS_NEGATIVE;
+			e.printStackTrace();
 		}
+		return Action.NONE;
+	}
+	
+	
+	public String modifyType() throws Exception {
+		
+		SuperDAO superDao = new SuperDAOIMP();
+		
+		List<Map<String, String>> identities = requestMessage.getIDENTITYS();
+		
+		APPSettings appSettingVO = (APPSettings) models.get(0);
+			
+		// get PO
+		Map<String, String> idenfier = identities.get(0);
+		ModelIntrospector.setProperty(appSettingVO, idenfier);
+		APPSettings appSettingPO =  superDao.readUnique(appSettingVO, idenfier.keySet());
+			
+		if (appSettingPO == null) {
+			appSettingPO = appSettingVO;
+			superDao.create(appSettingPO);
+		} else {
+			ModelIntrospector.copyVoToPo(appSettingVO, appSettingPO, modelsKeys.get(0));
+			superDao.modify(appSettingPO);
+		}
+		
+		return Action.NONE;
+	}
+	
+	
+	public String readType() throws Exception{
+		
+		SuperDAO superDao = new SuperDAOIMP();
+		
+		List<Map<String, String>> identities = requestMessage.getIDENTITYS();
+		
+		APPSettings appSettingVO = (APPSettings) models.get(0);
+			
+		// get PO
+		Map<String, String> idenfier = identities.get(0);
+		ModelIntrospector.setProperty(appSettingVO, idenfier);
+		APPSettings appSettingPO =  superDao.readUnique(appSettingVO, idenfier.keySet());
+		
+		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
+		responseMessage.results = appSettingPO;
+		
 		return Action.NONE;
 	}
 	
@@ -202,7 +257,7 @@ public class SettingAction extends ActionBase {
 	 */
 	public String readProductCategory() throws Exception{
 		
-		HibernateDAO productDAO = new HibernateDAO();
+		SuperDAOIMP productDAO = new SuperDAOIMP();
 		List<Object> productCategoryList = productDAO.getObjects("select settings.settings from APPSettings settings where settings.type = '" + ConfigConstants.APPSETTINGS_PRODUCTCATEGORY +"'");
 		
 		List<Object> results = new ArrayList<Object>();

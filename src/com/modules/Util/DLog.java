@@ -10,4 +10,10 @@ public class DLog {
 		String classNameString = elements[1].getClassName();
 		System.out.println("\n ----- " + "[" + classNameString + "]" + "  " + message);
 	}
+	
+	public static void log(String prefix, String message) {
+		if (! isDebugingMode) return; 
+		System.out.println(prefix);
+		log(message);
+	}
 }

@@ -16,7 +16,7 @@ import com.xinyuan.Query.QueryObjectsHelper;
 import com.xinyuan.Query.QuerySortsHelper;
 import com.xinyuan.dao.SuperDAO;
 
-public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
+public class SuperDAOIMP extends AbstractHibernateDAOIMP implements SuperDAO {
 	private static final String k_COMMA = ", ";
 	private static final String k_AND = " AND";
 	private static final String k_FROM = " FROM ";
@@ -91,7 +91,7 @@ public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 	
 	@Override
 	public String getJoinedTotalRows() {
-		SQLQuery query = super.getSession().createSQLQuery(k_SELECT_FOUND_ROWS);
+		SQLQuery query = super.createSQLQuery(k_SELECT_FOUND_ROWS);
 		return query.uniqueResult().toString();
 	}
 	
@@ -125,7 +125,7 @@ public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 			Map<String, Map<String,String>> criterias = outterCriterials == null ? null : outterCriterials.get(i);
 			
 			// alias , table too
-			String alias = getAlias(object);
+			String alias = IntrospectHelper.getShortClassName(object);
 			
 			// joined on :  A Left Join B on A.a = B.b Left Join C on A.a = C.c
 			if (i == 0) {
@@ -185,12 +185,12 @@ public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 		sqlString += limitsClause;
 		
 		// Create SQL Query From Query String
-		Query query = super.getSession().createSQLQuery(sqlString);
+		SQLQuery query = super.createSQLQuery(sqlString);
 		
 		// Set Parameters to Query
 		for (int i = 0; i < outterObjects.size(); i++) {
 			Object object = outterObjects.get(i);
-			String alias = getAlias(object);
+			String alias = IntrospectHelper.getShortClassName(object);
 			Set<String> keys = outterKeys.get(i);
 			Map<String, Map<String,String>> criterias = null;
 			if (outterCriterials != null) criterias = outterCriterials.get(i);
@@ -206,9 +206,9 @@ public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 	
 	private <E extends Object> Query createHQLQuery(String hqlString, E object, Set<String> keys, Map<String, Map<String,String>> criterias, List<String> limits) throws Exception {
 		// Create HQL Query From Query String
-		Query query = super.getSession().createQuery(hqlString);
+		Query query = super.createQuery(hqlString);
 		
-		String alias = getAlias(object);
+		String alias = IntrospectHelper.getShortClassName(object);
 		
 		// Set Parameters to Query
 		QueryObjectsHelper.setObjectsWhereValues(query, object, keys);
@@ -229,7 +229,7 @@ public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 		String whereCriterialsClause 	= "";
 		
 		// alias
-		String alias = getAlias(object);
+		String alias = IntrospectHelper.getShortClassName(object);
 		
 		// from Clause :
 		fromClause = object.getClass().getName() + " " + alias;
@@ -263,9 +263,5 @@ public class SuperDAOIMP extends HibernateDAO implements SuperDAO {
 		return hqlString;
 	}
 	
-	
-	private String getAlias(Object object) {
-		return IntrospectHelper.getShortClassName(object);
-	}
 	
 }

@@ -90,6 +90,9 @@
         <action name="signin" class="com.xinyuan.action.UserAction" method="signin">
         	<interceptor-ref name="notOnlineIntercepterStack"></interceptor-ref>
         </action>
+        <action name="signup" class="com.xinyuan.action.UserAction" method="signup">
+        	<interceptor-ref name="notOnlineIntercepterStack"></interceptor-ref>
+        </action>
         
         <!-- has signined / online -->
         <action name="signout" class="com.xinyuan.action.UserAction" method="signout">

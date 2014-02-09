@@ -25,28 +25,32 @@ public class ApnsHelper {
 	private static final String APNS_Sound_DEFAULT = "default";
 
 
-	public static void inform(List<String> forwardList, List<Map<String, String>> forwardContents) throws Exception {
+	public static boolean inform(List<String> forwardList, List<Map<String, String>> forwardContents) throws Exception {
 		
 		int forwardsCount = forwardList != null ? forwardList.size() : 0 ;
+		boolean isAllSuccess = false;
 		UserDAO userDAO = new UserDAOIMP();
 		for (int index = 0; index < forwardsCount; index++) {
 			String forwardUsername = forwardList.get(index);
 			String tokenString = userDAO.getUserApnsToken(forwardUsername);
 			String[] apnsTokens =  tokenString.split(ConfigConstants.CONTENT_DIVIDER);
 			Map<String, String> apnsMap = forwardContents.get(index);
-			push(apnsMap, apnsTokens);
+			int result = push(apnsMap, apnsTokens);
+			isAllSuccess = result == apnsTokens.length;
 		}
+		return isAllSuccess;
 	}
 	
 	
 	/**
 	 * 
 	 * @param map		Push contents , e.g. {"Alert":"","Badge":"","Sound",""}
-	 * @param apnsToken Push device token
+	 * @param apnsToken Push devices tokens
+	 * @return the successful count
 	 * @throws Exception
 	 */
 	
-	public static void push(Map<String, String>map , String[] apnsTokens) throws Exception {
+	public static int push(Map<String, String>map , String[] apnsTokens) throws Exception {
 		String APNS_Alert = ConfigJSON.APNS_Alert;
 		String APNS_Badge = ConfigJSON.APNS_Badge;
 		String APNS_Sound = ConfigJSON.APNS_Sound;
@@ -78,12 +82,12 @@ public class ApnsHelper {
 			payload.addCustomDictionary(key, (String) entry.getValue());		// the custom contents
 		}
 		
-		sendWithOutThread(payload, ConfigConstants.Apns_Certificate_Path, ConfigConstants.APNS_CERTIFICATE_PASSWORD, ConfigConstants.APNS_IN_PRODUCTION, devices);
+		return sendWithOutThread(payload, ConfigConstants.Apns_Certificate_Path, ConfigConstants.APNS_CERTIFICATE_PASSWORD, ConfigConstants.APNS_IN_PRODUCTION, devices);
 		
 	}
 	
-	private static void sendWithOutThread(final Payload payload, final Object keystore, final String password, final boolean production, final String[] devices) throws Exception {
-		send(payload, keystore, password, production, devices);
+	private static int sendWithOutThread(final Payload payload, final Object keystore, final String password, final boolean production, final String[] devices) throws Exception {
+		return send(payload, keystore, password, production, devices);
 	}
 	
 	// But: http://stackoverflow.com/questions/533783/why-spawning-threads-in-java-ee-container-is-discouraged
@@ -101,8 +105,9 @@ public class ApnsHelper {
 		}).start();
 	}
 	
-	private static void send(Payload payload, Object keystore, String password, boolean production, String[] devices) throws Exception {
+	private static int send(Payload payload, Object keystore, String password, boolean production, String[] devices) throws Exception {
 		List<PushedNotification> notifications = null;
+		int result = 0;
 		
 		try {
 			
@@ -122,7 +127,9 @@ public class ApnsHelper {
             if (notification.isSuccessful()) {
                     /* Apple accepted the notification and should deliver it */  
                     System.out.println("Push notification sent successfully to: " + notification.getDevice().getToken());
-                    /* Still need to query the Feedback Service regularly */  
+                    /* Still need to query the Feedback Service regularly */ 
+                    
+                    result ++;
                     
             } else {
             		// TODO: Some notifications failed . 
@@ -143,7 +150,7 @@ public class ApnsHelper {
             
 		}
 			
-			
+		return result;	
 	}
 	
 }

@@ -1,6 +1,7 @@
 package com.Global;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -22,8 +23,8 @@ public class TransactionFilter implements Filter {
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		System.out.println("\n\n\n");			// TODO: Remove it in production!
-		DLog.log("" + ((HttpServletRequest)request).getRequestURL());
+		HttpServletRequest httpServletRequest = (HttpServletRequest)request;
+		DLog.log("\n\n\n" , "(" + new Date() + ")"  + "  " + request.getRemoteAddr() + ":" + request.getRemotePort() + " -> " + httpServletRequest.getRequestURL() );
 		DLog.log("*************************** ----- Begin Transaction");
 		
 		Transaction transaction = null;	

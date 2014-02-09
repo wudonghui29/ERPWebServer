@@ -69,10 +69,9 @@ public class ConfigConstants {
 	public static final String METHOD_DELETE = "delete";
 	public static final String METHOD_APPLY = "apply";
 	
-	public static final String APP_PREFIX = "app";
+	public static final String APPKEY_PREFIX = "app";
 	
-	public static final String DEFAULT_PERMISSION = "{}";
-	
+	public static final String DEFAULT_PERMISSION = "{}";			// TODO : REMOVE IT in Production
 	
 	public static final String SIGNIN_USER = "signin_user";
 	
@@ -83,7 +82,7 @@ public class ConfigConstants {
 	
 	public static final String DENY = "DENY";
 
-	public static final String PERMISSIONS = "PERMISSIONS";
+	public static final String ALLUSER_PERMISSIONS = "ALLUSER_PERMISSIONS";
 	
 	public static final String REQUEST_ERROR = "REQUEST_ERROR";
 	
@@ -100,17 +99,19 @@ public class ConfigConstants {
 	public static final String APPSETTINGS_PRODUCTCATEGORY = "PRODUCTCATEGORY";
 	
 	
+	public static final String SystemNeedInitialed = "System_Need_Initialized";
 	
 	
 	public static class USER {
 		public static final String VerifyCodeError = "VerifyCode_Error";
+		
+		
 		public static final String UserNotExist = "User_Not_Exist";
 		public static final String UserNotSignIn = "User_Not_Sign_In";
 		public static final String UserNameExisted = "UserName_Existed";
 		public static final String UserLoginSuccess = "User_Login_Success";
-		public static final String UserCreateFailed = "User_Create_Failed";
-		public static final String UserNamePasswordNULL = "UserName_OR_Password_NULL"; 
 		public static final String UserPasswordError = "User_Password_Error";
+		public static final String UserNamePasswordNULL = "UserName_OR_Password_NULL"; 
 	}
 	
 	

@@ -4,7 +4,6 @@ import com.opensymphony.xwork2.Action;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.dao.impl.SuperDAOIMP;
-import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.model.Approval.Approvals;
 import com.xinyuan.model.HumanResource.Employee;
 import com.xinyuan.model.User.User;
@@ -34,7 +33,6 @@ public class HumanResourceAction extends SuperAction {
 				User newUser = new User();
 				newUser.setPassword(password);
 				newUser.setUsername(employeeNO);
-				newUser.setPermissions(ConfigConstants.DEFAULT_PERMISSION);
 				
 				// create approval
 				Approvals approval = new Approvals();
