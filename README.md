@@ -156,4 +156,12 @@
  	
  	drop table SharedReleaseBill;
 	drop table SharedReleaseOrder;
+	
+-- 2014-1-21
+
+	drop table WHLendOutBill;
+	drop table WHProductCategory;
+	drop table WHMaterialOrder;
+
+	
   
