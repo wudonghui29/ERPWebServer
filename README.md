@@ -9,18 +9,16 @@
 
 	mysql -u***** -p*****
 	
+	show variables like 'character%';
+	
 	(For all databases)
 	SET character_set_client = utf8 ; 
 	SET character_set_server = utf8 ;
 	SET character_set_database = utf8 ; 
 	
 	create database <database_name>;
-	
 	show databases;
-
 	use <database_name>;
-	
-	show variables like 'character%';
 
 	(alter database <database_name> character set utf8 ;)
 
