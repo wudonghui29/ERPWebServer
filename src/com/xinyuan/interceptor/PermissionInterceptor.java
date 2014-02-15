@@ -63,7 +63,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		
 		// check if super action
 //		if (baseAction.getClass() == SuperAction.class) {
-//			isAllowable = isCrossActions(models) ? checkPermission(method, models, permissions) : false;	// URL:Super__read, MODELS:["HumanResource.Employee","Finance.FinancePayWarrantOrder"]
+//			isAllowable = isCrossActions(models) ? checkPermission(method, models, permissions) : false;	// URL:Super__read, MODELS:["HumanResource.Employee","Finance.FinancePettyCashOrder"]
 //		// not the super action
 //		} else {
 //			String action = PermissionInterceptor.getContextAction().trim();   					// C. action needed
@@ -109,7 +109,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	/**
 	 * This interface is for "Super" Action
 	 * @param method		"read"
-	 * @param models		[".HumanResource.Employee",".Finance.FinancePayWarrantOrder"]
+	 * @param models		[".HumanResource.Employee",".Finance.FinancePettyCashOrder"]
 	 * @param permissions	[".HumanResource.Employee.read",".HumanResource.Employee.create"]
 	 * @return
 	 */
@@ -166,7 +166,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	
 	/**
 	 * check if has the different action, such as HumanResource and Finance couple are cross
-	 * @param models	MODELS:["HumanResource.Employee","Finance.FinancePayWarrantOrder"]
+	 * @param models	MODELS:["HumanResource.Employee","Finance.FinancePettyCashOrder"]
 	 * @return
 	 */
 	private boolean isCrossActions(List<String> models) {

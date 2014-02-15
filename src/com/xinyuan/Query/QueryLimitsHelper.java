@@ -6,7 +6,7 @@ public class QueryLimitsHelper {
 
 	// For Have Joined Clause
 	public static boolean isJoinedNeedLimits(List<List<String>> outterLimits) {
-		boolean isLimitPage = outterLimits != null && outterLimits.size() == 1 && outterLimits.get(0).size() == 2;
+		boolean isLimitPage = outterLimits != null && outterLimits.size() != 0 && outterLimits.get(0).size() == 2;
 		return isLimitPage;
 	}
 	

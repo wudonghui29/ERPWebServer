@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.modules.Util.DLog;
+import com.sun.org.apache.bcel.internal.generic.DLOAD;
 import com.xinyuan.Util.ApnsHelper;
 import com.xinyuan.Util.ParametersHelper;
 import com.xinyuan.Util.OrderHelper;
@@ -52,10 +54,14 @@ public abstract class CommandAlter implements Command {
 				
 				// send apns
 				String tokenString = userDAO.getUserApnsToken(forwardUser);
-				String[] apnsTokens =  tokenString.split(ConfigConstants.CONTENT_DIVIDER);
-				if (apnsTokens.length != 0) {		// get the token
-					Map<String, String> apnsMap = forwardsContents.get(i);
-					ApnsHelper.push(apnsMap, apnsTokens);
+				if (tokenString != null) {
+					String[] apnsTokens =  tokenString.split(ConfigConstants.CONTENT_DIVIDER);
+					if (apnsTokens.length != 0) {		// get the token
+						Map<String, String> apnsMap = forwardsContents.get(i);
+						ApnsHelper.push(apnsMap, apnsTokens);
+					}
+				} else {
+					DLog.log("Token is null");
 				}
 			}
 		}

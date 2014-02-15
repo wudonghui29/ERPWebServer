@@ -5,6 +5,12 @@ import javax.persistence.Table;
 
 import com.xinyuan.model.OrderApp4;
 
+/**
+ * 
+ * 零用金申请单
+ * 
+ */
+
 @Entity
 @Table
 public class FinancePettyCashOrder extends OrderApp4 {
