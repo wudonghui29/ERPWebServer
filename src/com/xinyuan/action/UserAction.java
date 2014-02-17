@@ -108,7 +108,7 @@ public class UserAction extends ActionBase {
 					SuperDAO superDao = new SuperDAOIMP();
 					APPSettings appSetting = new APPSettings();
 					appSetting.setType(ConfigConstants.APPSETTINGS_APPROVALS);
-					String settings = "{\"HumanResource\":{\"Employee\":{\"app1\":[[\""+user.getUsername()+"\"],\"\"]}}}";
+					String settings = "{\"HumanResource\":{\"Employee\":{\"app1\":{\"USERS\":[\"" +user.getUsername()+ "\"]}}}}" ;
 					appSetting.setSettings(settings);
 					
 					superDao.create(appSetting);
