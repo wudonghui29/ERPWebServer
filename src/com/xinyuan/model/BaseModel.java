@@ -13,8 +13,8 @@ public class BaseModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	protected int id ;
-	protected Date createDate; 	// the date of creating this order
-	protected String createUser;	// the username of creating this order
+	protected Date createDate; 		// the date of creating this model
+	protected String createUser;	// the username of creating this model
 	protected String modifiedUser;	// the username last modified the order
 
 	@Id
