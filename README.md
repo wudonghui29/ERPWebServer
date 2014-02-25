@@ -1,4 +1,5 @@
 
+git pull-request -m "message" -b develop
 
 ## Add .classpath file and change your libraries path in project
 
