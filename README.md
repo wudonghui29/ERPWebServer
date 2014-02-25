@@ -4,13 +4,16 @@ send pull request (contributor) :
 
 	git pull-request -m "message" -b develop
 
-
-
-apply pull request (maintainer) :
+apply pull request use git (maintainer) :
 
 	curl https://github.com/isaacselement/ERPWebServer/pull/16.patch | git am
 
-
+apply pull request use hub (maintainer) :
+	
+	git am -3 https://github.com/isaacselement/ERPWebServer/pull/16
+	
+	
+	
 
 ## Add .classpath file and change your libraries path in project
 
