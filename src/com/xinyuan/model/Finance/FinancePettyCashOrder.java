@@ -17,20 +17,44 @@ public class FinancePettyCashOrder extends OrderApp4 {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String employeeNO ;			// 领款人
+	private String staffCategory;		 //人员类别
+	private String staffNO;				 //申请人
+	
+	private String bankAccount;			// 付款帐户
+	
 	private String feeDescription;		// 费用说明
 	
 	
 	private String biilOrderNOs;		// 单号
 
 
-	public String getEmployeeNO() {
-		return employeeNO;
+	public String getStaffCategory() {
+		return staffCategory;
 	}
 
 
-	public void setEmployeeNO(String employeeNO) {
-		this.employeeNO = employeeNO;
+	public void setStaffCategory(String staffCategory) {
+		this.staffCategory = staffCategory;
+	}
+
+
+	public String getStaffNO() {
+		return staffNO;
+	}
+
+
+	public void setStaffNO(String staffNO) {
+		this.staffNO = staffNO;
+	}
+
+
+	public String getBankAccount() {
+		return bankAccount;
+	}
+
+
+	public void setBankAccount(String bankAccount) {
+		this.bankAccount = bankAccount;
 	}
 
 
@@ -53,5 +77,4 @@ public class FinancePettyCashOrder extends OrderApp4 {
 		this.biilOrderNOs = biilOrderNOs;
 	}
 
-	
 }

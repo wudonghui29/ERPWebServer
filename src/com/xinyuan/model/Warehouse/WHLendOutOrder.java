@@ -20,8 +20,8 @@ public class WHLendOutOrder extends OrderApp2 {
 	private Date lendDate;                //借出日期
 	private Date planReturnDate;          //预计还入日期
 	
-	private String staffNO;				  //借出人员 
 	private String staffCategory;		  //人员类别
+	private String staffNO;				  //借出人员 
 	
 	private String productCode;           //产品代码
 	private String productName;           //产品名称
