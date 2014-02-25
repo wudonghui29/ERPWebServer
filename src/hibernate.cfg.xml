@@ -137,10 +137,10 @@
         
         
         <!-- Finance Models -->
+        <mapping class="com.xinyuan.model.Finance.FinanceAccount"/>
         <mapping class="com.xinyuan.model.Finance.FinanceCHOrder"/>
         <mapping class="com.xinyuan.model.Finance.FinanceSalaryOrder"/>
         <mapping class="com.xinyuan.model.Finance.FinancePettyCashOrder"/>
-        
         
         
         <!-- Purchase Models -->

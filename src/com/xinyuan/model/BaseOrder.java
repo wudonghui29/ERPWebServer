@@ -9,12 +9,11 @@ import javax.persistence.MappedSuperclass;
 
 
 @MappedSuperclass
-public class BaseOrder extends BaseModel {
+public class BaseOrder extends BaseEntity {
 	
-	private static final long serialVersionUID = 1L;
+	protected static final long serialVersionUID = 1L;
 	protected String orderNO ; 		// the NO. of this order
 	protected Date expiredDate;		// The expired date
-	protected boolean exception;	// Exception or not
 	
 	@Column(unique=true)
 	public String getOrderNO() {
@@ -29,13 +28,6 @@ public class BaseOrder extends BaseModel {
 	}
 	public void setExpiredDate(Date expiredDate) {
 		this.expiredDate = expiredDate;
-	}
-	
-	public boolean isException() {
-		return exception;
-	}
-	public void setException(boolean exception) {
-		this.exception = exception;
 	}
 	
 }

@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.xinyuan.model.BaseModel;
+import com.xinyuan.model.BaseEntity;
 
 /**
  * 
@@ -14,14 +14,14 @@ import com.xinyuan.model.BaseModel;
 
 @Entity
 @Table
-public class Client extends BaseModel {
+public class Client extends BaseEntity {
 
 
 	private static final long serialVersionUID = 1L;
 	
 	private String number ;		// 客户编号
-	private String name ;		// 客户名称
 	private String category ; 	// 客户类别
+	private String name ;		// 客户名称
 	
 	private String principal;	// 负责人
 	private String phoneNO;		// 电话

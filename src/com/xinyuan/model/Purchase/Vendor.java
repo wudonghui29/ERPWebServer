@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.xinyuan.model.BaseModel;
+import com.xinyuan.model.BaseEntity;
 
 /**
  * 
@@ -16,7 +16,7 @@ import com.xinyuan.model.BaseModel;
 
 @Table
 @Entity
-public class Vendor extends BaseModel {
+public class Vendor extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 	
