@@ -7,6 +7,13 @@ import javax.persistence.Table;
 
 import com.xinyuan.model.BaseOrder;
 
+
+/**
+ * 进货单
+ *
+ */
+
+
 @Entity
 @Table
 public class WHPurchaseOrder extends BaseOrder {

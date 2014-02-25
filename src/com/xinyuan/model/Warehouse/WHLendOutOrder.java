@@ -8,6 +8,12 @@ import javax.persistence.Table;
 
 import com.xinyuan.model.OrderApp2;
 
+
+/**
+ * 借出单
+ *
+ */
+
 @Entity
 @Table
 public class WHLendOutOrder extends OrderApp2 {
