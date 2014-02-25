@@ -10,6 +10,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.xinyuan.model.BaseOrder;
 
+/**
+ * 仓库库存
+ *
+ */
+
 @Entity
 @Table
 public class WHInventoryOrder extends BaseOrder {
