@@ -62,8 +62,13 @@ public class SettingAction extends ActionBase {
 	 * @throws Exception
 	 */
 	public String getConnection() throws Exception {
-		if (!isInitilized && SettingHelper.isUserTableEmpty()) {
-			responseMessage.descriptions = ConfigConstants.SystemNeedInitialed;
+		if (!isInitilized) {
+			Boolean isUserTableEmpty = SettingHelper.isUserTableEmpty();
+			if (isUserTableEmpty) {
+				responseMessage.descriptions = ConfigConstants.SystemNeedInitialed;
+			} else {
+				isInitilized = true;
+			}
 		} 
 		
 		this.sendVerifyCode();

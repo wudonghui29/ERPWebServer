@@ -25,7 +25,7 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		
 		String json = request.getParameter(ConfigJSON.JSON);
-		DLog.log("Json String : " + json);
+//		DLog.log("Json String : " + json);
 		
 		RequestMessage requestMessage = GsonHelper.getGson().fromJson(json, RequestMessage.class);
 		baseAction.setRequestMessage(requestMessage);
@@ -37,7 +37,7 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		responseMessage.action = url.substring(url.lastIndexOf("/") + 1);
 		responseMessage.models = requestMessage.getMODELS();
 		
-		DLog.log("RequestMessage : " + requestMessage.toString());
+//		DLog.log("RequestMessage : " + requestMessage.toString());
 		
 		return invocation.invoke();
 	}

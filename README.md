@@ -177,5 +177,7 @@ apply pull request use hub (maintainer) :
 	drop table WHProductCategory;
 	drop table WHMaterialOrder;
 
-	
+-- 2014-2-26
+
+	drop table FinancePettyCashOrder;
   
