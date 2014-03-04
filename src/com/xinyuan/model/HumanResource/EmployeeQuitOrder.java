@@ -20,9 +20,6 @@ import com.xinyuan.model.OrderApp4;
 @Table
 public class EmployeeQuitOrder extends OrderApp4 {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private String employeeNO; 		 	// the employee want to quit his job
@@ -30,6 +27,7 @@ public class EmployeeQuitOrder extends OrderApp4 {
 	private Date planQuitDate ;  		// 拟定离职日期 the date plan to quit  
 	private Date approvedQuitDate ; 	// 核定离职日期 the date approve to quit  
 	
+	private Date employDate;  	 		// 到职日期
 	private Date filingDate ; 			// 申请日期
 	private String quitReason; 			// 离职原因
 	
@@ -59,6 +57,14 @@ public class EmployeeQuitOrder extends OrderApp4 {
 
 	public void setApprovedQuitDate(Date approvedQuitDate) {
 		this.approvedQuitDate = approvedQuitDate;
+	}
+	
+	public Date getEmployDate() {
+		return employDate;
+	}
+
+	public void setEmployDate(Date employDate) {
+		this.employDate = employDate;
 	}
 
 	public Date getFilingDate() {

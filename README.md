@@ -180,4 +180,8 @@ apply pull request use hub (maintainer) :
 -- 2014-2-26
 
 	drop table FinancePettyCashOrder;
+	
+-- 2014-3-3
+	
+	alter table EmployeeQuitOrder drop column carryingStuff;
   
