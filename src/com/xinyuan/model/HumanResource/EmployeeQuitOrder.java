@@ -3,9 +3,7 @@ package com.xinyuan.model.HumanResource;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.xinyuan.model.OrderApp4;
@@ -32,8 +30,9 @@ public class EmployeeQuitOrder extends OrderApp4 {
 	private String quitReason; 			// 离职原因
 	
 	
-	private EmployeeQuitPassOrder quitPassOrder;
+//	private EmployeeQuitPassOrder employeeQuitPassOrder;
 
+	
 	
 	public String getEmployeeNO() {
 		return employeeNO;
@@ -83,13 +82,14 @@ public class EmployeeQuitOrder extends OrderApp4 {
 		this.quitReason = quitReason;
 	}
 
-	@OneToOne(cascade=CascadeType.ALL,optional=true)
-	public EmployeeQuitPassOrder getQuitPassOrder() {
-		return quitPassOrder;
-	}
 
-	public void setQuitPassOrder(EmployeeQuitPassOrder quitPassOrder) {
-		this.quitPassOrder = quitPassOrder;
-	}
+//	@OneToOne(cascade=CascadeType.ALL,optional=true)
+//	public EmployeeQuitPassOrder getEmployeeQuitPassOrder() {
+//		return employeeQuitPassOrder;
+//	}
+//	
+//	public void setEmployeeQuitPassOrder(EmployeeQuitPassOrder employeeQuitPassOrder) {
+//		this.employeeQuitPassOrder = employeeQuitPassOrder;
+//	}
 	
 }

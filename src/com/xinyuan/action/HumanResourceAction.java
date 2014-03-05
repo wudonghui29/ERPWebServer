@@ -23,6 +23,7 @@ public class HumanResourceAction extends SuperAction {
 		for (int i = 0; i < models.size(); i++) {
 			Object model = models.get(i);
 			
+			// if Employee create the an User and Approvals instance
 			if (model instanceof Employee) {
 				Employee newEmployee = (Employee)model;
 				
@@ -38,10 +39,12 @@ public class HumanResourceAction extends SuperAction {
 				Approvals approval = new Approvals();
 				approval.setEmployeeNO(employeeNO);
 				
+				// save to database
 				SuperDAO baseDAO = new SuperDAOIMP();
 				baseDAO.create(newUser);
 				baseDAO.create(approval);
 				
+				// modify the employee wordMask property
 				String wordMask = password.replaceAll("\\w", "*");
 				newEmployee.setWordMask(wordMask);
 			}
