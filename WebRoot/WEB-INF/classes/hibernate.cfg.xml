@@ -86,12 +86,12 @@
         <mapping class="com.xinyuan.model.HumanResource.EmployeeQuitOrder"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeQuitPassOrder"/>
         
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeMissMealOrder"/>
         
         
         <mapping class="com.xinyuan.model.HumanResource.EmployeeATTDROrder"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeATTFixOrder"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeATTOrder"/>
-        <mapping class="com.xinyuan.model.HumanResource.EmployeeBMOrder"/>
         
         <mapping class="com.xinyuan.model.HumanResource.EmployeeDormOrder"/>
         
@@ -149,6 +149,7 @@
         
         <!-- Purchase Models -->
         <mapping class="com.xinyuan.model.Purchase.Vendor"/>
+        <mapping class="com.xinyuan.model.Purchase.PurchaseOrder"/>
         
         
     </session-factory>

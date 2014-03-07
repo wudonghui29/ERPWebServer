@@ -10,7 +10,7 @@ import com.xinyuan.model.BaseEntity;
 
 /**
  * 
- * 厂商资料
+ * 厂商/供应商资料
  * 
  */
 

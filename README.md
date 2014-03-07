@@ -189,6 +189,7 @@ apply pull request use hub (maintainer) :
 
 	drop table FinanceCHOrder;
 	drop table FinanceSalaryOrder;
+	drop table EmployeeBMOrder;
 	
 	
 	
