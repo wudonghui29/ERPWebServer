@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.xinyuan.model.BaseOrder;
+import com.xinyuan.model.BaseEntity;
 
 /**
  * 
@@ -16,7 +16,7 @@ import com.xinyuan.model.BaseOrder;
 
 @Table
 @Entity
-public class FinanceSalaryOrder extends BaseOrder {
+public class FinanceSalary extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 	

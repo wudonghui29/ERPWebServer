@@ -143,7 +143,7 @@
         <mapping class="com.xinyuan.model.Finance.FinanceAccountCHOrder"/>
         
         <mapping class="com.xinyuan.model.Finance.FinanceSalaryCHOrder"/>
-        <mapping class="com.xinyuan.model.Finance.FinanceSalaryOrder"/>
+        <mapping class="com.xinyuan.model.Finance.FinanceSalary"/>
         <mapping class="com.xinyuan.model.Finance.FinancePaymentOrder"/>
         
         

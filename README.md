@@ -188,6 +188,7 @@ apply pull request use hub (maintainer) :
 -- 2014-3-7
 
 	drop table FinanceCHOrder;
+	drop table FinanceSalaryOrder;
 	
 	
 	
