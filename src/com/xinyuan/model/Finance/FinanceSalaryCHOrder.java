@@ -9,7 +9,7 @@ import com.xinyuan.model.OrderApp4;
 
 @Entity
 @Table
-public class FinanceCHOrder extends OrderApp4 {
+public class FinanceSalaryCHOrder extends OrderApp4 {
 
 	/**
 	 * 

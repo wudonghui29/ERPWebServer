@@ -185,3 +185,10 @@ apply pull request use hub (maintainer) :
 	
 	alter table EmployeeQuitOrder drop column carryingStuff;
   
+-- 2014-3-7
+
+	drop table FinanceCHOrder;
+	
+	
+	
+  
