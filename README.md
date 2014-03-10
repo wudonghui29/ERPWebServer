@@ -16,6 +16,38 @@ apply pull request use hub (maintainer) :
 	(for more information: http://hub.github.com/)
 
 
+## About SVN
+	
+Add:
+
+	svn add * --force
+
+Update:
+	
+	svn update
+
+Commit:
+	
+	svn commit -m "message"
+
+Delete:
+	
+	for i in $(svn st | grep \! | awk '{print $2}'); do svn delete $i; done
+
+Delete image's name with '@' character:
+	
+	for i in $(svn st | grep \! | awk '{print $2}'); do svn delete $i@; done
+
+For missing file name with '@', i.e :
+
+	svn revert /Users/Isaacs/Workspaces/ios_projects/ERP/images/Login/Login@2x.png@
+	
+Take a look : 
+
+	http://stackoverflow.com/questions/1919859/svn-commit-failing-due-to-missing-file
+	http://stackoverflow.com/questions/9601294/svn-commit-file-named-2x-png
+
+
 ## Add .classpath file and change your libraries path in project
 
 	mv classpath .classpath
