@@ -15,7 +15,7 @@ public class BaseOrder extends BaseEntity {
 	protected String orderNO ; 		// the NO. of this order
 	protected Date expiredDate;		// The expired date
 	
-	@Column(unique=true)
+	@Column(unique=true,updatable=false)
 	public String getOrderNO() {
 		return orderNO;
 	}

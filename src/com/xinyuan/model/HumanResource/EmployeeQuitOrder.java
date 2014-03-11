@@ -3,9 +3,7 @@ package com.xinyuan.model.HumanResource;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.xinyuan.model.OrderApp4;
@@ -20,9 +18,6 @@ import com.xinyuan.model.OrderApp4;
 @Table
 public class EmployeeQuitOrder extends OrderApp4 {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private String employeeNO; 		 	// the employee want to quit his job
@@ -30,12 +25,14 @@ public class EmployeeQuitOrder extends OrderApp4 {
 	private Date planQuitDate ;  		// 拟定离职日期 the date plan to quit  
 	private Date approvedQuitDate ; 	// 核定离职日期 the date approve to quit  
 	
+	private Date employDate;  	 		// 到职日期
 	private Date filingDate ; 			// 申请日期
 	private String quitReason; 			// 离职原因
 	
 	
-	private EmployeeQuitPassOrder quitPassOrder;
+//	private EmployeeQuitPassOrder employeeQuitPassOrder;
 
+	
 	
 	public String getEmployeeNO() {
 		return employeeNO;
@@ -60,6 +57,14 @@ public class EmployeeQuitOrder extends OrderApp4 {
 	public void setApprovedQuitDate(Date approvedQuitDate) {
 		this.approvedQuitDate = approvedQuitDate;
 	}
+	
+	public Date getEmployDate() {
+		return employDate;
+	}
+
+	public void setEmployDate(Date employDate) {
+		this.employDate = employDate;
+	}
 
 	public Date getFilingDate() {
 		return filingDate;
@@ -77,13 +82,14 @@ public class EmployeeQuitOrder extends OrderApp4 {
 		this.quitReason = quitReason;
 	}
 
-	@OneToOne(cascade=CascadeType.ALL,optional=true)
-	public EmployeeQuitPassOrder getQuitPassOrder() {
-		return quitPassOrder;
-	}
 
-	public void setQuitPassOrder(EmployeeQuitPassOrder quitPassOrder) {
-		this.quitPassOrder = quitPassOrder;
-	}
+//	@OneToOne(cascade=CascadeType.ALL,optional=true)
+//	public EmployeeQuitPassOrder getEmployeeQuitPassOrder() {
+//		return employeeQuitPassOrder;
+//	}
+//	
+//	public void setEmployeeQuitPassOrder(EmployeeQuitPassOrder employeeQuitPassOrder) {
+//		this.employeeQuitPassOrder = employeeQuitPassOrder;
+//	}
 	
 }

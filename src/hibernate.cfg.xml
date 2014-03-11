@@ -81,21 +81,23 @@
 		
 		<!-- HumanResource Models -->
         <mapping class="com.xinyuan.model.HumanResource.Employee"/>
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeCHOrder"/>
+        
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeQuitOrder"/>
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeQuitPassOrder"/>
+        
+        <mapping class="com.xinyuan.model.HumanResource.EmployeeMissMealOrder"/>
+        
+        
         <mapping class="com.xinyuan.model.HumanResource.EmployeeATTDROrder"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeATTFixOrder"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeATTOrder"/>
-        <mapping class="com.xinyuan.model.HumanResource.EmployeeBMOrder"/>
-        
-        <mapping class="com.xinyuan.model.HumanResource.EmployeeCHOrder"/>
         
         <mapping class="com.xinyuan.model.HumanResource.EmployeeDormOrder"/>
         
         <mapping class="com.xinyuan.model.HumanResource.EmployeeLeaveOrder"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeMEOrder"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeOTOrder"/>
-        
-        <mapping class="com.xinyuan.model.HumanResource.EmployeeQuitOrder"/>
-        <mapping class="com.xinyuan.model.HumanResource.EmployeeQuitPassOrder"/>
         
         <mapping class="com.xinyuan.model.HumanResource.EmployeeSMOrder"/>
         <mapping class="com.xinyuan.model.HumanResource.EmployeeSMBill"/>
@@ -138,13 +140,16 @@
         
         <!-- Finance Models -->
         <mapping class="com.xinyuan.model.Finance.FinanceAccount"/>
-        <mapping class="com.xinyuan.model.Finance.FinanceCHOrder"/>
-        <mapping class="com.xinyuan.model.Finance.FinanceSalaryOrder"/>
+        <mapping class="com.xinyuan.model.Finance.FinanceAccountCHOrder"/>
+        
+        <mapping class="com.xinyuan.model.Finance.FinanceSalaryCHOrder"/>
+        <mapping class="com.xinyuan.model.Finance.FinanceSalary"/>
         <mapping class="com.xinyuan.model.Finance.FinancePaymentOrder"/>
         
         
         <!-- Purchase Models -->
         <mapping class="com.xinyuan.model.Purchase.Vendor"/>
+        <mapping class="com.xinyuan.model.Purchase.PurchaseOrder"/>
         
         
     </session-factory>

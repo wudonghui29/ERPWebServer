@@ -3,9 +3,8 @@ package com.xinyuan.model.HumanResource;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.xinyuan.model.OrderApp4;
@@ -20,44 +19,68 @@ import com.xinyuan.model.OrderApp4;
 @Table
 public class EmployeeQuitPassOrder extends OrderApp4 {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	private String employeeNO;  	// the freedom employee 
+	private Date passDate;
+	private String humanResouceDesc;
+	private String warehouseDesc;
+	private String financeDesc;
+	private String securityDesc;
 	
-	private Date passDate ; 		// 实际离厂日期
-	private String carryingStuff; 	// 携带物品
-	
-	private EmployeeQuitOrder quitOrder;
+	private int employeeQuitOrderId;
 	
 	
-	public String getEmployeeNO() {
-		return employeeNO;
-	}
-	public void setEmployeeNO(String employeeNO) {
-		this.employeeNO = employeeNO;
-	}
+//	private EmployeeQuitOrder employeeQuitOrder;
+	
+	
 	public Date getPassDate() {
 		return passDate;
 	}
 	public void setPassDate(Date passDate) {
 		this.passDate = passDate;
 	}
-	public String getCarryingStuff() {
-		return carryingStuff;
+	public String getHumanResouceDesc() {
+		return humanResouceDesc;
 	}
-	public void setCarryingStuff(String carryingStuff) {
-		this.carryingStuff = carryingStuff;
+	public void setHumanResouceDesc(String humanResouceDesc) {
+		this.humanResouceDesc = humanResouceDesc;
+	}
+	public String getWarehouseDesc() {
+		return warehouseDesc;
+	}
+	public void setWarehouseDesc(String warehouseDesc) {
+		this.warehouseDesc = warehouseDesc;
+	}
+	public String getFinanceDesc() {
+		return financeDesc;
+	}
+	public void setFinanceDesc(String financeDesc) {
+		this.financeDesc = financeDesc;
+	}
+	public String getSecurityDesc() {
+		return securityDesc;
+	}
+	public void setSecurityDesc(String securityDesc) {
+		this.securityDesc = securityDesc;
 	}
 	
+	@Column(unique=true)
+	public int getEmployeeQuitOrderId() {
+		return employeeQuitOrderId;
+	}
+	public void setEmployeeQuitOrderId(int employeeQuitOrderId) {
+		this.employeeQuitOrderId = employeeQuitOrderId;
+	}
+	
+	
+	
 	//  http://www.blogjava.net/freeman1984/archive/2011/09/30/359857.html
-	@OneToOne(cascade=CascadeType.ALL,optional=false,mappedBy="quitPassOrder")
-	public EmployeeQuitOrder getQuitOrder() {
-		return quitOrder;
-	}
-	public void setQuitOrder(EmployeeQuitOrder quitOrder) {
-		this.quitOrder = quitOrder;
-	}
+//	@OneToOne(cascade=CascadeType.ALL,optional=false,mappedBy="employeeQuitPassOrder")
+//	public EmployeeQuitOrder getEmployeeQuitOrder() {
+//		return employeeQuitOrder;
+//	}
+//	public void setEmployeeQuitOrder(EmployeeQuitOrder employeeQuitOrder) {
+//		this.employeeQuitOrder = employeeQuitOrder;
+//	}
+	
 }
