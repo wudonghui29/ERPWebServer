@@ -12,7 +12,6 @@ import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.Util.ParametersHelper;
 import com.xinyuan.Util.SettingHelper;
 import com.xinyuan.dao.SuperDAO;
-import com.xinyuan.dao.UserDAO;
 import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConfigConstants;
