@@ -11,7 +11,7 @@ apply pull request use git (maintainer) :
 	(you need to close the pull request on web-site manually)
 
 apply pull request use hub (maintainer) :
-	
+        (hub browse -- issues)	
 	hub am -3 https://github.com/isaacselement/ERPWebServer/pull/16
 	(for more information: http://hub.github.com/)
 
