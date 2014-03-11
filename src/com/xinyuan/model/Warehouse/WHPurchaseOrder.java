@@ -1,11 +1,17 @@
 package com.xinyuan.model.Warehouse;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.xinyuan.model.BaseOrder;
+
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 
 /**
@@ -33,6 +39,9 @@ public class WHPurchaseOrder extends BaseOrder {
 	private String payCondition;    //付款条件
 	private String payMode;         //付款方式
 	private float freight;          //运   费
+	
+	private Set<WHPurchaseBill> WHPurchaseBills;    //进货的Bill
+	
 	public String getBuyNO() {
 		return buyNO;
 	}
@@ -80,6 +89,15 @@ public class WHPurchaseOrder extends BaseOrder {
 	}
 	public void setFreight(float freight) {
 		this.freight = freight;
+	}
+	
+	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@JoinColumn(name="WHPurchaseOrder_id")							
+	public Set<WHPurchaseBill> getWHPurchaseBills() {
+		return WHPurchaseBills;
+	}
+	public void setWHPurchaseBills(Set<WHPurchaseBill> wHPurchaseBills) {
+		WHPurchaseBills = wHPurchaseBills;
 	}
 	
 	
