@@ -3,15 +3,14 @@ package com.xinyuan.model.Warehouse;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import com.xinyuan.model.BaseOrder;
-
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.xinyuan.model.BaseOrder;
 
 
 /**
