@@ -225,6 +225,7 @@ Take a look :
 	
 -- 2014-3-12
 
-	 alter table FinancePaymentOrder drop column biilOrderNOs;
+	alter table FinancePaymentOrder drop column biilOrderNOs;
+	alter table WHPurchaseBill drop column purchaseQCBill;
 	
   
