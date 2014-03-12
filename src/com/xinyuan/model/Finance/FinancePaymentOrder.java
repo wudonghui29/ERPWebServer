@@ -24,14 +24,10 @@ public class FinancePaymentOrder extends OrderApp4 {
 	
 	private String feeDescription;		// 费用说明
 	
-	
-	private String biilOrderNOs;		// 单号
-
 
 	public String getStaffCategory() {
 		return staffCategory;
 	}
-
 
 	public void setStaffCategory(String staffCategory) {
 		this.staffCategory = staffCategory;
@@ -65,16 +61,6 @@ public class FinancePaymentOrder extends OrderApp4 {
 
 	public void setFeeDescription(String feeDescription) {
 		this.feeDescription = feeDescription;
-	}
-
-
-	public String getBiilOrderNOs() {
-		return biilOrderNOs;
-	}
-
-
-	public void setBiilOrderNOs(String biilOrderNOs) {
-		this.biilOrderNOs = biilOrderNOs;
 	}
 
 }
