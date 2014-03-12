@@ -17,6 +17,7 @@ public class WHPurchaseBill extends BaseBill {
 	private String productCode;         //产品代码
 	private String productName;         //品名
 	private String purchaseQC;          //进货质检单
+
 	private float  num;                 //数量
 	private String unit;                //单位
 	private float  unitPrice;           //单价
@@ -43,12 +44,13 @@ public class WHPurchaseBill extends BaseBill {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-	
+
 	public String getPurchaseQC() {
 		return purchaseQC;
 	}
 	public void setPurchaseQC(String purchaseQC) {
 		this.purchaseQC = purchaseQC;
+
 	}
 	public float getNum() {
 		return num;

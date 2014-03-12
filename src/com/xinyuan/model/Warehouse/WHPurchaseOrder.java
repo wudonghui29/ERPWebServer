@@ -43,7 +43,6 @@ public class WHPurchaseOrder extends BaseOrder {
 	private float payable;          //应   付
 	private float storageTotal;     //入库总计
 	
-	
 	private Set<WHPurchaseBill> WHPurchaseBills;    //进货的Bill
 	
 	public String getBuyNO() {
