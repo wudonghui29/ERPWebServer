@@ -39,6 +39,11 @@ public class WHPurchaseOrder extends BaseOrder {
 	private String payMode;         //付款方式
 	private float freight;          //运   费
 	
+	private float deliveryTotal;    //进货总计
+	private float payable;          //应   付
+	private float storageTotal;     //入库总计
+	
+	
 	private Set<WHPurchaseBill> WHPurchaseBills;    //进货的Bill
 	
 	public String getBuyNO() {
@@ -90,6 +95,24 @@ public class WHPurchaseOrder extends BaseOrder {
 		this.freight = freight;
 	}
 	
+	public float getDeliveryTotal() {
+		return deliveryTotal;
+	}
+	public void setDeliveryTotal(float deliveryTotal) {
+		this.deliveryTotal = deliveryTotal;
+	}
+	public float getPayable() {
+		return payable;
+	}
+	public void setPayable(float payable) {
+		this.payable = payable;
+	}
+	public float getStorageTotal() {
+		return storageTotal;
+	}
+	public void setStorageTotal(float storageTotal) {
+		this.storageTotal = storageTotal;
+	}
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="WHPurchaseOrder_id")							
 	public Set<WHPurchaseBill> getWHPurchaseBills() {

@@ -223,6 +223,8 @@ Take a look :
 	drop table FinanceSalaryOrder;
 	drop table EmployeeBMOrder;
 	
+-- 2014-3-12
 	
+	alter table WHPurchaseBill drop column purchaseQCBill;
 	
   
