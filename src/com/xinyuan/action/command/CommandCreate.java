@@ -22,8 +22,6 @@ public class CommandCreate implements Command {
 
 	@Override
 	public void execute(SuperDAO dao, ResponseMessage responseMessage, RequestMessage requestMessage, List<Object> models, List<Set<String>> modelsKeys) throws Exception {
-		if (models.size() != 1) return ;		// Forbid create multi-
-		
 		List<Map<String,Object>> results = new ArrayList<Map<String,Object>>();
 		
 		for (int i = 0; i < models.size(); i++) {
