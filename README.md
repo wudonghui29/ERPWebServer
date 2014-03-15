@@ -228,4 +228,7 @@ Take a look :
 	alter table FinancePaymentOrder drop column biilOrderNOs;
 	alter table WHPurchaseBill drop column purchaseQCBill;
 	
+-- 2013-3-14
+
+	alter table WHPurchaseOrder change payable totalPay float NOT NULL;
   
