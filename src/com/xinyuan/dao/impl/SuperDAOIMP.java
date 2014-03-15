@@ -119,10 +119,10 @@ public class SuperDAOIMP extends AbstractHibernateDAOIMP implements SuperDAO {
 		for (int i = 0; i < outterObjects.size(); i++) {
 			Object object = outterObjects.get(i);
 			Set<String> keys = outterKeys.get(i);
-			List<String> sorts = outterSorts == null ? null : outterSorts.get(i);
-			List<String> fields = outterFields == null ? null : outterFields.get(i);
-			Map<String, String> joins = outterJoins == null ? null : outterJoins.get(i);
-			Map<String, Map<String,String>> criterias = outterCriterials == null ? null : outterCriterials.get(i);
+			List<String> sorts = outterSorts != null && outterSorts.size() > i ? outterSorts.get(i) : null;
+			List<String> fields = outterFields != null && outterFields.size() > i ? outterFields.get(i) : null;
+			Map<String, String> joins = outterJoins != null && outterJoins.size() > i ? outterJoins.get(i) : null;
+			Map<String, Map<String,String>> criterias = outterCriterials != null && outterCriterials.size() > i ? outterCriterials.get(i) : null;
 			
 			// alias , table too
 			String alias = IntrospectHelper.getShortClassName(object);
@@ -192,9 +192,9 @@ public class SuperDAOIMP extends AbstractHibernateDAOIMP implements SuperDAO {
 			Object object = outterObjects.get(i);
 			String alias = IntrospectHelper.getShortClassName(object);
 			Set<String> keys = outterKeys.get(i);
-			Map<String, Map<String,String>> criterias = null;
-			if (outterCriterials != null) criterias = outterCriterials.get(i);
 			QueryObjectsHelper.setObjectsWhereValues(query, object, keys);
+			
+			Map<String, Map<String,String>> criterias = outterCriterials != null && outterCriterials.size() > i ? outterCriterials.get(i) : null;
 			QueryCriteriasHelper.setCriteriasWhereValues(alias,query, criterias);
 		}
 		
