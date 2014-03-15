@@ -23,88 +23,88 @@ public class CommandRead implements Command {
 		
 		List<Object> results = new ArrayList<Object>();
 		
-		/*
-		// get the need joins models
-		int endJoinIndex = 0;
-		for (int i = outterJoins.size() - 1; i >= 0 ; i--) {
-			Map<String, String> joinMap = outterJoins.get(i);
-			if (joinMap.size() != 0) {
-				if (endJoinIndex == 0) endJoinIndex = i;
-			} else  if (joinMap.size() == 0) {
-				if (endJoinIndex != 0) {
-					// have one range
-					List<Object> joinModels = new ArrayList<Object>();
-					List<Set<String>> joinModelKeys = new ArrayList<Set<String>>();
-					List<List<String>> joinOutterSorts = new ArrayList<List<String>>();
-					List<List<String>> joinOutterLimits = new ArrayList<List<String>>();
-					List<List<String>> joinOutterFields = new ArrayList<List<String>>();
-					List<Map<String, String>> joinOutterJoins = new ArrayList<Map<String,String>>();
-					List<Map<String, Map<String, String>>> joinOutterCriterials = new ArrayList<Map<String,Map<String,String>>>();
-					for (int j = endJoinIndex; j >= i ; j--) {
-						Object model = models.remove(j);
-						Set<String> keys = modelsKeys.remove(j);
-						List<String> sorts = outterSorts == null ? null : outterSorts.remove(j);
-						List<String> limits= outterLimits == null ? null : outterLimits.remove(j);
-						List<String> fields = outterFields == null ? null : outterFields.remove(j);
-						Map<String, String> joins = outterJoins == null ? null : outterJoins.remove(j);
-						Map<String, Map<String,String>> criterias = outterCriterials == null ? null : outterCriterials.remove(j);
-						
-						joinModels.add(model);
-						joinModelKeys.add(keys);
-						if (sorts != null) joinOutterSorts.add(sorts);
-						if (limits != null) joinOutterLimits.add(limits);
-						if (fields != null) joinOutterFields.add(fields);
-						if (joins != null) joinOutterJoins.add(joins);
-						if (criterias != null) joinOutterCriterials.add(criterias);
-					}
-					
-					List<Object> joinedResults = dao.readJoined(joinModels, joinModelKeys, joinOutterFields, joinOutterCriterials, joinOutterJoins, joinOutterSorts, joinOutterLimits);
-					results.add(joinedResults);
-					
-					if (QueryLimitsHelper.isJoinedNeedLimits(joinOutterLimits)) {
-						if (responseMessage.numbers == null) responseMessage.numbers = new ArrayList<String>();
-						responseMessage.numbers.add(dao.getJoinedTotalRows());
-					}
-					
-					// reset it 
-					endJoinIndex = 0;
-				}
-			}
-		}
-		*/
 		
-		// Have joins
+		// Have Joins . get the need joins models  --- Begin --------------------------------
 		if (outterJoins != null && outterJoins.size() != 0) {
 			
-			List<Object> joinedResults = dao.readJoined(models, modelsKeys, outterFields, outterCriterials, outterJoins, outterSorts, outterLimits);
-			results.add(joinedResults);
-			
-			if (QueryLimitsHelper.isJoinedNeedLimits(outterLimits)) {
-				if (responseMessage.numbers == null) responseMessage.numbers = new ArrayList<String>();
-				responseMessage.numbers.add(dao.getJoinedTotalRows());
-			}
-		
-		// No joins
-		} else {
-		
-			for (int i = 0; i < models.size(); i++) {
-				
-				Object model = models.get(i);
-				Set<String> keys = modelsKeys.get(i);
-				List<String> sorts = outterSorts == null ? null : outterSorts.get(i);
-				List<String> limits= outterLimits == null ? null : outterLimits.get(i);
-				List<String> fields = outterFields == null ? null : outterFields.get(i);
-				Map<String, Map<String,String>> criterias = outterCriterials == null ? null : outterCriterials.get(i);
-				
-				results.add(dao.read(model, keys, fields, criterias, sorts, limits));
-				
-				if (QueryLimitsHelper.isNeedLimit(limits)) {
-					if (responseMessage.numbers == null) responseMessage.numbers = new ArrayList<String>();
-					responseMessage.numbers.add(dao.getTotalRows(model, keys, fields, criterias));
+			int endJoinIndex = 0;
+			for (int i = outterJoins.size() - 1; i >= 0 ; i--) {
+				Map<String, String> joinMap = outterJoins.get(i);
+				if (joinMap.size() != 0) {
+					if (endJoinIndex == 0) endJoinIndex = i;
+				} else  if (joinMap.size() == 0) {
+					if (endJoinIndex != 0) {
+						// have one range
+						List<Object> joinModels = new ArrayList<Object>();
+						List<Set<String>> joinModelKeys = new ArrayList<Set<String>>();
+						List<List<String>> joinOutterSorts = new ArrayList<List<String>>();
+						List<List<String>> joinOutterLimits = new ArrayList<List<String>>();
+						List<List<String>> joinOutterFields = new ArrayList<List<String>>();
+						List<Map<String, String>> joinOutterJoins = new ArrayList<Map<String,String>>();
+						List<Map<String, Map<String, String>>> joinOutterCriterials = new ArrayList<Map<String,Map<String,String>>>();
+						// add it
+						for (int j = i; j <= endJoinIndex; j++) {
+							Object model = models.get(j);
+							Set<String> keys = modelsKeys.get(j);
+							List<String> sorts = outterSorts == null ? null : outterSorts.get(j);
+							List<String> limits= outterLimits == null ? null : outterLimits.get(j);
+							List<String> fields = outterFields == null ? null : outterFields.get(j);
+							Map<String, String> joins = outterJoins == null ? null : outterJoins.get(j);
+							Map<String, Map<String,String>> criterias = outterCriterials == null ? null : outterCriterials.get(j);
+							
+							joinModels.add(model);
+							joinModelKeys.add(keys);
+							if (sorts != null) joinOutterSorts.add(sorts);
+							if (limits != null) joinOutterLimits.add(limits);
+							if (fields != null) joinOutterFields.add(fields);
+							if (joins != null) joinOutterJoins.add(joins);
+							if (criterias != null) joinOutterCriterials.add(criterias);
+						}
+						// remove it
+						for (int j = endJoinIndex; j >= i ; j--) {
+							models.remove(j);
+							modelsKeys.remove(j);
+							if (outterSorts != null) outterSorts.remove(j);
+							if (outterLimits != null) outterLimits.remove(j);
+							if (outterFields != null) outterFields.remove(j);
+							if (outterJoins != null) outterJoins.remove(j);
+							if (outterCriterials != null) outterCriterials.remove(j);
+						}
+						List<Object> joinedResults = dao.readJoined(joinModels, joinModelKeys, joinOutterFields, joinOutterCriterials, joinOutterJoins, joinOutterSorts, joinOutterLimits);
+						results.add(joinedResults);
+						
+						if (QueryLimitsHelper.isJoinedNeedLimits(joinOutterLimits)) {
+							if (responseMessage.numbers == null) responseMessage.numbers = new ArrayList<String>();
+							responseMessage.numbers.add(dao.getJoinedTotalRows());
+						}
+						
+						// reset it 
+						endJoinIndex = 0;
+					}
 				}
 			}
 			
 		}
+		// Have Joins . get the need joins models  --- End  --------------------------------
+		
+		// The Left is No Hava Joins
+		for (int i = 0; i < models.size(); i++) {
+			
+			Object model = models.get(i);
+			Set<String> keys = modelsKeys.get(i);
+			List<String> sorts = outterSorts == null ? null : outterSorts.get(i);
+			List<String> limits= outterLimits == null ? null : outterLimits.get(i);
+			List<String> fields = outterFields == null ? null : outterFields.get(i);
+			Map<String, Map<String,String>> criterias = outterCriterials == null ? null : outterCriterials.get(i);
+			
+			results.add(dao.read(model, keys, fields, criterias, sorts, limits));
+			
+			if (QueryLimitsHelper.isNeedLimit(limits)) {
+				if (responseMessage.numbers == null) responseMessage.numbers = new ArrayList<String>();
+				responseMessage.numbers.add(dao.getTotalRows(model, keys, fields, criterias));
+			}
+		}
+			
 		
 		responseMessage.results = results;
 		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
