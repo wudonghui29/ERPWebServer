@@ -16,7 +16,7 @@ public class RequestMessage {
 	private List<Map<String, String>> JOINS;
 	private List<List<String>> SORTS;
 	private List<List<String>> LIMITS;
-	private List<Map<String, Map<String,String>>> CRITERIAS;
+	private List<Map<String, Map<String,String>>> CRITERIAS;	// ["and": Map<String,String>, "or":Map<String,String>]
 	
 	// modify , delete 
 	private List<Map<String, String>> IDENTITYS;
@@ -27,6 +27,11 @@ public class RequestMessage {
 	
 	// additional
 	private Map<String, String> PARAMETERS;
+	
+	
+	// preconditions
+	
+	
 	
 	
 	@Override

@@ -26,14 +26,13 @@ public class CommandRead implements Command {
 		
 		// Have Joins . get the need joins models  --- Begin --------------------------------
 		if (outterJoins != null && outterJoins.size() != 0) {
-			
 			int endJoinIndex = 0;
 			for (int i = outterJoins.size() - 1; i >= 0 ; i--) {
 				Map<String, String> joinMap = outterJoins.get(i);
 				if (joinMap.size() != 0) {
-					if (endJoinIndex == 0) endJoinIndex = i;
+					if (endJoinIndex == 0) endJoinIndex = i;		// get the join endIndex
 				} else  if (joinMap.size() == 0) {
-					if (endJoinIndex != 0) {
+					if (endJoinIndex != 0) {						// get the join beginIndex
 						// have one range
 						List<Object> joinModels = new ArrayList<Object>();
 						List<Set<String>> joinModelKeys = new ArrayList<Set<String>>();
@@ -42,7 +41,7 @@ public class CommandRead implements Command {
 						List<List<String>> joinOutterFields = new ArrayList<List<String>>();
 						List<Map<String, String>> joinOutterJoins = new ArrayList<Map<String,String>>();
 						List<Map<String, Map<String, String>>> joinOutterCriterials = new ArrayList<Map<String,Map<String,String>>>();
-						// add it
+						// add them
 						for (int j = i; j <= endJoinIndex; j++) {
 							Object model = models.get(j);
 							Set<String> keys = modelsKeys.get(j);
@@ -60,7 +59,8 @@ public class CommandRead implements Command {
 							if (joins != null) joinOutterJoins.add(joins);
 							if (criterias != null) joinOutterCriterials.add(criterias);
 						}
-						// remove it
+						
+						// remove them
 						for (int j = endJoinIndex; j >= i ; j--) {
 							models.remove(j);
 							modelsKeys.remove(j);
@@ -70,9 +70,13 @@ public class CommandRead implements Command {
 							if (outterJoins != null) outterJoins.remove(j);
 							if (outterCriterials != null) outterCriterials.remove(j);
 						}
+						
+						// get the join result
 						List<Object> joinedResults = dao.readJoined(joinModels, joinModelKeys, joinOutterFields, joinOutterCriterials, joinOutterJoins, joinOutterSorts, joinOutterLimits);
 						results.add(joinedResults);
 						
+						
+						// get the number
 						if (QueryLimitsHelper.isJoinedNeedLimits(joinOutterLimits)) {
 							if (responseMessage.numbers == null) responseMessage.numbers = new ArrayList<String>();
 							responseMessage.numbers.add(dao.getJoinedTotalRows());
@@ -83,13 +87,15 @@ public class CommandRead implements Command {
 					}
 				}
 			}
-			
 		}
 		// Have Joins . get the need joins models  --- End  --------------------------------
 		
-		// The Left is No Hava Joins
+		
+		
+		
+		
+		// Have No Joins .   --- Begin  --------------------------------
 		for (int i = 0; i < models.size(); i++) {
-			
 			Object model = models.get(i);
 			Set<String> keys = modelsKeys.get(i);
 			List<String> sorts = outterSorts == null ? null : outterSorts.get(i);
@@ -97,19 +103,24 @@ public class CommandRead implements Command {
 			List<String> fields = outterFields == null ? null : outterFields.get(i);
 			Map<String, Map<String,String>> criterias = outterCriterials == null ? null : outterCriterials.get(i);
 			
-			results.add(dao.read(model, keys, fields, criterias, sorts, limits));
+			// get the read result
+			List<Object> readResults = dao.read(model, keys, fields, criterias, sorts, limits);
+			results.add(readResults);
 			
+			
+			// get the number
 			if (QueryLimitsHelper.isNeedLimit(limits)) {
 				if (responseMessage.numbers == null) responseMessage.numbers = new ArrayList<String>();
 				responseMessage.numbers.add(dao.getTotalRows(model, keys, fields, criterias));
 			}
 		}
+		// Have No Joins .   --- End  --------------------------------
 			
+		
+		
 		
 		responseMessage.results = results;
 		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
 	}
-
-	
 
 }

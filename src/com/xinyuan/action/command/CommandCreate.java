@@ -27,7 +27,7 @@ public class CommandCreate implements Command {
 		for (int i = 0; i < models.size(); i++) {
 			Object persistence = models.get(i);
 			
-			// set basic info.
+			// set basic information
 			if (persistence instanceof BaseModel) OrderNOGenerator.setOrderBasicCreateDetail((BaseModel)persistence);
 			
 			// create
@@ -38,7 +38,6 @@ public class CommandCreate implements Command {
 			result.put(ConfigJSON.IDENTIFIER, serializableId);
 			
 			if (persistence instanceof BaseOrder) {
-				
 				// add orderNO to result
 				BaseOrder order = (BaseOrder)persistence;
 				result.put(ConfigJSON.ORDERNO, order.getOrderNO());
