@@ -40,7 +40,7 @@ public class WHPurchaseOrder extends BaseOrder {
 	private float freight;          //运   费
 	
 	private float deliveryTotal;    //进货总计
-	private float payable;          //应   付
+	private float totalPay;         //应   付
 	private float storageTotal;     //入库总计
 	
 	private Set<WHPurchaseBill> WHPurchaseBills;    //进货的Bill
@@ -100,11 +100,12 @@ public class WHPurchaseOrder extends BaseOrder {
 	public void setDeliveryTotal(float deliveryTotal) {
 		this.deliveryTotal = deliveryTotal;
 	}
-	public float getPayable() {
-		return payable;
+	
+	public float getTotalPay() {
+		return totalPay;
 	}
-	public void setPayable(float payable) {
-		this.payable = payable;
+	public void setTotalPay(float totalPay) {
+		this.totalPay = totalPay;
 	}
 	public float getStorageTotal() {
 		return storageTotal;
