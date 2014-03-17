@@ -237,4 +237,21 @@ public class QueryCriteriasHelper {
 		return joinOnClause;
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// ----------------------------------------------------------- Assemble Preconditions -----------------------------------------------------
+	
+	
+	
+	
+	
+	
 }
