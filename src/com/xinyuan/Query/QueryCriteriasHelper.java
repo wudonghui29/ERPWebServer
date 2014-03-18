@@ -1,9 +1,13 @@
 package com.xinyuan.Query;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.hibernate.Query;
+
+import com.modules.Introspector.ModelIntrospector;
 
 public class QueryCriteriasHelper {
 	
@@ -249,9 +253,39 @@ public class QueryCriteriasHelper {
 	
 	// ----------------------------------------------------------- Assemble Preconditions -----------------------------------------------------
 	
+	public static void readAssemblePreconditions(List<Object> results, Object model, Set<String> keys, Map<String, String> precondition) throws Exception {
+		if (precondition.size() == 0) return;
+		for (String toAttribute : precondition.keySet()) {
+			String expressionValue = precondition.get(toAttribute);
+			String indexAndAttribute[] = expressionValue.split("-");
+			
+			int outterIndex = Integer.parseInt(indexAndAttribute[0]);
+			int innerIndex = Integer.parseInt(indexAndAttribute[1]);
+			Object from = ((List<Object>)results.get(outterIndex)).get(innerIndex);
+			
+			String fromAttribute = indexAndAttribute[2];
+			
+			Object value = ModelIntrospector.getProperty(from, fromAttribute);
+			
+			ModelIntrospector.setProperty(model, toAttribute, value);
+			keys.add(toAttribute);
+		}
+	}
 	
-	
-	
+	public static void createAssemblePreconditions(List<Object> models, Object persistence, Map<String, String> precondition) throws Exception {
+		if (precondition.size() == 0) return;
+		for (String toAttribute : precondition.keySet()) {
+			String expressionValue = precondition.get(toAttribute);
+			String indexAndAttribute[] = expressionValue.split("-");		// have two
+			
+			int index = Integer.parseInt(indexAndAttribute[0]);
+			String fromAttribute = indexAndAttribute[1];
+			Object from = models.get(index);
+			
+			Object value = ModelIntrospector.getProperty(from, fromAttribute);
+			ModelIntrospector.setProperty(persistence, toAttribute, value);
+		}
+	}
 	
 	
 }

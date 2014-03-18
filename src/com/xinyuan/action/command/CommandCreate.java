@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.xinyuan.Query.QueryCriteriasHelper;
 import com.xinyuan.Util.ApprovalHelper;
 import com.xinyuan.Util.OrderNOGenerator;
 import com.xinyuan.dao.SuperDAO;
@@ -24,8 +25,15 @@ public class CommandCreate implements Command {
 	public void execute(SuperDAO dao, ResponseMessage responseMessage, RequestMessage requestMessage, List<Object> models, List<Set<String>> modelsKeys) throws Exception {
 		List<Map<String,Object>> results = new ArrayList<Map<String,Object>>();
 		
+		List<Map<String, String>> outterPreconditions = requestMessage.getPRECONDITIONS();
+		
 		for (int i = 0; i < models.size(); i++) {
 			Object persistence = models.get(i);
+			
+			// Precodition......
+			Map<String, String> precondition = outterPreconditions == null ? null : outterPreconditions.get(i);
+			if (precondition != null) QueryCriteriasHelper.createAssemblePreconditions(models, persistence, precondition);
+			
 			
 			// set basic information
 			if (persistence instanceof BaseModel) OrderNOGenerator.setOrderBasicCreateDetail((BaseModel)persistence);

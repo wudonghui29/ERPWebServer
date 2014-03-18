@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.xinyuan.Query.QueryCriteriasHelper;
 import com.xinyuan.Query.QueryLimitsHelper;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.message.ConfigConstants;
@@ -153,6 +154,7 @@ public class CommandRead implements Command {
 			Map<String, Map<String,String>> criterias = outterCriterials == null ? null : outterCriterials.get(i);
 			
 			Map<String, String> precondition = outterPreconditions == null ? null : outterPreconditions.get(i);
+			if (precondition != null) QueryCriteriasHelper.readAssemblePreconditions(results, model, keys, precondition);
 			
 			// get the read result
 			List<Object> readResults = dao.read(model, keys, fields, criterias, sorts, limits);
