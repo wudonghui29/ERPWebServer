@@ -1,5 +1,8 @@
 package com.xinyuan.constraint;
 
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -9,6 +12,7 @@ import com.modules.Introspector.IntrospectHelper;
 import com.modules.Introspector.ModelIntrospector;
 import com.xinyuan.Util.OrderHelper;
 import com.xinyuan.dao.impl.WarehouseDAOIMP;
+import com.xinyuan.model.Warehouse.WHInventoryCHOrder;
 import com.xinyuan.model.Warehouse.WHInventoryOrder;
 import com.xinyuan.model.Warehouse.WHLendOutBill;
 import com.xinyuan.model.Warehouse.WHLendOutOrder;
@@ -25,6 +29,7 @@ public class WarehouseConstraint {
 		orderMap.put("WHLendOutBill", "app2");
 		orderMap.put("WHScrapOrder",  "app4");
 		orderMap.put("WHPurchaseOrder", "app4");
+		orderMap.put("WHInventoryCHOrder", "app4");
 	}
 		
 	
@@ -50,9 +55,6 @@ public class WarehouseConstraint {
 				float IVTotalAmount =  inventoryPO.getTotalAmount();
 				inventoryPO.setTotalAmount(IVTotalAmount - amount);
 				
-				float IVRemainAmout = inventoryPO.getRemainAmount();
-				inventoryPO.setRemainAmount(IVRemainAmout - amount);
-				
 			    dao.modify(inventoryPO);
 
 			}
@@ -66,9 +68,6 @@ public class WarehouseConstraint {
 				
 				WHInventoryOrder inventoryPO= (WHInventoryOrder)dao.getObject(WHInventoryOrder.class, "productCode", codeValue);
 
-				float IVRemainAmout = inventoryPO.getRemainAmount();
-				inventoryPO.setRemainAmount(IVRemainAmout - lendAmount);
-				
 				float IVLendAmout = inventoryPO.getLendAmount();
 				inventoryPO.setLendAmount(IVLendAmout + lendAmount);
 				
@@ -86,9 +85,6 @@ public class WarehouseConstraint {
 
 				
 				WHInventoryOrder inventoryPO= (WHInventoryOrder)dao.getObject(WHInventoryOrder.class, "productCode", codeValue);
-
-				float IVRemainAmout = inventoryPO.getRemainAmount();
-				inventoryPO.setRemainAmount(IVRemainAmout + returnAmount);
 				
 				float IVLendAmout = inventoryPO.getLendAmount();
 				inventoryPO.setLendAmount(IVLendAmout - returnAmount);
@@ -116,8 +112,6 @@ public class WarehouseConstraint {
 						float IVTotalAmount =  inventoryPO.getTotalAmount();
 						inventoryPO.setTotalAmount(IVTotalAmount + storageAmount);
 						
-						float IVRemainAmout = inventoryPO.getRemainAmount();
-						inventoryPO.setRemainAmount(IVRemainAmout + storageAmount);
 						
 						float IVTotal = inventoryPO.getPriceBasicUnit() * IVTotalAmount;
 						float PHTotal = aBill.getStorageNum() * aBill.getStorageUnitPrice();
@@ -130,12 +124,62 @@ public class WarehouseConstraint {
 				}
 					
 			}
+			
+			if (model instanceof WHInventoryCHOrder) {
+				WHInventoryCHOrder order = (WHInventoryCHOrder)persistence;
+				String codeValue = order.getProductCode_O();
+				WHInventoryOrder inventoryPO= (WHInventoryOrder)dao.getObject(WHInventoryOrder.class, "productCode", codeValue); 
+				
+				for (PropertyDescriptor pd : Introspector.getBeanInfo(order.getClass()).getPropertyDescriptors()) {
+					
+					if (pd.getReadMethod() != null && !IntrospectHelper.isClassPropertyName(pd.getName())) {
+						
+						String propertyNameNew = pd.getName() ;
+						if (propertyNameNew.indexOf("_N") >=0 ) 
+						{
+							
+							String propertyNames[] = propertyNameNew.split("_");
+							String originPropertyName = propertyNames[0];
+							
+							
+							Object value = ModelIntrospector.getProperty(order, propertyNameNew);
+							
+							if (value == null) continue; 		// ... null
+							
+							if (value instanceof Number) {
+								Number judgeNumber = (Number)value;
+								if (judgeNumber.floatValue() != -1) {
+									ModelIntrospector.setProperty(inventoryPO, originPropertyName, value);
+								} 
+							}else {
+								ModelIntrospector.setProperty(inventoryPO, originPropertyName, value);
+							}
+							
+						}
+					}
+							
+				}
+							
+				dao.modify(inventoryPO);
+				
+			}
+				
+				
+			}
 		
-			
-			
 		}
 		
-		
+
+
+	private static String String(Object value) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	private static Number Number(Object value) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

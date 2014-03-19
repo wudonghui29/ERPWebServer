@@ -31,7 +31,6 @@ public class WHInventoryOrder extends BaseOrder {
 	private float totalAmount;          //总数量
 	private float lendAmount;           //借出数量
 	private String basicUnit;           //基本单位
-	private float remainAmount;         //剩余库存
 	
 	private String oneUnit;             //一个单位
 	private float amount;               //数量
@@ -77,12 +76,7 @@ public class WHInventoryOrder extends BaseOrder {
 	public void setTotalAmount(float totalAmount) {
 		this.totalAmount = totalAmount;
 	}
-	public float getRemainAmount() {
-		return remainAmount;
-	}
-	public void setRemainAmount(float remainAmount) {
-		this.remainAmount = remainAmount;
-	}
+	
 	public float getLendAmount() {
 		return lendAmount;
 	}
