@@ -231,4 +231,7 @@ Take a look :
 -- 2013-3-14
 
 	alter table WHPurchaseOrder change payable totalPay float NOT NULL;
+	
+-- 2013-3-19
+	alter table FinancePaymentBill drop column orderType;
   

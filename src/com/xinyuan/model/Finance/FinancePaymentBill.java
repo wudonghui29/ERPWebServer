@@ -13,7 +13,7 @@ public class FinancePaymentBill extends BaseBill {
 	
 	private String paymentOrderNO;			// 支付单号
 	
-	private String orderType;				// 类型: 进货单/派车单
+	private String referenceOrderType;		// 引用单类型: 进货单/派车单
 	private String referenceOrderNO;		// 单号
 	private String productName;				// 品名
 	
@@ -28,12 +28,12 @@ public class FinancePaymentBill extends BaseBill {
 		this.paymentOrderNO = paymentOrderNO;
 	}
 
-	public String getOrderType() {
-		return orderType;
+	public String getReferenceOrderType() {
+		return referenceOrderType;
 	}
 
-	public void setOrderType(String orderType) {
-		this.orderType = orderType;
+	public void setReferenceOrderType(String referenceOrderType) {
+		this.referenceOrderType = referenceOrderType;
 	}
 
 	public String getReferenceOrderNO() {
