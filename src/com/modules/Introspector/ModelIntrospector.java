@@ -33,8 +33,8 @@ public class ModelIntrospector {
 	            if (pd.getName().equals(propertyName)) {  
 	                Method writeMethod = pd.getWriteMethod();
 	                
-	                Class<?> type = writeMethod.getParameterTypes()[0];
-	                value = type != String.class ? IntrospectHelper.convert(value, type) : value;
+//	                Class<?> type = writeMethod.getParameterTypes()[0];
+//	                value = type != String.class ? IntrospectHelper.convert(value, type) : value;
 	                
 	                writeMethod.invoke(object, value);  
 	                break;  

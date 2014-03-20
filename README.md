@@ -232,6 +232,17 @@ Take a look :
 
 	alter table WHPurchaseOrder change payable totalPay float NOT NULL;
 	
+
+-- 2013-3-18
+
+	alter table WHInventoryCHOrder drop column totalAmount_N;
+	alter table WHInventoryCHOrder drop column amount_N;
+	alter table WHInventoryCHOrder drop column lendAmount_N;
+	alter table WHInventoryCHOrder drop column priceBasicUnit_N;
+
 -- 2013-3-19
 	alter table FinancePaymentBill drop column orderType;
   
+-- 2013-3-19
+
+	alter table WHInventoryOrder drop column remainAmount;
