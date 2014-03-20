@@ -29,7 +29,7 @@ public class WarehouseConstraint {
 		orderMap.put("WHLendOutBill", "app2");
 		orderMap.put("WHScrapOrder",  "app4");
 		orderMap.put("WHPurchaseOrder", "app4");
-		orderMap.put("WHInventoryCHOrder", "app4");
+		orderMap.put("WHInventoryCHOrder", "app1");
 	}
 		
 	

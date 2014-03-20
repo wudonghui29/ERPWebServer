@@ -159,6 +159,9 @@
         <mapping class="com.xinyuan.model.Purchase.Vendor"/>
         <mapping class="com.xinyuan.model.Purchase.PurchaseOrder"/>
         
+         <!-- QualityControl Models -->
+        <mapping class="com.xinyuan.model.QualityControl.QCReworkNoticeOrder"/>
+        
         
     </session-factory>
 
