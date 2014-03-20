@@ -143,8 +143,8 @@ public class SecurityCode {
         for(int i = 0;i < codeLength * 6;i++){
             int x = random.nextInt(width);
             int y = random.nextInt(height);
-            //绘制1*1大小的矩形
-            g2d.drawRect(x, y, 1, 1);
+            //绘制random.nextInt(8)*random.nextInt(8)大小的矩形
+            g2d.fillRect(x, y, random.nextInt(10), random.nextInt(10));
         }
         
         //设置字体颜色和样式
@@ -155,7 +155,7 @@ public class SecurityCode {
         AffineTransform transform = new AffineTransform();
         for(int i = 0; i < codeLength;i++){
         	double theta = Math.PI / (3 + Math.PI);
-			double anchorx = i * 16 + 5 ;
+			double anchorx = i * 16 + 10 ;
 			double anchory = height - 10;
 			
 			transform.setToIdentity();

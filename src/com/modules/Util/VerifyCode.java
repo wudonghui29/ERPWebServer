@@ -1,5 +1,6 @@
 package com.modules.Util;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -35,31 +36,51 @@ public class VerifyCode {
 		// 获取图形上下文
 		Graphics g = image.getGraphics();
 		Graphics2D g2d = (Graphics2D)g;
+		
+        
+        
 		// 生成随机类
 		Random random = new Random();
 		// 设定背景色
-		g2d.setColor(getRandColor(200, 250));
+		g2d.setColor(getRandomColor(100, 150, 200, 50));
 		g2d.fillRect(0, 0, width, height);
 		// 设定字体
 		g2d.setFont(new Font("Times New Roman", Font.PLAIN, fontSize));
-		// 随机产生100条干扰线，使图象中的认证码不易被其它程序探测到
-		g2d.setColor(getRandColor(160, 200));
-		for (int i = 0; i < 100; i++) {
+		
+		// 随机产生20条干扰线，使图象中的认证码不易被其它程序探测到
+		int radomCount = random.nextInt(25);
+		for (int i = 0; i < radomCount; i++) {
+			g2d.setColor(getRandomColor(50, 10, 100, 150));
 			int x = random.nextInt(width);
 			int y = random.nextInt(height);
-			int xl = random.nextInt(25);
+			int xl = random.nextInt(100);
 			int yl = random.nextInt(50);
 			g2d.drawLine(x, y, x + xl, y + yl);
 		}
+		
+		
 		// 画随机数
 		char[] chars = verifyCode.toCharArray();
 		int charsCount = chars.length;
 		int standard = (6 - charsCount) * 25/2 + 25;
 		AffineTransform transform = new AffineTransform();
+		
+		int flag = random.nextInt(charsCount);
 		for (int i = 0; i < charsCount; i++) {
 			String randChar = String.valueOf(chars[i]);
 			// 将认证码显示到图象中
 			g2d.setColor(new Color(20 + random.nextInt(110), 20 + random .nextInt(110), 20 + random.nextInt(110)));
+			
+			if (i == flag) {
+				// 画一条横跨的粗线
+				BasicStroke bs1 = new BasicStroke(4, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL);
+				transform.setToIdentity();
+				g2d.setTransform(transform);
+				g2d.setStroke(bs1);
+				g2d.drawLine(5, random.nextInt(40), 195, random.nextInt(40));
+			}
+			
+			
 			// 调用函数出来的颜色相同，可能是因为种子太接近，所以只能直接生成
 			double theta = Math.PI / (3 + Math.PI);
 			double anchorx = standard * i + (i + 1)  * 5 ;
@@ -87,15 +108,14 @@ public class VerifyCode {
 	/*
 	 * 给定范围获得随机颜色
 	 */
-	private static Color getRandColor(int fc, int bc) {
+	private static Color getRandomColor(int r, int g, int b, int scope) {
 		Random random = new Random();
-		if (fc > 255)
-			fc = 255;
-		if (bc > 255)
-			bc = 255;
-		int r = fc + random.nextInt(bc - fc);
-		int g = fc + random.nextInt(bc - fc);
-		int b = fc + random.nextInt(bc - fc);
+		r = r + random.nextInt(scope);
+		g = g + random.nextInt(scope);
+		b = b + random.nextInt(scope);
+		r = r > 255 ? 255 : r;
+		g = g > 255 ? 255 : g;
+		b = b > 255 ? 255 : b;
 		return new Color(r, g, b);
 	}
 
