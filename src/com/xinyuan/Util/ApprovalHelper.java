@@ -98,7 +98,7 @@ public class ApprovalHelper {
 		
 		// --------- do add
 //		if(!CollectionHelper.isContains(orderList, orderNO)) orderList.add(orderNO);
-		if(orderList.contains(orderNO)) orderList.add(orderNO);
+		if(!orderList.contains(orderNO)) orderList.add(orderNO);
 		
 		
 		String newPendingApprovalsJSON = GsonHelper.getGson().toJson(pendingApprovalsMap);
