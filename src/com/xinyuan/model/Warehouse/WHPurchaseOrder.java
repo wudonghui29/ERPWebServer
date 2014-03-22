@@ -10,7 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.xinyuan.model.BaseOrder;
+
+import com.xinyuan.model.OrderApp4;
 
 
 /**
@@ -21,7 +22,7 @@ import com.xinyuan.model.BaseOrder;
 
 @Entity
 @Table
-public class WHPurchaseOrder extends BaseOrder {
+public class WHPurchaseOrder extends OrderApp4 {
 
 	/**
 	 * 
