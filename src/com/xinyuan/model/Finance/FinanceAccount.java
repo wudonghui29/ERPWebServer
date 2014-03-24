@@ -16,12 +16,12 @@ public class FinanceAccount extends BaseEntity {
 
 	private String number ;				// 帐户编号
 	private String name; 				// 户名
-	private String category ; 			// 银行类别
+	private String bank ; 				// 银行
+	private String branch;				// 分支行
 	
 	private String address;				// 地址
 	
 	private String currency;			// 币别
-	private String subBranch;			// 分支行
 	private float amount;				// 账户金额
 	
 	private String bankAccountNumber; 	// 账号
@@ -37,12 +37,21 @@ public class FinanceAccount extends BaseEntity {
 		this.number = number;
 	}
 
-	public String getCategory() {
-		return category;
+
+	public String getBank() {
+		return bank;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+
+	public String getBranch() {
+		return branch;
+	}
+
+	public void setBranch(String branch) {
+		this.branch = branch;
 	}
 
 	@NotEmpty
@@ -71,13 +80,6 @@ public class FinanceAccount extends BaseEntity {
 		this.currency = currency;
 	}
 
-	public String getSubBranch() {
-		return subBranch;
-	}
-
-	public void setSubBranch(String subBranch) {
-		this.subBranch = subBranch;
-	}
 
 	public float getAmount() {
 		return amount;

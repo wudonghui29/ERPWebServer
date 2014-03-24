@@ -246,3 +246,8 @@ Take a look :
 -- 2013-3-19
 
 	alter table WHInventoryOrder drop column remainAmount;
+	
+-- 2013-3-24
+	
+	drop table FinanceAccountCHOrder;
+	alter table FinanceAccount change column category bank varchar(255);
