@@ -4,13 +4,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.modules.Util.DLog;
 import com.xinyuan.Util.ApnsHelper;
 import com.xinyuan.Util.OrderHelper;
 import com.xinyuan.Util.ParametersHelper;
 import com.xinyuan.dao.SuperDAO;
-import com.xinyuan.dao.UserDAO;
-import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigJSON;
 import com.xinyuan.message.RequestMessage;
@@ -25,7 +22,6 @@ public abstract class CommandAlter implements Command {
 		
 		List<Map<String, String>> identityList = requestMessage.getIDENTITYS();	
 		
-		UserDAO userDAO = new UserDAOIMP();
 		List<String> forwardsList = requestMessage.getAPNS_FORWARDS();
 		List<Map<String, String>> forwardsContents = requestMessage.getAPNS_CONTENTS();
 		
@@ -50,20 +46,10 @@ public abstract class CommandAlter implements Command {
 				// subclass
 				String appKey = ParametersHelper.getParameter(requestMessage, ConfigJSON.APPLEVEL);
 				handleApprovals(dao, appKey, forwardUser, order);
-				
-				// send apns
-				String tokenString = userDAO.getUserApnsToken(forwardUser);
-				if (tokenString != null) {
-					String[] apnsTokens =  tokenString.split(ConfigConstants.CONTENT_DIVIDER);
-					if (apnsTokens.length != 0) {		// get the token
-						Map<String, String> apnsMap = forwardsContents.get(i);
-						ApnsHelper.push(apnsMap, apnsTokens);
-					}
-				} else {
-					DLog.log("Token is null");
-				}
 			}
 		}
+		
+		ApnsHelper.inform(forwardsList, forwardsContents);
 		
 		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
 	}

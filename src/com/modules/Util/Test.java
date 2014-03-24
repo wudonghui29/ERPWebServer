@@ -18,6 +18,7 @@ import com.xinyuan.action.HumanResourceAction;
 import com.xinyuan.action.SuperAction;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.interceptor.PermissionInterceptor;
+import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigFormat;
 
 public class Test extends HashSet {
@@ -174,7 +175,7 @@ public class Test extends HashSet {
 		map.put("ATTENDTIONS:", "YOU JUST A ERP GUY , DO YOU KNOW ?");
 
 		try {
-			ApnsHelper.push(map, devices);
+//			ApnsHelper.pushApns(map, devices);	// Private Mthods Now
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -183,25 +184,37 @@ public class Test extends HashSet {
 	 
 	 
 	 public static void main(String[] args) throws Exception {
+		 // 1
 //		 SettingAction settingAction = new SettingAction();
 //		 settingAction.getApplicationModelsStructures();
-		 float foo = Float.parseFloat("1234");
-		 
-		 System.out.println(foo);
-		 
-		 com.xinyuan.model.Business.Client client = new com.xinyuan.model.Business.Client();
-		 client.setId(999);
 		 
 		 
-		 String str = "()";
-		 String result = str.substring(1, str.length()-1);
+		 //2
+//		 float foo = Float.parseFloat("1234");
+//		 
+//		 System.out.println(foo);
+//		 
+//		 com.xinyuan.model.Business.Client client = new com.xinyuan.model.Business.Client();
+//		 client.setId(999);
+//		 
+//		 
+//		 String str = "()";
+//		 String result = str.substring(1, str.length()-1);
+//		 
+//		 
+//		 Class<?> aaaObject  = PoIntrospector.getPropertyType(client, "id");
+//		 if (aaaObject == int.class){
+//			 System.out.println("aaaaa");
+//		 }
+//		 System.out.println(aaaObject);
 		 
 		 
-		 Class<?> aaaObject  = PoIntrospector.getPropertyType(client, "id");
-		 if (aaaObject == int.class){
-			 System.out.println("aaaaa");
-		 }
-		 System.out.println(aaaObject);
+		 //3
+		 String ssStrings = "";
+		 String[] aaaas = ssStrings.split(ConfigConstants.CONTENT_DIVIDER);
+		 
+		 
+		 System.out.println(aaaas);
 		 
 	}
 	 

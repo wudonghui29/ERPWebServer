@@ -32,10 +32,12 @@ public class ApnsHelper {
 		UserDAO userDAO = new UserDAOIMP();
 		for (int index = 0; index < forwardsCount; index++) {
 			String forwardUsername = forwardList.get(index);
+			
 			String tokenString = userDAO.getUserApnsToken(forwardUsername);
+			
 			String[] apnsTokens =  tokenString.split(ConfigConstants.CONTENT_DIVIDER);
 			Map<String, String> apnsMap = forwardContents.get(index);
-			int result = push(apnsMap, apnsTokens);
+			int result = pushApns(apnsMap, apnsTokens);
 			isAllSuccess = result == apnsTokens.length;
 		}
 		return isAllSuccess;
@@ -50,7 +52,7 @@ public class ApnsHelper {
 	 * @throws Exception
 	 */
 	
-	public static int push(Map<String, String>map , String[] apnsTokens) throws Exception {
+	private static int pushApns(Map<String, String>map , String[] apnsTokens) throws Exception {
 		String APNS_Alert = ConfigJSON.APNS_Alert;
 		String APNS_Badge = ConfigJSON.APNS_Badge;
 		String APNS_Sound = ConfigJSON.APNS_Sound;
