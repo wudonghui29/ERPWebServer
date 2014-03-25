@@ -2,7 +2,6 @@ package com.xinyuan.model.Warehouse;
 
 import java.util.Date;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -11,7 +10,6 @@ import com.xinyuan.model.OrderApp4;
 
 /**
  * 报废单
- * @author Xinyuan_iMAC_4
  *
  */
 @Entity

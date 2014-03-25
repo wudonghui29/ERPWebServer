@@ -1,6 +1,8 @@
 package com.xinyuan.interceptor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -56,10 +58,11 @@ public class ModelsInterceptor extends AbstractInterceptor {
 			Object vo = GsonHelper.getGson().fromJson(objectJsonStr, Class.forName(className));
 			
 			// get keys
-			Set<String> keys = objectMap.keySet();
+			Set<String> keysSet = new HashSet<String>();
+			keysSet.addAll(objectMap.keySet());
 			
 			vos.add(vo);				// MODELS
-			voKeys.add(keys);			// KEYS
+			voKeys.add(keysSet);			// KEYS
 		}
 		
 		

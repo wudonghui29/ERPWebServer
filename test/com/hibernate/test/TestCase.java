@@ -1,19 +1,15 @@
 package com.hibernate.test;
 
 import java.text.ParseException;
-import java.util.Date;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AnnotationConfiguration;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.Global.HibernateInitializer;
 import com.xinyuan.Util.SettingHelper;
-import com.xinyuan.dao.impl.HumanResourceDAOIMP;
-import com.xinyuan.model.Warehouse.WHScrapOrder;
 
 public class TestCase {
 

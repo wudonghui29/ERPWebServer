@@ -1,4 +1,52 @@
 
+## About Git/Hub
+
+send pull request (contributor) :
+
+	git pull-request -m "message" -b develop
+
+apply pull request use git (maintainer) :
+
+	curl https://github.com/isaacselement/ERPWebServer/pull/16.patch | git am
+	(you need to close the pull request on web-site manually)
+
+apply pull request use hub (maintainer) :
+        (hub browse -- issues)	
+	hub am -3 https://github.com/isaacselement/ERPWebServer/pull/16
+	(for more information: http://hub.github.com/)
+
+
+## About SVN
+	
+Add:
+
+	svn add * --force
+
+Update:
+	
+	svn update
+
+Commit:
+	
+	svn commit -m "message"
+
+Delete:
+	
+	for i in $(svn st | grep \! | awk '{print $2}'); do svn delete $i; done
+
+Delete image's name with '@' character:
+	
+	for i in $(svn st | grep \! | awk '{print $2}'); do svn delete $i@; done
+
+For missing file name with '@', i.e :
+
+	svn revert /Users/Isaacs/Workspaces/ios_projects/ERP/images/Login/Login@2x.png@
+	
+Take a look : 
+
+	http://stackoverflow.com/questions/1919859/svn-commit-failing-due-to-missing-file
+	http://stackoverflow.com/questions/9601294/svn-commit-file-named-2x-png
+
 
 ## Add .classpath file and change your libraries path in project
 
@@ -154,4 +202,47 @@
  	
  	drop table SharedReleaseBill;
 	drop table SharedReleaseOrder;
+	
+-- 2014-1-21
+
+	drop table WHLendOutBill;
+	drop table WHProductCategory;
+	drop table WHMaterialOrder;
+
+-- 2014-2-26
+
+	drop table FinancePettyCashOrder;
+	
+-- 2014-3-3
+	
+	alter table EmployeeQuitOrder drop column carryingStuff;
   
+-- 2014-3-7
+
+	drop table FinanceCHOrder;
+	drop table FinanceSalaryOrder;
+	drop table EmployeeBMOrder;
+	
+-- 2014-3-12
+
+	alter table FinancePaymentOrder drop column biilOrderNOs;
+	alter table WHPurchaseBill drop column purchaseQCBill;
+	
+-- 2013-3-14
+
+	alter table WHPurchaseOrder change payable totalPay float NOT NULL;
+	
+
+-- 2013-3-18
+
+	alter table WHInventoryCHOrder drop column totalAmount_N;
+	alter table WHInventoryCHOrder drop column amount_N;
+	alter table WHInventoryCHOrder drop column lendAmount_N;
+	alter table WHInventoryCHOrder drop column priceBasicUnit_N;
+
+-- 2013-3-19
+	alter table FinancePaymentBill drop column orderType;
+  
+-- 2013-3-19
+
+	alter table WHInventoryOrder drop column remainAmount;

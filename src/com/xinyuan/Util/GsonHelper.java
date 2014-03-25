@@ -10,12 +10,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.xinyuan.message.ConfigFormat;
-import com.xinyuan.message.RequestMessage;
 
 public class GsonHelper {
 	
 	public static Gson getGson(){
-		return new GsonBuilder().setDateFormat(ConfigFormat.STRING_TO_DATE_FORMAT).create();
+		return new GsonBuilder()/*.serializeNulls()*/.setDateFormat(ConfigFormat.STRING_TO_DATE_FORMAT).create();
 	}
 
 	/**

@@ -5,11 +5,12 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.xinyuan.model.OrderApp1;
+import com.xinyuan.model.OrderApp2;
 
 
 /**
- * 月份出差误餐费已补贴明细表
+ * 
+ * 月份出差误餐费
  *
  * BM : Business Meal
  *
@@ -17,11 +18,8 @@ import com.xinyuan.model.OrderApp1;
 
 @Entity
 @Table
-public class EmployeeBMOrder extends OrderApp1 {
+public class EmployeeMissMealOrder extends OrderApp2 {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String employeeNO ; // 员工编号
 
