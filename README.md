@@ -53,11 +53,18 @@ Take a look :
 	mv classpath .classpath
 
 
+
+
+
+
+
 ## Before Launch APP Mysql
 
 	mysql -u***** -p*****
 	
 	show variables like 'character%';
+	show variables like 'wait_timeout';
+	set wait_timeout=7200;
 	
 	(For all databases)
 	SET character_set_client = utf8 ; 
