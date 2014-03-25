@@ -12,6 +12,8 @@
         <property name="connection.password">tmd0099</property>
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         
+
+        
   		<!--
         <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
         <property name="connection.url">jdbc:oracle:thin:@localhost:1521:SXT</property>
@@ -27,11 +29,47 @@
       	<property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
 		-->
 		
+		
+		
+		
         <!-- JDBC Connection -->
-        <property name="connection.pool_size">20</property>
+        <!-- <property name="connection.pool_size">20</property> --> <!-- Now we use c3p0 -->
         <property name="connection.useUnicode">true</property>
         <property name="connection.characterEncoding">UTF-8</property>
         
+        
+        <!-- C3P0 Settings -->
+        <!-- 
+        C3P0 is an open source JDBC connection pool distributed along with Hibernate in the lib directory. 
+        Hibernate will use its 
+        org.hibernate.connection.C3P0ConnectionProvider 
+        for connection pooling if you set hibernate.c3p0.* properties. 
+        (so u no need to explicitly write the provider_class out )
+        -->
+        <!-- 
+        <property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+        <property name="hibernate.connection.provider_class">org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider</property>
+         -->
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <!-- Cache The PreparedStatements -->
+        <property name="hibernate.c3p0.max_statements">50</property>
+        <property name="hibernate.c3p0.acquire_increment">1</property> 
+          
+     	<property name="hibernate.c3p0.timeout">600</property>
+          
+        <!-- Mysql wait_timeout: 28800 (8 hour). Be sure to less than it -->
+        <property name="hibernate.c3p0.idle_test_period">3600</property> 
+        <property name="hibernate.c3p0.testConnectionOnCheckin">true</property>
+        <property name="hibernate.c3p0.automaticTestTable">Test</property>
+        
+        
+        
+        
+        
+        <!-- Not Supported by MySQL -->
+        <property name="jdbc.batch_size">50</property>
+        <property name="jdbc.fetch_size">100</property>
         
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
@@ -40,7 +78,6 @@
         <!-- Drop and re-create/Update the database schema on startup --> 
         <property name="hbm2ddl.auto">update</property> <!-- create/update -->
         
-
         <!-- Enable Hibernate's automatic session context management -->
         <property name="current_session_context_class">thread</property>
         

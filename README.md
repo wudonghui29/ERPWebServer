@@ -53,11 +53,18 @@ Take a look :
 	mv classpath .classpath
 
 
+
+
+
+
+
 ## Before Launch APP Mysql
 
 	mysql -u***** -p*****
 	
 	show variables like 'character%';
+	show variables like 'wait_timeout';
+	set wait_timeout=7200;
 	
 	(For all databases)
 	SET character_set_client = utf8 ; 
@@ -246,3 +253,8 @@ Take a look :
 -- 2013-3-19
 
 	alter table WHInventoryOrder drop column remainAmount;
+	
+-- 2013-3-24
+	
+	drop table FinanceAccountCHOrder;
+	alter table FinanceAccount change column category bank varchar(255);

@@ -33,6 +33,9 @@ public class UserDAOIMP extends AbstractHibernateDAOIMP implements UserDAO {
 	}
 
 	
+	
+	
+	
 	public String getUserApnsToken(String username) {
 		String queryString = "SELECT user.apnsToken from User as user WHERE user.username = '" + username + "'";
 		return (String) super.getObject(queryString);

@@ -6,10 +6,6 @@ import com.xinyuan.dao.impl.ApprovalDAOIMP;
 
 public class ApprovalAction extends SuperAction {
 	
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Override
