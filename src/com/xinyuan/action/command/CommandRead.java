@@ -100,17 +100,6 @@ public class CommandRead implements Command {
 						outterJoinOutterJoins.add(0, joinOutterJoins);
 						outterJoinOutterCriterials.add(0, joinOutterCriterials);
 						
-						
-						
-//						// get the join result
-//						List<Object> joinedResults = dao.readJoined(joinModels, joinModelKeys, joinOutterFields, joinOutterCriterials, joinOutterJoins, joinOutterSorts, joinOutterLimits);
-//						results.add(joinedResults);
-//						// get the number
-//						if (QueryLimitsHelper.isJoinedNeedLimits(joinOutterLimits)) {
-//							if (responseMessage.numbers == null) responseMessage.numbers = new ArrayList<String>();
-//							responseMessage.numbers.add(dao.getJoinedTotalRows());
-//						}
-						
 						// reset endJoinIndex
 						endJoinIndex = 0;
 					}
