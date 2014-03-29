@@ -137,6 +137,7 @@ public class SettingAction extends ActionBase {
 	}
 	
 	
+	
 	/**
 	 * When client singined
 	 * @return
@@ -164,6 +165,7 @@ public class SettingAction extends ActionBase {
 	}
 	
 	
+	
 	/**
 	 * Push notifications
 	 * @return
@@ -179,6 +181,12 @@ public class SettingAction extends ActionBase {
 	}
 	
 	
+	
+	/**
+	 * About the APPSetting Table
+	 * @return
+	 * @throws Exception
+	 */
 	public String modifyType() throws Exception {
 		
 		SuperDAO superDao = new SuperDAOIMP();
@@ -202,8 +210,6 @@ public class SettingAction extends ActionBase {
 		
 		return Action.NONE;
 	}
-	
-	
 	public String readType() throws Exception{
 		
 		SuperDAO superDao = new SuperDAOIMP();
@@ -219,58 +225,6 @@ public class SettingAction extends ActionBase {
 		
 		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
 		responseMessage.results = appSettingPO;
-		
-		return Action.NONE;
-	}
-	
-	
-	/**
-	 * Product Category Modify
-	 * @return
-	 * @throws Exception
-	 */
-	public String modifyProductCategory() throws Exception {
-        if (models.size() != 1) return Action.NONE;
-		
-		SuperDAO superDao = new SuperDAOIMP();
-		
-		List<Map<String, String>> identities = requestMessage.getIDENTITYS();
-		
-		APPSettings appSettingVO = (APPSettings) models.get(0);
-			
-		// get PO
-		Map<String, String> idenfier = identities.get(0);
-		ModelIntrospector.setProperty(appSettingVO, idenfier);
-		APPSettings appSettingPO =  superDao.readUnique(appSettingVO, idenfier.keySet());
-			
-		if (appSettingPO == null) {
-			appSettingPO = appSettingVO;
-			superDao.create(appSettingPO);
-		} else {
-			ModelIntrospector.copyVoToPo(appSettingVO, appSettingPO, modelsKeys.get(0));
-			superDao.modify(appSettingPO);
-		}
-		
-		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
-		
-		return Action.NONE;
-	}
-	
-	/** 
-	 * Product Category Read
-	 * @return
-	 * @throws Exception
-	 */
-	public String readProductCategory() throws Exception{
-		
-		SuperDAOIMP productDAO = new SuperDAOIMP();
-		List<Object> productCategoryList = productDAO.getObjects("select settings.settings from APPSettings settings where settings.type = '" + ConfigConstants.APPSETTINGS_PRODUCTCATEGORY +"'");
-		
-		List<Object> results = new ArrayList<Object>();
-		results.add(productCategoryList);
-		
-		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
-		responseMessage.results = results;
 		
 		return Action.NONE;
 	}

@@ -66,6 +66,10 @@
 			<interceptor-ref name="notOnlineIntercepterStack"></interceptor-ref>
 		</action>
 		
+		<action name="inform" class="com.xinyuan.action.SettingAction" method="inform">
+			<interceptor-ref name="onlineIntercepterStack"></interceptor-ref>
+		</action>
+		
 		<action name="read*" class="com.xinyuan.action.SettingAction" method="read{1}">
 			<interceptor-ref name="onlineIntercepterStack"></interceptor-ref>
 		</action>
@@ -74,10 +78,6 @@
 			<interceptor-ref name="onlineIntercepterStack"></interceptor-ref>
 		</action>
 		
-		<action name="inform" class="com.xinyuan.action.SettingAction" method="inform">
-			<interceptor-ref name="onlineIntercepterStack"></interceptor-ref>
-		</action>
-		 
 	</package>
 	
 	
