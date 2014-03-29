@@ -6,7 +6,7 @@ public class QuerySortsHelper {
 
 	/**
 	 * 
-	 * @param sorts   e.g ["employeeNO DESC"]
+	 * @param sorts   e.g ["employeeNO.DESC", "name.DESC"]
 	 * @return
 	 */
 	public static String assembleOrderByClause(String alias, List<String> sorts) {
@@ -16,8 +16,15 @@ public class QuerySortsHelper {
 		
 		int size = sorts.size();
 		for(int i = 0; i < size ; i++) {
-			String column = sorts.get(i);
+			String columnSorteString = sorts.get(i);
+			String[] elements = columnSorteString.split("\\."); // ["employeeNO", "DESC"]
+			
+			String column = elements[0];
+			String ascOrDesc = elements[1];
+			
 			orderByString += column.contains(".") ? column : alias + "." + column;
+			orderByString += " " + ascOrDesc;			// "Employee.employeeNO DESC"
+			
 			if (i != size-1) orderByString += ", "; 
 		}
 		

@@ -122,9 +122,7 @@ public class SettingAction extends ActionBase {
 		for (Iterator<String> iterator = modelsList.iterator(); iterator.hasNext();) {
 			String string = (String) iterator.next();				// "Approval.Approvals.class" , ".class" not ".java" 
 			
-			if (string.contains(ConfigConstants.CATEGORIE_USER) 
-					|| string.contains(ConfigConstants.CATEGORIE_APPROVAL)
-					|| string.contains(ConfigConstants.CATEGORIE_SETTING)) continue;		// exclude user and approval, extensions
+			if (string.contains(ConfigConstants.CATEGORIE_USER) || string.contains(ConfigConstants.CATEGORIE_SETTING)) continue;		// exclude user and approval, extensions
 			
 			String className = string.replaceAll(ConfigConstants.SUFFIX_CLASS, ConfigConstants.EMPTY_STRING);
 			String wholeClassName = ConfigConstants.MODELPACKAGE + ConfigConstants.PACKAGE_CONNECTOR + className;			// MODELPACKAGE + "Approval.Approvals"
@@ -132,7 +130,10 @@ public class SettingAction extends ActionBase {
 		}
 		
 		// translate classes properties name to map
-		  return IntrospectHelper.translateToPropertiesMap(classesNamesList);
+		Map<String, Map<String, List<String>>> categoriesModelsMap = IntrospectHelper.translateToPropertiesMap(classesNamesList);
+		categoriesModelsMap.get(ConfigConstants.CATEGORIE_APPROVAL).clear();
+		
+		return categoriesModelsMap;
 	}
 	
 	

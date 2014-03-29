@@ -56,11 +56,9 @@ public class ConfigConstants {
 	
 	public static final String ACTION = "Action" ;
 	
-	public static final String MODEL_APPROVALS = "Approvals";
-	
-	public static final String CATEGORIE_USER = "User";
-	public static final String CATEGORIE_APPROVAL = "Approval";  // every user have Approval Package read permission
-	public static final String CATEGORIE_SETTING = "Setting";
+	public static final String CATEGORIE_USER 		= "User";
+	public static final String CATEGORIE_APPROVAL 	= "Approval";  // every user have Approval Package read permission
+	public static final String CATEGORIE_SETTING 	= "Setting";
 	
 	
 	public static final String METHOD_READ = "read";

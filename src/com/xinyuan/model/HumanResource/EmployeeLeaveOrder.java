@@ -26,7 +26,7 @@ public class EmployeeLeaveOrder extends OrderApp4 {
 	
 	private String reason ; 			// reason
 	
-	private String leaveType;			// the type 
+	private String leaveType;			// the type ["Personal_Leave","Sick_Leave", "Annual_Leave","OTHERS"]
 
 	
 	public String getEmployeeNO() {
