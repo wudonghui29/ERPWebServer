@@ -258,11 +258,15 @@ Take a look :
 	
 	drop table FinanceAccountCHOrder;
 	alter table FinanceAccount change column category bank varchar(255);
+
+-- 2014-3-29
+
+	drop table SecurityVisitOrder;
 	
 -- 2014-3-27
 	
 	use ERPWebServer;
-	set @DATABASE_NAME = 'ERPWebServer’;
+	set @DATABASE_NAME = 'ERPWebServer';
 	select concat('alter table ', table_name, ' drop column expiredDate;') as sql_statements from information_schema.tables as tb where table_schema = @DATABASE_NAME order by table_name DESC into outfile '/tmp/batch.txt'; 
 	source /tmp/batch.txt;
 	

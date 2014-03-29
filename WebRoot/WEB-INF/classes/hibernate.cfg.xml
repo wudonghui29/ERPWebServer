@@ -144,7 +144,8 @@
         <mapping class="com.xinyuan.model.Security.SecurityVisitLogOrder"/>
         <mapping class="com.xinyuan.model.Security.SecurityVisitorOrder"/>
         
-        
+        <!-- Vehicle Models -->
+        <mapping class="com.xinyuan.model.Vehicle.VehicleInfoOrder"/>
 
         <mapping class="com.xinyuan.model.Security.SecurityPatrolTracker"/>
         
