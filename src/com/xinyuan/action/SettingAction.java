@@ -16,12 +16,14 @@ import com.Global.SessionManager;
 import com.modules.HttpWriter.ResponseWriter;
 import com.modules.Introspector.IntrospectHelper;
 import com.modules.Introspector.ModelIntrospector;
+import com.modules.Util.CollectionHelper;
 import com.modules.Util.DLog;
 import com.modules.Util.FileHelper;
 import com.modules.Util.SecurityCode;
 import com.modules.Util.VerifyCode;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.Util.ApnsHelper;
+import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.Util.ParametersHelper;
 import com.xinyuan.Util.SettingHelper;
 import com.xinyuan.dao.BusinessDAO;
@@ -30,6 +32,7 @@ import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.BusinessDAOIMP;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.dao.impl.SuperDAOIMP;
+import com.xinyuan.interceptor.AdministratorInterceptor;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigJSON;
 import com.xinyuan.model.Setting.APPSettings;
@@ -151,7 +154,7 @@ public class SettingAction extends ActionBase {
 		List<Object> bsList = businessDAO.getClientsNOPairs();
 		
 		SuperDAOIMP dao = new SuperDAOIMP();
-		List<Object> settingList = dao.getObjects("select settings.settings from APPSettings settings where settings.type = '" + ConfigConstants.APPSETTINGS_APPROVALS +"'");
+		List<Object> settingList = dao.getObjects("select settings.settings from APPSettings settings where settings.type = '" + ConfigConstants.APPSettings_TYPE_ADMIN_APPROVALS +"'");
 		
 		List<Object> results = new ArrayList<Object>();
 		results.add(hrList);
@@ -181,7 +184,6 @@ public class SettingAction extends ActionBase {
 	}
 	
 	
-	
 	/**
 	 * About the APPSetting Table
 	 * @return
@@ -197,6 +199,13 @@ public class SettingAction extends ActionBase {
 			
 		// get PO
 		Map<String, String> idenfier = identities.get(0);
+		
+		// when modify administrator's type , check is administrator
+		String typeValue = idenfier.get("type");
+		if (typeValue.startsWith(ConfigConstants.APPSettings_TYPE_PREFIX_ADMIN)) {
+			if (! AdministratorInterceptor.currentUserIsAdministrator()) return Action.NONE;
+		}
+		
 		ModelIntrospector.setProperty(appSettingVO, idenfier);
 		APPSettings appSettingPO =  superDao.readUnique(appSettingVO, idenfier.keySet());
 			
@@ -204,7 +213,27 @@ public class SettingAction extends ActionBase {
 			appSettingPO = appSettingVO;
 			superDao.create(appSettingPO);
 		} else {
-			ModelIntrospector.copyVoToPo(appSettingVO, appSettingPO, modelsKeys.get(0));
+			String approvalVoSettings = appSettingVO.getSettings();
+			String approvalPoSettings = appSettingPO.getSettings();
+			
+				// if map 
+			if (approvalPoSettings.startsWith("{") && approvalPoSettings.endsWith("}") && approvalVoSettings.startsWith("{") && approvalVoSettings.endsWith("}")) {
+				//"{"HumanResource":{"Employee": {"app1":[], "app2":[]}} , ...}"
+				@SuppressWarnings("unchecked")
+				Map<String,Object> settingsPoMap = GsonHelper.getGson().fromJson(approvalPoSettings, Map.class);
+				@SuppressWarnings("unchecked")
+				Map<String,Object> settingsVoMap = GsonHelper.getGson().fromJson(approvalVoSettings, Map.class);
+				CollectionHelper.combineTowMap(settingsVoMap, settingsPoMap);
+				
+				String newSettingsPoJSON = GsonHelper.getGson().toJson(settingsPoMap);
+				appSettingPO.setSettings(newSettingsPoJSON);
+				
+				// if array or some else
+			} else {
+				ModelIntrospector.copyVoToPo(appSettingVO, appSettingPO, modelsKeys.get(0));
+			}
+			
+			// then save it to database
 			superDao.modify(appSettingPO);
 		}
 		

@@ -123,8 +123,7 @@
 		
 		<default-interceptor-ref name="adminIntercepterStack" />
 		
-		<action name="modifyPermissions" class="com.xinyuan.action.AdministratorAction" method="modifyPermissions" />
-		<action name="modifyApprovals" class="com.xinyuan.action.AdministratorAction" method="modifyApprovals" />
+		<action name="modifyUserPermissions" class="com.xinyuan.action.AdministratorAction" method="modifyUserPermissions" />
 	
 	</package>
 	

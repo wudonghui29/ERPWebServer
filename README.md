@@ -248,6 +248,7 @@ Take a look :
 	alter table WHInventoryCHOrder drop column priceBasicUnit_N;
 
 -- 2014-3-19
+
 	alter table FinancePaymentBill drop column orderType;
   
 -- 2014-3-19
@@ -269,6 +270,11 @@ Take a look :
 	set @DATABASE_NAME = 'ERPWebServer';
 	select concat('alter table ', table_name, ' drop column expiredDate;') as sql_statements from information_schema.tables as tb where table_schema = @DATABASE_NAME order by table_name DESC into outfile '/tmp/batch.txt'; 
 	source /tmp/batch.txt;
+	
+-- 2014-3-29
+	
+	update appsettings set type='ADMIN_APPROVALS' where type='APPROVALS';
+	UPDATE APPSETTINGS SET TYPE='USER_JOBPOSITIONS' WHERE TYPE='JOBPOSITIONS';
 	
 	
 	

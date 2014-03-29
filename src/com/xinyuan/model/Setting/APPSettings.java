@@ -18,7 +18,7 @@ public class APPSettings implements Serializable{
 	
 	private String type;
 	
-	private String settings = "{}";
+	private String settings = "{}";		// default , can be array "[]", or something else
 
 	@Id
 	@GeneratedValue

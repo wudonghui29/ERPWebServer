@@ -210,12 +210,16 @@ public class Test extends HashSet {
 		 
 		 
 		 //3
-		 String ssStrings = "";
-		 String[] aaaas = ssStrings.split(ConfigConstants.CONTENT_DIVIDER);
+//		 String ssStrings = "";
+//		 String[] aaaas = ssStrings.split(ConfigConstants.CONTENT_DIVIDER);
+//		 
+//		 
 		 
 		 
-		 System.out.println(aaaas);
+		 String approvalPoSettings = "[\"a\":\"value\"]";
+		 Map<String,Object> settingsPoMap = GsonHelper.getGson().fromJson(approvalPoSettings, Map.class);
 		 
+		 System.out.println("");
 	}
 	 
 	 

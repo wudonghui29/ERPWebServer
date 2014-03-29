@@ -5,29 +5,23 @@ import java.util.Map;
 import java.util.Set;
 
 import com.modules.Introspector.ModelIntrospector;
-import com.modules.Util.CollectionHelper;
 import com.opensymphony.xwork2.Action;
-import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.UserDAO;
-import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigJSON;
-import com.xinyuan.model.Setting.APPSettings;
 import com.xinyuan.model.User.User;
 
 public class AdministratorAction extends ActionBase {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	@Override
 	protected SuperDAO getDao() { return null; }
 	
 
-	public String modifyPermissions() throws Exception {
+	public String modifyUserPermissions() throws Exception {
 		if (models.size() != 1) return Action.NONE;		// Forbid modified multi-
 		
 		UserDAO userDAO = new UserDAOIMP();
@@ -48,43 +42,5 @@ public class AdministratorAction extends ActionBase {
 		return Action.NONE;
 	}
 	
-	
-	public String modifyApprovals() throws Exception {
-		if (models.size() != 1) return Action.NONE;
-		
-		SuperDAO superDao = new SuperDAOIMP();
-		
-		List<Map<String, String>> identities = requestMessage.getIDENTITYS();
-		
-		for(int i = 0 ; i < models.size(); i++) {
-			APPSettings appSettingVO = (APPSettings) models.get(i);
-			
-			// get PO
-			Map<String, String> idenfier = identities.get(i);
-			ModelIntrospector.setProperty(appSettingVO, idenfier);
-			APPSettings appSettingPO =  superDao.readUnique(appSettingVO, idenfier.keySet());
-			
-			if (appSettingPO == null) {
-				appSettingPO = appSettingVO;
-				superDao.create(appSettingPO);
-			} else {
-				String approvalVoSettings = appSettingVO.getSettings();
-				String approvalPoSettings = appSettingPO.getSettings();
-				
-				//"{"HumanResource":{"Employee": {"app1":[], "app2":[]}} , ...}"
-				Map<String,Object> settingsPoMap = GsonHelper.getGson().fromJson(approvalPoSettings, Map.class);
-				Map<String,Object> settingsVoMap = GsonHelper.getGson().fromJson(approvalVoSettings, Map.class);
-				CollectionHelper.combineTowMap(settingsVoMap, settingsPoMap);
-				
-				String newSettingsPoJSON = GsonHelper.getGson().toJson(settingsPoMap);
-				appSettingPO.setSettings(newSettingsPoJSON);
-				superDao.modify(appSettingPO);
-			}
-		}
-		
-		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
-		
-		return Action.NONE;
-	}
 
 }

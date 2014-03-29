@@ -92,9 +92,8 @@ public class ConfigConstants {
 	
 	
 	// --------------------------    Against to DB
-	
-	public static final String APPSETTINGS_APPROVALS = "APPROVALS";
-	public static final String APPSETTINGS_PRODUCTCATEGORY = "PRODUCTCATEGORY";
+	public static final String APPSettings_TYPE_PREFIX_ADMIN = "ADMIN";
+	public static final String APPSettings_TYPE_ADMIN_APPROVALS = "ADMIN_APPROVALS";
 	
 	
 	public static final String SystemNeedInitialed = "System_Need_Initialized";
