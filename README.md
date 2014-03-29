@@ -235,26 +235,36 @@ Take a look :
 	alter table FinancePaymentOrder drop column biilOrderNOs;
 	alter table WHPurchaseBill drop column purchaseQCBill;
 	
--- 2013-3-14
+-- 2014-3-14
 
 	alter table WHPurchaseOrder change payable totalPay float NOT NULL;
 	
 
--- 2013-3-18
+-- 2014-3-18
 
 	alter table WHInventoryCHOrder drop column totalAmount_N;
 	alter table WHInventoryCHOrder drop column amount_N;
 	alter table WHInventoryCHOrder drop column lendAmount_N;
 	alter table WHInventoryCHOrder drop column priceBasicUnit_N;
 
--- 2013-3-19
+-- 2014-3-19
 	alter table FinancePaymentBill drop column orderType;
   
--- 2013-3-19
+-- 2014-3-19
 
 	alter table WHInventoryOrder drop column remainAmount;
 	
--- 2013-3-24
+-- 2014-3-24
 	
 	drop table FinanceAccountCHOrder;
 	alter table FinanceAccount change column category bank varchar(255);
+	
+-- 2014-3-27
+	
+	use ERPWebServer;
+	set @DATABASE_NAME = 'ERPWebServer’;
+	select concat('alter table ', table_name, ' drop column expiredDate;') as sql_statements from information_schema.tables as tb where table_schema = @DATABASE_NAME order by table_name DESC into outfile '/tmp/batch.txt'; 
+	source /tmp/batch.txt;
+	
+	
+	
