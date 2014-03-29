@@ -258,3 +258,10 @@ Take a look :
 	
 	drop table FinanceAccountCHOrder;
 	alter table FinanceAccount change column category bank varchar(255);
+
+-- 2014-3-29
+
+	drop table SecurityVisitOrder;
+	
+	
+	
