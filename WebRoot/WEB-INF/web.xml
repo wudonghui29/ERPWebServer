@@ -12,11 +12,32 @@
     	<description>ServletContextListener</description>
     	<listener-class>com.Global.ServerEventListener</listener-class>
 	</listener>
+	
+	
+	<!-- servlet -->
+	<servlet>
+    <servlet-name>ServletInitializer</servlet-name>
+    <servlet-class>com.Global.ServletInitializer</servlet-class>
+    <load-on-startup>1</load-on-startup>
+ 	</servlet>
+	
+	
   
     <!-- session -->
     <session-config>
         <session-timeout>120</session-timeout>
     </session-config>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     <!-- struts2 -->	
     

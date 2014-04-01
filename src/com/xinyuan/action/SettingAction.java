@@ -112,8 +112,7 @@ public class SettingAction extends ActionBase {
 		// For the first time connect , send the structures
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String cookie = request.getHeader("cookie");
-		if (cookie != null)
-			return null;
+		if (cookie != null) return null;				// make sure it is the first connecteion
 	
 		// get the file name list
 		File folder = new File(ConfigConstants.Models_Class_Files_Path);
@@ -154,7 +153,9 @@ public class SettingAction extends ActionBase {
 		List<Object> bsList = businessDAO.getClientsNOPairs();
 		
 		SuperDAOIMP dao = new SuperDAOIMP();
-		List<Object> settingList = dao.getObjects("select settings.settings from APPSettings settings where settings.type = '" + ConfigConstants.APPSettings_TYPE_ADMIN_APPROVALS +"'");
+		
+		String appSettingTableString = IntrospectHelper.getShortClassName(APPSettings.class);
+		List<Object> settingList = dao.getObjects("select settings.settings from " + appSettingTableString + " settings where settings.type = '" + ConfigConstants.APPSettings_TYPE_ADMIN_APPROVALS +"'");
 		
 		List<Object> results = new ArrayList<Object>();
 		results.add(hrList);

@@ -9,17 +9,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.impl.StdSchedulerFactory;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.modules.Introspector.PoIntrospector;
-import com.xinyuan.Util.ApnsHelper;
+import com.xinyuan.Quartz.QuartzHelper;
 import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.action.HumanResourceAction;
 import com.xinyuan.action.SuperAction;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.interceptor.PermissionInterceptor;
-import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigFormat;
+import com.xinyuan.model.Setting.APPSettings;
 
 public class Test extends HashSet {
 
@@ -216,8 +219,13 @@ public class Test extends HashSet {
 //		 
 		 
 		 
-		 String approvalPoSettings = "[\"a\":\"value\"]";
-		 Map<String,Object> settingsPoMap = GsonHelper.getGson().fromJson(approvalPoSettings, Map.class);
+//		 String approvalPoSettings = "[\"a\":\"value\"]";
+//		 Map<String,Object> settingsPoMap = GsonHelper.getGson().fromJson(approvalPoSettings, Map.class);
+		 
+		 
+		String classNameString = APPSettings.class.getName();
+		 
+		 QuartzHelper.startEraseJobs();
 		 
 		 System.out.println("");
 	}
