@@ -23,6 +23,7 @@ import com.modules.Util.SecurityCode;
 import com.modules.Util.VerifyCode;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.Util.ApnsHelper;
+import com.xinyuan.Util.AppModelsHelper;
 import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.Util.ParametersHelper;
 import com.xinyuan.Util.SettingHelper;
@@ -110,30 +111,17 @@ public class SettingAction extends ActionBase {
 	
 	private Map<String, Map<String, List<String>>> sendModelsStructures() {
 		// For the first time connect , send the structures
-		HttpServletRequest request = ServletActionContext.getRequest();
-		String cookie = request.getHeader("cookie");
+		String cookie = ServletActionContext.getRequest().getHeader("cookie");
 		if (cookie != null) return null;				// make sure it is the first connecteion
-	
-		// get the file name list
-		File folder = new File(ConfigConstants.Models_Class_Files_Path);
-		List<String> modelsList = new ArrayList<String>();
-		FileHelper.listFilesForSubFolder(folder, modelsList);
 		
-		// get the model package path class name list
-		List<String> classesNamesList = new ArrayList<String>();
-		for (Iterator<String> iterator = modelsList.iterator(); iterator.hasNext();) {
-			String string = (String) iterator.next();				// "Approval.Approvals.class" , ".class" not ".java" 
-			
-			if (string.contains(ConfigConstants.CATEGORIE_USER) || string.contains(ConfigConstants.CATEGORIE_SETTING)) continue;		// exclude user and approval, extensions
-			
-			String className = string.replaceAll(ConfigConstants.SUFFIX_CLASS, ConfigConstants.EMPTY_STRING);
-			String wholeClassName = ConfigConstants.MODELPACKAGE + ConfigConstants.PACKAGE_CONNECTOR + className;			// MODELPACKAGE + "Approval.Approvals"
-			classesNamesList.add(wholeClassName);
-		}
+		Map<String, Map<String, List<String>>> categoriesModelsMap = AppModelsHelper.getCategoriesModelsConstructs();
 		
-		// translate classes properties name to map
-		Map<String, Map<String, List<String>>> categoriesModelsMap = IntrospectHelper.translateToPropertiesMap(classesNamesList);
+		// clear the CATEGORIE_APPROVAL contents 
 		categoriesModelsMap.get(ConfigConstants.CATEGORIE_APPROVAL).clear();
+		
+		// exclude user and approval, extensions
+		categoriesModelsMap.remove(ConfigConstants.CATEGORIE_USER);
+		categoriesModelsMap.remove(ConfigConstants.CATEGORIE_SETTING);
 		
 		return categoriesModelsMap;
 	}

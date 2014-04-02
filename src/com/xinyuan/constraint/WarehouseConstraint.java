@@ -10,7 +10,7 @@ import java.util.Set;
 
 import com.modules.Introspector.IntrospectHelper;
 import com.modules.Introspector.ModelIntrospector;
-import com.xinyuan.Util.OrderHelper;
+import com.xinyuan.Util.AppModelsHelper;
 import com.xinyuan.dao.impl.WarehouseDAOIMP;
 import com.xinyuan.model.Warehouse.WHInventoryCHOrder;
 import com.xinyuan.model.Warehouse.WHInventoryOrder;
@@ -39,7 +39,7 @@ public class WarehouseConstraint {
 		if (orderMap.containsKey(orderType)) {
 			WarehouseDAOIMP dao = new WarehouseDAOIMP();
 			
-			Object persistence = OrderHelper.getPersistenceByUniqueKeyValue(dao,identityList, model.getClass());
+			Object persistence = AppModelsHelper.getPersistenceByUniqueKeyValue(dao,identityList, model.getClass());
 			String orderApp = orderMap.get(orderType);
 			
 			// check if app in db
@@ -77,7 +77,7 @@ public class WarehouseConstraint {
 			
 			if (model instanceof WHLendOutBill) {
 				WHLendOutBill bill = (WHLendOutBill)persistence;
-				WHLendOutOrder order = OrderHelper.getOrderByBill(dao, bill);
+				WHLendOutOrder order = AppModelsHelper.getOrderByBill(dao, bill);
 				
 				String codeValue = order.getProductCode();
 				if (codeValue == null) return;

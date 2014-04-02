@@ -8,6 +8,7 @@ import java.util.Set;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 
+import com.Global.HibernateAbstractDAO;
 import com.modules.Introspector.IntrospectHelper;
 import com.xinyuan.Query.QueryCriteriasHelper;
 import com.xinyuan.Query.QueryFieldsHelper;
@@ -16,7 +17,7 @@ import com.xinyuan.Query.QueryObjectsHelper;
 import com.xinyuan.Query.QuerySortsHelper;
 import com.xinyuan.dao.SuperDAO;
 
-public class SuperDAOIMP extends AbstractHibernateDAOIMP implements SuperDAO {
+public class SuperDAOIMP extends HibernateAbstractDAO implements SuperDAO {
 	private static final String k_COMMA = ", ";
 	private static final String k_AND = " AND";
 	private static final String k_FROM = " FROM ";
@@ -50,6 +51,11 @@ public class SuperDAOIMP extends AbstractHibernateDAOIMP implements SuperDAO {
 	@Override
 	public <E extends Object> E readUnique(E object, Serializable id) throws Exception {
 		return (E) super.getObject(object.getClass(), id);
+	}
+	
+	@Override
+	public <E extends Object> E readUnique(Class<?> cls, String uniqueColumnName, Serializable uniqueValue) throws Exception {
+		return (E) super.getObject(cls, uniqueColumnName, uniqueValue);
 	}
 	
 	@Override

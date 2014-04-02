@@ -7,12 +7,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table
 public class APPSettings implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+	
+	@Transient
+	public static String COLUMN_TYPE = "type";
 	
 	private int id;
 	

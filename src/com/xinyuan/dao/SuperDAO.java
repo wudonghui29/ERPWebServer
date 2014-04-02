@@ -43,6 +43,7 @@ public interface SuperDAO {
 	<E extends Object> E readUnique(E object, Set<String> keys) throws Exception ;
 	
 	
+	public <E extends Object> E readUnique(Class<?> cls, String uniqueColumnName, Serializable uniqueValue) throws Exception;
 	
 	
 	

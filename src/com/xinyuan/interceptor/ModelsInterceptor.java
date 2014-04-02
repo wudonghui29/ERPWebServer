@@ -9,6 +9,7 @@ import java.util.Set;
 
 import com.modules.Introspector.IntrospectHelper;
 import com.modules.Util.DLog;
+import com.modules.Util.FileHelper;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
@@ -76,7 +77,7 @@ public class ModelsInterceptor extends AbstractInterceptor {
 	private String getModelClassWholeName(ActionBase action, String category, String model) {
 		boolean isSuper = action.getClass() == SuperAction.class || action.getClass() == AdministratorAction.class;
 		
-		String className = ConfigConstants.MODELPACKAGE + ( isSuper ?  model : ConfigConstants.PACKAGE_CONNECTOR + category + model);
+		String className = ConfigConstants.MODELPACKAGE + ( isSuper ?  model : FileHelper.JAVA_PACKAGE_CONNECTOR + category + model);
 		
 		return className;
 	}

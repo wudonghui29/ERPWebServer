@@ -9,10 +9,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
-import org.quartz.impl.StdSchedulerFactory;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
+import com.Global.HibernateInitializer;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.xinyuan.Quartz.QuartzHelper;
@@ -22,7 +22,6 @@ import com.xinyuan.action.SuperAction;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.interceptor.PermissionInterceptor;
 import com.xinyuan.message.ConfigFormat;
-import com.xinyuan.model.Setting.APPSettings;
 
 public class Test extends HashSet {
 
@@ -222,12 +221,17 @@ public class Test extends HashSet {
 //		 String approvalPoSettings = "[\"a\":\"value\"]";
 //		 Map<String,Object> settingsPoMap = GsonHelper.getGson().fromJson(approvalPoSettings, Map.class);
 		 
+//		 String classPath = System.getProperty("java.class.path");
+//		 
+//		 String filesPath = Test.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+//		 
+//		 String classesPath = Test.class.getClassLoader().getResource(".").getPath();
 		 
-		String classNameString = APPSettings.class.getName();
-		 
+		 HibernateInitializer.initialize();
+				
 		 QuartzHelper.startEraseJobs();
 		 
-		 System.out.println("");
+		 System.out.println("USB");
 	}
 	 
 	 
