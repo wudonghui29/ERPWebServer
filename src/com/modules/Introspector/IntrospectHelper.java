@@ -32,6 +32,12 @@ public class IntrospectHelper {
 		return parentPackageIndex >= 0 ? packageParts[parentPackageIndex] : null;
 	}
 	
+	public static String getWholePackageName(Object object) {
+		String wholeClassName = object.getClass().getName();
+		String packageName = wholeClassName.substring(0, wholeClassName.lastIndexOf("."));
+		return packageName;
+	}
+	
 	
 	public static String getShortClassName(Object object) {
 		return getShortClassName( object.getClass());

@@ -47,7 +47,7 @@ public class ModelsInterceptor extends AbstractInterceptor {
 		
 		// "HumanResource__delete" -> "HumanResource" , "HumanResourceAction" -> "HumanResource"
 		String actionName = IntrospectHelper.getShortClassName(baseAction);
-		String catagory = actionName.replace(ConfigConstants.ACTION, ConfigConstants.EMPTY_STRING);
+		String catagory = actionName.replace(ConfigConstants.ACTION_CLASS_SUFFIX, ConfigConstants.EMPTY_STRING);
 		
 		for (int i = 0; i < modelsArray.size(); i++) {
 			String modelStr = modelsArray.get(i);		// e.g : ".Employee" or for super ".HumanResource.Employee"

@@ -50,7 +50,7 @@ public class ConfigConstants {
 	
 	
 	
-	public static final String ACTION = "Action" ;
+	public static final String ACTION_CLASS_SUFFIX = "Action" ;
 	
 	public static final String CATEGORIE_USER 		= "User";
 	public static final String CATEGORIE_APPROVAL 	= "Approval";  // every user have Approval Package read permission

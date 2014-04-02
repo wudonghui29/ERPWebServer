@@ -9,16 +9,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
 import com.Global.HibernateInitializer;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.modules.Introspector.IntrospectHelper;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.xinyuan.Quartz.QuartzHelper;
 import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.action.HumanResourceAction;
 import com.xinyuan.action.SuperAction;
+import com.xinyuan.action.command.CommandCreate;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.interceptor.PermissionInterceptor;
 import com.xinyuan.message.ConfigFormat;
@@ -183,9 +183,22 @@ public class Test extends HashSet {
 		}
 	 }
 	 
+	 public static void main(String[] args) {
+//		try {
+//		  Class<?> commandClass =Class.forName("com.xinyuan.action.command.HumanResourceCommandCreate");
+//		  CommandCreate commandCreate = (CommandCreate) commandClass.newInstance();
+//		  
+//		  System.out.println();
+//		} catch (Exception e) {
+//			
+//			e.printStackTrace();
+//		}
+		 
+		 String packageNameString = IntrospectHelper.getWholePackageName(new Test());
+		 System.out.println();
+	 }
 	 
-	 
-	 public static void main(String[] args) throws Exception {
+	 public static void mainJOB(String[] args) throws Exception {
 		 // 1
 //		 SettingAction settingAction = new SettingAction();
 //		 settingAction.getApplicationModelsStructures();
