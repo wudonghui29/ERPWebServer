@@ -40,11 +40,15 @@ public class IntrospectHelper {
 	
 	
 	public static String getShortClassName(Object object) {
-		return getShortClassName( object.getClass());
+		return getShortClassName(object.getClass());
 	}
 	
 	public static <T> String getShortClassName(Class<T> clazz) {
 		String wholeClassName = clazz.getName();
+		return getClassNameLastComponent(wholeClassName);
+	}
+	
+	public static String getClassNameLastComponent(String wholeClassName) {
 		return wholeClassName.substring(wholeClassName.lastIndexOf(".") + 1);
 	}
 	
