@@ -17,6 +17,7 @@ public class EmployeeCHOrder extends OrderApp4 {
 	private static final long serialVersionUID = 1L;
 	
 	private String employeeNO;
+	private String name;
 	
 	// _O for Old , _N for New.
 	
@@ -41,6 +42,12 @@ public class EmployeeCHOrder extends OrderApp4 {
 	}
 	public void setEmployeeNO(String employeeNO) {
 		this.employeeNO = employeeNO;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getDepartment_O() {
 		return department_O;

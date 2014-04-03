@@ -61,7 +61,7 @@ public class SuperAction extends ActionBase {
 	
 	
 	private Command getCommand(String command) {
-		String actionClassName = this.getClass().getName();
+		String actionClassName = this.getClass().getName();			// com.xinyuan.action.
 		
 		String commandClassNameTemp = actionClassName.replace(ConfigConstants.ACTION_CLASS_SUFFIX, "Command"+command);
 		
