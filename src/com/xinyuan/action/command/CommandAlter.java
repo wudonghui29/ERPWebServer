@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.xinyuan.Util.ApnsHelper;
-import com.xinyuan.Util.OrderHelper;
+import com.xinyuan.Util.AppModelsHelper;
 import com.xinyuan.Util.ParametersHelper;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.message.ConfigConstants;
@@ -28,7 +28,7 @@ public abstract class CommandAlter implements Command {
 		for (int i = 0; i < models.size(); i++) {
 			Object model = models.get(i);
 			Set<String> modelkeys = modelsKeys.get(i);
-			Object persistence = OrderHelper.getPersistenceByUniqueKeyValue(dao, identityList.get(i), model.getClass());
+			Object persistence = AppModelsHelper.getPersistenceByUniqueKeyValue(dao, identityList.get(i), model.getClass());
 			
 			// subclass
 			handlePersistence(dao, model, modelkeys, persistence);

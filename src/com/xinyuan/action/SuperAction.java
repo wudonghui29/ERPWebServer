@@ -1,5 +1,6 @@
 package com.xinyuan.action;
 
+import com.modules.Introspector.IntrospectHelper;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.action.command.Command;
 import com.xinyuan.action.command.CommandApply;
@@ -9,6 +10,7 @@ import com.xinyuan.action.command.CommandModify;
 import com.xinyuan.action.command.CommandRead;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.SuperDAOIMP;
+import com.xinyuan.message.ConfigConstants;
 
 public class SuperAction extends ActionBase {
 	
@@ -26,7 +28,6 @@ public class SuperAction extends ActionBase {
 		readCommand.execute(dao, responseMessage, requestMessage, models, modelsKeys);
 		return Action.NONE;
 	}
-	
 	
 	
 	public String create() throws Exception {
@@ -58,5 +59,16 @@ public class SuperAction extends ActionBase {
 		return Action.NONE;
 	}
 	
+	
+	private Command getCommand(String command) {
+		String actionClassName = this.getClass().getName();			// com.xinyuan.action.
+		
+		String commandClassNameTemp = actionClassName.replace(ConfigConstants.ACTION_CLASS_SUFFIX, "Command"+command);
+		
+		String commandClassName = commandClassNameTemp.replace(".action", ".action.command");
+		
+//		Class<?> commandClass
+		return null;
+	}
 
 }

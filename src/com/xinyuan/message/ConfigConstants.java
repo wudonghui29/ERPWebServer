@@ -8,26 +8,21 @@ import java.util.Properties;
 
 import javax.servlet.ServletContext;
 
+import com.modules.Util.FileHelper;
+
 
 public class ConfigConstants {
 	
-	public static String FS = System.getProperty("file.separator");
+	public static String FS = FileHelper.FILE_SEPARATOR;
+	public static String Context_Real_Path = ConfigConstants.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+	public static String Context_Classes_Path = Context_Real_Path;
 	public static String Apns_Certificate_Path = ".." + FS + "apnsDevelop.p12";
-	
-	public static String Context_Real_Path ;
-	public static String Models_Class_Files_Path ;
 	
 	
 	public static void initializeContextVariables(ServletContext context) {
-		
 		//ServletActionContext.getServletContext()
-		Context_Real_Path = context.getRealPath(File.separator); 
-		Apns_Certificate_Path = Context_Real_Path + Apns_Certificate_Path;
-		Models_Class_Files_Path = Context_Real_Path + "WEB-INF" + FS + "classes" + FS + "com" + FS + "xinyuan" + FS + "model" + FS;
-		
-//		String serialFile = Context_Real_Path + "resources/serials.properties";
-		String serialPath = context.getRealPath("resources/serials.properties");
 		try {
+			String serialPath = context.getRealPath("resources/serials.properties");
 			InputStream inputStream = new BufferedInputStream(new FileInputStream(serialPath));
 			ConfigFormat.serialProperties = new Properties();
 			ConfigFormat.serialProperties.load(inputStream);
@@ -35,6 +30,9 @@ public class ConfigConstants {
 			e.printStackTrace();
 		}
 
+		Context_Real_Path = context.getRealPath(File.separator); 
+		Context_Classes_Path = Context_Real_Path + "WEB-INF" + FS + "classes" + FS;
+		Apns_Certificate_Path = Context_Real_Path + Apns_Certificate_Path;
 	}
 	
 	
@@ -46,15 +44,13 @@ public class ConfigConstants {
 	
 	
 	
-	public static final String SUFFIX_CLASS = ".class";
-	public static final String PACKAGE_CONNECTOR = ".";
 	
 	public static final String CONTENT_DIVIDER = ",";
 	public static final String CONTENT_CONNECTOR = ".";
 	
 	
 	
-	public static final String ACTION = "Action" ;
+	public static final String ACTION_CLASS_SUFFIX = "Action" ;
 	
 	public static final String CATEGORIE_USER 		= "User";
 	public static final String CATEGORIE_APPROVAL 	= "Approval";  // every user have Approval Package read permission
@@ -82,6 +78,7 @@ public class ConfigConstants {
 
 	public static final String ALLUSER_PERMISSIONS = "ALLUSER_PERMISSIONS";
 	
+	
 	public static final String REQUEST_ERROR = "REQUEST_ERROR";
 	
 
@@ -92,9 +89,9 @@ public class ConfigConstants {
 	
 	
 	// --------------------------    Against to DB
-	
-	public static final String APPSETTINGS_APPROVALS = "APPROVALS";
-	public static final String APPSETTINGS_PRODUCTCATEGORY = "PRODUCTCATEGORY";
+	public static final String APPSettings_TYPE_PREFIX_ADMIN = "ADMIN";
+	public static final String APPSettings_TYPE_ADMIN_APPROVALS = "ADMIN_APPROVALS";
+	public static final String APPSettings_TYPE_ADMIN_ORDERSEXPIRATIONS = "ADMIN_ORDERSEXPIRATIONS";
 	
 	
 	public static final String SystemNeedInitialed = "System_Need_Initialized";

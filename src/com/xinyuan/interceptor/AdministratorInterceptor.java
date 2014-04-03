@@ -20,10 +20,14 @@ public class AdministratorInterceptor extends AbstractInterceptor {
 		
 		DLog.log("");
 		
-		User user = (User)ActionContext.getContext().getSession().get(ConfigConstants.SIGNIN_USER);
-		if (isAdmin(user)) return invocation.invoke();
+		if (currentUserIsAdministrator()) return invocation.invoke();
 		
 		return Action.NONE;
+	}
+	
+	public static boolean currentUserIsAdministrator() {
+		User user = (User)ActionContext.getContext().getSession().get(ConfigConstants.SIGNIN_USER);
+		return isAdmin(user);
 	}
 	
 	public static boolean isAdmin(User user) {

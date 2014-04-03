@@ -1,4 +1,4 @@
-package com.xinyuan.dao.impl;
+package com.Global;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,9 +7,8 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
-import com.Global.HibernateInitializer;
 
-public abstract class AbstractHibernateDAOIMP {
+public abstract class HibernateAbstractDAO {
 
 	public Serializable saveObject(Object obj) {
 		return getSession().save(obj);

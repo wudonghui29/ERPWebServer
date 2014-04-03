@@ -36,11 +36,10 @@ public class TestCase {
 //		HumanResourceDAOIMP daoimp = new HumanResourceDAOIMP();
 //		boolean ise = daoimp.isTableEmpty("User");
 		
-		boolean ise = SettingHelper.isUserTableEmpty();
+//		boolean ise = SettingHelper.isUserTableEmpty();
 		
 		session.getTransaction().commit(); 
-		
-		System.out.println("Done!  " + ise);
+		System.out.println("Done!  ");
 	}
 	
 	@Test

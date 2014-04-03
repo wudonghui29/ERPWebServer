@@ -6,7 +6,7 @@ import java.util.Map;
 import com.modules.Introspector.IntrospectHelper;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.Util.ApprovalHelper;
-import com.xinyuan.Util.OrderHelper;
+import com.xinyuan.Util.AppModelsHelper;
 import com.xinyuan.Util.ParametersHelper;
 import com.xinyuan.constraint.WarehouseConstraint;
 import com.xinyuan.dao.SuperDAO;
@@ -42,7 +42,7 @@ public class WarehouseAction extends SuperAction {
 		
 		
 		
-		Object persistence = OrderHelper.getPersistenceByUniqueKeyValue(dao,requestMessage.getIDENTITYS().get(0), model.getClass());
+		Object persistence = AppModelsHelper.getPersistenceByUniqueKeyValue(dao,requestMessage.getIDENTITYS().get(0), model.getClass());
 		
 		if (persistence instanceof WHLendOutBill) {
 			WHLendOutBill bill = (WHLendOutBill)persistence;

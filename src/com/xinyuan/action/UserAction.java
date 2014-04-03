@@ -103,10 +103,10 @@ public class UserAction extends ActionBase {
 				
 				
 				if (i != 0) {
-					// AppSettings : APPROVALS - {"HumanResource":{"Employee":{"app1":[["0000"],""]}}}
+					// AppSettings : ADMIN_APPROVALS - {"HumanResource":{"Employee":{"app1":[["0000"],""]}}}
 					SuperDAO superDao = new SuperDAOIMP();
 					APPSettings appSetting = new APPSettings();
-					appSetting.setType(ConfigConstants.APPSETTINGS_APPROVALS);
+					appSetting.setType(ConfigConstants.APPSettings_TYPE_ADMIN_APPROVALS);
 					String settings = "{\"HumanResource\":{\"Employee\":{\"app1\":{\"USERS\":[\"" +user.getUsername()+ "\"]}}}}" ;
 					appSetting.setSettings(settings);
 					

@@ -13,6 +13,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.hamcrest.SelfDescribing;
+
+import sun.print.resources.serviceui;
+
+import com.sun.org.apache.bcel.internal.generic.RET;
+
 public class IntrospectHelper {
 	
 	private static final String DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
@@ -26,9 +32,19 @@ public class IntrospectHelper {
 		return parentPackageIndex >= 0 ? packageParts[parentPackageIndex] : null;
 	}
 	
+	public static String getWholePackageName(Object object) {
+		String wholeClassName = object.getClass().getName();
+		String packageName = wholeClassName.substring(0, wholeClassName.lastIndexOf("."));
+		return packageName;
+	}
+	
 	
 	public static String getShortClassName(Object object) {
-		String wholeClassName = object.getClass().getName();
+		return getShortClassName( object.getClass());
+	}
+	
+	public static <T> String getShortClassName(Class<T> clazz) {
+		String wholeClassName = clazz.getName();
 		return wholeClassName.substring(wholeClassName.lastIndexOf(".") + 1);
 	}
 	

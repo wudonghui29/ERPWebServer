@@ -19,6 +19,7 @@ public class BaseModel implements Serializable {
 
 	@Id
 	@GeneratedValue
+	@Column(unique=true)
 	public int getId() {
 		return id;
 	}

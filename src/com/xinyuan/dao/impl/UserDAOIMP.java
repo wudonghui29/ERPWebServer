@@ -2,10 +2,11 @@ package com.xinyuan.dao.impl;
 
 import java.util.List;
 
+import com.Global.HibernateAbstractDAO;
 import com.xinyuan.dao.UserDAO;
 import com.xinyuan.model.User.User;
 
-public class UserDAOIMP extends AbstractHibernateDAOIMP implements UserDAO {
+public class UserDAOIMP extends HibernateAbstractDAO implements UserDAO {
 
 	public boolean isSignup(String username) {
 		return this.getUser(username) != null;

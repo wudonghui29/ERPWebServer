@@ -9,6 +9,7 @@ import java.util.Set;
 
 import com.modules.Introspector.IntrospectHelper;
 import com.modules.Util.DLog;
+import com.modules.Util.FileHelper;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
@@ -46,7 +47,7 @@ public class ModelsInterceptor extends AbstractInterceptor {
 		
 		// "HumanResource__delete" -> "HumanResource" , "HumanResourceAction" -> "HumanResource"
 		String actionName = IntrospectHelper.getShortClassName(baseAction);
-		String catagory = actionName.replace(ConfigConstants.ACTION, ConfigConstants.EMPTY_STRING);
+		String catagory = actionName.replace(ConfigConstants.ACTION_CLASS_SUFFIX, ConfigConstants.EMPTY_STRING);
 		
 		for (int i = 0; i < modelsArray.size(); i++) {
 			String modelStr = modelsArray.get(i);		// e.g : ".Employee" or for super ".HumanResource.Employee"
@@ -76,7 +77,7 @@ public class ModelsInterceptor extends AbstractInterceptor {
 	private String getModelClassWholeName(ActionBase action, String category, String model) {
 		boolean isSuper = action.getClass() == SuperAction.class || action.getClass() == AdministratorAction.class;
 		
-		String className = ConfigConstants.MODELPACKAGE + ( isSuper ?  model : ConfigConstants.PACKAGE_CONNECTOR + category + model);
+		String className = ConfigConstants.MODELPACKAGE + ( isSuper ?  model : FileHelper.JAVA_PACKAGE_CONNECTOR + category + model);
 		
 		return className;
 	}
