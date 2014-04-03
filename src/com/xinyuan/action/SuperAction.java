@@ -1,6 +1,5 @@
 package com.xinyuan.action;
 
-import com.modules.Introspector.IntrospectHelper;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.action.command.Command;
 import com.xinyuan.action.command.CommandApply;

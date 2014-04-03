@@ -9,7 +9,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.Global.HibernateInitializer;
-import com.xinyuan.Util.SettingHelper;
 
 public class TestCase {
 

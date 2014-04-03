@@ -1,13 +1,10 @@
 package com.xinyuan.action;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
@@ -18,7 +15,6 @@ import com.modules.Introspector.IntrospectHelper;
 import com.modules.Introspector.ModelIntrospector;
 import com.modules.Util.CollectionHelper;
 import com.modules.Util.DLog;
-import com.modules.Util.FileHelper;
 import com.modules.Util.SecurityCode;
 import com.modules.Util.VerifyCode;
 import com.opensymphony.xwork2.Action;
