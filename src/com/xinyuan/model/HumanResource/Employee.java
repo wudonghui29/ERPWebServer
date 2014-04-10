@@ -30,10 +30,10 @@ public class Employee extends OrderApp1 {
 	private String phoneNO;			// 电话
 	
 	private boolean resign;			// 已离职  do not use "isEmploying" , cause in mysql , the column name will be "employing" , "is" is gone
-	private boolean inVisits; 		// 是否列入拜访名单
+//	private boolean inVisits; 		// 是否列入拜访名单
 	private boolean inDrives ; 		// 具有驾驶证  0 , have ; 1 , do not have
-	private boolean ownDevice;		// 具有Apple设备
-	
+//	private boolean ownDevice;		// 具有Apple设备
+	private boolean ownApproval;    // 具有审核权限 
 	
 	private String idCard ;			// 身份证号码
 	private boolean gender;  		// 0 , female ; 1 , male  // boolean respect as "true" in json
@@ -212,13 +212,6 @@ public class Employee extends OrderApp1 {
 		this.jobTitle = jobTitle;
 	}
 	
-	@Column(columnDefinition="boolean default false")
-	public boolean isInVisits() {
-		return inVisits;
-	}
-	public void setInVisits(boolean inVisits) {
-		this.inVisits = inVisits;
-	}
 	
 	@Column(nullable=false, columnDefinition="boolean default false")  
 	public boolean isInDrives() {
@@ -228,17 +221,21 @@ public class Employee extends OrderApp1 {
 		this.inDrives = inDrives;
 	}
 	
+	
 	@Column(columnDefinition="boolean default false")
-	public boolean isOwnDevice() {
-		return ownDevice;
+	public boolean isOwnApproval() {
+		return ownApproval;
 	}
-	public void setOwnDevice(boolean ownDevice) {
-		this.ownDevice = ownDevice;
+	
+	public void setOwnApproval(boolean ownApproval) {
+		this.ownApproval = ownApproval;
 	}
+	
+	
 	public String getEducation() {
 		return education;
 	}
-
+	
 	public void setEducation(String education) {
 		this.education = education;
 	}
@@ -264,4 +261,7 @@ public class Employee extends OrderApp1 {
 	public void setWordMask(String wordMask) {
 		this.wordMask = wordMask;
 	}
+	
+	
+	
 }

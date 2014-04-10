@@ -27,12 +27,19 @@ public class EmployeeCHOrder extends OrderApp4 {
 	private String jobTitle_O;
 	private String phoneNO_O;
 	
+	private boolean ownApproval_O;
+	private boolean inDrives_O; 
+	private boolean resign_O; 
 	
 	private String department_N;
 	private String subDepartment_N;
 	private int jobLevel_N;
 	private String jobTitle_N;
 	private String phoneNO_N;
+	
+	private boolean ownApproval_N; 
+	private boolean inDrives_N; 
+	private boolean resign_N; 
 	
 	private String password_N;
 	
@@ -108,6 +115,43 @@ public class EmployeeCHOrder extends OrderApp4 {
 	}
 	public void setPhoneNO_N(String phoneNO_N) {
 		this.phoneNO_N = phoneNO_N;
+	}
+	
+	public boolean isOwnApproval_O() {
+		return ownApproval_O;
+	}
+	public void setOwnApproval_O(boolean ownApproval_O) {
+		this.ownApproval_O = ownApproval_O;
+	}
+	public boolean isInDrives_O() {
+		return inDrives_O;
+	}
+	public void setInDrives_O(boolean inDrives_O) {
+		this.inDrives_O = inDrives_O;
+	}
+	public boolean isResign_O() {
+		return resign_O;
+	}
+	public void setResign_O(boolean resign_O) {
+		this.resign_O = resign_O;
+	}
+	public boolean isOwnApproval_N() {
+		return ownApproval_N;
+	}
+	public void setOwnApproval_N(boolean ownApproval_N) {
+		this.ownApproval_N = ownApproval_N;
+	}
+	public boolean isInDrives_N() {
+		return inDrives_N;
+	}
+	public void setInDrives_N(boolean inDrives_N) {
+		this.inDrives_N = inDrives_N;
+	}
+	public boolean isResign_N() {
+		return resign_N;
+	}
+	public void setResign_N(boolean resign_N) {
+		this.resign_N = resign_N;
 	}
 	public String getPassword_N() {
 		return password_N;
