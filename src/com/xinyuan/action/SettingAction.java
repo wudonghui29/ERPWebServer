@@ -221,7 +221,7 @@ public class SettingAction extends ActionBase {
 			// then save it to database
 			superDao.modify(appSettingPO);
 		}
-		
+		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
 		return Action.NONE;
 	}
 	public String readType() throws Exception{
