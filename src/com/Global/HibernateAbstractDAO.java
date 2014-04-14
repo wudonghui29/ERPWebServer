@@ -44,8 +44,7 @@ public abstract class HibernateAbstractDAO {
 	 * @return
 	 * 
 	 */
-	public Object getObject(Class<?> cls, String uniqueColumnName,
-			Serializable uniqueValue) {
+	public Object getObject(Class<?> cls, String uniqueColumnName, Serializable uniqueValue) {
 		String clsName = cls.getName();
 		String alias = clsName.substring(clsName.lastIndexOf(".") + 1);
 		String queryString = "FROM " + clsName + " " + alias + " WHERE "

@@ -20,6 +20,8 @@ import com.xinyuan.action.SuperAction;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.interceptor.PermissionInterceptor;
 import com.xinyuan.message.ConfigFormat;
+import com.xinyuan.model.OrderApp1;
+import com.xinyuan.model.HumanResource.Employee;
 
 public class Test extends HashSet {
 
@@ -194,6 +196,11 @@ public class Test extends HashSet {
 		 
 		 String packageNameString = IntrospectHelper.getWholePackageName(new Test());
 		 System.out.println();
+		 
+		 Employee employee = new Employee();
+		 if (employee instanceof OrderApp1) {
+			System.out.println("fdsafa");
+		}
 	 }
 	 
 	 public static void mainJOB(String[] args) throws Exception {

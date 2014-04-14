@@ -16,9 +16,6 @@ import com.xinyuan.model.Warehouse.WHLendOutBill;
 
 public class WarehouseAction extends SuperAction {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Override
