@@ -158,6 +158,10 @@
 
 	update EmployeeCHOrder inner join Employee on EmployeeCHOrder.employeeNO = Employee.employeeNO set EmployeeCHOrder.name = Employee.name ;
 	
+-- 2014-3-19
+
+	alter table Employee drop column inVisits;
+	alter table Employee drop column ownDevice;
 	
 	
 	

@@ -18,7 +18,7 @@ public abstract class CommandAlter implements Command {
 
 	@Override
 	public void execute(SuperDAO dao, ResponseMessage responseMessage, RequestMessage requestMessage, List<Object> models, List<Set<String>> modelsKeys) throws Exception {
-		if (models.size() != 1) return ;		// Forbid multi-
+//		if (models.size() != 1) return ;		// Forbid multi-
 		
 		List<Map<String, String>> identityList = requestMessage.getIDENTITYS();	
 		

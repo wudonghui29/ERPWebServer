@@ -1,6 +1,5 @@
 package com.xinyuan.model.Warehouse;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
