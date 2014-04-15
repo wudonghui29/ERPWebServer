@@ -38,9 +38,16 @@ public class HumanResourceCommandApply extends CommandApply {
 						ModelIntrospector.setProperty(employee, originPropertyName, newValue);
 					}
 				}
-						
 			}
+			
+			dao.modify(employee);
 		}
+		
+		
+		
+		
+		
+		
 	}
 
 	

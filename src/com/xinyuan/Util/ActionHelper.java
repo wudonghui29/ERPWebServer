@@ -12,10 +12,11 @@ public class ActionHelper {
 		String commandClassName = commandClassNameTemp.replace(ConfigConstants.ACTION_CLASS_SUFFIX, "Command"+type); // com.xinyuan.action.command.SecurityCommand{['Alter'|....]}
 		Class<?> commandClass = null;
 		try {
-			commandClass = Class.forName(commandClassName);
+			String categoryCommandClassName = commandClassName.replace("command.", "command.category.");
+			commandClass = Class.forName(categoryCommandClassName);
 		} catch (ClassNotFoundException e) {
 			String category = shortClassName.replace(ConfigConstants.ACTION_CLASS_SUFFIX, "");		// Security
-			String baseCommandClassName = commandClassName.replaceAll(category, "");				// com.xinyuan.action.command.Command{['Alter'|....]}
+			String baseCommandClassName = commandClassName.replace(category, "");				// com.xinyuan.action.command.Command{['Alter'|....]}
 			try {
 				commandClass = Class.forName(baseCommandClassName);
 			} catch (ClassNotFoundException e1) {
