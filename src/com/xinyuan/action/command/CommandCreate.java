@@ -1,6 +1,5 @@
 package com.xinyuan.action.command;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,39 +27,43 @@ public class CommandCreate implements Command {
 		List<Map<String, String>> outterPreconditions = requestMessage.getPRECONDITIONS();
 		
 		for (int i = 0; i < models.size(); i++) {
-			Object persistence = models.get(i);
+			Object model = models.get(i);
+			
+			// subclass
+			if (handleModelBeforeCreate(dao, model, i, responseMessage, requestMessage)) continue;
 			
 			// Precodition......
 			Map<String, String> precondition = outterPreconditions == null ? null : outterPreconditions.get(i);
-			if (precondition != null) QueryCriteriasHelper.createAssemblePreconditions(models, persistence, precondition);
-			
+			if (precondition != null) QueryCriteriasHelper.createAssemblePreconditions(models, model, precondition);
 			
 			// set basic information
-			if (persistence instanceof BaseModel) OrderNOGenerator.setOrderBasicCreateDetail((BaseModel)persistence);
+			if (model instanceof BaseModel) OrderNOGenerator.setOrderBasicCreateDetail((BaseModel)model);
 			
-			// create
-			Serializable serializableId = dao.create(persistence);
-			
-			// add id to result
 			Map<String,Object> result = new HashMap<String,Object>();
-			result.put(ConfigJSON.IDENTIFIER, serializableId);
+			// create and add id to result
+			result.put(ConfigJSON.IDENTIFIER, dao.create(model));
 			
-			if (persistence instanceof BaseOrder) {
+			if (model instanceof BaseOrder) {
+				BaseOrder order = (BaseOrder)model;
 				// add orderNO to result
-				BaseOrder order = (BaseOrder)persistence;
 				result.put(ConfigJSON.ORDERNO, order.getOrderNO());
-				
 				// add orderNO to PendingApprove
-				if (persistence instanceof IApp) {
-					IApp iApp = (IApp)persistence ;
-					ApprovalHelper.addPendingApprove(iApp.getForwardUser(), order);
-				}
+				if (model instanceof IApp)  ApprovalHelper.addPendingApprove(((IApp)model).getForwardUser(), order);
 			}
 			results.add(result);
+			
+			// subclass
+			handleModelAfterCreate(dao, model, i, responseMessage, requestMessage);
 		}
 		
 		responseMessage.status = ConfigConstants.STATUS_POSITIVE ;
 		responseMessage.results = results;
 	}
+	
+	
+	
+	protected boolean handleModelBeforeCreate(SuperDAO dao, Object model, int index, ResponseMessage responseMessage, RequestMessage requestMessage) throws Exception  { return true; }
+	
+	protected void handleModelAfterCreate(SuperDAO dao, Object model, int index, ResponseMessage responseMessage, RequestMessage requestMessage) throws Exception {}
 
 }

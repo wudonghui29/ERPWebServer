@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.modules.Util.StringHelper;
 import com.opensymphony.xwork2.Action;
+import com.xinyuan.Util.AppCryptoHelper;
 import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.Util.ParametersHelper;
 import com.xinyuan.Util.SettingHelper;
@@ -35,19 +36,16 @@ public class UserAction extends ActionBase {
 		String userVerifyCode = ParametersHelper.getParameter(requestMessage, ConfigJSON.VERIFYCODE);
 		if (this.isVerifyCodeError(userVerifyCode)) return Action.NONE;
 		
-//		for (int i = 0; i < models.size(); i++) {
 			
 		User model = (User)models.get(0);
 		
-		
 		String username = model.getUsername();
-		String password = model.getPassword();
 		String newApnsToken = ParametersHelper.getParameter(requestMessage,ConfigJSON.APNSTOKEN);
 		
 		User user = userDAO.getUser(username);
 		if (user == null) {
 			responseMessage.descriptions = ConfigConstants.USER.UserNotExist;
-		} else if (password.equals(user.getPassword())) {
+		} else if (AppCryptoHelper.isUserImpacted(model, user)) {
 			
 			// update the apnsToken in db
 			String apnsToken = userDAO.getUserApnsToken(user.getUsername());
@@ -77,8 +75,6 @@ public class UserAction extends ActionBase {
 			responseMessage.descriptions = ConfigConstants.USER.UserPasswordError;
 		}
 			
-//		}
-
 		return Action.NONE;
 	}
 	
@@ -87,6 +83,7 @@ public class UserAction extends ActionBase {
 		SessionManager.remove(ConfigConstants.SIGNIN_USER);
 		
 		User user = (User) SessionManager.get(ConfigConstants.SIGNIN_USER);
+		System.out.println(user);// check if sign out succefullly .
 		
 		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
 		return Action.NONE;

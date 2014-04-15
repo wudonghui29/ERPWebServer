@@ -8,6 +8,10 @@ import com.modules.Util.FileHelper;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.model.IApp1;
+import com.xinyuan.model.IApp2;
+import com.xinyuan.model.IApp3;
+import com.xinyuan.model.IApp4;
 import com.xinyuan.model.Warehouse.WHLendOutBill;
 import com.xinyuan.model.Warehouse.WHLendOutOrder;
 
@@ -38,5 +42,18 @@ public class AppModelsHelper {
 		return categoriesModelsMap;
 	}
 	
+	
+	public static String getFinalApprovalKey(Object object) {
+		if (object instanceof IApp4) {
+			return "app4";
+		} else if (object instanceof IApp3) {
+			return "app3";
+		} else if (object instanceof IApp2) {
+			return "app2";
+		} else if (object instanceof IApp1) {
+			return "app1";
+		}
+		return null;
+	}
 	
 }

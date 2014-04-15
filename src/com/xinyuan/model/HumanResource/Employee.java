@@ -30,9 +30,7 @@ public class Employee extends OrderApp1 {
 	private String phoneNO;			// 电话
 	
 	private boolean resign;			// 已离职  do not use "isEmploying" , cause in mysql , the column name will be "employing" , "is" is gone
-//	private boolean inVisits; 		// 是否列入拜访名单
 	private boolean inDrives ; 		// 具有驾驶证  0 , have ; 1 , do not have
-//	private boolean ownDevice;		// 具有Apple设备
 	private boolean ownApproval;    // 具有审核权限 
 	
 	private String idCard ;			// 身份证号码

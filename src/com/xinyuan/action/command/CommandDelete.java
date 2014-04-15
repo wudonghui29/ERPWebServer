@@ -16,14 +16,11 @@ public class CommandDelete extends CommandAlter {
 		
 		// check if delete successfully
 		if (dao.readUnique(persistence, IntrospectHelper.getAllProperties(persistence)) != null) throw new Exception();
-		
 	}
 
 	@Override
 	protected void handleApprovals(SuperDAO dao, String appKey, String forwardUser, BaseOrder persistence) throws Exception {
-		if (persistence instanceof IApp) {
-			ApprovalHelper.deletePendingApprove(((IApp)persistence).getForwardUser(), persistence);
-		}
+		if (persistence instanceof IApp) ApprovalHelper.deletePendingApprove(((IApp)persistence).getForwardUser(), persistence);
 	}
 
 	

@@ -18,35 +18,27 @@ public abstract class CommandAlter implements Command {
 
 	@Override
 	public void execute(SuperDAO dao, ResponseMessage responseMessage, RequestMessage requestMessage, List<Object> models, List<Set<String>> modelsKeys) throws Exception {
-//		if (models.size() != 1) return ;		// Forbid multi-
-		
-		List<Map<String, String>> identityList = requestMessage.getIDENTITYS();	
 		
 		List<String> forwardsList = requestMessage.getAPNS_FORWARDS();
+		List<Map<String, String>> identityList = requestMessage.getIDENTITYS();	
 		List<Map<String, String>> forwardsContents = requestMessage.getAPNS_CONTENTS();
 		
 		for (int i = 0; i < models.size(); i++) {
 			Object model = models.get(i);
 			Set<String> modelkeys = modelsKeys.get(i);
-			Object persistence = AppModelsHelper.getPersistenceByUniqueKeyValue(dao, identityList.get(i), model.getClass());
 			
-			// subclass
+			// get the persistence by identities
+			Object persistence = AppModelsHelper.getPersistenceByUniqueKeyValue(dao, identityList.get(i), model.getClass());
+			// subclass, handle the persistence
 			handlePersistence(dao, model, modelkeys, persistence);
 			
 			// apns & pendings
 			if (persistence instanceof BaseOrder) {
-				BaseOrder order = (BaseOrder)persistence;
-				
-				// add pending
-				String forwardUser = null;
-				if (forwardsList != null && forwardsList.size() > i) {
-					forwardUser = forwardsList.get(i);
-				}
-				
-				// subclass
-				String appKey = ParametersHelper.getParameter(requestMessage, ConfigJSON.APPLEVEL);
-				handleApprovals(dao, appKey, forwardUser, order);
+				String forwardUser = forwardsList != null && forwardsList.size() > i ? forwardUser = forwardsList.get(i) : null;
+				// subclass, handle the pending approvals
+				handleApprovals(dao, ParametersHelper.getParameter(requestMessage, ConfigJSON.APPLEVEL), forwardUser, (BaseOrder)persistence);
 			}
+			
 		}
 		
 		ApnsHelper.inform(forwardsList, forwardsContents);

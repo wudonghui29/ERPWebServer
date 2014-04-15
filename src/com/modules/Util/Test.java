@@ -1,25 +1,19 @@
 package com.modules.Util;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import com.Global.HibernateInitializer;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.modules.Introspector.IntrospectHelper;
-import com.xinyuan.Quartz.QuartzHelper;
 import com.xinyuan.Util.GsonHelper;
-import com.xinyuan.action.HumanResourceAction;
-import com.xinyuan.action.SuperAction;
-import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.interceptor.PermissionInterceptor;
-import com.xinyuan.message.ConfigFormat;
 
 public class Test extends HashSet {
 
@@ -55,36 +49,6 @@ public class Test extends HashSet {
 		}
 	}
 	
-	// Test delete order in approve
-	public static void main__(String[] args) {
-//		String json = "{\"name\":\"改过\",\"dob\":1247626770406,\"inTime\":1247626770406}";  
-//	    Worker w4 = (Worker) new Gson().fromJson(json,Worker.class); 
-		
-//		String approveUserPendingOrder = "JH201203040506,JH201293940596,JH0002,JH0003" ;
-		String approveUserPendingOrder = "" ;
-		Boolean isEmpty = approveUserPendingOrder.isEmpty();
-		String[] pendingList = approveUserPendingOrder.split(",");
-		
-		List<String> list = new ArrayList<String>(Arrays.asList(pendingList));
-		list.removeAll(Arrays.asList("JH201203040506"));
-		
-		list.toArray(pendingList);
-		
-		String result = "";
-		for (int i = 0; i < list.size(); i++) {
-			String orderString = list.get(i);
-			if (i != 0) result += ",";
-			result += orderString ;
-		}
-		
-//		String resultString = list.toString();
-		String className = new Test().getClass().getName();
-		String shortNameString = className.replace("com.modules.util.", "");
-		
-		
-		System.out.println("dddd");
-	}
-	
 	
 	// Test Permission check 
 	public static void main000(String[] args) {
@@ -105,64 +69,6 @@ public class Test extends HashSet {
 
 	}
 	
-	public static void main_________(String[] args) {
-//		String perssionStr = null;
-		
-		
-//		boolean isEmpty = perssionStr.isEmpty();
-//		JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(perssionStr);
-//		Map<String, Object> permissions = JsonHelper.translateElementToMap(jsonObject);
-		
-//		Employee employee = new Employee();
-//		ModelHelper.setOrderBasicCreateDetail(employee);
-		
-//		String str = "YG201312011212";
-//		String strDigit = str.replaceAll("\\D+","");
-//		int digitCount = strDigit.length();
-//		int formatCount = FormatConfig.DATESTRING_WITH_SECOND_FORMAT.length();
-//		int formatWithoutSecondCount = FormatConfig.DATESTRING_WITHOUT_SECOND_FORMAT.length();
-		
-		String dateString = "20130408123005";
-		String lastStr = dateString.substring(dateString.length() - 1);
-		int i = Integer.valueOf(lastStr);
-		dateString = dateString.substring(0, dateString.length() - 1) + (i+1) ;
-		
-		System.out.println(dateString);
-	}
-	
-	// Test filter models
-	public static void main_(String[] args) {
-		
-		HumanResourceDAOIMP humanResourceDAOIMP = new HumanResourceDAOIMP();
-		
-		System.err.println("");
-	}
-	
-	
-	public static void main___(String[] args) {
-		SuperAction humanResourceAction = new HumanResourceAction();
-		SuperAction superAction = new SuperAction();
-		
-		
-		if (superAction.getClass() == SuperAction.class) {
-			System.err.println("OK");
-		} else {
-			System.err.println("NOT OK");
-		}
-		
-		
-		Date date = new Date(System.currentTimeMillis());
-		
-		SimpleDateFormat sdf = new SimpleDateFormat(ConfigFormat.STRING_TO_DATE_FORMAT);
-		
-		String dateString = sdf.format(date);
-		
-		
-		System.out.println("");
-		
-		
-	}
-	
 	// TEST APNS
 	 public static void main__w(String[] args) {
 //       String[] devices = {"7df340181160dcb82607885e332e770b497a754758592047646396cebc9ab913",  "9ab941ea30f5cc4db41fc0a5dbbeae2dfe6a9d0f8c3bca1b97cc5c043aff6be0"}; 
@@ -181,81 +87,18 @@ public class Test extends HashSet {
 		}
 	 }
 	 
-	 public static void main(String[] args) {
-//		try {
-//		  Class<?> commandClass =Class.forName("com.xinyuan.action.command.HumanResourceCommandCreate");
-//		  CommandCreate commandCreate = (CommandCreate) commandClass.newInstance();
-//		  
-//		  System.out.println();
-//		} catch (Exception e) {
-//			
-//			e.printStackTrace();
-//		}
+	 public static void main(String[] args) throws IOException {
+
+		 String source = "今天99";
 		 
-		 String packageNameString = IntrospectHelper.getWholePackageName(new Test());
-		 System.out.println();
+		 System.out.println("加密后为	(bytes): " + MD5Helper.encode2bytes(source));
+		 System.out.println("加密后为	  (hex): " + MD5Helper.encode2hex(source));
+		 System.out.println("BASE64 ENCODE : " + (new BASE64Encoder()).encode(MD5Helper.encode2bytes(source)));
+		 System.out.println("BASE64 DECODE : " + (new BASE64Decoder()).decodeBuffer((new BASE64Encoder()).encode(MD5Helper.encode2bytes(source))));
+		 
+        String str = MD5Helper.encode2hex("今天99");  
+        System.out.println("是否匹配:" + MD5Helper.validate("今天99" , str));  
 	 }
 	 
-	 public static void mainJOB(String[] args) throws Exception {
-		 // 1
-//		 SettingAction settingAction = new SettingAction();
-//		 settingAction.getApplicationModelsStructures();
-		 
-		 
-		 //2
-//		 float foo = Float.parseFloat("1234");
-//		 
-//		 System.out.println(foo);
-//		 
-//		 com.xinyuan.model.Business.Client client = new com.xinyuan.model.Business.Client();
-//		 client.setId(999);
-//		 
-//		 
-//		 String str = "()";
-//		 String result = str.substring(1, str.length()-1);
-//		 
-//		 
-//		 Class<?> aaaObject  = PoIntrospector.getPropertyType(client, "id");
-//		 if (aaaObject == int.class){
-//			 System.out.println("aaaaa");
-//		 }
-//		 System.out.println(aaaObject);
-		 
-		 
-		 //3
-//		 String ssStrings = "";
-//		 String[] aaaas = ssStrings.split(ConfigConstants.CONTENT_DIVIDER);
-//		 
-//		 
-		 
-		 
-//		 String approvalPoSettings = "[\"a\":\"value\"]";
-//		 Map<String,Object> settingsPoMap = GsonHelper.getGson().fromJson(approvalPoSettings, Map.class);
-		 
-//		 String classPath = System.getProperty("java.class.path");
-//		 
-//		 String filesPath = Test.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-//		 
-//		 String classesPath = Test.class.getClassLoader().getResource(".").getPath();
-		 
-		 HibernateInitializer.initialize();
-				
-		 QuartzHelper.startEraseJobs();
-		 
-		 System.out.println("USB");
-	}
-	 
-	 
-	 public static void mailllllln(String[] args) {
-//		 List<String> list = null;
-//		 for (String string : list) {
-//			 System.out.println(string);
-//		 }
-		 
-		 String aaaString = "aaaaa123_555b";
-		 String replaceString = aaaString.replaceAll("\\w", "*");
-		 
-		 System.out.println(replaceString);
-	 }
 	 
 }

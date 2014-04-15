@@ -24,12 +24,14 @@ interface Callable {
 
 public class ApprovalHelper {
 	
+	// add and delete pending approvals
 	public static void handlePendingApprovals(SuperDAO dao, String appKey, String forwardUsername, BaseOrder persistence ) throws Exception {
 		if (forwardUsername == null) return;
-		ApprovalHelper.addPendingApprove(forwardUsername, persistence);
-		String signinedUser = ((User)SessionManager.get(ConfigConstants.SIGNIN_USER)).getUsername();
 		
-		// app
+		ApprovalHelper.addPendingApprove(forwardUsername, persistence);
+		
+		// modify persistence, set the sign in user to the app-level attribute 
+		String signinedUser = ((User)SessionManager.get(ConfigConstants.SIGNIN_USER)).getUsername();
 		if (persistence instanceof IApp) {
 			((IApp) persistence).setForwardUser(forwardUsername);
 			if (appKey != null && appKey.startsWith(ConfigConstants.APPKEY_PREFIX) && ModelIntrospector.getProperty(persistence, appKey) == null) {
