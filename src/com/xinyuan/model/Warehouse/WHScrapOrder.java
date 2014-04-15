@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import com.xinyuan.model.OrderApp4;
 
 /**
- * 报废单
+ * 报废单 
  *
  */
 @Entity
