@@ -163,8 +163,11 @@
 	alter table Employee drop column inVisits;
 	alter table Employee drop column ownDevice;
 	
+-- 2014-4-15
 	
-	
+	use erpwebserver;
+	select concat('update User set password=\'', MD5(password), '\' where id=', id, ';') from user into outfile '/tmp/batch1.txt';
+	source /tmp/batch1.txt;
 	
 
 

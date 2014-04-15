@@ -5,11 +5,13 @@ import java.beans.PropertyDescriptor;
 
 import com.modules.Introspector.IntrospectHelper;
 import com.modules.Introspector.ModelIntrospector;
+import com.xinyuan.Util.AppCryptoHelper;
 import com.xinyuan.action.command.CommandApply;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.model.HumanResource.Employee;
 import com.xinyuan.model.HumanResource.EmployeeCHOrder;
+import com.xinyuan.model.User.User;
 
 public class HumanResourceCommandApply extends CommandApply {
 
@@ -39,8 +41,16 @@ public class HumanResourceCommandApply extends CommandApply {
 					}
 				}
 			}
-			
+			// modify the information
 			dao.modify(employee);
+			
+			// modify the password
+			if (employeeCHOrder.getPassword_N() != null && !employeeCHOrder.getPassword_N().trim().equals("")) {
+				User user = (User)daoimp.getObject(User.class, "username", employee.getEmployeeNO());
+				String password_N = employeeCHOrder.getPassword_N();
+				user.setPassword(AppCryptoHelper.encode(password_N));
+				dao.modify(user);
+			}
 		}
 		
 		
