@@ -1,4 +1,6 @@
 
+
+
 ## About Git/Hub
 
 send pull request (contributor) :
@@ -14,6 +16,11 @@ apply pull request use hub (maintainer) :
         (hub browse -- issues)	
 	hub am -3 https://github.com/isaacselement/ERPWebServer/pull/16
 	(for more information: http://hub.github.com/)
+
+
+
+
+
 
 
 ## About SVN
@@ -37,6 +44,10 @@ Delete:
 Delete image's name with '@' character:
 	
 	for i in $(svn st | grep \! | awk '{print $2}'); do svn delete $i@; done
+	
+Delete file's/Folder name with '@' or ' '(space) character (i.e.): 
+
+	svn delete images/Public/will_delete\ /public_new异常@2x.png@
 
 For missing file name with '@', i.e :
 
@@ -45,7 +56,13 @@ For missing file name with '@', i.e :
 Take a look : 
 
 	http://stackoverflow.com/questions/1919859/svn-commit-failing-due-to-missing-file
+	
 	http://stackoverflow.com/questions/9601294/svn-commit-file-named-2x-png
+
+
+
+
+
 
 
 ## Add .classpath file and change your libraries path in project
@@ -100,17 +117,6 @@ Take a look :
 	ALTER TABLE User CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
 	
 	ALTER TABLE User MODIFY COLUMN permissions Text;
-	
-	
-	
-	
-## Initialize Data In Mysql 
-	
-	INSERT INTO `ERPWebServer`.`User` (`username`) VALUES ('xinyuanTMD');
-	UPDATE `ERPWebServer`.`User` SET `id`='0' WHERE `username`='xinyuanTMD';
-	UPDATE `ERPWebServer`.`User` SET `password`='1234' WHERE `id`='0';
-	UPDATE `ERPWebServer`.`User` SET `permissions`='{}' WHERE `id`='0';
-	INSERT INTO `ERPWebServer`.`Approvals` (`username`) VALUES ('xinyuanTMD');
 	
 	
 	
