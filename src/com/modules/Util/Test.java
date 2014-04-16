@@ -1,5 +1,6 @@
 package com.modules.Util;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -87,7 +88,7 @@ public class Test extends HashSet {
 		}
 	 }
 	 
-	 public static void main(String[] args) throws IOException {
+	 public static void main_MD5(String[] args) throws IOException {
 
 		 String source = "今天99";
 		 
@@ -99,6 +100,15 @@ public class Test extends HashSet {
         String str = MD5Helper.encode2hex("今天99");  
         System.out.println("是否匹配:" + MD5Helper.validate("今天99" , str));  
 	 }
+	 
+	 
+	 public static void main(String[] args) throws IOException {
+		 String aString = "12345ab";
+		 byte[] b = aString.getBytes();
+		 
+		 String newsString = new String(b);
+		 System.out.println(new String(b) + " ---- " + String.valueOf(b));
+	}
 	 
 	 
 }

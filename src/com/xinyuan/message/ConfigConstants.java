@@ -3,7 +3,8 @@ package com.xinyuan.message;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.servlet.ServletContext;
@@ -18,22 +19,43 @@ public class ConfigConstants {
 	public static String Context_Classes_Path = Context_Real_Path;
 	public static String Apns_Certificate_Path = ".." + FS + "apnsDevelop.p12";
 	
+	public static String userInfomations_PropertiesPath = ".." + FS + "userDevelop.properties";
+	public static String serialsNumber_PropertiesPath = "resources" + FS + "serials.properties";
 	
+	
+	public static Properties serialNumberProperties = null;
+	public static Properties userInfomationProperties = null;
+	
+	
+	
+	
+	// For in server end
 	public static void initializeContextVariables(ServletContext context) {
 		//ServletActionContext.getServletContext()
-		try {
-			String serialPath = context.getRealPath("resources/serials.properties");
-			InputStream inputStream = new BufferedInputStream(new FileInputStream(serialPath));
-			ConfigFormat.serialProperties = new Properties();
-			ConfigFormat.serialProperties.load(inputStream);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
 		Context_Real_Path = context.getRealPath(File.separator); 
 		Context_Classes_Path = Context_Real_Path + "WEB-INF" + FS + "classes" + FS;
 		Apns_Certificate_Path = Context_Real_Path + Apns_Certificate_Path;
+		userInfomations_PropertiesPath = Context_Real_Path + userInfomations_PropertiesPath;
+		serialsNumber_PropertiesPath = Context_Real_Path + serialsNumber_PropertiesPath;
 	}
+	
+	public static void initializeSystemProperties() {
+		
+		try {
+			serialNumberProperties = new Properties();
+			serialNumberProperties.load(new BufferedInputStream(new FileInputStream(serialsNumber_PropertiesPath)));
+			
+			userInfomationProperties = new Properties();
+			FileHelper.createFileIfNotExist(userInfomations_PropertiesPath);
+			userInfomationProperties.load(new BufferedInputStream(new FileInputStream(userInfomations_PropertiesPath)));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 	
 	
 	

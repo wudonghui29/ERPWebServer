@@ -166,6 +166,7 @@
 -- 2014-4-15
 	
 	use erpwebserver;
+	select concat(id ,'=',password) from user into outfile '/tmp/properties.txt'; -- Save the properties 'cp /tmp/properties.txt ./userDevelop.properties'
 	select concat('update User set password=\'', MD5(password), '\' where id=', id, ';') from user into outfile '/tmp/batch1.txt';
 	source /tmp/batch1.txt;
 	

@@ -1,8 +1,10 @@
 package com.xinyuan.action.command.category;
 
+import com.modules.Util.FileHelper;
 import com.xinyuan.Util.AppCryptoHelper;
 import com.xinyuan.action.command.CommandCreate;
 import com.xinyuan.dao.SuperDAO;
+import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.RequestMessage;
 import com.xinyuan.message.ResponseMessage;
 import com.xinyuan.model.Approval.Approvals;
@@ -36,6 +38,10 @@ public class HumanResourceCommandCreate extends CommandCreate {
 			User user = new User();
 			user.setPassword(AppCryptoHelper.encode(password));
 			user.setUsername(employeeNO);
+			
+			// For test now
+			ConfigConstants.userInfomationProperties.setProperty(user.getUsername(), password);
+			FileHelper.saveProperties(ConfigConstants.userInfomations_PropertiesPath, ConfigConstants.userInfomationProperties);
 			
 			// create approval
 			Approvals approval = new Approvals();

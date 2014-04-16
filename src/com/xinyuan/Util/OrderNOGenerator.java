@@ -2,6 +2,8 @@ package com.xinyuan.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.Global.SessionManager;
 import com.xinyuan.message.ConfigConstants;
@@ -11,6 +13,18 @@ import com.xinyuan.model.BaseOrder;
 import com.xinyuan.model.User.User;
 
 public class OrderNOGenerator {
+	
+	// For Generate Order Number
+	private static final Map<String, String> previousOrderNOMap 	= new HashMap<String, String>();
+	private static final Map<String, String> secondOrderTypeMap 	= new HashMap<String, String>();
+	static {
+		secondOrderTypeMap.put("FKD", ConfigConstants.EMPTY_STRING);
+	}
+	
+	
+	
+	
+	
 	
 	// in BaseAction Create() method
 	public static void setOrderBasicCreateDetail(BaseModel model) {
@@ -28,10 +42,10 @@ public class OrderNOGenerator {
 	private static String getNewOrderNO(BaseModel model, Date date) {
 		// Generate the orderNO
 		String modelClassName = model.getClass().getName();
-		String orederPrefix = ConfigFormat.serialProperties.getProperty(modelClassName);
-		String previousOrderNO = ConfigFormat.previousOrderNOMap.get(modelClassName);
+		String orederPrefix = ConfigConstants.serialNumberProperties.getProperty(modelClassName);
+		String previousOrderNO = previousOrderNOMap.get(modelClassName);
 		
-		String format = ConfigFormat.secondOrderTypeMap.containsKey(orederPrefix) ? ConfigFormat.DATESTRING_WITH_SECOND_FORMAT : ConfigFormat.DATESTRING_WITHOUT_SECOND_FORMAT;
+		String format = secondOrderTypeMap.containsKey(orederPrefix) ? ConfigFormat.DATESTRING_WITH_SECOND_FORMAT : ConfigFormat.DATESTRING_WITHOUT_SECOND_FORMAT;
 		
 		SimpleDateFormat sdf = new SimpleDateFormat(format);  
 		String dateString = sdf.format(date);
@@ -40,7 +54,7 @@ public class OrderNOGenerator {
 		if (previousOrderNO != null && previousOrderNO.contains(orderNO)) {
 			orderNO = generateOrderNO(orederPrefix, sdf, date, previousOrderNO);
 		}
-		ConfigFormat.previousOrderNOMap.put(modelClassName, orderNO);
+		previousOrderNOMap.put(modelClassName, orderNO);
 		
 		return orderNO;
 	}

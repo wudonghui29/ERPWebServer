@@ -19,6 +19,9 @@ public class EmployeeLeaveOrder extends OrderApp4 {
 	private static final long serialVersionUID = 1L;
 
 	private String employeeNO;  		// the employee ask for leave
+	private String name ;
+	private String department;
+	private String jobTitle;
 	private String agentEmployeeNO ; 	// the agent of this leaving employee
 	
 	private Date startDate ; 			// start leaving date
@@ -35,6 +38,30 @@ public class EmployeeLeaveOrder extends OrderApp4 {
 
 	public void setEmployeeNO(String employeeNO) {
 		this.employeeNO = employeeNO;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public String getJobTitle() {
+		return jobTitle;
+	}
+
+	public void setJobTitle(String jobTitle) {
+		this.jobTitle = jobTitle;
 	}
 
 	public String getAgentEmployeeNO() {

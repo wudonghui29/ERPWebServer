@@ -1,9 +1,14 @@
 package com.modules.Util;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
 public class FileHelper {
 	
@@ -13,6 +18,25 @@ public class FileHelper {
 	public static String JAVA_PACKAGE_CONNECTOR = ".";
 	
 	public static final String CLASS_FILE_SUFFIX = ".class";
+	
+	
+	public static void createFileIfNotExist(String pathName) throws IOException {
+		File f = new File(pathName);
+		if (f.exists()) return;
+		
+		File parentFile = f.getParentFile();
+		if (!parentFile.exists()) {
+			parentFile.mkdirs();
+		}
+		f.createNewFile();
+	}
+	
+	
+	public static void saveProperties(String pathName, Properties properties) throws IOException {
+		FileOutputStream outputFile = new FileOutputStream(pathName);  
+		properties.store(outputFile, new Date().toString());  
+        outputFile.close();  
+	}
 	
 	/**
 	 * 
