@@ -30,7 +30,7 @@ public class CommandCreate implements Command {
 			Object model = models.get(i);
 			
 			// subclass
-			if (handleModelBeforeCreate(dao, model, i, responseMessage, requestMessage)) continue;
+			if (! handleModelBeforeCreate(dao, model, i, responseMessage, requestMessage)) continue;
 			
 			// Precodition......
 			Map<String, String> precondition = outterPreconditions == null ? null : outterPreconditions.get(i);
