@@ -41,7 +41,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		// Get the permission the user have
 		Map<String, Object> session = invocation.getInvocationContext().getSession();
 		@SuppressWarnings("unchecked")
-		Map<String, Object> permissions = (Map<String, Object>) session.get(ConfigConstants.ALLUSER_PERMISSIONS);
+		Map<String, Object> permissions = (Map<String, Object>) session.get(ConfigConstants.SIGNIN_USER_PERMISSIONS);
 		
 		// Get the struts Action
 		ActionBase baseAction = (ActionBase)invocation.getAction();

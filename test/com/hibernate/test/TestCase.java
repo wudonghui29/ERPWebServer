@@ -9,6 +9,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.Global.HibernateInitializer;
+import com.xinyuan.dao.impl.SuperDAOIMP;
+import com.xinyuan.model.Finance.FinanceSalary;
 
 public class TestCase {
 
@@ -32,10 +34,10 @@ public class TestCase {
 		session.beginTransaction();
 		
 		
-//		HumanResourceDAOIMP daoimp = new HumanResourceDAOIMP();
-//		boolean ise = daoimp.isTableEmpty("User");
-		
-//		boolean ise = SettingHelper.isUserTableEmpty();
+		SuperDAOIMP daoimp = new SuperDAOIMP();
+		FinanceSalary salary = (FinanceSalary)daoimp.getObject(FinanceSalary.class, new Integer(1));
+		salary.setBaseSalary(400000);
+		daoimp.saveObject(salary);
 		
 		session.getTransaction().commit(); 
 		System.out.println("Done!  ");

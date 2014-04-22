@@ -3,6 +3,7 @@ package com.xinyuan.model.Finance;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -28,6 +29,9 @@ public class FinanceSalary extends BaseEntity {
 	private float dutyBenefit;		// 责任津贴
 	private float dormBenefit;		// 住宿补贴
 	private float foodBenefit;		// 伙食补贴
+	
+	private Integer Version;
+	
 	
 	@NotEmpty
 	@Column(unique=true)
@@ -73,5 +77,12 @@ public class FinanceSalary extends BaseEntity {
 	public void setFoodBenefit(float foodBenefit) {
 		this.foodBenefit = foodBenefit;
 	}
-
+	
+	@Version
+	public Integer getVersion() {
+		return Version;
+	}
+	public void setVersion(Integer version) {
+		Version = version;
+	}
 }

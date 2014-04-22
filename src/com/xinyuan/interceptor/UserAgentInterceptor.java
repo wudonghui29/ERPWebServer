@@ -70,7 +70,7 @@ public class UserAgentInterceptor extends AbstractInterceptor {
 			String perssionStr = userTest.getPermissions();
 			JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(perssionStr);
 			Map<String, Object> permissions = GsonHelper.translateElementToMap(jsonObject);
-			SessionManager.put(ConfigConstants.ALLUSER_PERMISSIONS, permissions);
+			SessionManager.put(ConfigConstants.SIGNIN_USER_PERMISSIONS, permissions);
 			SessionManager.put(ConfigConstants.SIGNIN_USER, userTest);
 		}
 		

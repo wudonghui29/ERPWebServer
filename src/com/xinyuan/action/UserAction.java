@@ -6,7 +6,6 @@ import java.util.Map;
 import com.Global.SessionManager;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.modules.Util.StringHelper;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.Util.AppCryptoHelper;
 import com.xinyuan.Util.GsonHelper;
@@ -58,17 +57,14 @@ public class UserAction extends ActionBase {
 			responseMessage.status = ConfigConstants.STATUS_POSITIVE;
 			responseMessage.descriptions = ConfigConstants.USER.UserLoginSuccess;
 			
-			map.put(ConfigJSON.IDENTIFIER, user.getId());
-			map.put(ConfigConstants.ALLUSER_PERMISSIONS, userDAO.getAllUsersPermissions());
+			map.put(ConfigConstants.USER_IDENTIFIER, user.getId());
+			map.put(ConfigConstants.ALL_USERS_PERMISSIONS, userDAO.getAllUsersPermissions());
 			responseMessage.results = map;
 			
 			// put the permission in session
-			String perssionStr = user.getPermissions();
-			perssionStr = StringHelper.isEmpty(perssionStr) ? ConfigConstants.DEFAULT_PERMISSION : perssionStr;
-			JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(perssionStr);
-			Map<String, Object> permissions = GsonHelper.translateElementToMap(jsonObject);
-			SessionManager.put(ConfigConstants.ALLUSER_PERMISSIONS, permissions);
+			Map<String, Object> permissions = GsonHelper.translateElementToMap((JsonObject)(new JsonParser()).parse(user.getPermissions()));
 			SessionManager.put(ConfigConstants.SIGNIN_USER, user);
+			SessionManager.put(ConfigConstants.SIGNIN_USER_PERMISSIONS, permissions);
 			
 			
 		} else {
@@ -79,8 +75,8 @@ public class UserAction extends ActionBase {
 	}
 	
 	public String signout() throws Exception {
-		SessionManager.remove(ConfigConstants.ALLUSER_PERMISSIONS);
 		SessionManager.remove(ConfigConstants.SIGNIN_USER);
+		SessionManager.remove(ConfigConstants.SIGNIN_USER_PERMISSIONS);
 		
 		User user = (User) SessionManager.get(ConfigConstants.SIGNIN_USER);
 		System.out.println(user);// check if sign out succefullly .
@@ -121,7 +117,7 @@ public class UserAction extends ActionBase {
 				
 				
 				
-				String queryString = "UPDATE USER SET id = " + -i + " WHERE username = '" + user.getUsername()+"'";
+				String queryString = "UPDATE USER SET id = " + -(i+1) + " WHERE username = '" + user.getUsername()+"'";
 				userDAO.createSQLQuery(queryString).executeUpdate();
 				
 			}

@@ -3,8 +3,6 @@ package com.xinyuan.message;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 import javax.servlet.ServletContext;
@@ -87,9 +85,8 @@ public class ConfigConstants {
 	
 	public static final String APPKEY_PREFIX = "app";
 	
-	public static final String DEFAULT_PERMISSION = "{}";			// TODO : REMOVE IT in Production
-	
 	public static final String SIGNIN_USER = "signin_user";
+	public static final String SIGNIN_USER_PERMISSIONS = "signin_user_permissions";
 	
 	
 	public static final String DAOIMP_SUFFIX = "DAOIMP";
@@ -98,7 +95,8 @@ public class ConfigConstants {
 	
 	public static final String DENY = "DENY";
 
-	public static final String ALLUSER_PERMISSIONS = "ALLUSER_PERMISSIONS";
+	public static final String USER_IDENTIFIER = "USER_IDENTIFIER";
+	public static final String ALL_USERS_PERMISSIONS = "ALL_USERS_PERMISSIONS";
 	
 	
 	public static final String REQUEST_ERROR = "REQUEST_ERROR";

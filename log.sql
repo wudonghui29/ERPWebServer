@@ -144,7 +144,6 @@
 	
 -- 2014-3-27
 	
-	use ERPWebServer;
 	set @DATABASE_NAME = 'ERPWebServer';
 	select concat('alter table ', table_name, ' drop column expiredDate;') as sql_statements from information_schema.tables as tb where table_schema = @DATABASE_NAME order by table_name DESC into outfile '/tmp/batch.txt'; 
 	source /tmp/batch.txt;
@@ -169,5 +168,16 @@
 	select concat('update User set password=\'', MD5(password), '\' where id=', id, ';') from user into outfile '/tmp/batch1.txt';
 	source /tmp/batch1.txt;
 	
+-- 2014-4-18
 
+	 update EmployeeLeaveOrder inner join Employee on EmployeeLeaveOrder.employeeNO=Employee.employeeNO set EmployeeLeaveOrder.name=Employee.name, EmployeeLeaveOrder.jobTitle=Employee.jobTitle, EmployeeLeaveOrder.department=Employee.department;
+	 
 
+-- 2014-4-21
+
+	 update employee set ownApproval=1;
+	 
+-- 2014-4-22
+
+	update user set id=id-1 where id<=0;
+	
