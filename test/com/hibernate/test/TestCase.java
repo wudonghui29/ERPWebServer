@@ -36,8 +36,13 @@ public class TestCase {
 		
 		SuperDAOIMP daoimp = new SuperDAOIMP();
 		FinanceSalary salary = (FinanceSalary)daoimp.getObject(FinanceSalary.class, new Integer(1));
-		salary.setBaseSalary(400000);
-		daoimp.saveObject(salary);
+		salary.setBaseSalary(220000);
+		
+		FinanceSalary salary2 = (FinanceSalary)daoimp.getObject(FinanceSalary.class, "employeeNO", "AE0001");
+		salary2.setBaseSalary(110000);
+		
+		daoimp.updateObject(salary);
+		daoimp.updateObject(salary2);
 		
 		session.getTransaction().commit(); 
 		System.out.println("Done!  ");

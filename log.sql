@@ -181,3 +181,9 @@
 
 	update user set id=id-1 where id<=0;
 	
+-- 2014-4-23
+	
+	update financesalary set version=1;
+	
+
+	
