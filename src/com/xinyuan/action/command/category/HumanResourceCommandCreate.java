@@ -4,6 +4,7 @@ import com.modules.Util.FileHelper;
 import com.xinyuan.Util.AppCryptoHelper;
 import com.xinyuan.action.command.CommandCreate;
 import com.xinyuan.dao.SuperDAO;
+import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.RequestMessage;
 import com.xinyuan.message.ResponseMessage;
@@ -17,9 +18,7 @@ public class HumanResourceCommandCreate extends CommandCreate {
 	protected boolean handleModelBeforeCreate(SuperDAO dao, Object model, int index, ResponseMessage responseMessage, RequestMessage requestMessage) throws Exception {
 		
 		// forbid multi create Employee
-		if (model instanceof Employee) {
-			if (index != 0) return false;
-		}
+		if (model instanceof Employee) if (index != 0) return false;
 		
 		return super.handleModelBeforeCreate(dao, model, index, responseMessage, requestMessage);
 	}
@@ -48,11 +47,13 @@ public class HumanResourceCommandCreate extends CommandCreate {
 			approval.setEmployeeNO(employeeNO);
 			
 			// save to database
-			dao.create(user);
-			dao.create(approval);
+			SuperDAO withoutSubClassDAO = new SuperDAOIMP();
+			withoutSubClassDAO.create(user);
+			withoutSubClassDAO.create(approval);
 			
 			// modify the employee wordMask property
 			employee.setWordMask(password.replaceAll("\\w", "*"));
+			dao.modify(employee);
 		}
 		
 	}
