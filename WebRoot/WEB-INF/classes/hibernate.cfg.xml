@@ -200,6 +200,11 @@
          <!-- QualityControl Models -->
         <mapping class="com.xinyuan.model.QualityControl.QCReworkNoticeOrder"/>
         
+         <!-- Articles Models -->
+        <mapping class="com.xinyuan.model.Articles.ArticlesCHOrder"/>
+        <mapping class="com.xinyuan.model.Articles.ArticlesOrder"/>
+        
+        
         
     </session-factory>
 
