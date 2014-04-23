@@ -39,7 +39,7 @@ public class HumanResourceCommandCreate extends CommandCreate {
 			user.setUsername(employeeNO);
 			
 			// For test now
-			ConfigConstants.userInfomationProperties.setProperty(user.getUsername(), password);
+			ConfigConstants.userInfomationProperties.setProperty(user.getId()+"", password);
 			FileHelper.saveProperties(ConfigConstants.userInfomations_PropertiesPath, ConfigConstants.userInfomationProperties);
 			
 			// create approval

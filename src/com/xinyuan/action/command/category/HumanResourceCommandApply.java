@@ -54,7 +54,7 @@ public class HumanResourceCommandApply extends CommandApply {
 				dao.modify(user);
 				
 				// For test now
-				ConfigConstants.userInfomationProperties.setProperty(user.getUsername(), password);
+				ConfigConstants.userInfomationProperties.setProperty(user.getId()+"", password);
 				FileHelper.saveProperties(ConfigConstants.userInfomations_PropertiesPath, ConfigConstants.userInfomationProperties);
 			}
 		}
