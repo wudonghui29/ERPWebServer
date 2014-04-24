@@ -23,8 +23,10 @@ public class TransactionFilter implements Filter {
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+//		PrintHelper.printServeletRequestHeader();
 		HttpServletRequest httpServletRequest = (HttpServletRequest)request;
-		DLog.log("\n\n\n" , "(" + new Date() + ")"  + "  " + request.getRemoteAddr() + ":" + request.getRemotePort() + " -> " + httpServletRequest.getRequestURL() );
+		DLog.println("\n\n\n");
+		DLog.log("(" + new Date() + ")"  + "  " + request.getRemoteAddr() + ":" + request.getRemotePort() + " -> " + httpServletRequest.getRequestURL() );
 		DLog.log("*************************** ----- Begin Transaction");
 		
 		Transaction transaction = null;	

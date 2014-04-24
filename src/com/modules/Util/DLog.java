@@ -11,9 +11,8 @@ public class DLog {
 		System.out.println("\n ----- " + "[" + classNameString + "]" + "  " + message);
 	}
 	
-	public static void log(String prefix, String message) {
+	public static void println(String message) {
 		if (! isDebugingMode) return; 
-		System.out.println(prefix);
-		log(message);
+		System.out.println(message);
 	}
 }

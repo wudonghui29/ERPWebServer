@@ -6,11 +6,11 @@ import javax.servlet.ServletContextListener;
 import com.modules.Util.DLog;
 import com.xinyuan.message.ConfigConstants;
 
-public class ServerEventListener implements ServletContextListener {
+public class ServletEventListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		DLog.log("--------- context initialized ---------");
+		DLog.log("--------- contextInitialized ---------");
 		
 		ConfigConstants.initializeContextVariables(sce.getServletContext());
 		ConfigConstants.initializeSystemProperties();
@@ -22,7 +22,7 @@ public class ServerEventListener implements ServletContextListener {
 
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
-		DLog.log("--------- context destroyed ---------");
+		DLog.log("--------- contextDestroyed ---------");
 	}
 
 }

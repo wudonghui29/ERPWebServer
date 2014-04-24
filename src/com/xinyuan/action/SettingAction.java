@@ -1,5 +1,6 @@
 package com.xinyuan.action;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ import com.xinyuan.Util.ApnsHelper;
 import com.xinyuan.Util.AppModelsHelper;
 import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.Util.ParametersHelper;
+import com.xinyuan.Util.QueueHelper;
 import com.xinyuan.Util.SettingHelper;
 import com.xinyuan.dao.BusinessDAO;
 import com.xinyuan.dao.HumanResourceDAO;
@@ -51,10 +53,9 @@ public class SettingAction extends ActionBase {
 	
 	public static boolean isInitilized = false;
 	
+	
 	@Override
 	protected SuperDAO getDao() { return null; }
-	
-	
 	
 	/**
 	 * connect the server , get the cookie, no db operation here now
@@ -62,6 +63,7 @@ public class SettingAction extends ActionBase {
 	 * @throws Exception
 	 */
 	public String getConnection() throws Exception {
+		
 		if (!isInitilized) {
 			Boolean isUserTableEmpty = SettingHelper.isUserTableEmpty();
 			if (isUserTableEmpty) {
@@ -123,37 +125,6 @@ public class SettingAction extends ActionBase {
 	}
 	
 	
-	
-	/**
-	 * When client singined
-	 * @return
-	 */
-	public String readSignedIndData() {			// need to refresh 
-		
-		HumanResourceDAO humanResourceDAO = new HumanResourceDAOIMP();
-		List<Object> hrList = humanResourceDAO.getUsersNOPairs();
-		
-		BusinessDAO businessDAO = new BusinessDAOIMP();
-		List<Object> bsList = businessDAO.getClientsNOPairs();
-		
-		SuperDAOIMP dao = new SuperDAOIMP();
-		
-		String appSettingTableString = IntrospectHelper.getShortClassName(APPSettings.class);
-		List<Object> settingList = dao.getObjects("select settings.settings from " + appSettingTableString + " settings where settings.type = '" + ConfigConstants.APPSettings_TYPE_ADMIN_APPROVALS +"'");
-		
-		List<Object> results = new ArrayList<Object>();
-		results.add(hrList);
-		results.add(bsList);
-		results.add(settingList);
-		
-		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
-		responseMessage.results = results;
-		
-		return Action.NONE;
-	}
-	
-	
-	
 	/**
 	 * Push notifications
 	 * @return
@@ -168,6 +139,24 @@ public class SettingAction extends ActionBase {
 		return Action.NONE;
 	}
 	
+	public String refresh() {
+		
+//		try {
+//			QueueHelper.writers.put(ServletActionContext.getRequest().getSession().getId(), ServletActionContext.getResponse().getOutputStream());
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+		
+		try {
+			
+			QueueHelper.flushClients();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return Action.NONE;
+	}
 	
 	/**
 	 * About the APPSetting Table
@@ -224,6 +213,7 @@ public class SettingAction extends ActionBase {
 		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
 		return Action.NONE;
 	}
+	
 	public String readType() throws Exception{
 		
 		SuperDAO superDao = new SuperDAOIMP();

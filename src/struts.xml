@@ -66,16 +66,24 @@
 			<interceptor-ref name="notOnlineIntercepterStack"></interceptor-ref>
 		</action>
 		
-		<action name="inform" class="com.xinyuan.action.SettingAction" method="inform">
-			<interceptor-ref name="onlineIntercepterStack"></interceptor-ref>
-		</action>
-		
 		<action name="read*" class="com.xinyuan.action.SettingAction" method="read{1}">
 			<interceptor-ref name="onlineIntercepterStack"></interceptor-ref>
 		</action>
 		
 		<action name="modify*" class="com.xinyuan.action.SettingAction" method="modify{1}">
 			<interceptor-ref name="onlineIntercepterStack"></interceptor-ref>
+		</action>
+		
+		<action name="inform" class="com.xinyuan.action.SettingAction" method="inform">
+			<interceptor-ref name="onlineIntercepterStack"></interceptor-ref>
+		</action>
+		
+		<action name="refresh" class="com.xinyuan.action.SettingAction" method="refresh">
+			<interceptor-ref name="post-request"/>
+			<interceptor-ref name="user-agent"/>
+			<interceptor-ref name="json-interpretor"/>
+			<interceptor-ref name="models-interpretor"/>
+			<interceptor-ref name="authorize-check"/>
 		</action>
 		
 	</package>

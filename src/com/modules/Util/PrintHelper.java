@@ -1,11 +1,11 @@
 package com.modules.Util;
 
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
@@ -21,9 +21,10 @@ public class PrintHelper {
 			System.out.println(name + " : " + value);
 		}
 		
-		HttpSession session = ServletActionContext.getRequest().getSession();
-		String sessionID = session.getId();
-		System.out.println("\n session id -> " + sessionID);
+		System.out.println("\n\n");
+		System.out.println("session id -> " + ServletActionContext.getRequest().getSession().getId());
+		System.out.println("session createTime -> " + new Date(ServletActionContext.getRequest().getSession().getCreationTime()));
+		System.out.println("session accessedTime -> " + new Date(ServletActionContext.getRequest().getSession().getLastAccessedTime()));
 		
 		
 //		Enumeration<String> enumeration = request.getParameterNames();

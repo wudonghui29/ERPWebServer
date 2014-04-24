@@ -17,7 +17,6 @@ public class ResponseWriter {
 		ServletOutputStream output = ServletActionContext.getResponse().getOutputStream();
 		output.write(data);
 		output.flush();
-//		output.close();		// cause for later WriteMessageInterceptor use
 	}
 	
 	
