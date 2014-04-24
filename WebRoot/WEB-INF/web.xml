@@ -11,10 +11,6 @@
 		<description>ServletContextListener</description>
 		<listener-class>com.Global.ServletEventListener</listener-class>
 	</listener>
-<!-- 	<listener>
-		<description>ServletSessionListener</description>
-		<listener-class>com.Global.ServletSessionListener</listener-class>
-	</listener> -->
 
 
 	<!-- servlet -->
