@@ -124,7 +124,6 @@ public class ConfigConstants {
 		public static final String UserNotExist = "User_Not_Exist";
 		public static final String UserNotSignIn = "User_Not_Sign_In";
 		public static final String UserNameExisted = "UserName_Existed";
-		public static final String UserLoginSuccess = "User_Login_Success";
 		public static final String UserPasswordError = "User_Password_Error";
 		public static final String UserNamePasswordNULL = "UserName_OR_Password_NULL"; 
 	}

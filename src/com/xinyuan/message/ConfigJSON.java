@@ -35,14 +35,6 @@ public class ConfigJSON {
 	
 	
 	
-	// PART In APNS_CONTENTS
-	public static final String APNS_Alert = "Alert";
-	public static final String APNS_Sound = "Sound";
-	public static final String APNS_Badge = "Badge";
-	
-	
-	
-	
 	
 	//PART Properties
 	

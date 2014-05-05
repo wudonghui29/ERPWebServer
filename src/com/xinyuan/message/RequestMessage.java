@@ -27,7 +27,7 @@ public class RequestMessage {
 	
 	// apns
 	private List<String> APNS_FORWARDS;
-	private List<Map<String, String>> APNS_CONTENTS;
+	private List<Map<String, Object>> APNS_CONTENTS;
 	
 	
 	// additional
@@ -124,14 +124,12 @@ public class RequestMessage {
 	public void setAPNS_FORWARDS(List<String> aPNS_FORWARDS) {
 		APNS_FORWARDS = aPNS_FORWARDS;
 	}
-
-
-	public List<Map<String, String>> getAPNS_CONTENTS() {
+	
+	public List<Map<String, Object>> getAPNS_CONTENTS() {
 		return APNS_CONTENTS;
 	}
-	public void setAPNS_CONTENTS(List<Map<String, String>> aPNS_CONTENTS) {
+	public void setAPNS_CONTENTS(List<Map<String, Object>> aPNS_CONTENTS) {
 		APNS_CONTENTS = aPNS_CONTENTS;
 	}
-	
 	
 }

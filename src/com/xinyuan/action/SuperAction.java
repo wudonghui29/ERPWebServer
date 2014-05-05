@@ -1,9 +1,11 @@
 package com.xinyuan.action;
 
+import com.modules.Introspector.IntrospectHelper;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.Util.ActionHelper;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.SuperDAOIMP;
+import com.xinyuan.message.ConfigConstants;
 
 public class SuperAction extends ActionBase {
 	
@@ -14,7 +16,6 @@ public class SuperAction extends ActionBase {
 	public static final String ACTION_DELETE 	= "Delete";
 	public static final String ACTION_MODIFY	= "Modify";
 	public static final String ACTION_APPLY 	= "Apply";
-
 	
 	@Override
 	public String execute() { return Action.NONE; }
@@ -33,11 +34,9 @@ public class SuperAction extends ActionBase {
 	}
 	
 	
-	
 	public String delete() throws Exception {
 		return runCommand(ACTION_DELETE);
 	}
-	
 	
 	
 	public String modify() throws Exception {
@@ -50,9 +49,10 @@ public class SuperAction extends ActionBase {
 	}
 	
 	
-	
 	private String runCommand(String type) throws Exception {
-		ActionHelper.getCommand(this.getClass().getName(), type).execute(dao, responseMessage, requestMessage, models, modelsKeys);
+		String categoryName = IntrospectHelper.getShortClassName(this).replace(ConfigConstants.ACTION_CLASS_SUFFIX, "");
+		String preferredModelName = IntrospectHelper.getShortClassName(models.get(0));
+		ActionHelper.getCommand(categoryName, preferredModelName, type).execute(dao, responseMessage, requestMessage, models, modelsKeys);
 		return Action.NONE;
 	}
 }

@@ -55,14 +55,13 @@ public class UserAction extends ActionBase {
 			// put result in response
 			Map<String, Object> map = new HashMap<String, Object>();
 			responseMessage.status = ConfigConstants.STATUS_POSITIVE;
-			responseMessage.descriptions = ConfigConstants.USER.UserLoginSuccess;
 			
 			map.put(ConfigConstants.USER_IDENTIFIER, user.getId());
 			map.put(ConfigConstants.ALL_USERS_PERMISSIONS, userDAO.getAllUsersPermissions());
 			responseMessage.results = map;
 			
 			// put the permission in session
-			Map<String, Object> permissions = GsonHelper.translateElementToMap((JsonObject)(new JsonParser()).parse(user.getPermissions()));
+			Map<String, Object> permissions = GsonHelper.translateJsonStringToMap(user.getPermissions());
 			SessionManager.put(ConfigConstants.SIGNIN_USER, user);
 			SessionManager.put(ConfigConstants.SIGNIN_USER_PERMISSIONS, permissions);
 			
@@ -143,12 +142,10 @@ public class UserAction extends ActionBase {
 	 */
 	private boolean isVerifyCodeError(String userVerifyCode) {
 		
-		String verifyCode = (String) SessionManager.get(ConfigJSON.VERIFYCODE);
-		SessionManager.remove(ConfigJSON.VERIFYCODE);
-		
-		boolean isError = userVerifyCode == null || userVerifyCode.isEmpty() || !userVerifyCode.equals(verifyCode);
-		if (isError) responseMessage.descriptions = ConfigConstants.USER.VerifyCodeError;
-		
+//		String verifyCode = (String) SessionManager.get(ConfigJSON.VERIFYCODE);
+//		SessionManager.remove(ConfigJSON.VERIFYCODE);
+//		boolean isError = userVerifyCode == null || userVerifyCode.isEmpty() || !userVerifyCode.equals(verifyCode);
+//		if (isError) responseMessage.descriptions = ConfigConstants.USER.VerifyCodeError;
 //		return isError;
 		
 		return false ; // TODO: For test now

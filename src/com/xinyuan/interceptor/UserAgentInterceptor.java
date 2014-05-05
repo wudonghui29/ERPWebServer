@@ -67,9 +67,7 @@ public class UserAgentInterceptor extends AbstractInterceptor {
 			UserDAO userDAO = new UserDAOIMP();
 			User userTest =  userDAO.getUser("xinyuanTMD");
 //		invocation.getInvocationContext().getSession().put(ConfigConstants.SIGNIN_USER, userTest);
-			String perssionStr = userTest.getPermissions();
-			JsonObject jsonObject = (JsonObject)(new JsonParser()).parse(perssionStr);
-			Map<String, Object> permissions = GsonHelper.translateElementToMap(jsonObject);
+			Map<String, Object> permissions = GsonHelper.translateJsonStringToMap(userTest.getPermissions());
 			SessionManager.put(ConfigConstants.SIGNIN_USER_PERMISSIONS, permissions);
 			SessionManager.put(ConfigConstants.SIGNIN_USER, userTest);
 		}

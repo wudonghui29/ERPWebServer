@@ -6,7 +6,7 @@ import java.util.Map;
 import com.modules.Introspector.IntrospectHelper;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.Util.AppModelsHelper;
-import com.xinyuan.Util.ApprovalHelper;
+import com.xinyuan.Util.ApprovalsDAOHelper;
 import com.xinyuan.Util.ParametersHelper;
 import com.xinyuan.constraint.WarehouseConstraint;
 import com.xinyuan.dao.SuperDAO;
@@ -46,7 +46,7 @@ public class WarehouseAction extends SuperAction {
 			String department = IntrospectHelper.getParentPackageName(bill);
 			String orderType = "WHLendOutOrder";
 			String orderNO = bill.getBillNO();
-			ApprovalHelper.addPendingApprove(bill.getForwardUser(),department , orderType, orderNO);
+			ApprovalsDAOHelper.addPendingApprove(bill.getForwardUser(),department , orderType, orderNO);
 		}
 		return Action.NONE;
 	}

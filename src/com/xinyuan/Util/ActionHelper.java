@@ -1,28 +1,31 @@
 package com.xinyuan.Util;
 
-import com.modules.Introspector.IntrospectHelper;
 import com.xinyuan.action.command.Command;
-import com.xinyuan.message.ConfigConstants;
 
 public class ActionHelper {
 
-	public static Command getCommand(String actionClassName, String type) {
-		String shortClassName = IntrospectHelper.getClassNameLastComponent(actionClassName);			// SecurityAction
-		String commandClassNameTemp = actionClassName.replace("action.", "action.command.");			// com.xinyuan.action.command.SecurityAction
-		String commandClassName = commandClassNameTemp.replace(ConfigConstants.ACTION_CLASS_SUFFIX, "Command"+type); // com.xinyuan.action.command.SecurityCommand{['Alter'|....]}
+	// actionClassName = Category+'Action' , modelName = Category's Model, type=[Read|Create|Delete|Modify|Apply]
+	public static Command getCommand(String categoryName, String modelName, String type) throws Exception {
+		String commandTypeShortClassName = "Command"+type;									// 'Command'+{['Alter'|....]}
+		String modelCommandShortClassName = modelName + commandTypeShortClassName;			// Model + 'Command'+{['Alter'|....]}
+		String categotyCommandShortClassName = categoryName + commandTypeShortClassName ; 	// Category+'Command'+{['Alter'|....]}
+		
+		String commandPackage = "com.xinyuan.action.command.";
 		Class<?> commandClass = null;
 		try {
-			String categoryCommandClassName = commandClassName.replace("command.", "command.category.");
-			commandClass = Class.forName(categoryCommandClassName);
+			String modelCommandClassName = commandPackage + categoryName + "." + modelCommandShortClassName;
+			commandClass = Class.forName(modelCommandClassName);
 		} catch (ClassNotFoundException e) {
-			String category = shortClassName.replace(ConfigConstants.ACTION_CLASS_SUFFIX, "");		// Security
-			String baseCommandClassName = commandClassName.replace(category, "");				// com.xinyuan.action.command.Command{['Alter'|....]}
+			
 			try {
+				String categoryCommandClassName = commandPackage + "category." + categotyCommandShortClassName;
+				commandClass = Class.forName(categoryCommandClassName);
+			} catch (ClassNotFoundException e2) {
+				String baseCommandClassName = commandPackage + commandTypeShortClassName;
 				commandClass = Class.forName(baseCommandClassName);
-			} catch (ClassNotFoundException e1) {
-				e1.printStackTrace();
 			}
-		}
+		}	
+		
 		Object obj = null;
 		try {
 			obj = commandClass.newInstance();

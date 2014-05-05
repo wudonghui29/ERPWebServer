@@ -47,9 +47,14 @@ public class Employee extends OrderApp1 {
 	private String homeAddress;		// 家地址
 	private String livingAddress;	// 现住址
 
-	private String education;		// 教育经历   e.g.  "广州美术学院.本科.2013-06.毕业"
-	private String experience;		// 工作经历   e.g.  "2013-06.2013-08.腾讯公司.CEO"
-	private String urgencyContact;  // 紧急联系人 name.relationship.phoneNO. e.g. "Sam.Brother.13828899987"
+	private String education_experience /*education*/;		// 教育经历   e.g.  "广州美术学院.本科.2013-06.毕业"
+	private String work_experience 		/*experience*/;		// 工作经历   e.g.  "2013-06.2013-08.腾讯公司.CEO"
+	
+	
+	// 紧急联系人 name.relationship.phoneNO.
+	private String urgencyName;			
+	private String urgencyPhone;
+	private String urgencyRelation;
 	
 	private String wordMask;		//password mask 
 	
@@ -140,14 +145,24 @@ public class Employee extends OrderApp1 {
 		this.phoneNO = phoneNO;
 	}
 
-	public String getUrgencyContact() {
-		return urgencyContact;
+	public String getUrgencyName() {
+		return urgencyName;
 	}
-
-	public void setUrgencyContact(String urgencyContact) {
-		this.urgencyContact = urgencyContact;
+	public void setUrgencyName(String urgencyName) {
+		this.urgencyName = urgencyName;
 	}
-
+	public String getUrgencyRelation() {
+		return urgencyRelation;
+	}
+	public void setUrgencyRelation(String urgencyRelation) {
+		this.urgencyRelation = urgencyRelation;
+	}
+	public String getUrgencyPhone() {
+		return urgencyPhone;
+	}
+	public void setUrgencyPhone(String urgencyPhone) {
+		this.urgencyPhone = urgencyPhone;
+	}
 	public String getNativePlace() {
 		return nativePlace;
 	}
@@ -230,26 +245,11 @@ public class Employee extends OrderApp1 {
 	}
 	
 	
-	public String getEducation() {
-		return education;
-	}
-	
-	public void setEducation(String education) {
-		this.education = education;
-	}
-
 	public boolean isResign() {
 		return resign;
 	}
 	public void setResign(boolean resign) {
 		this.resign = resign;
-	}
-	public String getExperience() {
-		return experience;
-	}
-
-	public void setExperience(String experience) {
-		this.experience = experience;
 	}
 
 	public String getWordMask() {
@@ -259,7 +259,17 @@ public class Employee extends OrderApp1 {
 	public void setWordMask(String wordMask) {
 		this.wordMask = wordMask;
 	}
-	
-	
+	public String getEducation_experience() {
+		return education_experience;
+	}
+	public void setEducation_experience(String education_experience) {
+		this.education_experience = education_experience;
+	}
+	public String getWork_experience() {
+		return work_experience;
+	}
+	public void setWork_experience(String work_experience) {
+		this.work_experience = work_experience;
+	}
 	
 }

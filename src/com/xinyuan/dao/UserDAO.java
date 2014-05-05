@@ -15,8 +15,6 @@ public interface UserDAO {
 
 	void modify(User user);
 
-	void delete(User user);
-
 	User getUser(String username);
 
 	public List<Object> getAllUsersPermissions() ;

@@ -22,13 +22,13 @@ interface Callable {
 	public void invoke(String username, BaseOrder order);
 }
 
-public class ApprovalHelper {
+public class ApprovalsDAOHelper {
 	
 	// add and delete pending approvals
 	public static void handlePendingApprovals(SuperDAO dao, String appKey, String forwardUsername, BaseOrder persistence ) throws Exception {
 		if (forwardUsername == null) return;
 		
-		ApprovalHelper.addPendingApprove(forwardUsername, persistence);
+		ApprovalsDAOHelper.addPendingApprove(forwardUsername, persistence);
 		
 		// modify persistence, set the sign in user to the app-level attribute 
 		String signinedUser = ((User)SessionManager.get(ConfigConstants.SIGNIN_USER)).getUsername();
@@ -40,7 +40,7 @@ public class ApprovalHelper {
 			}
 		}
 		
-		ApprovalHelper.deletePendingApprove(signinedUser, persistence);
+		ApprovalsDAOHelper.deletePendingApprove(signinedUser, persistence);
 	}
 	
 	public static void addPendingApprove(String userName, BaseOrder order) {

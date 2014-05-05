@@ -185,5 +185,39 @@
 	
 	update financesalary set version=1;
 	
+-- 2014-4-25
+	
+	delete from User where username in (select tmp.username from ( select username from User left join Employee on username=Employee.employeeNO where Employee.employeeNO is NULL ) tmp) and id > 0;
+	delete from Approvals where employeeNO in (select tmp.employeeNO from ( select Approvals.employeeNO from Approvals left join Employee on Approvals.employeeNO=Employee.employeeNO where Employee.employeeNO is NULL ) tmp) ;
+	
+-- 2014-4-26
+	
+	alter table employee change urgencyContact urgencyName varchar(255) ;
+	
+	-- create the function
+	drop function if exists split_str;
+	create function split_str( x varchar(255), delim varchar(12), pos int) returns varchar(255) return REPLACE(SUBSTRING(SUBSTRING_INDEX(x, delim, pos), LENGTH(SUBSTRING_INDEX(x, delim, pos -1)) + 1), delim, '');
+	
+	-- create the procedure
+	drop procedure if exists handleUrgency;
+	delimiter //
+	create procedure handleUrgency() begin declare done int default false;DECLARE identifer int ; declare a, b, c varchar(255); declare cursor1 CURSOR FOR select id, urgencyName from employee where urgencyName IS NOT NULL; DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE; OPEN cursor1; urgency_loop: LOOP FETCH cursor1 INTO identifer, a; IF done THEN LEAVE urgency_loop; END IF; SET @aname=split_str(a,'.',1); SET @phone=split_str(a,'.',2); SET @relation=split_str(a,'.',3); update employee set urgencyName=@aname, urgencyPhone=@phone, urgencyRelation=@relation where id=identifer; END LOOP; CLOSE cursor1; END;//
+	delimiter ;
+	call handleUrgency();
+	
+	-- clean the function and procedure
+	drop procedure if exists handleUrgency;
+	drop function if exists split_str;
+	
+	
+	alter table employee change education education_experience varchar(255);
+	alter table employee change experience work_experience varchar(255);
+	
+-- 2014-4-29
 
+	update employee set education_experience=replace(education_experience,'-','.');
+	
+	
+	
+	
 	

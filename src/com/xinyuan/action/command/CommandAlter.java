@@ -21,7 +21,7 @@ public abstract class CommandAlter implements Command {
 		
 		List<String> forwardsList = requestMessage.getAPNS_FORWARDS();
 		List<Map<String, String>> identityList = requestMessage.getIDENTITYS();	
-		List<Map<String, String>> forwardsContents = requestMessage.getAPNS_CONTENTS();
+		List<Map<String, Object>> forwardsContents = requestMessage.getAPNS_CONTENTS();
 		
 		for (int i = 0; i < models.size(); i++) {
 			Object model = models.get(i);

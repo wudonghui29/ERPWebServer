@@ -1,7 +1,5 @@
 package com.xinyuan.action;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -12,7 +10,6 @@ import org.apache.struts2.ServletActionContext;
 
 import com.Global.SessionManager;
 import com.modules.HttpWriter.ResponseWriter;
-import com.modules.Introspector.IntrospectHelper;
 import com.modules.Introspector.ModelIntrospector;
 import com.modules.Util.CollectionHelper;
 import com.modules.Util.DLog;
@@ -25,11 +22,7 @@ import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.Util.ParametersHelper;
 import com.xinyuan.Util.QueueHelper;
 import com.xinyuan.Util.SettingHelper;
-import com.xinyuan.dao.BusinessDAO;
-import com.xinyuan.dao.HumanResourceDAO;
 import com.xinyuan.dao.SuperDAO;
-import com.xinyuan.dao.impl.BusinessDAOIMP;
-import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.interceptor.AdministratorInterceptor;
 import com.xinyuan.message.ConfigConstants;
@@ -140,12 +133,6 @@ public class SettingAction extends ActionBase {
 	}
 	
 	public String refresh() {
-		
-//		try {
-//			QueueHelper.writers.put(ServletActionContext.getRequest().getSession().getId(), ServletActionContext.getResponse().getOutputStream());
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
 		
 		try {
 			

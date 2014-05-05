@@ -16,9 +16,6 @@ public class UserDAOIMP extends HibernateAbstractDAO implements UserDAO {
 		super.updateObject(user);
 	}
 
-	public void delete(User user) {
-	}
-
 	public User getUser(String username) {
 		return (User)super.getObject(User.class, "username", username);
 	}

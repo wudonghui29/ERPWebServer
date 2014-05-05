@@ -9,14 +9,19 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.xinyuan.message.ConfigFormat;
 
 public class GsonHelper {
 	
 	public static Gson getGson(){
-		return new GsonBuilder()/*.serializeNulls()*/.setDateFormat(ConfigFormat.STRING_TO_DATE_FORMAT).create();
+		return new GsonBuilder().setDateFormat(ConfigFormat.STRING_TO_DATE_FORMAT).create();
 	}
 
+	public static Map<String, Object> translateJsonStringToMap(String string) {
+		return GsonHelper.translateElementToMap((JsonObject)(new JsonParser()).parse(string));
+	}
+	
 	/**
 	 * Convert JsonElement to Java Map
 	 * @param element

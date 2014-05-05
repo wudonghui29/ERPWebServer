@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.xinyuan.Query.QueryCriteriasHelper;
-import com.xinyuan.Util.ApprovalHelper;
+import com.xinyuan.Util.ApprovalsDAOHelper;
 import com.xinyuan.Util.OrderNOGenerator;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.message.ConfigConstants;
@@ -48,7 +48,7 @@ public class CommandCreate implements Command {
 				// add orderNO to result
 				result.put(ConfigJSON.ORDERNO, order.getOrderNO());
 				// add orderNO to PendingApprove
-				if (model instanceof IApp)  ApprovalHelper.addPendingApprove(((IApp)model).getForwardUser(), order);
+				if (model instanceof IApp)  ApprovalsDAOHelper.addPendingApprove(((IApp)model).getForwardUser(), order);
 			}
 			results.add(result);
 			

@@ -1,12 +1,12 @@
 package com.modules.Util;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -103,11 +103,10 @@ public class Test extends HashSet {
 	 
 	 
 	 public static void main(String[] args) throws IOException {
-		 String aString = "12345ab";
-		 byte[] b = aString.getBytes();
-		 
-		 String newsString = new String(b);
-		 System.out.println(new String(b) + " ---- " + String.valueOf(b));
+//		 for(int i = 0; i < 100; i++) {
+			 int s = RandomHelper.getIntRandomBetween(0, 12);
+			 System.out.println(s);
+//		 }j
 	}
 	 
 	 

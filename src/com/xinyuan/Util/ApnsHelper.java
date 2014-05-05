@@ -22,10 +22,13 @@ import com.xinyuan.message.ConfigJSON;
 
 public class ApnsHelper {
 	
+	public static final String APNS_Alert = "alert";
+	public static final String APNS_Badge = "badge";
+	public static final String APNS_Sound = "sound";
 	private static final String APNS_Sound_DEFAULT = "default";
 
 
-	public static boolean inform(List<String> forwardList, List<Map<String, String>> forwardContents) throws Exception {
+	public static boolean inform(List<String> forwardList, List<Map<String, Object>> forwardContents) throws Exception {
 		
 		int forwardsCount = forwardList != null ? forwardList.size() : 0 ;
 		boolean isAllSuccess = false;
@@ -36,7 +39,7 @@ public class ApnsHelper {
 			String tokenString = userDAO.getUserApnsToken(forwardUsername);
 			
 			String[] apnsTokens =  tokenString.split(ConfigConstants.CONTENT_DIVIDER);
-			Map<String, String> apnsMap = forwardContents.get(index);
+			Map<String, Object> apnsMap = forwardContents.get(index);
 			int result = pushApns(apnsMap, apnsTokens);
 			isAllSuccess = result == apnsTokens.length;
 		}
@@ -46,17 +49,13 @@ public class ApnsHelper {
 	
 	/**
 	 * 
-	 * @param map		Push contents , e.g. {"Alert":"","Badge":"","Sound",""}
+	 * @param map		Push contents , e.g. {"alert":"Hello","badge":1,"sound","default"}
 	 * @param apnsToken Push devices tokens
 	 * @return the successful count
 	 * @throws Exception
 	 */
 	
-	private static int pushApns(Map<String, String>map , String[] apnsTokens) throws Exception {
-		String APNS_Alert = ConfigJSON.APNS_Alert;
-		String APNS_Badge = ConfigJSON.APNS_Badge;
-		String APNS_Sound = ConfigJSON.APNS_Sound;
-		
+	private static int pushApns(Map<String, Object>map , String[] apnsTokens) throws Exception {
 		// FILETER THE PLACEHOLDER
 		String[] devices = new String[apnsTokens.length];
 		for (int i = 0; i < apnsTokens.length; i++) {
@@ -64,21 +63,20 @@ public class ApnsHelper {
 		}
 		
 		// GET THE APN MESSAGE OUT
-		String message = map.get(APNS_Alert);
-		String badgeStr = map.get(APNS_Badge);
-		int badge = badgeStr != null && !badgeStr.isEmpty() ? Integer.valueOf(badgeStr) : 1;
-		String sound = map.get(APNS_Sound);
+		String message = (String)map.get(APNS_Alert);
+		Integer badge = (Integer)map.get(APNS_Badge);
+		String sound = (String)map.get(APNS_Sound);
 		sound = sound == null || sound.isEmpty() ? APNS_Sound_DEFAULT : sound;
 		
 		
 		/* Build a blank payload  */ 
 		PushNotificationPayload payload = PushNotificationPayload.complex();
-		payload.addAlert(message);
-		payload.addBadge(badge);
-		payload.addSound(sound);
+		if (message != null) payload.addAlert(message);
+		if (badge != null) payload.addBadge(badge);
+		if (sound != null) payload.addSound(sound);
 		
 		// set the customize contents
-		for (Entry<String, String> entry : map.entrySet()) {
+		for (Entry<String, Object> entry : map.entrySet()) {
 			String key = entry.getKey();
 			if (key.equals(APNS_Alert) || key.equals(APNS_Badge) || key.equals(APNS_Sound)) continue;
 			payload.addCustomDictionary(key, (String) entry.getValue());		// the custom contents
