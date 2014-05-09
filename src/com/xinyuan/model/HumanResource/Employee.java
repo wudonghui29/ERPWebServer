@@ -54,7 +54,6 @@ public class Employee extends OrderApp1 {
 	// 紧急联系人 name.relationship.phoneNO.
 	private String urgencyName;			
 	private String urgencyPhone;
-	private String urgencyRelation;
 	
 	private String wordMask;		//password mask 
 	
@@ -150,12 +149,6 @@ public class Employee extends OrderApp1 {
 	}
 	public void setUrgencyName(String urgencyName) {
 		this.urgencyName = urgencyName;
-	}
-	public String getUrgencyRelation() {
-		return urgencyRelation;
-	}
-	public void setUrgencyRelation(String urgencyRelation) {
-		this.urgencyRelation = urgencyRelation;
 	}
 	public String getUrgencyPhone() {
 		return urgencyPhone;

@@ -217,7 +217,9 @@
 
 	update employee set education_experience=replace(education_experience,'-','.');
 	
+-- 2014-5-08
 	
+	 alter table employee drop column urgencyRelation;
 	
 	
 	
