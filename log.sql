@@ -220,6 +220,10 @@
 -- 2014-5-08
 	
 	 alter table employee drop column urgencyRelation;
+
+-- 2014-5-09
+	
+	 drop table WHInventoryOrder;
 	
 	
 	

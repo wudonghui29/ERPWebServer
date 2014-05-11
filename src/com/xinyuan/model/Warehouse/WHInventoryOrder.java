@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.xinyuan.model.BaseOrder;
+import com.xinyuan.model.OrderApp1;
 
 /**
  * 仓库库存
@@ -17,7 +17,7 @@ import com.xinyuan.model.BaseOrder;
 
 @Entity
 @Table
-public class WHInventoryOrder extends BaseOrder {
+public class WHInventoryOrder extends OrderApp1 {
 
 	/**
 	 * 

@@ -1,6 +1,12 @@
+## UWSGI
 
+	WSGIServerPath=/Workspaces/python_projects/wsgiFileServer/
+	export PYTHONPATH="$HOME$WSGIServerPath"
+	uwsgi -s :9090 --wsgi-file $HOME/$WSGIServerPath/newapptest.py
 
-
+## NGINX
+   sudo nginx
+   
 ## About Git/Hub
 
 send pull request (contributor) :
