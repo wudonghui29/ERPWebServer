@@ -17,7 +17,9 @@ public class EmployeeCHOrder extends OrderApp4 {
 	private static final long serialVersionUID = 1L;
 	
 	private String employeeNO;
-	private String name;
+	
+	private String name_O;
+	private String name_N;
 	
 	// _O for Old , _N for New.
 	
@@ -25,6 +27,10 @@ public class EmployeeCHOrder extends OrderApp4 {
 	private String subDepartment_O;
 	private int jobLevel_O;
 	private String jobTitle_O;
+	
+	private String livingAddress_O;
+	private String urgencyName_O;
+	private String urgencyPhone_O;
 	private String phoneNO_O;
 	
 	private boolean ownApproval_O;
@@ -35,6 +41,10 @@ public class EmployeeCHOrder extends OrderApp4 {
 	private String subDepartment_N;
 	private int jobLevel_N;
 	private String jobTitle_N;
+	
+	private String livingAddress_N;
+	private String urgencyName_N;
+	private String urgencyPhone_N;
 	private String phoneNO_N;
 	
 	private boolean ownApproval_N; 
@@ -50,11 +60,18 @@ public class EmployeeCHOrder extends OrderApp4 {
 	public void setEmployeeNO(String employeeNO) {
 		this.employeeNO = employeeNO;
 	}
-	public String getName() {
-		return name;
+	
+	public String getName_O() {
+		return name_O;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setName_O(String name_O) {
+		this.name_O = name_O;
+	}
+	public String getName_N() {
+		return name_N;
+	}
+	public void setName_N(String name_N) {
+		this.name_N = name_N;
 	}
 	public String getDepartment_O() {
 		return department_O;
@@ -109,6 +126,43 @@ public class EmployeeCHOrder extends OrderApp4 {
 	}
 	public void setJobTitle_N(String jobTitle_N) {
 		this.jobTitle_N = jobTitle_N;
+	}
+	
+	public String getLivingAddress_O() {
+		return livingAddress_O;
+	}
+	public void setLivingAddress_O(String livingAddress_O) {
+		this.livingAddress_O = livingAddress_O;
+	}
+	public String getUrgencyName_O() {
+		return urgencyName_O;
+	}
+	public void setUrgencyName_O(String urgencyName_O) {
+		this.urgencyName_O = urgencyName_O;
+	}
+	public String getUrgencyPhone_O() {
+		return urgencyPhone_O;
+	}
+	public void setUrgencyPhone_O(String urgencyPhone_O) {
+		this.urgencyPhone_O = urgencyPhone_O;
+	}
+	public String getLivingAddress_N() {
+		return livingAddress_N;
+	}
+	public void setLivingAddress_N(String livingAddress_N) {
+		this.livingAddress_N = livingAddress_N;
+	}
+	public String getUrgencyName_N() {
+		return urgencyName_N;
+	}
+	public void setUrgencyName_N(String urgencyName_N) {
+		this.urgencyName_N = urgencyName_N;
+	}
+	public String getUrgencyPhone_N() {
+		return urgencyPhone_N;
+	}
+	public void setUrgencyPhone_N(String urgencyPhone_N) {
+		this.urgencyPhone_N = urgencyPhone_N;
 	}
 	public String getPhoneNO_N() {
 		return phoneNO_N;

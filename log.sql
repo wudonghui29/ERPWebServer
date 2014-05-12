@@ -221,5 +221,9 @@
 	
 	 alter table employee drop column urgencyRelation;
 	
+-- 2014-5-12
+	
+	alter table employeechorder change name name_O varchar(255);
+	
 	
 	
