@@ -9,11 +9,11 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.xinyuan.model.OrderApp1;
+import com.xinyuan.model.OrderApp2;
 
 @Entity
 @Table
-public class Employee extends OrderApp1 {
+public class Employee extends OrderApp2 {
 	
 	private static final long serialVersionUID = 1L;
 	

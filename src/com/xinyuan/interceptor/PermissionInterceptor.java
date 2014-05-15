@@ -10,6 +10,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.xinyuan.action.ActionBase;
+import com.xinyuan.action.SuperAction;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.RequestMessage;
 import com.xinyuan.message.ResponseMessage;
@@ -62,15 +63,15 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		boolean isAllowable = false;
 		
 		// check if super action
-//		if (baseAction.getClass() == SuperAction.class) {
-//			isAllowable = isCrossActions(models) ? checkPermission(method, models, permissions) : false;	// URL:Super__read, MODELS:["HumanResource.Employee","Finance.Account"]
-//		// not the super action
-//		} else {
-//			String action = PermissionInterceptor.getContextAction().trim();   					// C. action needed
-//			isAllowable = checkPermission(action, method, models, permissions); 				// URL:HumanResource__read, MODELS:[".Employee",".EmplyeeOutOrder"]
-//		}
+		if (baseAction.getClass() == SuperAction.class) {
+			isAllowable = isCrossActions(models) ? checkPermission(method, models, permissions) : false;	// URL:Super__read, MODELS:["HumanResource.Employee","Finance.Account"]
+		// not the super action
+		} else {
+			String action = PermissionInterceptor.getContextAction().trim();   					// C. action needed
+			isAllowable = checkPermission(action, method, models, permissions); 				// URL:HumanResource__read, MODELS:[".Employee",".EmplyeeOutOrder"]
+		}
 		
-		if (true) return invocation.invoke();	// ok , let it pass
+		if (isAllowable) return invocation.invoke();	// ok , let it pass
 		
 		responseMessage.denyStatus = ConfigConstants.STATUS_POSITIVE;
 		

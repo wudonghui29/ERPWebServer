@@ -34,8 +34,8 @@ public class EmployeeCommandDelete extends HumanResourceCommandDelete {
 			((ActionBase)ActionContext.getContext().getActionInvocation().getAction()).getResponseMessage().descriptions = MessagesKeys.DES + MessagesKeys.Connector + MessagesKeys.HR.EMPLOYEE_HAVING_APPROVALS;
 			throw new Exception();
 		} else {
-			userDAOIMP.deleteObject(user);
-			approvalDAOIMP.deleteObject(approvals);
+			if(user != null) userDAOIMP.deleteObject(user);
+			if(approvals != null) approvalDAOIMP.deleteObject(approvals);
 		}
 		
 	}
