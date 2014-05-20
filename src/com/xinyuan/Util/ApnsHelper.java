@@ -15,7 +15,6 @@ import javapns.notification.ResponsePacket;
 import com.xinyuan.dao.UserDAO;
 import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConfigConstants;
-import com.xinyuan.message.ConfigJSON;
 
 
 // Reference : http://demo.netfoucs.com/truenaruto/article/details/9165011
@@ -37,6 +36,10 @@ public class ApnsHelper {
 			String forwardUsername = forwardList.get(index);
 			
 			String tokenString = userDAO.getUserApnsToken(forwardUsername);
+			if (tokenString == null) {
+				isAllSuccess = false;
+				continue;
+			}
 			
 			String[] apnsTokens =  tokenString.split(ConfigConstants.CONTENT_DIVIDER);
 			Map<String, Object> apnsMap = forwardContents.get(index);
