@@ -179,7 +179,13 @@
         
         <mapping class="com.xinyuan.model.Warehouse.WHPurchaseOrder"/>
         <mapping class="com.xinyuan.model.Warehouse.WHPurchaseBill"/>
-
+        
+        <mapping class="com.xinyuan.model.Warehouse.WHRecycleInventory"/>
+        
+        <mapping class="com.xinyuan.model.Warehouse.WHPickingDetailsOrder"/>
+        <mapping class="com.xinyuan.model.Warehouse.WHPickingDetailsBill"/>
+        <mapping class="com.xinyuan.model.Warehouse.WHPickingOrder"/>
+        
         
         
         <!-- Finance Models -->
