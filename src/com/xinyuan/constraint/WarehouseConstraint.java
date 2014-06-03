@@ -48,7 +48,7 @@ public class WarehouseConstraint {
 				WHScrapOrder order = (WHScrapOrder)persistence;
 				String codeValue = order.getProductCode();
 				if (codeValue == null) return;
-				float amount =  order.getAmount();
+				float amount =  order.getScrpAmount();
 				
 				WHInventoryOrder inventoryPO= (WHInventoryOrder)dao.getObject(WHInventoryOrder.class, "productCode", codeValue);
 				float IVTotalAmount =  inventoryPO.getTotalAmount();
