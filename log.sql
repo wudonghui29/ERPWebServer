@@ -229,5 +229,9 @@
 	
 	alter table employeechorder change name name_O varchar(255);
 	
+-- 2014-6-2
+
+	update appsettings set type = 'ADMIN_ORDERS_APPROVALS' where type ='ADMIN_APPROVALS';
+	update appsettings set type='ADMIN_ORDERS_EXPIRATIONS' WHERE type='ADMIN_ORDERSEXPIRATIONS';
 	
 	
