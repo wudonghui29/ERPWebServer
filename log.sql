@@ -229,5 +229,12 @@
 	
 	alter table employeechorder change name name_O varchar(255);
 	
+-- 2014-5-14
+
+	alter table WHInventoryOrder drop column supplierDesc;
 	
+-- 2014-5-21
+
+	alter table WHLendOutOrder drop column remark;
+	alter table WHScrapOrder drop column amount;
 	

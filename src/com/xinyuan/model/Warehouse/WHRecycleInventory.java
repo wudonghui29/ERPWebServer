@@ -1,23 +1,14 @@
 package com.xinyuan.model.Warehouse;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
-import com.xinyuan.model.OrderApp1;
-
-/**
- * 仓库库存
- *
- */
+import com.xinyuan.model.BaseOrder;
 
 @Entity
 @Table
-public class WHInventoryOrder extends OrderApp1 {
+public class WHRecycleInventory extends BaseOrder {
 
 	/**
 	 * 
@@ -29,7 +20,6 @@ public class WHInventoryOrder extends OrderApp1 {
 	private String productCategory;     //产品分类
 	
 	private float totalAmount;          //总数量
-	private float lendAmount;           //借出数量
 	private String basicUnit;           //基本单位
 	
 	private String oneUnit;             //一个单位
@@ -42,19 +32,15 @@ public class WHInventoryOrder extends OrderApp1 {
 	private String productDesc;         //产品描述
 	private String productDescPDF;      //产品描述PDF
 	
-	private String supplierDesc;        //供应商
 	
-	@NotNull
-	@NotEmpty
-	@Column(unique=true)
+	
+	
 	public String getProductCode() {
 		return productCode;
 	}
 	public void setProductCode(String productCode) {
 		this.productCode = productCode;
 	}
-	
-	@NotEmpty
 	public String getProductName() {
 		return productName;
 	}
@@ -67,21 +53,11 @@ public class WHInventoryOrder extends OrderApp1 {
 	public void setProductCategory(String productCategory) {
 		this.productCategory = productCategory;
 	}
-	
-	
-	
 	public float getTotalAmount() {
 		return totalAmount;
 	}
 	public void setTotalAmount(float totalAmount) {
 		this.totalAmount = totalAmount;
-	}
-	
-	public float getLendAmount() {
-		return lendAmount;
-	}
-	public void setLendAmount(float lendAmount) {
-		this.lendAmount = lendAmount;
 	}
 	public String getBasicUnit() {
 		return basicUnit;
@@ -107,14 +83,6 @@ public class WHInventoryOrder extends OrderApp1 {
 	public void setUnit(String unit) {
 		this.unit = unit;
 	}
-	
-	@Column(columnDefinition = "TEXT")
-	public String getProductDesc() {
-		return productDesc;
-	}
-	public void setProductDesc(String productDesc) {
-		this.productDesc = productDesc;
-	}
 	public float getPriceBasicUnit() {
 		return priceBasicUnit;
 	}
@@ -129,20 +97,20 @@ public class WHInventoryOrder extends OrderApp1 {
 	public void setProductLocation(String productLocation) {
 		this.productLocation = productLocation;
 	}
+	
+	@Column(columnDefinition = "TEXT")
+	public String getProductDesc() {
+		return productDesc;
+	}
+	public void setProductDesc(String productDesc) {
+		this.productDesc = productDesc;
+	}
 	public String getProductDescPDF() {
 		return productDescPDF;
 	}
 	public void setProductDescPDF(String productDescPDF) {
 		this.productDescPDF = productDescPDF;
 	}
-	
-	public String getSupplierDesc() {
-		return supplierDesc;
-	}
-	public void setSupplierDesc(String supplierDesc) {
-		this.supplierDesc = supplierDesc;
-	}
-	
 	
 	
 	

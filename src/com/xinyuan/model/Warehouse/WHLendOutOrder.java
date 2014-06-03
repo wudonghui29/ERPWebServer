@@ -72,11 +72,11 @@ public class WHLendOutOrder extends OrderApp2 {
 		this.unit = unit;
 	}
 
+	@Column(columnDefinition="TEXT")
 	public String getRemark() {
 		return remark;
 	}
 	
-	@Column(columnDefinition="TEXT")
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
