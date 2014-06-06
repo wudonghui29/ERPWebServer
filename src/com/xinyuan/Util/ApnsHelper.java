@@ -12,6 +12,7 @@ import javapns.notification.PushNotificationPayload;
 import javapns.notification.PushedNotification;
 import javapns.notification.ResponsePacket;
 
+import com.modules.Util.DLog;
 import com.xinyuan.dao.UserDAO;
 import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConfigConstants;
@@ -38,6 +39,7 @@ public class ApnsHelper {
 			String tokenString = userDAO.getUserApnsToken(forwardUsername);
 			if (tokenString == null) {
 				isAllSuccess = false;
+				DLog.log("Push notification failed " + forwardUsername + " (" + index + ") has no device(token)" );
 				continue;
 			}
 			
