@@ -238,3 +238,7 @@
 	alter table WHLendOutOrder drop column remark;
 	alter table WHScrapOrder drop column amount;
 	
+-- 2014-6-4
+
+	alter table WHScrapOrder drop column scrpAmount;
+	
