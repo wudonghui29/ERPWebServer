@@ -240,6 +240,11 @@
 	
 -- 2014-6-2
 
+	alter table WHScrapOrder drop column scrpAmount;
+
+-- 2014-6-2
+
 	update appsettings set type = 'ADMIN_ORDERS_APPROVALS' where type ='ADMIN_APPROVALS';
 	update appsettings set type='ADMIN_ORDERS_EXPIRATIONS' WHERE type='ADMIN_ORDERSEXPIRATIONS';
+
 	
