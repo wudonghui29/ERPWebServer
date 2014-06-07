@@ -96,7 +96,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	 * @return
 	 * 
 	 */
-	public static boolean checkPermission(String action, String method, List<String> models, Map<String, Object> permissions) {
+	private static boolean checkPermission(String action, String method, List<String> models, Map<String, Object> permissions) {
 		int throughCount = 0;
 		int modelsSize = models.size();
 		
