@@ -24,7 +24,7 @@ public class WHScrapOrder extends OrderApp4 {
 	private String productCode; //产品代码
 	private String productName; //品   名
 	
-	private float scrpAmount;//数量
+	private float scrapAmount;//数量
 	
 	private Date scrapTime;//报废时间
 	
@@ -43,11 +43,11 @@ public class WHScrapOrder extends OrderApp4 {
 		this.productName = productName;
 	}
 	
-	public float getScrpAmount() {
-		return scrpAmount;
+	public float getScrapAmount() {
+		return scrapAmount;
 	}
-	public void setScrpAmount(float scrpAmount) {
-		this.scrpAmount = scrpAmount;
+	public void setScrapAmount(float scrapAmount) {
+		this.scrapAmount = scrapAmount;
 	}
 	public Date getScrapTime() {
 		return scrapTime;
