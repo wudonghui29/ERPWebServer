@@ -246,5 +246,8 @@
 
 	update appsettings set type = 'ADMIN_ORDERS_APPROVALS' where type ='ADMIN_APPROVALS';
 	update appsettings set type='ADMIN_ORDERS_EXPIRATIONS' WHERE type='ADMIN_ORDERSEXPIRATIONS';
+	
+-- 2014-6-2
 
+	alter table WHLendOutBill drop column billCreateUser;
 	

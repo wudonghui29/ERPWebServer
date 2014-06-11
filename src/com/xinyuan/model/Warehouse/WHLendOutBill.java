@@ -21,7 +21,7 @@ public class WHLendOutBill extends BillApp2 {
 	private float returnAmount; //还入数量
 	private Date returnDate; //还入日期
 	
-	private String billCreateUser; //制单人
+	private String createUser; //制单人
 	
 	
 	
@@ -45,14 +45,13 @@ public class WHLendOutBill extends BillApp2 {
 	public void setReturnDate(Date returnDate) {
 		this.returnDate = returnDate;
 	}
-	public String getBillCreateUser() {
-		return billCreateUser;
-	}
-	public void setBillCreateUser(String billCreateUser) {
-		this.billCreateUser = billCreateUser;
-	}
 	
-	
+	public String getCreateUser() {
+		return createUser;
+	}
+	public void setCreateUser(String createUser) {
+		this.createUser = createUser;
+	}
 	
 	
 	
