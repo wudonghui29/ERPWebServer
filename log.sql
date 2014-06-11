@@ -266,8 +266,8 @@
 
 	update approvals set unreadapprovals='{}'
 	
-	
-	
-	
+-- 2014-6-8
 
+	alter table WHLendOutBill drop column billCreateUser;
+	alter table WHLendOutOrder drop column notReturnAmount;
 	
