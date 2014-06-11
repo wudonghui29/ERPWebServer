@@ -7,10 +7,12 @@ import java.util.Set;
 
 import com.xinyuan.Query.QueryCriteriasHelper;
 import com.xinyuan.Query.QueryLimitsHelper;
+import com.xinyuan.Util.ApprovalsDAOHelper;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.RequestMessage;
 import com.xinyuan.message.ResponseMessage;
+import com.xinyuan.model.BaseOrder;
 
 public class CommandRead implements Command {
 
@@ -152,6 +154,15 @@ public class CommandRead implements Command {
 			if (QueryLimitsHelper.isNeedLimit(limits)) {
 				if (responseMessage.numbers == null) responseMessage.numbers = new ArrayList<String>();
 				responseMessage.numbers.add(dao.getTotalRows(model, keys, fields, criterias));
+			}
+			
+			// Delete UnRead
+			if (readResults.size() == 1) {
+				Object object = readResults.get(0);
+				if (object instanceof BaseOrder) {
+					BaseOrder order = (BaseOrder)object;
+					ApprovalsDAOHelper.deleteUnReadApprovalsForCreateUser(order);
+				}
 			}
 		}
 		// Have No Joins .   --- End  --------------------------------

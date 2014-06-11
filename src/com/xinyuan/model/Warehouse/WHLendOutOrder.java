@@ -35,8 +35,6 @@ public class WHLendOutOrder extends OrderApp2 {
 	private String unit;                  //单位
 	
 	private String remark;                //备注
-	private float notReturnAmount;        //未还入数量
-	
 	
 	
 	
@@ -79,14 +77,6 @@ public class WHLendOutOrder extends OrderApp2 {
 	
 	public void setRemark(String remark) {
 		this.remark = remark;
-	}
-
-	public float getNotReturnAmount() {
-		return notReturnAmount;
-	}
-
-	public void setNotReturnAmount(float notReturnAmount) {
-		this.notReturnAmount = notReturnAmount;
 	}
 
 	public Date getLendDate() {

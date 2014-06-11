@@ -20,6 +20,7 @@ public class Approvals implements Serializable {
 	private String employeeNO;					// TODO: all employeeNO can not be modified again once it has value . In the set method , check it .
 	private String pendingApprovals = "{}";  	// the pending approval orders
 	private String pendingInforms = "{}";		// the pending inform APNS. Some times the APNS would failed , so put it here .
+	private String unReadApprovals = "{}";
 	
 	@Id
 	@Column(updatable=false)
@@ -46,4 +47,13 @@ public class Approvals implements Serializable {
 	public void setPendingInforms(String pendingInforms) {
 		this.pendingInforms = pendingInforms;
 	}
+	
+	@Column(columnDefinition="TEXT")
+	public String getUnReadApprovals() {
+		return unReadApprovals;
+	}
+	public void setUnReadApprovals(String unReadApprovals) {
+		this.unReadApprovals = unReadApprovals;
+	}
+	
 }

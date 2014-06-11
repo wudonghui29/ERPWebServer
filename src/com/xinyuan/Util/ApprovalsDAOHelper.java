@@ -49,6 +49,8 @@ public class ApprovalsDAOHelper {
 		String orderNO = order.getOrderNO();
 		
 		addPendingApprove(userName, department, orderType, orderNO);
+		
+		addUnReadApprovalsForCreateUser(order);
 	}
 	
 	public static void deletePendingApprove(String userName, BaseOrder order) {
@@ -99,7 +101,6 @@ public class ApprovalsDAOHelper {
 		
 		
 		// --------- do add
-//		if(!CollectionHelper.isContains(orderList, orderNO)) orderList.add(orderNO);
 		if(!orderList.contains(orderNO)) orderList.add(orderNO);
 		
 		
@@ -115,7 +116,7 @@ public class ApprovalsDAOHelper {
 	 * @param orderType
 	 * @param orderNO
 	 */
-	public static void deletePendingApprove(String userName,  String department, String orderType, String orderNO) {
+	private static void deletePendingApprove(String userName,  String department, String orderType, String orderNO) {
 		if (userName == null || userName.isEmpty()) return;
 		
 		SuperDAOIMP superDAO = new SuperDAOIMP();
@@ -151,4 +152,92 @@ public class ApprovalsDAOHelper {
 		superDAO.updateObject(pendingApproval);
 	}
 	
+	
+	
+	
+	private static void addUnReadApprovalsForCreateUser(BaseOrder order) {
+		String department = IntrospectHelper.getParentPackageName(order);
+		String orderType = IntrospectHelper.getShortClassName(order);
+		String orderNO = order.getOrderNO();
+		
+		String createUser = order.getCreateUser();
+		SuperDAOIMP superDAO = new SuperDAOIMP();
+		Approvals pendingApproval = (Approvals)superDAO.getObject(Approvals.class, createUser);
+		
+		if (pendingApproval == null) {
+			// just user , such as the administrator , not the employee
+			return;
+		}
+		
+		String unReadApprovalsJSON = pendingApproval.getUnReadApprovals();
+		
+		@SuppressWarnings("unchecked")
+		Map<String, Map<String, List<String>>> oldUnReadApprovalsMap = GsonHelper.getGson().fromJson(unReadApprovalsJSON, Map.class);
+		
+		
+		Map<String, List<String>> departmentMap = oldUnReadApprovalsMap.get(department);
+		if (departmentMap == null) {
+			departmentMap = new HashMap<String, List<String>>();
+			oldUnReadApprovalsMap.put(department, departmentMap);
+		}
+		List<String> orderList = departmentMap.get(orderType);
+		if (orderList == null) {
+			orderList = new ArrayList<String>();
+			departmentMap.put(orderType, orderList);
+		}
+		
+		
+		// --------- do add
+		if(!orderList.contains(orderNO)) orderList.add(orderNO);
+		
+		
+		String newUnReadApprovalsJSON = GsonHelper.getGson().toJson(oldUnReadApprovalsMap);
+		pendingApproval.setUnReadApprovals(newUnReadApprovalsJSON);
+		superDAO.updateObject(pendingApproval);
+	}
+	
+	public static void deleteUnReadApprovalsForCreateUser(BaseOrder order) {
+		String createUser = order.getCreateUser();
+		String signinedUser = ((User)SessionManager.get(ConfigConstants.SIGNIN_USER)).getUsername();
+		if (!createUser.equals(signinedUser)) return;
+		
+		String department = IntrospectHelper.getParentPackageName(order);
+		String orderType = IntrospectHelper.getShortClassName(order);
+		String orderNO = order.getOrderNO();
+		
+		
+		deleteUnReadApprovalsForCreateUser(department, orderType, orderNO, createUser);
+	}
+	
+	private static void deleteUnReadApprovalsForCreateUser(String department, String orderType, String orderNO, String createUser) {
+		SuperDAOIMP superDAO = new SuperDAOIMP();
+		Approvals pendingApproval = (Approvals)superDAO.getObject(Approvals.class, createUser);
+		
+		if (pendingApproval == null) {
+			// just user , such as the administrator , not the employee
+			return;
+		}
+		
+		String unReadApprovalsJSON = pendingApproval.getUnReadApprovals();
+		
+		@SuppressWarnings("unchecked")
+		Map<String, Map<String, List<String>>> oldUnReadApprovalsMap = GsonHelper.getGson().fromJson(unReadApprovalsJSON, Map.class);
+		
+		Map<String, List<String>> departmentMap = oldUnReadApprovalsMap.get(department);
+		if (departmentMap == null) {
+			return;
+		}
+		List<String> orderList = departmentMap.get(orderType);
+		if (orderList == null) {
+			return;
+		}
+		
+		
+		// --------- do delete
+		CollectionHelper.removeElement(orderList, orderNO);
+		
+		String newUnReadApprovalsJSON = GsonHelper.getGson().toJson(oldUnReadApprovalsMap);
+		pendingApproval.setUnReadApprovals(newUnReadApprovalsJSON);
+		superDAO.updateObject(pendingApproval);
+	}
 }

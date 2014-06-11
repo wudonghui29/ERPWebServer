@@ -164,7 +164,7 @@
 	
 -- 2014-4-15
 	
-	select concat(id ,'=',password) from user into outfile '/tmp/properties.txt'; -- Save the properties 'cp /tmp/properties.txt ./userDevelop.properties'
+	select concat(id ,'=',password) from user into outfile '/tmp/properties.txt'; 							-- Save the properties 'cp /tmp/properties.txt ./userDevelop.properties'
 	select concat('update User set password=\'', MD5(password), '\' where id=', id, ';') from user into outfile '/tmp/batch1.txt';
 	source /tmp/batch1.txt;
 	
@@ -247,7 +247,27 @@
 	update appsettings set type = 'ADMIN_ORDERS_APPROVALS' where type ='ADMIN_APPROVALS';
 	update appsettings set type='ADMIN_ORDERS_EXPIRATIONS' WHERE type='ADMIN_ORDERSEXPIRATIONS';
 	
--- 2014-6-2
+-- 2014-6-5
+
+	DROP PROCEDURE IF EXISTS getAllTraceTables;
+	delimiter //
+	CREATE PROCEDURE getAllTraceTables(kDBName varchar(255)) BEGIN  select ATableName from (select table_name as ATableName from information_schema.columns where table_schema=kDBName and column_name='createDate') as A inner join (select table_name as BTableName from information_schema.columns where table_schema=kDBName and column_name='app1') as B on ATableName = BTableName ORDER BY ATableName;  END;//
+	delimiter ;
+	-- call getAllTraceTables('erpwebserver');
+	
+	
+	drop procedure if exists getTraceResults;
+	delimiter //
+	CREATE PROCEDURE getTraceResults(_kDBName varchar(255), _kTableName varchar(255), _kStartDate DATE, _kCount INT)  BEGIN  DECLARE _TABLENAME varchar(255);  DECLARE sql_text varchar(255);  DECLARE STARTDATE DATE;  SET _TABLENAME = CONCAT_WS('.',_kDBName,_kTableName);  IF _kCount = 0 THEN  SET @sql_text = concat("SELECT id, orderNO FROM ", _TABLENAME , " WHERE createDate >=  '", _kStartDate, "' ") ; ELSE  SET @sql_text = concat("SELECT id, orderNO FROM ", _TABLENAME , " WHERE createDate >=  '", _kStartDate, "'  LIMIT 0,", _kCount) ; END IF;  PREPARE stmt FROM @sql_text; EXECUTE stmt; DEALLOCATE PREPARE stmt;    END;//
+	delimiter ;
+	-- call getTraceResults('erpwebserver', 'Employee', '2014-01-25', 0);
+	
+-- 2014-6-7
+
+	update approvals set unreadapprovals='{}'
+	
+-- 2014-6-8
 
 	alter table WHLendOutBill drop column billCreateUser;
+	alter table WHLendOutOrder drop column notReturnAmount;
 	
