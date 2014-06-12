@@ -258,7 +258,7 @@
 	
 	drop procedure if exists getTraceResults;
 	delimiter //
-	CREATE PROCEDURE getTraceResults(_kDBName varchar(255), _kTableName varchar(255), _kStartDate DATE, _kCount INT)  BEGIN  DECLARE _TABLENAME varchar(255);  DECLARE sql_text varchar(255);  DECLARE STARTDATE DATE;  SET _TABLENAME = CONCAT_WS('.',_kDBName,_kTableName);  IF _kCount = 0 THEN  SET @sql_text = concat("SELECT id, orderNO FROM ", _TABLENAME , " WHERE createDate >=  '", _kStartDate, "' ") ; ELSE  SET @sql_text = concat("SELECT id, orderNO FROM ", _TABLENAME , " WHERE createDate >=  '", _kStartDate, "'  LIMIT 0,", _kCount) ; END IF;  PREPARE stmt FROM @sql_text; EXECUTE stmt; DEALLOCATE PREPARE stmt;    END;//
+	CREATE PROCEDURE getTraceResults(_kDBName varchar(255), _kTableName varchar(255),  _kStartDate DATE, _kCreateUser varchar(255), _kCount INT)  BEGIN  DECLARE _TABLENAME varchar(255);  DECLARE sql_text varchar(255);  DECLARE STARTDATE DATE;  SET _TABLENAME = CONCAT_WS('.',_kDBName,_kTableName);  IF _kCount = 0 THEN SET @sql_text = concat("SELECT id, orderNO FROM ", _TABLENAME , " WHERE createDate >=  '", _kStartDate, "' and createUser = '", _kCreateUser, "'" ) ; ELSE SET @sql_text = concat("SELECT id, orderNO FROM ", _TABLENAME , " WHERE createDate >=  '", _kStartDate, "' and createUser = '", _kCreateUser, "'  LIMIT 0,", _kCount) ; END IF;  PREPARE stmt FROM @sql_text; EXECUTE stmt; DEALLOCATE PREPARE stmt;    END;//
 	delimiter ;
 	-- call getTraceResults('erpwebserver', 'Employee', '2014-01-25', 0);
 	
