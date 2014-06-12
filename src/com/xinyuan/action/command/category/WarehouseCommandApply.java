@@ -8,6 +8,7 @@ import java.util.Set;
 import com.modules.Introspector.IntrospectHelper;
 import com.modules.Introspector.ModelIntrospector;
 import com.xinyuan.Util.AppModelsHelper;
+import com.xinyuan.Util.ApprovalsDAOHelper;
 import com.xinyuan.action.command.CommandApply;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.SuperDAOIMP;
@@ -68,6 +69,12 @@ public class WarehouseCommandApply extends CommandApply {
 			
 			float IVLendAmout = inventoryPO.getLendAmount();
 			inventoryPO.setLendAmount(IVLendAmout - returnAmount);
+			
+			
+			String department = IntrospectHelper.getParentPackageName(bill);
+			String orderType = "WHLendOutOrder";
+			String orderNO = bill.getBillNO();
+			ApprovalsDAOHelper.addPendingApprove(bill.getForwardUser(),department , orderType, orderNO);
 			
 			dao.modify(inventoryPO);
 			
