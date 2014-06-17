@@ -29,8 +29,7 @@ public class QueueHelper {
 			String json = GsonHelper.getGson().toJson(responseMessage);
 			byte[] data = json.getBytes("UTF-8");
 
-			ServletOutputStream outputStream = ServletActionContext
-					.getResponse().getOutputStream();
+			ServletOutputStream outputStream = ServletActionContext.getResponse().getOutputStream();
 
 			outputStream.write(data);
 			outputStream.flush();

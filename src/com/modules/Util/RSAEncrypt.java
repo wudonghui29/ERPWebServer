@@ -25,14 +25,14 @@ import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 public class RSAEncrypt {
-	private static final String DEFAULT_PUBLIC_KEY=   
+	public static final String DEFAULT_PUBLIC_KEY=   
 
 	"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCrzjXhhibRZOIKayg2Tfqgl9ya" + "\r" +
 	"N8qlR8wBZ8yX0f/B1fg5E6hdt+OVyyA6hBH+38lvB+mFrkXel05NFa22aj814QKr" + "\r" +
 	"QY7IMtS2HiHR65ukNlnrGmewhVPNnQajvfCeO7jnn+FIUNRCtYxEdvQxoa6LDTcy" + "\r" +
 	"ZHB5UbxEDWdqMpI7JQIDAQAB" + "\r"; 
       
-    private static final String DEFAULT_PRIVATE_KEY=  
+	public static final String DEFAULT_PRIVATE_KEY=  
     
     "MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAKvONeGGJtFk4gpr" + "\r" +
     "KDZN+qCX3Jo3yqVHzAFnzJfR/8HV+DkTqF2345XLIDqEEf7fyW8H6YWuRd6XTk0V" + "\r" +
@@ -315,7 +315,6 @@ public class RSAEncrypt {
             
            
             System.out.println("密文长度:"+ cipher.length);  
-//            System.out.println((new BASE64Encoder()).encodeBuffer(cipher));
             System.out.println(RSAEncrypt.byteArrayToString(cipher));  
             System.out.println("明文长度:"+ plainText.length);  
             System.out.println(RSAEncrypt.byteArrayToString(plainText));  

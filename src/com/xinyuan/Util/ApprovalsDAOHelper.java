@@ -27,11 +27,14 @@ public class ApprovalsDAOHelper {
 	// add and delete pending approvals
 	public static void handlePendingApprovals(SuperDAO dao, String appKey, String forwardUsername, BaseOrder persistence ) throws Exception {
 		if (forwardUsername == null) return;
+		String signinedUser = ((User)SessionManager.get(ConfigConstants.SIGNIN_USER)).getUsername();
+		
+		ApprovalsDAOHelper.deletePendingApprove(signinedUser, persistence);
 		
 		ApprovalsDAOHelper.addPendingApprove(forwardUsername, persistence);
 		
+		
 		// modify persistence, set the sign in user to the app-level attribute 
-		String signinedUser = ((User)SessionManager.get(ConfigConstants.SIGNIN_USER)).getUsername();
 		if (persistence instanceof IApp) {
 			((IApp) persistence).setForwardUser(forwardUsername);
 			if (appKey != null && appKey.startsWith(ConfigConstants.APPKEY_PREFIX) && ModelIntrospector.getProperty(persistence, appKey) == null) {
@@ -40,7 +43,6 @@ public class ApprovalsDAOHelper {
 			}
 		}
 		
-		ApprovalsDAOHelper.deletePendingApprove(signinedUser, persistence);
 	}
 	
 	public static void addPendingApprove(String userName, BaseOrder order) {

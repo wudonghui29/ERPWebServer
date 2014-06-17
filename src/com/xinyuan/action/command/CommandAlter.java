@@ -41,7 +41,7 @@ public abstract class CommandAlter implements Command {
 			
 		}
 		
-		ApnsHelper.inform(forwardsList, forwardsContents);
+		ApnsHelper.infromApns(forwardsList, forwardsContents);
 		
 		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
 	}
