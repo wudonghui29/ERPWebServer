@@ -1,6 +1,5 @@
 package com.xinyuan.model.Warehouse;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -9,7 +8,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.xinyuan.model.OrderApp1;
-
 /**
  * 仓库库存
  *
@@ -17,8 +15,8 @@ import com.xinyuan.model.OrderApp1;
 
 @Entity
 @Table
-public class WHInventoryOrder extends OrderApp1 {
-
+public class WHInventory extends OrderApp1 {
+	
 	/**
 	 * 
 	 */
@@ -142,9 +140,6 @@ public class WHInventoryOrder extends OrderApp1 {
 	public void setSupplierDesc(String supplierDesc) {
 		this.supplierDesc = supplierDesc;
 	}
-	
-	
-	
 	
 
 }

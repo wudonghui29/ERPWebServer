@@ -12,8 +12,8 @@ import com.xinyuan.Util.ApprovalsDAOHelper;
 import com.xinyuan.action.command.CommandApply;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.SuperDAOIMP;
+import com.xinyuan.model.Warehouse.WHInventory;
 import com.xinyuan.model.Warehouse.WHInventoryCHOrder;
-import com.xinyuan.model.Warehouse.WHInventoryOrder;
 import com.xinyuan.model.Warehouse.WHLendOutBill;
 import com.xinyuan.model.Warehouse.WHLendOutOrder;
 import com.xinyuan.model.Warehouse.WHPurchaseBill;
@@ -32,7 +32,7 @@ public class WarehouseCommandApply extends CommandApply {
 			if (codeValue == null) return;
 			float amount =  order.getScrapAmount();
 			
-			WHInventoryOrder inventoryPO= (WHInventoryOrder)daoImp.getObject(WHInventoryOrder.class, "productCode", codeValue);
+			WHInventory inventoryPO= (WHInventory)daoImp.getObject(WHInventory.class, "productCode", codeValue);
 			float IVTotalAmount =  inventoryPO.getTotalAmount();
 			inventoryPO.setTotalAmount(IVTotalAmount - amount);
 			
@@ -47,7 +47,7 @@ public class WarehouseCommandApply extends CommandApply {
 			
 			float lendAmount = order.getLendAmount();
 			
-			WHInventoryOrder inventoryPO= (WHInventoryOrder)daoImp.getObject(WHInventoryOrder.class, "productCode", codeValue);
+			WHInventory inventoryPO= (WHInventory)daoImp.getObject(WHInventory.class, "productCode", codeValue);
 
 			float IVLendAmout = inventoryPO.getLendAmount();
 			inventoryPO.setLendAmount(IVLendAmout + lendAmount);
@@ -65,7 +65,7 @@ public class WarehouseCommandApply extends CommandApply {
 			float returnAmount = bill.getReturnAmount();
 
 			
-			WHInventoryOrder inventoryPO= (WHInventoryOrder)daoImp.getObject(WHInventoryOrder.class, "productCode", codeValue);
+			WHInventory inventoryPO= (WHInventory)daoImp.getObject(WHInventory.class, "productCode", codeValue);
 			
 			float IVLendAmout = inventoryPO.getLendAmount();
 			inventoryPO.setLendAmount(IVLendAmout - returnAmount);
@@ -94,7 +94,7 @@ public class WarehouseCommandApply extends CommandApply {
 					
 					float storageAmount = aBill.getStorageNum();
 					
-					WHInventoryOrder inventoryPO= (WHInventoryOrder)daoImp.getObject(WHInventoryOrder.class, "productCode", codeValue);
+					WHInventory inventoryPO= (WHInventory)daoImp.getObject(WHInventory.class, "productCode", codeValue);
 					
 					float IVTotalAmount =  inventoryPO.getTotalAmount();
 					inventoryPO.setTotalAmount(IVTotalAmount + storageAmount);
@@ -115,7 +115,7 @@ public class WarehouseCommandApply extends CommandApply {
 		if (persistence instanceof WHInventoryCHOrder) {
 			WHInventoryCHOrder order = (WHInventoryCHOrder)persistence;
 			String codeValue = order.getProductCode_O();
-			WHInventoryOrder inventoryPO= (WHInventoryOrder)daoImp.getObject(WHInventoryOrder.class, "productCode", codeValue); 
+			WHInventory inventoryPO= (WHInventory)daoImp.getObject(WHInventory.class, "productCode", codeValue); 
 			
 			for (PropertyDescriptor pd : Introspector.getBeanInfo(order.getClass()).getPropertyDescriptors()) {
 				

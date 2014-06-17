@@ -270,4 +270,8 @@
 
 	alter table WHLendOutBill drop column billCreateUser;
 	alter table WHLendOutOrder drop column notReturnAmount;
-	
+
+-- 2014-6-16 
+
+    rename table WHInventoryOrder to WHInventory;
+    
