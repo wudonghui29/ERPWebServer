@@ -13,6 +13,7 @@ import javapns.notification.PushedNotification;
 import javapns.notification.ResponsePacket;
 
 import com.modules.Util.DLog;
+import com.opensymphony.xwork2.Action;
 import com.xinyuan.dao.UserDAO;
 import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConfigConstants;
@@ -27,6 +28,24 @@ public class ApnsHelper {
 	public static final String APNS_Sound = "sound";
 	private static final String APNS_Sound_DEFAULT = "default";
 
+	public static void infromApns(List<String> forwardList, List<Map<String, Object>> forwardContents) throws Exception {
+		if (isNeedInfor(forwardList, forwardContents)) {
+			ApnsHelper.inform(forwardList, forwardContents);
+		}
+	}
+	
+	public static boolean isNeedInfor(List<String> forwardList, List<Map<String, Object>> forwardContents) {
+		if (forwardList == null || forwardContents == null) {
+			return false;
+		}
+		if (forwardList.size() == 0 || forwardContents.size() == 0) {
+			return false;
+		}
+		if (forwardList.size() != forwardContents.size()) {
+			return false;
+		}
+		return true;
+	}
 
 	public static boolean inform(List<String> forwardList, List<Map<String, Object>> forwardContents) throws Exception {
 		

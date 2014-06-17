@@ -124,8 +124,15 @@ public class SettingAction extends ActionBase {
 	 */
 	public String inform() {
 		try {
-			boolean isAllSuccess = ApnsHelper.inform(requestMessage.getAPNS_FORWARDS(), requestMessage.getAPNS_CONTENTS());
-			if (isAllSuccess) responseMessage.status = ConfigConstants.STATUS_POSITIVE;
+			List<String> forwardList = requestMessage.getAPNS_FORWARDS();
+			List<Map<String, Object>> forwardContents = requestMessage.getAPNS_CONTENTS();
+			
+			if (ApnsHelper.isNeedInfor(forwardList, forwardContents)) {
+				boolean isAllSuccess = ApnsHelper.inform(forwardList, forwardContents);
+				if (isAllSuccess){
+					responseMessage.status = ConfigConstants.STATUS_POSITIVE;
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

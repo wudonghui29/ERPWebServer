@@ -8,6 +8,7 @@ import com.modules.Util.FileHelper;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.model.BaseOrder;
 import com.xinyuan.model.IApp1;
 import com.xinyuan.model.IApp2;
 import com.xinyuan.model.IApp3;
@@ -54,6 +55,11 @@ public class AppModelsHelper {
 			return "app1";
 		}
 		return null;
+	}
+	
+	public static boolean isFinalApproval(String appKey, BaseOrder persistence) {
+		String finalAppKey = AppModelsHelper.getFinalApprovalKey(persistence);
+		return finalAppKey != null && finalAppKey.equals(appKey) ;
 	}
 	
 }
