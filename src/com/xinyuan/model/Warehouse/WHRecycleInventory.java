@@ -33,6 +33,21 @@ public class WHRecycleInventory extends BaseOrder {
 	private String productDescPDF;      //产品描述PDF
 	
 	
+	public WHRecycleInventory(WHInventory inventory) {
+		
+		this.setProductCode(inventory.getProductCode());
+		this.setProductName(inventory.getProductName());
+		this.setProductCategory(inventory.getProductCategory());
+		this.setBasicUnit(inventory.getBasicUnit());
+		this.setOneUnit(inventory.getOneUnit());
+		this.setAmount(inventory.getAmount());
+		this.setUnit(inventory.getUnit());
+		this.setPriceBasicUnit(inventory.getPriceBasicUnit());
+		this.setProductLocation(inventory.getProductLocation());
+		this.setProductDesc(inventory.getProductDesc());
+		this.setProductDescPDF(inventory.getProductDescPDF());
+	}
+	
 	
 	
 	public String getProductCode() {
