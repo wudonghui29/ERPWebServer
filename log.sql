@@ -275,3 +275,7 @@
 
     rename table WHInventoryOrder to WHInventory;
     
+-- 2014-6-18 
+
+    alter table WHPickingOrder drop column app3;
+    

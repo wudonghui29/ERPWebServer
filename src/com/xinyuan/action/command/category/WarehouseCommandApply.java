@@ -16,8 +16,10 @@ import com.xinyuan.model.Warehouse.WHInventory;
 import com.xinyuan.model.Warehouse.WHInventoryCHOrder;
 import com.xinyuan.model.Warehouse.WHLendOutBill;
 import com.xinyuan.model.Warehouse.WHLendOutOrder;
+import com.xinyuan.model.Warehouse.WHPickingOrder;
 import com.xinyuan.model.Warehouse.WHPurchaseBill;
 import com.xinyuan.model.Warehouse.WHPurchaseOrder;
+import com.xinyuan.model.Warehouse.WHRecycleInventory;
 import com.xinyuan.model.Warehouse.WHScrapOrder;
 
 public class WarehouseCommandApply extends CommandApply {
@@ -37,6 +39,30 @@ public class WarehouseCommandApply extends CommandApply {
 			inventoryPO.setTotalAmount(IVTotalAmount - amount);
 			
 		    dao.modify(inventoryPO);
+
+		}
+		
+		if (persistence instanceof WHPickingOrder) {
+			WHPickingOrder order = (WHPickingOrder)persistence;
+			String codeValue = order.getProductCode();
+			if (codeValue == null) return;
+			
+			float pickingAmount =  order.getPickingAmount();
+			WHInventory inventoryPO= (WHInventory)daoImp.getObject(WHInventory.class, "productCode", codeValue);
+
+			float IVLendAmout = inventoryPO.getLendAmount();
+			inventoryPO.setLendAmount(IVLendAmout + pickingAmount);
+			
+			 dao.modify(inventoryPO);
+			
+		    float recycleAmount = order.getRecycleAmount();
+		    if (recycleAmount != 0) {
+				WHRecycleInventory recycleInventory = new WHRecycleInventory(inventoryPO);
+				recycleInventory.setTotalAmount(recycleAmount);
+				dao.create(recycleInventory);
+			}
+		    
+		  
 
 		}
 		
