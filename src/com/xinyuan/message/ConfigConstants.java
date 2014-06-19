@@ -15,14 +15,18 @@ public class ConfigConstants {
 	public static String FS = FileHelper.FILE_SEPARATOR;
 	public static String Context_Real_Path = ConfigConstants.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 	public static String Context_Classes_Path = Context_Real_Path;
-	public static String Apns_Certificate_Path = ".." + FS + "apnsDevelop.p12";
 	
+	
+	public static String Apns_Certificate_Path = ".." + FS + "apnsDevelop.p12";
+	public static String RSA_PRIVATE_KEY_Path = ".." + FS + "pkcs8_private_key.pem";
+	public static String RSA_PUBLIC_KEY_Path = ".." + FS + "rsa_public_key.pem";
 	public static String userInfomations_PropertiesPath = ".." + FS + "userDevelop.properties";
+	
+	
 	public static String serialsNumber_PropertiesPath = "resources" + FS + "serials.properties";
 	
 	
 	public static Properties serialNumberProperties = null;
-	public static Properties userInfomationProperties = null;
 	
 	
 	
@@ -32,8 +36,13 @@ public class ConfigConstants {
 		//ServletActionContext.getServletContext()
 		Context_Real_Path = context.getRealPath(File.separator); 
 		Context_Classes_Path = Context_Real_Path + "WEB-INF" + FS + "classes" + FS;
+		
 		Apns_Certificate_Path = Context_Real_Path + Apns_Certificate_Path;
+		RSA_PRIVATE_KEY_Path = Context_Real_Path + RSA_PRIVATE_KEY_Path;
+		RSA_PUBLIC_KEY_Path = Context_Real_Path + RSA_PUBLIC_KEY_Path;
+		
 		userInfomations_PropertiesPath = Context_Real_Path + userInfomations_PropertiesPath;
+		
 		serialsNumber_PropertiesPath = Context_Real_Path + serialsNumber_PropertiesPath;
 	}
 	
@@ -42,20 +51,11 @@ public class ConfigConstants {
 		try {
 			serialNumberProperties = new Properties();
 			serialNumberProperties.load(new BufferedInputStream(new FileInputStream(serialsNumber_PropertiesPath)));
-			
-			userInfomationProperties = new Properties();
-			FileHelper.createFileIfNotExist(userInfomations_PropertiesPath);
-			userInfomationProperties.load(new BufferedInputStream(new FileInputStream(userInfomations_PropertiesPath)));
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 	}
-	
-	
-	
-	
 	
 	
 	

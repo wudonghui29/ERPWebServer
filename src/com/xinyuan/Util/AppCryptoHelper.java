@@ -1,69 +1,50 @@
 package com.xinyuan.Util;
 
-import java.io.IOException;
-import java.security.interfaces.RSAPrivateKey;
-
-import sun.misc.BASE64Decoder;
-
 import com.modules.Util.MD5Helper;
-import com.modules.Util.RSAEncrypt;
+import com.modules.Util.RSAEncryptor;
+import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.model.User.User;
 
 public class AppCryptoHelper {
+	
+	// convenient properties
+    public static RSAEncryptor sharedInstance = null;
+    public static RSAEncryptor getSharedInstance() throws Exception {
+    	if (sharedInstance == null) {
+			sharedInstance =   new RSAEncryptor(ConfigConstants.RSA_PUBLIC_KEY_Path, ConfigConstants.RSA_PRIVATE_KEY_Path);
+		}
+    	return sharedInstance ;
+    }
+    
+    
+	public static String encodeWithRSA(String string) throws Exception {
+		return getSharedInstance().encryptWithBase64(string);
+	}
+	public static String decodeWithRSA(String string) throws Exception {
+		return getSharedInstance().decryptWithBase64(string);
+	}
+	
 
-	public static String encode(String string) {
-//		return string;
-		
+	
+	
+	public static String encodeWithMD5(String string) {
 		return MD5Helper.encode2hex(string);
 	}
 	
 	public static boolean isUserImpacted(User model, User persistence) {
 		
-//		return model.getPassword().equals(persistence.getPassword());
+		String modelPassword = model.getPassword();
+		try {
+			modelPassword = decodeWithRSA(modelPassword);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String persistencePassword = persistence.getPassword();
 		
-//		String modelPassword = model.getPassword();
-//		modelPassword = modelPassword.replace(" ", "+");
-//		try {
-//			byte[] buffer = modelPassword.getBytes() ;// new BASE64Decoder().decodeBuffer(modelPassword);
-//			RSAEncrypt rsaEncrypt = AppCryptoHelper.getRsaEncrypt();
-//			byte[] plainText = rsaEncrypt.decrypt(rsaEncrypt.getPrivateKey(), buffer);
-//			String decryptPassword = new String(plainText);
-//			
-//			System.out.println();
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		String persistencePassword = persistence.getPassword();
-		return MD5Helper.validate(model.getPassword(), persistence.getPassword());
+		
+		return MD5Helper.validate(modelPassword, persistencePassword);
 	}
 	
 	
 	
-	private static RSAEncrypt uniqueInstance = null;  
-	public static RSAEncrypt getRsaEncrypt() {
-		if (uniqueInstance == null) {  
-	           uniqueInstance = new RSAEncrypt(); 
-	           
-	         //加载公钥  
-	           try {  
-	        	   uniqueInstance.loadPublicKey(RSAEncrypt.DEFAULT_PUBLIC_KEY);  
-	               System.out.println("加载公钥成功");  
-	           } catch (Exception e) {  
-	               System.err.println(e.getMessage());  
-	               System.err.println("加载公钥失败");  
-	           }  
-	     
-	           //加载私钥  
-	           try {  
-	        	   uniqueInstance.loadPrivateKey(RSAEncrypt.DEFAULT_PRIVATE_KEY);  
-	               System.out.println("加载私钥成功");  
-	           } catch (Exception e) {  
-	               System.err.println(e.getMessage());  
-	               System.err.println("加载私钥失败");  
-	           } 
-	       }  
-	       return uniqueInstance;  
-	}
 }

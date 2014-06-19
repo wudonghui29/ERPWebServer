@@ -1,7 +1,8 @@
 package com.modules.Util;
 
+import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,11 +33,43 @@ public class FileHelper {
 	}
 	
 	
-	public static void saveProperties(String pathName, Properties properties) throws IOException {
-		FileOutputStream outputFile = new FileOutputStream(pathName);  
+	
+	
+	
+	
+	
+	public static void saveKeyValueToPropertiesFile(String propertiesPathName, String key, String value) {
+		try {
+			Properties properties = FileHelper.getProperties(propertiesPathName);
+			properties.setProperty(key, value);
+			FileHelper.saveProperties(propertiesPathName, properties);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static Properties getProperties(String propertiesPathName) throws IOException {
+		Properties properties = new Properties();
+		FileHelper.createFileIfNotExist(propertiesPathName);
+		properties.load(new BufferedInputStream(new FileInputStream(propertiesPathName)));
+		return properties;
+	}
+	
+	public static void saveProperties(String propertiesPathName, Properties properties) throws IOException {
+		FileOutputStream outputFile = new FileOutputStream(propertiesPathName);  
 		properties.store(outputFile, new Date().toString());  
+		outputFile.flush();
         outputFile.close();  
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * 
