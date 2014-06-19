@@ -279,3 +279,11 @@
 
     alter table WHPickingOrder drop column app3;
     
+-- 2014-6-19 
+
+    alter table WHInventory drop column oneUnit;
+    alter table WHRecycleInventory drop column oneUnit;
+    alter table WHInventoryCHOrder drop column oneUnit_O;
+    alter table WHInventoryCHOrder drop column oneUnit_N;
+    
+    

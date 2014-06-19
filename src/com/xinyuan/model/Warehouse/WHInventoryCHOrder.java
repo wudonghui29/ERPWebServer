@@ -26,7 +26,6 @@ public class WHInventoryCHOrder extends OrderApp4 {
 	private float totalAmount_O;          //总数量
 	private float lendAmount_O;           //借出数量
 	private String basicUnit_O;           //基本单位
-	private String oneUnit_O;             //一个单位
 	private float amount_O;               //数量
 	private String unit_O;                //单位
 	private float priceBasicUnit_O;       //平均价格_基本单位
@@ -41,7 +40,6 @@ public class WHInventoryCHOrder extends OrderApp4 {
 	private float totalAmount_N = -1;          
 	private float lendAmount_N = -1;           
 	private String basicUnit_N;           
-	private String oneUnit_N;            
 	private float amount_N = -1;               
 	private String unit_N;                
 	private float priceBasicUnit_N = -1;       
@@ -82,12 +80,6 @@ public class WHInventoryCHOrder extends OrderApp4 {
 	}
 	public void setBasicUnit_O(String basicUnit_O) {
 		this.basicUnit_O = basicUnit_O;
-	}
-	public String getOneUnit_O() {
-		return oneUnit_O;
-	}
-	public void setOneUnit_O(String oneUnit_O) {
-		this.oneUnit_O = oneUnit_O;
 	}
 	
 	public float getAmount_O() {
@@ -153,13 +145,6 @@ public class WHInventoryCHOrder extends OrderApp4 {
 	public void setBasicUnit_N(String basicUnit_N) {
 		this.basicUnit_N = basicUnit_N;
 	}
-	public String getOneUnit_N() {
-		return oneUnit_N;
-	}
-	public void setOneUnit_N(String oneUnit_N) {
-		this.oneUnit_N = oneUnit_N;
-	}
-	
 	public float getAmount_N() {
 		return amount_N;
 	}

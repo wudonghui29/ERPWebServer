@@ -22,7 +22,6 @@ public class WHRecycleInventory extends BaseOrder {
 	private float totalAmount;          //总数量
 	private String basicUnit;           //基本单位
 	
-	private String oneUnit;             //一个单位
 	private float amount;               //数量
 	private String unit;                //单位
 	
@@ -31,22 +30,6 @@ public class WHRecycleInventory extends BaseOrder {
 	
 	private String productDesc;         //产品描述
 	private String productDescPDF;      //产品描述PDF
-	
-	
-	public WHRecycleInventory(WHInventory inventory) {
-		
-		this.setProductCode(inventory.getProductCode());
-		this.setProductName(inventory.getProductName());
-		this.setProductCategory(inventory.getProductCategory());
-		this.setBasicUnit(inventory.getBasicUnit());
-		this.setOneUnit(inventory.getOneUnit());
-		this.setAmount(inventory.getAmount());
-		this.setUnit(inventory.getUnit());
-		this.setPriceBasicUnit(inventory.getPriceBasicUnit());
-		this.setProductLocation(inventory.getProductLocation());
-		this.setProductDesc(inventory.getProductDesc());
-		this.setProductDescPDF(inventory.getProductDescPDF());
-	}
 	
 	
 	
@@ -80,12 +63,7 @@ public class WHRecycleInventory extends BaseOrder {
 	public void setBasicUnit(String basicUnit) {
 		this.basicUnit = basicUnit;
 	}
-	public String getOneUnit() {
-		return oneUnit;
-	}
-	public void setOneUnit(String oneUnit) {
-		this.oneUnit = oneUnit;
-	}
+	
 	public float getAmount() {
 		return amount;
 	}
