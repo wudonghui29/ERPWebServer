@@ -9,9 +9,11 @@ import com.modules.Introspector.IntrospectHelper;
 import com.modules.Introspector.ModelIntrospector;
 import com.xinyuan.Util.AppModelsHelper;
 import com.xinyuan.Util.ApprovalsDAOHelper;
+import com.xinyuan.Util.OrderNOGenerator;
 import com.xinyuan.action.command.CommandApply;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.SuperDAOIMP;
+import com.xinyuan.model.BaseModel;
 import com.xinyuan.model.Warehouse.WHInventory;
 import com.xinyuan.model.Warehouse.WHInventoryCHOrder;
 import com.xinyuan.model.Warehouse.WHLendOutBill;
@@ -53,14 +55,30 @@ public class WarehouseCommandApply extends CommandApply {
 			float IVLendAmout = inventoryPO.getLendAmount();
 			inventoryPO.setLendAmount(IVLendAmout + pickingAmount);
 			
-			 dao.modify(inventoryPO);
-			
 		    float recycleAmount = order.getRecycleAmount();
 		    if (recycleAmount != 0) {
-				WHRecycleInventory recycleInventory = new WHRecycleInventory(inventoryPO);
+				WHRecycleInventory recycleInventory = new WHRecycleInventory();
+					
+				OrderNOGenerator.setOrderBasicCreateDetail(recycleInventory);
+				
+				recycleInventory.setProductCode(inventoryPO.getProductCode());
+				recycleInventory.setProductName(inventoryPO.getProductName());
+				recycleInventory.setProductCategory(inventoryPO.getProductCategory());
+				recycleInventory.setBasicUnit(inventoryPO.getBasicUnit());
+				recycleInventory.setAmount(inventoryPO.getAmount());
+				recycleInventory.setUnit(inventoryPO.getUnit());
+				recycleInventory.setPriceBasicUnit(inventoryPO.getPriceBasicUnit());
+				recycleInventory.setProductLocation(inventoryPO.getProductLocation());
+				recycleInventory.setProductDesc(inventoryPO.getProductDesc());
+				recycleInventory.setProductDescPDF(inventoryPO.getProductDescPDF());
 				recycleInventory.setTotalAmount(recycleAmount);
+				
+				
 				dao.create(recycleInventory);
+				
 			}
+		    
+		    dao.modify(inventoryPO);
 		    
 		  
 

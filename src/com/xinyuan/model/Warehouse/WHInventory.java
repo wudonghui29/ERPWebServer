@@ -30,11 +30,11 @@ public class WHInventory extends OrderApp1 {
 	private float lendAmount;           //借出数量
 	private String basicUnit;           //基本单位
 	
-	private String oneUnit;             //一个单位
 	private float amount;               //数量
 	private String unit;                //单位
 	
-	private float priceBasicUnit;       //平均价格_基本单位
+	private float priceBasicUnit;       //单价_基本单位
+	private float priceUnit;            //单价_单位
 	private String productLocation;     //产品位置
 	
 	private String productDesc;         //产品描述
@@ -78,6 +78,7 @@ public class WHInventory extends OrderApp1 {
 	public float getLendAmount() {
 		return lendAmount;
 	}
+	
 	public void setLendAmount(float lendAmount) {
 		this.lendAmount = lendAmount;
 	}
@@ -87,12 +88,7 @@ public class WHInventory extends OrderApp1 {
 	public void setBasicUnit(String basicUnit) {
 		this.basicUnit = basicUnit;
 	}
-	public String getOneUnit() {
-		return oneUnit;
-	}
-	public void setOneUnit(String oneUnit) {
-		this.oneUnit = oneUnit;
-	}
+	
 	public float getAmount() {
 		return amount;
 	}
@@ -140,6 +136,13 @@ public class WHInventory extends OrderApp1 {
 	public void setSupplierDesc(String supplierDesc) {
 		this.supplierDesc = supplierDesc;
 	}
+	public float getPriceUnit() {
+		return priceUnit;
+	}
+	public void setPriceUnit(float priceUnit) {
+		this.priceUnit = priceUnit;
+	}
 	
 
+	
 }
