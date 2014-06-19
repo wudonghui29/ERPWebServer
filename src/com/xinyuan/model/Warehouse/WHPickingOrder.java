@@ -4,11 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.xinyuan.model.OrderApp3;
+import com.xinyuan.model.OrderApp2;
 
 @Entity
 @Table
-public class WHPickingOrder extends OrderApp3 {
+public class WHPickingOrder extends OrderApp2 {
 
 	/**
 	 * 
