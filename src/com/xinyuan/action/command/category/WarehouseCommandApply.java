@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import com.modules.Introspector.IntrospectHelper;
-import com.modules.Introspector.ModelIntrospector;
+import com.modules.Introspector.ObjectIntrospector;
 import com.xinyuan.Util.AppModelsHelper;
 import com.xinyuan.Util.ApprovalsDAOHelper;
 import com.xinyuan.Util.OrderNOGenerator;
@@ -173,17 +173,17 @@ public class WarehouseCommandApply extends CommandApply {
 						String originPropertyName = propertyNames[0];
 						
 						
-						Object value = ModelIntrospector.getProperty(order, propertyNameNew);
+						Object value = ObjectIntrospector.getProperty(order, propertyNameNew);
 						
 						if (value == null) continue; 		// ... null
 						
 						if (value instanceof Number) {
 							Number judgeNumber = (Number)value;
 							if (judgeNumber.floatValue() != -1) {
-								ModelIntrospector.setProperty(inventoryPO, originPropertyName, value);
+								ObjectIntrospector.setProperty(inventoryPO, originPropertyName, value);
 							} 
 						}else {
-							ModelIntrospector.setProperty(inventoryPO, originPropertyName, value);
+							ObjectIntrospector.setProperty(inventoryPO, originPropertyName, value);
 						}
 						
 					}

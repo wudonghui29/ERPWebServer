@@ -1,7 +1,7 @@
 package com.xinyuan.interceptor;
 
 import com.Global.SessionManager;
-import com.modules.Util.DLog;
+import com.modules.Helper.DLog;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;

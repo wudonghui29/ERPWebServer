@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.hibernate.Query;
 
-import com.modules.Introspector.ModelIntrospector;
+import com.modules.Introspector.ObjectIntrospector;
 
 public class QueryCriteriasHelper {
 	
@@ -265,9 +265,9 @@ public class QueryCriteriasHelper {
 			
 			String fromAttribute = indexAndAttribute[2];
 			
-			Object value = ModelIntrospector.getProperty(from, fromAttribute);
+			Object value = ObjectIntrospector.getProperty(from, fromAttribute);
 			
-			ModelIntrospector.setProperty(model, toAttribute, value);
+			ObjectIntrospector.setProperty(model, toAttribute, value);
 			keys.add(toAttribute);
 		}
 	}
@@ -282,8 +282,8 @@ public class QueryCriteriasHelper {
 			String fromAttribute = indexAndAttribute[1];
 			Object from = models.get(index);
 			
-			Object value = ModelIntrospector.getProperty(from, fromAttribute);
-			ModelIntrospector.setProperty(persistence, toAttribute, value);
+			Object value = ObjectIntrospector.getProperty(from, fromAttribute);
+			ObjectIntrospector.setProperty(persistence, toAttribute, value);
 		}
 	}
 	

@@ -1,7 +1,7 @@
 package com.xinyuan.Util;
 
-import com.modules.Util.MD5Helper;
-import com.modules.Util.RSAEncryptor;
+import com.modules.Helper.MD5Helper;
+import com.modules.Helper.RSAEncryptor;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.model.User.User;
 

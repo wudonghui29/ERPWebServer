@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.modules.Introspector.ModelIntrospector;
+import com.modules.Introspector.ObjectIntrospector;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.UserDAO;
@@ -33,7 +33,7 @@ public class AdministratorAction extends ActionBase {
 			
 			String username = identities.get(i).get(ConfigJSON.USERNAME);
 			User persistence = userDAO.getUser(username); 	// po
-			ModelIntrospector.copyVoToPo(model, persistence, keys);
+			ObjectIntrospector.copyVoToPo(model, persistence, keys);
 			
 			userDAO.modify(persistence);
 		}

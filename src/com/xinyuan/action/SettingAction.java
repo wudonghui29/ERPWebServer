@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
 
 import com.Global.SessionManager;
+import com.modules.Helper.CollectionHelper;
+import com.modules.Helper.DLog;
+import com.modules.Helper.SecurityCode;
+import com.modules.Helper.VerifyCode;
 import com.modules.HttpWriter.ResponseWriter;
-import com.modules.Introspector.ModelIntrospector;
-import com.modules.Util.CollectionHelper;
-import com.modules.Util.DLog;
-import com.modules.Util.SecurityCode;
-import com.modules.Util.VerifyCode;
+import com.modules.Introspector.ObjectIntrospector;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.Util.ApnsHelper;
 import com.xinyuan.Util.AppModelsHelper;
@@ -174,7 +174,7 @@ public class SettingAction extends ActionBase {
 			if (! AdministratorInterceptor.currentUserIsAdministrator()) return Action.NONE;
 		}
 		
-		ModelIntrospector.setProperty(appSettingVO, idenfier);
+		ObjectIntrospector.setProperty(appSettingVO, idenfier);
 		APPSettings appSettingPO =  superDao.readUnique(appSettingVO, idenfier.keySet());
 			
 		if (appSettingPO == null) {
@@ -198,7 +198,7 @@ public class SettingAction extends ActionBase {
 				
 				// if array or some else
 			} else {
-				ModelIntrospector.copyVoToPo(appSettingVO, appSettingPO, modelsKeys.get(0));
+				ObjectIntrospector.copyVoToPo(appSettingVO, appSettingPO, modelsKeys.get(0));
 			}
 			
 			// then save it to database
@@ -218,7 +218,7 @@ public class SettingAction extends ActionBase {
 			
 		// get PO
 		Map<String, String> idenfier = identities.get(0);
-		ModelIntrospector.setProperty(appSettingVO, idenfier);
+		ObjectIntrospector.setProperty(appSettingVO, idenfier);
 		APPSettings appSettingPO =  superDao.readUnique(appSettingVO, idenfier.keySet());
 		
 		responseMessage.status = ConfigConstants.STATUS_POSITIVE;

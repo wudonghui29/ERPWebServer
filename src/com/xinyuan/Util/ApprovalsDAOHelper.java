@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.Global.SessionManager;
+import com.modules.Helper.CollectionHelper;
 import com.modules.Introspector.IntrospectHelper;
-import com.modules.Introspector.ModelIntrospector;
-import com.modules.Util.CollectionHelper;
+import com.modules.Introspector.ObjectIntrospector;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.message.ConfigConstants;
@@ -37,9 +37,9 @@ public class ApprovalsDAOHelper {
 		// modify persistence, set the sign in user to the app-level attribute 
 		if (persistence instanceof IApp) {
 			((IApp) persistence).setForwardUser(forwardUsername);
-			String appUser = (String)ModelIntrospector.getProperty(persistence, appKey);
+			String appUser = (String)ObjectIntrospector.getProperty(persistence, appKey);
 			if (appKey != null && appKey.startsWith(ConfigConstants.APPKEY_PREFIX) && (appUser == null || appUser.isEmpty())) {
-				ModelIntrospector.setProperty(persistence, appKey, signinedUser);
+				ObjectIntrospector.setProperty(persistence, appKey, signinedUser);
 			}
 			dao.modify(persistence);
 		}
