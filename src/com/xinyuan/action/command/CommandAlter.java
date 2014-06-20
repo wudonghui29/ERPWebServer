@@ -13,6 +13,7 @@ import com.xinyuan.message.ConfigJSON;
 import com.xinyuan.message.RequestMessage;
 import com.xinyuan.message.ResponseMessage;
 import com.xinyuan.model.BaseOrder;
+import com.xinyuan.model.IApp;
 
 public abstract class CommandAlter implements Command {
 
@@ -35,6 +36,11 @@ public abstract class CommandAlter implements Command {
 			// apns & pendings
 			if (persistence instanceof BaseOrder) {
 				String forwardUser = forwardsList != null && forwardsList.size() > i ? forwardUser = forwardsList.get(i) : null;
+				if (forwardUser == null) {
+					if (persistence instanceof IApp) {
+						forwardUser = ((IApp) persistence).getForwardUser();
+					}
+				}
 				// subclass, handle the pending approvals
 				handleApprovals(dao, ParametersHelper.getParameter(requestMessage, ConfigJSON.APPLEVEL), forwardUser, (BaseOrder)persistence);
 			}

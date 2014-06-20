@@ -14,7 +14,6 @@ import java.util.Map;
 import org.hibernate.jdbc.Work;
 
 import com.Global.HibernateInitializer;
-import com.Global.SessionManager;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.Util.ParametersHelper;
 import com.xinyuan.dao.SuperDAO;
@@ -22,7 +21,6 @@ import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.model.Approval.Approvals;
-import com.xinyuan.model.User.User;
 
 public class HumanResourceAction extends SuperAction {
 	private static final long serialVersionUID = 1L;

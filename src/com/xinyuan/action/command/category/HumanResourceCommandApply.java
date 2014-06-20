@@ -49,7 +49,7 @@ public class HumanResourceCommandApply extends CommandApply {
 			withoutSubClassDAO.create(approval);
 
 			// modify the employee wordMask property
-			employee.setWordMask(decryptPassword.replaceAll("\\w", "*") + "00");
+			employee.setWordMask(decryptPassword.replaceAll("\\w", "*") + "**");
 			dao.modify(employee);
 		} else
 		
@@ -83,7 +83,7 @@ public class HumanResourceCommandApply extends CommandApply {
 				user.setPassword(AppCryptoHelper.encodeWithMD5(decryptPassword));
 				dao.modify(user);
 				
-				employeeCHOrder.setPassword_N(decryptPassword.replaceAll("\\w", "*") + "00");
+				employeeCHOrder.setPassword_N(decryptPassword.replaceAll("\\w", "*") + "***");
 				dao.modify(employeeCHOrder);
 				
 				// For test now
