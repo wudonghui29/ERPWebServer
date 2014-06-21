@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -102,12 +101,28 @@ public class Test extends HashSet {
 	 }
 	 
 	 
-	 public static void main(String[] args) throws IOException {
-//		 for(int i = 0; i < 100; i++) {
-			 int s = RandomHelper.getIntRandomBetween(0, 12);
-			 System.out.println(s);
-//		 }j
+	 public static void main(String[] args) throws Exception {
+
+		 String base46String =  
+		 "GCqbwShexn94UVkgdQznFh6fTMaWtjv2PQiRlEeGZDVOh2+OrpPEYK8YMOgtGmYt" + "\r" +
+		 "ErW8k8BnMibV6K6qcFlGtzBHi5/FqtbiFuWqXEqH/wCkJrdMSl1ojcgneqE8GK8c" + "\r" +
+		 "X662CpHb91M2lXPmDdrXRbmHNC6JsINzjhI2Udq3JyA=";
+		 
+		 RSAEncryptor rsaEncryptor = new RSAEncryptor("/Users/Isaacs/Desktop/ERP_RSAA/rsa_public_key.pem", "/Users/Isaacs/Desktop/ERP_RSAA/pkcs8_private_key.pem");
+		 
+		 String test = "Test123.";
+		 
+//		 AzOd4faUUWcUaA12nB4rWXRAbZu1Z1xA4PUxVDGcMRUVAt0fGZSlowB0rwk5TqtGLcJs7fuSt1CQ
+//		 mjHIF90aELb7kfy71ScQT9Uk6H7XsEzjyoq+n4Uu8ASDeygd5FplApxfNKjkRNtT4A6eM/Yc6nTC
+//		 4UiNrrfB+pnOlEBJ3Vc=
+		 
+		 String testEn64 = rsaEncryptor.encryptWithBase64(test);
+		 String testDe64 = rsaEncryptor.decryptWithBase64(testEn64);
+		 
+		 String result = rsaEncryptor.decryptWithBase64(base46String);
+		 System.out.println(result);
+		 
+		 System.out.println();
 	}
-	 
 	 
 }

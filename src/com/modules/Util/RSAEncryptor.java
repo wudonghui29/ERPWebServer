@@ -1,14 +1,7 @@
 package com.modules.Util;
 
-// http://blog.csdn.net/chaijunkun/article/details/7275632
-
-// http://www.devdiv.com/ios_rsa_-blog-269445-49556.html
-
-// http://yuur369.iteye.com/blog/1769395
-
-// http://blog.iamzsx.me/show.html?id=155002
-
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -23,6 +16,8 @@ import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -30,34 +25,10 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
-public class RSAEncrypt {
-	public static final String DEFAULT_PUBLIC_KEY=   
+public class RSAEncryptor {
 
-			"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDbDRCvwEaVyL0uNHUzZIO1cH7K" + "\r" +
-			"fwaQ/gAJ5VQ1478SqK6st7CiP9jTQMYyDyvUxQgG6KDE2mwPJwHzsYkzzKjH2OJz" + "\r" +
-			"HUXUMSaSVdynTavJtmzdNKe7SPMCYhYqB3BmUgfOY6ZFh37gBwfDVcQ54DIbHCD0" + "\r" +
-			"SUx+AmgPjdJgYZf9zwIDAQAB" + "\r";
-
-      
-	public static final String DEFAULT_PRIVATE_KEY=  
-			"MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBANsNEK/ARpXIvS40" + "\r" +
-			"dTNkg7Vwfsp/BpD+AAnlVDXjvxKorqy3sKI/2NNAxjIPK9TFCAbooMTabA8nAfOx" + "\r" +
-			"iTPMqMfY4nMdRdQxJpJV3KdNq8m2bN00p7tI8wJiFioHcGZSB85jpkWHfuAHB8NV" + "\r" +
-			"xDngMhscIPRJTH4CaA+N0mBhl/3PAgMBAAECgYEAjzH5SIrvGZeCZCQSwafhmciS" + "\r" +
-			"ehmT11DUAaQS6q+ZBr+SgIIMS+Rk/6SGa88THiI3XxzPjCAlJ7qeQgo64MvXQKcA" + "\r" +
-			"soTH1IgCgF+5WyjOvODNgS59dcQbamYLZcRptNv+79O5mxBsRwyS6HeHqZ24X/v2" + "\r" +
-			"6YfcIEGC1BaJy2dKsPECQQD/VLOGYvoy8PCxhHVPBHxhWc6vcrj2y0PnYcNvP8n0" + "\r" +
-			"M8Wj5mHdnKl2VF7lZt5dwtpZemXD8gmYT4YDiPDduthdAkEA26AGL7lWmAwQXZjL" + "\r" +
-			"6MWlsy92zcfuiGe88N1GIAPPr3dL3HufAW2HHwAQIn3twZhXhldQOm9tiGu0teiG" + "\r" +
-			"tI0cGwJAV5bk5wr5LZR93UfFPlAZowO95W4DiZX9O1jMRFOrofxIposXs4BUmeUj" + "\r" +
-			"kKqTSbLYWK2mT2uuYvOU042co1O/eQJAbd/iGHAdnVWzvk+Z++sdmcZuJkcW09Eq" + "\r" +
-			"WkopMg0WEw+YuUZzZxB3oA+1AryDfO4NI518+q8SWkSgFL2u3pcV7wJBAOQhH0Gn" + "\r" +
-			"HfkHkuqK3v4gHZQVSZ94p/YIWF4prw7OsP345JOSEvvJANJ/pRH9FEIOWTfki1bH" + "\r" +
-			"Edo54moo91zpQ0Y=" + "\r"; 
-     
-    
-  
     /** 
      * 私钥 
      */  
@@ -68,12 +39,6 @@ public class RSAEncrypt {
      */  
     private RSAPublicKey publicKey;  
       
-    /** 
-     * 字节数据转字符串专用集合 
-     */  
-    private static final char[] HEX_CHAR= {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};  
-      
-  
     /** 
      * 获取私钥 
      * @return 当前的私钥对象 
@@ -131,7 +96,6 @@ public class RSAEncrypt {
             throw new Exception("公钥输入流为空");  
         }  
     }  
-  
   
     /** 
      * 从字符串中加载公钥 
@@ -264,7 +228,13 @@ public class RSAEncrypt {
         }         
     }  
   
-      
+    
+    
+    /** 
+     * 字节数据转字符串专用集合 
+     */  
+    private static final char[] HEX_CHAR= {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'}; 
+    
     /** 
      * 字节数据转十六进制字符串 
      * @param data 输入数据 
@@ -283,52 +253,126 @@ public class RSAEncrypt {
         }  
         return stringBuilder.toString();  
     }  
-  
-  
-    public static void main(String[] args){  
-        RSAEncrypt rsaEncrypt= new RSAEncrypt();  
-        //rsaEncrypt.genKeyPair();  
-       
-  
-        //加载公钥  
-        try {  
-            rsaEncrypt.loadPublicKey(RSAEncrypt.DEFAULT_PUBLIC_KEY);  
-            System.out.println("加载公钥成功");  
-        } catch (Exception e) {  
-            System.err.println(e.getMessage());  
-            System.err.println("加载公钥失败");  
-        }  
-  
-        //加载私钥  
-        try {  
-            rsaEncrypt.loadPrivateKey(RSAEncrypt.DEFAULT_PRIVATE_KEY);  
-            System.out.println("加载私钥成功");  
-        } catch (Exception e) {  
-            System.err.println(e.getMessage());  
-            System.err.println("加载私钥失败");  
-        }  
-  
-        //测试字符串  
-        String encryptStr= "test";  
-        System.out.println("私钥长度："+rsaEncrypt.getPrivateKey().toString().length());
-        System.out.println("公钥长度："+rsaEncrypt.getPublicKey().toString().length());
-        try {  
-            //加密  
-            byte[] cipher = rsaEncrypt.encrypt(rsaEncrypt.getPublicKey(), encryptStr.getBytes());  
-            
-           
-            //解密  
-            byte[] plainText = rsaEncrypt.decrypt(rsaEncrypt.getPrivateKey(), cipher);  
-
-            
-           
-            System.out.println("密文长度:"+ cipher.length);  
-            System.out.println(RSAEncrypt.byteArrayToString(cipher));  
-            System.out.println("明文长度:"+ plainText.length);  
-            System.out.println(RSAEncrypt.byteArrayToString(plainText));  
-            System.out.println(new String(plainText));  
-        } catch (Exception e) {  
-            System.err.println(e.getMessage());  
-        }  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // ___________________________________________  A Beautiful Separate Line  ___________________________________________
+    
+    
+    // openssl version -a
+    
+    /**
+     * 
+     * 1. Create the RSA Private Key
+     * 
+     * openssl genrsa -out private_key.pem 1024																			-> Generate 'private_key.pem'
+     * 
+     * 
+     * 2. Create a certificate signing request with the private key
+     * (This step u will enter some Info. For further reference, you'd better write them down or make a screen shot)
+     * 
+     * openssl req -new -key private_key.pem -out rsaCertReq.csr														-> Generate 'rsaCertReq.csr'
+     * 
+     * 
+     * 3. Create a self-signed certificate with the private key and signing request										-> Generate 'rsaCert.crt'
+     * 
+     * openssl x509 -req -days 3650 -in rsaCertReq.csr -signkey private_key.pem -out rsaCert.crt		
+     * 
+     * 
+     * 
+     * 
+     * 4. Convert the certificate to DER format: the certificate contains the public key
+     * 
+     * openssl x509 -outform der -in rsaCert.crt -out public_key.der													-> Generate 'public_key.der' (for IOS to encrypt) 
+     * 
+     * 
+     * 5. Export the private key and certificate to p12 file. 
+     * (This step will ask u to enter password, it will be used in your IOS Code, do not forget it)
+     * 
+     * openssl pkcs12 -export -out private_key.p12 -inkey private_key.pem -in rsaCert.crt								-> Generate 'private_key.p12' (for IOS to decrypt) 
+     * 
+     * 
+     * 
+     * 
+     * 6.
+     * openssl rsa -in private_key.pem -out rsa_public_key.pem -pubout													-> Generate 'rsa_public_key.pem' (for JAVA to encrypt)
+     * 
+     * 7.
+     * openssl pkcs8 -topk8 -in private_key.pem -out pkcs8_private_key.pem -nocrypt										-> Generate 'pkcs8_private_key.pem' (for JAVA to decrypt)
+     * 
+     * 
+     */
+    
+    /**
+     * @param publicKeyFilePath		The file from step 4.
+     * @param privateKeyFilePath	The file from step 5. PKCS#8 format private key file .
+     */
+    public RSAEncryptor(String publicKeyFilePath, String privateKeyFilePath) throws Exception {
+        String public_key = getKeyFromFile(publicKeyFilePath);
+        String private_key = getKeyFromFile(privateKeyFilePath);
+        loadPublicKey(public_key);  
+        loadPrivateKey(private_key);  
+	}
+    
+    public String getKeyFromFile(String filePath) throws Exception {
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+        
+        String line = null;
+        List<String> list = new ArrayList<String>();
+        while ((line = bufferedReader.readLine()) != null){
+        	list.add(line);
+		}
+        
+        // remove the firt line and last line
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 1; i < list.size() - 1; i++) {
+        	stringBuilder.append(list.get(i)).append("\r");
+        }
+        
+        String key = stringBuilder.toString();
+        return key;
+	}
+    
+    public String decryptWithBase64(String base64String) throws Exception {
+    	//  http://commons.apache.org/proper/commons-codec/ : org.apache.commons.codec.binary.Base64
+    	// sun.misc.BASE64Decoder
+    	byte[] binaryData = decrypt(getPrivateKey(), new BASE64Decoder().decodeBuffer(base64String) /*org.apache.commons.codec.binary.Base64.decodeBase64(base46String.getBytes())*/);
+		String string = new String(binaryData);
+		return string;
+	}
+    
+    public String encryptWithBase64(String string) throws Exception {
+    	//  http://commons.apache.org/proper/commons-codec/ : org.apache.commons.codec.binary.Base64
+    	// sun.misc.BASE64Encoder
+    	byte[] binaryData = encrypt(getPublicKey(), string.getBytes());
+    	String base64String = new BASE64Encoder().encodeBuffer(binaryData) /* org.apache.commons.codec.binary.Base64.encodeBase64(binaryData) */;
+    	return base64String;
     }
+  
+    
+    
+    // convenient properties
+    public static RSAEncryptor sharedInstance = null;
+    public static void setSharedInstance (RSAEncryptor rsaEncryptor) {
+    	sharedInstance = rsaEncryptor;
+    }
+   
 }

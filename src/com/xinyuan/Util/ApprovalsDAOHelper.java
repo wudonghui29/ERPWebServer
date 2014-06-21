@@ -37,10 +37,11 @@ public class ApprovalsDAOHelper {
 		// modify persistence, set the sign in user to the app-level attribute 
 		if (persistence instanceof IApp) {
 			((IApp) persistence).setForwardUser(forwardUsername);
-			if (appKey != null && appKey.startsWith(ConfigConstants.APPKEY_PREFIX) && ModelIntrospector.getProperty(persistence, appKey) == null) {
+			String appUser = (String)ModelIntrospector.getProperty(persistence, appKey);
+			if (appKey != null && appKey.startsWith(ConfigConstants.APPKEY_PREFIX) && (appUser == null || appUser.isEmpty())) {
 				ModelIntrospector.setProperty(persistence, appKey, signinedUser);
-				dao.modify(persistence);
 			}
+			dao.modify(persistence);
 		}
 		
 	}

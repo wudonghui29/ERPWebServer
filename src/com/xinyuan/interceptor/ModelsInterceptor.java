@@ -21,9 +21,6 @@ import com.xinyuan.message.RequestMessage;
 
 public class ModelsInterceptor extends AbstractInterceptor {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -61,7 +58,7 @@ public class ModelsInterceptor extends AbstractInterceptor {
 			Set<String> keysSet = new HashSet<String>();
 			keysSet.addAll(objectMap.keySet());
 			
-			vos.add(vo);				// MODELS
+			vos.add(vo);					// MODELS
 			voKeys.add(keysSet);			// KEYS
 		}
 		
