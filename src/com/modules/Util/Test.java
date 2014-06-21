@@ -110,13 +110,9 @@ public class Test extends HashSet {
 		 "ErW8k8BnMibV6K6qcFlGtzBHi5/FqtbiFuWqXEqH/wCkJrdMSl1ojcgneqE8GK8c" + "\r" +
 		 "X662CpHb91M2lXPmDdrXRbmHNC6JsINzjhI2Udq3JyA=";
 		 
-		 RSAEncryptor rsaEncryptor = new RSAEncryptor("/Users/Isaacs/Desktop/ERP_RSAA/rsa_public_key.pem", "/Users/Isaacs/Desktop/ERP_RSAA/pkcs8_private_key.pem");
+		 RSAEncryptor rsaEncryptor = new RSAEncryptor("/Users/Isaacs/Desktop/ERP_RSA/rsa_public_key.pem", "/Users/Isaacs/Desktop/ERP_RSA/pkcs8_private_key.pem");
 		 
 		 String test = "Test123.";
-		 
-//		 AzOd4faUUWcUaA12nB4rWXRAbZu1Z1xA4PUxVDGcMRUVAt0fGZSlowB0rwk5TqtGLcJs7fuSt1CQ
-//		 mjHIF90aELb7kfy71ScQT9Uk6H7XsEzjyoq+n4Uu8ASDeygd5FplApxfNKjkRNtT4A6eM/Yc6nTC
-//		 4UiNrrfB+pnOlEBJ3Vc=
 		 
 		 String testEn64 = rsaEncryptor.encryptWithBase64(test);
 		 String testDe64 = rsaEncryptor.decryptWithBase64(testEn64);
