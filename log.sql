@@ -285,5 +285,9 @@
     alter table WHRecycleInventory drop column oneUnit;
     alter table WHInventoryCHOrder drop column oneUnit_O;
     alter table WHInventoryCHOrder drop column oneUnit_N;
+        
+-- 2014-6-20
+
+    alter table WHPickingOrder drop column pickingDate;    
     
     
