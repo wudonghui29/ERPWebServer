@@ -1,5 +1,7 @@
 package com.xinyuan.model.Warehouse;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -15,7 +17,7 @@ public class WHPickingOrder extends OrderApp2 {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String pickingDate;         //领出日期
+	private Date pickingDate;           //领出日期
 	private String pickingStaff;        //领用人员
 	
 	private String productCategory;     //产品分类
@@ -31,10 +33,12 @@ public class WHPickingOrder extends OrderApp2 {
 	
 	private String remark;              //备忘记事
 	
-	public String getPickingDate() {
+	
+	
+	public Date getPickingDate() {
 		return pickingDate;
 	}
-	public void setPickingDate(String pickingDate) {
+	public void setPickingDate(Date pickingDate) {
 		this.pickingDate = pickingDate;
 	}
 	public String getPickingStaff() {
