@@ -1,7 +1,7 @@
 package com.xinyuan.Util;
 
-import com.modules.Util.MD5Helper;
-import com.modules.Util.RSAEncryptor;
+import com.modules.Encryptor.MD5Encryptor;
+import com.modules.Encryptor.RSAEncryptor;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.model.User.User;
 
@@ -28,7 +28,7 @@ public class AppCryptoHelper {
 	
 	
 	public static String encodeWithMD5(String string) {
-		return MD5Helper.encode2hex(string);
+		return MD5Encryptor.encode2hex(string);
 	}
 	
 	public static boolean isUserImpacted(User model, User persistence) {
@@ -42,7 +42,7 @@ public class AppCryptoHelper {
 		String persistencePassword = persistence.getPassword();
 		
 		
-		return MD5Helper.validate(modelPassword, persistencePassword);
+		return MD5Encryptor.validate(modelPassword, persistencePassword);
 	}
 	
 	

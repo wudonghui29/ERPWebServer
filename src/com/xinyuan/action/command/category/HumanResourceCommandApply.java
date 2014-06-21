@@ -3,9 +3,9 @@ package com.xinyuan.action.command.category;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 
+import com.modules.Helper.FileHelper;
 import com.modules.Introspector.IntrospectHelper;
-import com.modules.Introspector.ModelIntrospector;
-import com.modules.Util.FileHelper;
+import com.modules.Introspector.ObjectIntrospector;
 import com.xinyuan.Util.AppCryptoHelper;
 import com.xinyuan.action.command.CommandApply;
 import com.xinyuan.dao.SuperDAO;
@@ -63,12 +63,12 @@ public class HumanResourceCommandApply extends CommandApply {
 					
 					String propertyNameNew = pd.getName() ;
 					if (propertyNameNew.indexOf("_N") >=0 ) {
-						Object newValue = ModelIntrospector.getProperty(employeeCHOrder, propertyNameNew);
+						Object newValue = ObjectIntrospector.getProperty(employeeCHOrder, propertyNameNew);
 						if (newValue == null) continue;
 						
 						String propertyNames[] = propertyNameNew.split("_");
 						String originPropertyName = propertyNames[0];
-						ModelIntrospector.setProperty(employee, originPropertyName, newValue);
+						ObjectIntrospector.setProperty(employee, originPropertyName, newValue);
 					}
 				}
 			}

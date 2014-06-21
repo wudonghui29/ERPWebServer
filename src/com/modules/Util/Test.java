@@ -12,6 +12,8 @@ import sun.misc.BASE64Encoder;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.modules.Encryptor.MD5Encryptor;
+import com.modules.Encryptor.RSAEncryptor;
 import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.interceptor.PermissionInterceptor;
 
@@ -91,13 +93,13 @@ public class Test extends HashSet {
 
 		 String source = "今天99";
 		 
-		 System.out.println("加密后为	(bytes): " + MD5Helper.encode2bytes(source));
-		 System.out.println("加密后为	  (hex): " + MD5Helper.encode2hex(source));
-		 System.out.println("BASE64 ENCODE : " + (new BASE64Encoder()).encode(MD5Helper.encode2bytes(source)));
-		 System.out.println("BASE64 DECODE : " + (new BASE64Decoder()).decodeBuffer((new BASE64Encoder()).encode(MD5Helper.encode2bytes(source))));
+		 System.out.println("加密后为	(bytes): " + MD5Encryptor.encode2bytes(source));
+		 System.out.println("加密后为	  (hex): " + MD5Encryptor.encode2hex(source));
+		 System.out.println("BASE64 ENCODE : " + (new BASE64Encoder()).encode(MD5Encryptor.encode2bytes(source)));
+		 System.out.println("BASE64 DECODE : " + (new BASE64Decoder()).decodeBuffer((new BASE64Encoder()).encode(MD5Encryptor.encode2bytes(source))));
 		 
-        String str = MD5Helper.encode2hex("今天99");  
-        System.out.println("是否匹配:" + MD5Helper.validate("今天99" , str));  
+        String str = MD5Encryptor.encode2hex("今天99");  
+        System.out.println("是否匹配:" + MD5Encryptor.validate("今天99" , str));  
 	 }
 	 
 	 

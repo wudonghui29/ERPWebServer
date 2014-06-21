@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.modules.Util.DLog;
+import com.modules.Helper.DLog;
 
 public class ServletInitializer extends HttpServlet {
 

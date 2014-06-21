@@ -4,7 +4,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 
 import com.modules.Introspector.IntrospectHelper;
-import com.modules.Introspector.ModelIntrospector;
+import com.modules.Introspector.ObjectIntrospector;
 import com.xinyuan.action.command.CommandApply;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.SuperDAOIMP;
@@ -38,10 +38,10 @@ public class ArticlesCommandApply extends CommandApply {
 							String propertyNames[] = propertyNameNew.split("_");
 							String originPropertyName = propertyNames[0];
 							
-							Object value = ModelIntrospector.getProperty(articlesCHOrder, propertyNameNew);
+							Object value = ObjectIntrospector.getProperty(articlesCHOrder, propertyNameNew);
 							
 							if (value == null) continue; 		// ... null
-							ModelIntrospector.setProperty(articlesOrder, originPropertyName, value);
+							ObjectIntrospector.setProperty(articlesOrder, originPropertyName, value);
 							
 						}
 					}
