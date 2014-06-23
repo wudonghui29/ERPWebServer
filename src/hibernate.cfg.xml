@@ -157,6 +157,8 @@
         <mapping class="com.xinyuan.model.Business.Client"/>
         <mapping class="com.xinyuan.model.Business.BSConsultOrder"/>
         <mapping class="com.xinyuan.model.Business.Contract"/>
+        <mapping class="com.xinyuan.model.Business.ContractPayBill"/>
+        <mapping class="com.xinyuan.model.Business.ContractReceiveBill"/>
         
         <!-- SharedOrder Models -->
         <mapping class="com.xinyuan.model.SharedOrder.SharedOutOrder"/>
