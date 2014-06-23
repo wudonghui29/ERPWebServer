@@ -10,6 +10,7 @@ import com.xinyuan.Util.AppCryptoHelper;
 import com.xinyuan.action.command.CommandApply;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.SuperDAOIMP;
+import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.model.Approval.Approvals;
 import com.xinyuan.model.HumanResource.Employee;
@@ -44,9 +45,11 @@ public class HumanResourceCommandApply extends CommandApply {
 			approval.setEmployeeNO(employeeNO);
 
 			// save to database
-			SuperDAO withoutSubClassDAO = new SuperDAOIMP();
-			withoutSubClassDAO.create(user);
-			withoutSubClassDAO.create(approval);
+            if (! new UserDAOIMP().isSignup(user.getUsername())) {      // for old version
+                SuperDAO withoutSubClassDAO = new SuperDAOIMP();
+                withoutSubClassDAO.create(user);
+                withoutSubClassDAO.create(approval);
+            }
 
 			// modify the employee wordMask property
 			employee.setWordMask(decryptPassword.replaceAll("\\w", "*") + "**");

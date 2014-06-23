@@ -31,7 +31,9 @@ public class ApprovalsDAOHelper {
 		
 		ApprovalsDAOHelper.deletePendingApprove(signinedUser, persistence);
 		
-		ApprovalsDAOHelper.addPendingApprove(forwardUsername, persistence);
+		if (! AppModelsHelper.isFinalApproval(appKey, persistence)) {
+		    ApprovalsDAOHelper.addPendingApprove(forwardUsername, persistence);
+		}
 		
 		
 		// modify persistence, set the sign in user to the app-level attribute 
