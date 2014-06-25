@@ -1,5 +1,6 @@
 package com.xinyuan.model.Warehouse;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -101,12 +102,16 @@ public class WHInventoryCHOrder extends OrderApp4 {
 	public void setPriceBasicUnit_O(float priceBasicUnit_O) {
 		this.priceBasicUnit_O = priceBasicUnit_O;
 	}
+	
+	@Column(columnDefinition = "TEXT")
 	public String getProductLocation_O() {
 		return productLocation_O;
 	}
 	public void setProductLocation_O(String productLocation_O) {
 		this.productLocation_O = productLocation_O;
 	}
+	
+	@Column(columnDefinition = "TEXT")
 	public String getProductDesc_O() {
 		return productDesc_O;
 	}
@@ -164,24 +169,32 @@ public class WHInventoryCHOrder extends OrderApp4 {
 	public void setPriceBasicUnit_N(float priceBasicUnit_N) {
 		this.priceBasicUnit_N = priceBasicUnit_N;
 	}
+	
+	@Column(columnDefinition = "TEXT")
 	public String getProductLocation_N() {
 		return productLocation_N;
 	}
 	public void setProductLocation_N(String productLocation_N) {
 		this.productLocation_N = productLocation_N;
 	}
+	
+	@Column(columnDefinition = "TEXT")
 	public String getProductDesc_N() {
 		return productDesc_N;
 	}
 	public void setProductDesc_N(String productDesc_N) {
 		this.productDesc_N = productDesc_N;
 	}
+	
+	@Column(columnDefinition = "TEXT")
 	public String getProductDescPDF_O() {
 		return productDescPDF_O;
 	}
 	public void setProductDescPDF_O(String productDescPDF_O) {
 		this.productDescPDF_O = productDescPDF_O;
 	}
+	
+	@Column(columnDefinition = "TEXT")
 	public String getProductDescPDF_N() {
 		return productDescPDF_N;
 	}

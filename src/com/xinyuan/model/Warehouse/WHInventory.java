@@ -123,6 +123,8 @@ public class WHInventory extends OrderApp1 {
 	public void setProductLocation(String productLocation) {
 		this.productLocation = productLocation;
 	}
+	
+	@Column(columnDefinition = "TEXT")
 	public String getProductDescPDF() {
 		return productDescPDF;
 	}
@@ -130,6 +132,7 @@ public class WHInventory extends OrderApp1 {
 		this.productDescPDF = productDescPDF;
 	}
 	
+	@Column(columnDefinition = "TEXT")
 	public String getSupplierDesc() {
 		return supplierDesc;
 	}
