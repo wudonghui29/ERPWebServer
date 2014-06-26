@@ -1,10 +1,13 @@
 package com.xinyuan.Util;
 
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
 import java.util.List;
 import java.util.Map;
 
 import com.modules.Helper.FileHelper;
 import com.modules.Introspector.IntrospectHelper;
+import com.modules.Introspector.ObjectIntrospector;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.message.ConfigConstants;
@@ -62,4 +65,21 @@ public class AppModelsHelper {
 		return finalAppKey != null && finalAppKey.equals(appKey) ;
 	}
 	
+	
+	public static void copyNewValueToPersistence(Object fromObject, Object toObject) throws Exception {
+	    for (PropertyDescriptor pd : Introspector.getBeanInfo(fromObject.getClass()).getPropertyDescriptors()) {
+            if (pd.getReadMethod() != null && !IntrospectHelper.isClassPropertyName(pd.getName())) {
+                
+                String propertyNameNew = pd.getName() ;
+                if (propertyNameNew.indexOf("_N") >=0 ) {
+                    Object newValue = ObjectIntrospector.getProperty(fromObject, propertyNameNew);
+                    if (newValue == null) continue;
+                    
+                    String propertyNames[] = propertyNameNew.split("_");
+                    String originPropertyName = propertyNames[0];
+                    ObjectIntrospector.setProperty(toObject, originPropertyName, newValue);
+                }
+            }
+        }
+    }
 }

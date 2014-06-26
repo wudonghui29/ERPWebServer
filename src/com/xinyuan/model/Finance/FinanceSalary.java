@@ -23,12 +23,19 @@ public class FinanceSalary extends BaseEntity {
 	
 	private String employeeNO;
 	
+	private String name ;          // 姓名
+	private String jobTitle;       // 职称
+	private String department;     // 部门,工作岗位
+	
+	
 	private float baseSalary;		// 本薪
 	private float skillBenefit;		// 技术加给
 	private float fullBenefit;		// 全勤资金
 	private float dutyBenefit;		// 责任津贴
 	private float dormBenefit;		// 住宿补贴
 	private float foodBenefit;		// 伙食补贴
+	
+	private String salaryType;      // 薪资算法
 	
 	private Integer Version;
 	
@@ -41,7 +48,25 @@ public class FinanceSalary extends BaseEntity {
 	public void setEmployeeNO(String employeeNO) {
 		this.employeeNO = employeeNO;
 	}
-	public float getBaseSalary() {
+	public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getJobTitle() {
+        return jobTitle;
+    }
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+    public String getDepartment() {
+        return department;
+    }
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+    public float getBaseSalary() {
 		return baseSalary;
 	}
 	public void setBaseSalary(float baseSalary) {
@@ -77,8 +102,13 @@ public class FinanceSalary extends BaseEntity {
 	public void setFoodBenefit(float foodBenefit) {
 		this.foodBenefit = foodBenefit;
 	}
-	
-	@Version
+    public String getSalaryType() {
+        return salaryType;
+    }
+    public void setSalaryType(String salaryType) {
+        this.salaryType = salaryType;
+    }
+    @Version
 	public Integer getVersion() {
 		return Version;
 	}

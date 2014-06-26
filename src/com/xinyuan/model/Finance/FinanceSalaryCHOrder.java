@@ -11,14 +11,21 @@ import com.xinyuan.model.OrderApp4;
 @Table
 public class FinanceSalaryCHOrder extends OrderApp4 {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private String employeeNO;
-	private Date adjustDate;			// 本次调整日期
+	
+    private String name;        // 姓名
+    private String jobTitle;    // 职称
+    private String department;  // 部门,工作岗位
+	    
+	private Date adjustDate;			// 本次调整日期 
+	private float adjustAmount;         // 本次调整金额
+	
+	private Date lastAdjustDate;           // 上次调整日期 
+    private float lastAdjustAmount;        // 上次调整金额
 
+    
 	// _O for Old , _N for New.
 	
 	private float baseSalary_O;			// 本薪
@@ -42,13 +49,49 @@ public class FinanceSalaryCHOrder extends OrderApp4 {
 	public void setEmployeeNO(String employeeNO) {
 		this.employeeNO = employeeNO;
 	}
-	public Date getAdjustDate() {
+	public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getJobTitle() {
+        return jobTitle;
+    }
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+    public String getDepartment() {
+        return department;
+    }
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+    public Date getAdjustDate() {
 		return adjustDate;
 	}
 	public void setAdjustDate(Date adjustDate) {
 		this.adjustDate = adjustDate;
 	}
-	public float getBaseSalary_O() {
+	public float getAdjustAmount() {
+        return adjustAmount;
+    }
+    public void setAdjustAmount(float adjustAmount) {
+        this.adjustAmount = adjustAmount;
+    }
+    public Date getLastAdjustDate() {
+        return lastAdjustDate;
+    }
+    public void setLastAdjustDate(Date lastAdjustDate) {
+        this.lastAdjustDate = lastAdjustDate;
+    }
+    public float getLastAdjustAmount() {
+        return lastAdjustAmount;
+    }
+    public void setLastAdjustAmount(float lastAdjustAmount) {
+        this.lastAdjustAmount = lastAdjustAmount;
+    }
+    public float getBaseSalary_O() {
 		return baseSalary_O;
 	}
 	public void setBaseSalary_O(float baseSalary_O) {

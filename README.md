@@ -33,37 +33,37 @@ apply pull request use hub (maintainer) :
 	
 Add:
 
-	svn add * --force
+    svn add * --force
 
 Update:
-	
-	svn update
+    
+    svn update
 
 Commit:
-	
-	svn commit -m "message"
+    
+    svn commit -m "message"
 
 Delete:
-	
-	for i in $(svn st | grep \! | awk '{print $2}'); do svn delete $i; done
+    
+    for i in $(svn st | grep \! | awk '{print $2}'); do svn delete $i; done
 
 Delete image's name with '@' character:
-	
-	for i in $(svn st | grep \! | awk '{print $2}'); do svn delete $i@; done
-	
+    
+    for i in $(svn st | grep \! | awk '{print $2}'); do svn delete $i@; done
+    
 Delete file's/Folder name with '@' or ' '(space) character (i.e.): 
 
-	svn delete images/Public/will_delete\ /public_new异常@2x.png@
+    svn delete images/Public/will_delete\ /public_new异常@2x.png@
 
 For missing file name with '@', i.e :
 
-	svn revert /Users/Isaacs/Workspaces/ios_projects/ERP/images/Login/Login@2x.png@
-	
+    svn revert /Users/Isaacs/Workspaces/ios_projects/ERP/images/Login/Login@2x.png@
+    
 Take a look : 
 
-	http://stackoverflow.com/questions/1919859/svn-commit-failing-due-to-missing-file
-	
-	http://stackoverflow.com/questions/9601294/svn-commit-file-named-2x-png
+    http://stackoverflow.com/questions/1919859/svn-commit-failing-due-to-missing-file
+    
+    http://stackoverflow.com/questions/9601294/svn-commit-file-named-2x-png
 
 
 

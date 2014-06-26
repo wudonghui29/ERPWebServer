@@ -67,11 +67,14 @@ public class CommandRead implements Command {
 						for (int j = i; j <= endJoinIndex; j++) {
 							Object model = models.get(j);
 							Set<String> keys = modelsKeys.get(j);
-							List<String> sorts = outterSorts == null ? null : outterSorts.get(j);
-							List<String> limits= outterLimits == null ? null : outterLimits.get(j);
-							List<String> fields = outterFields == null ? null : outterFields.get(j);
-							Map<String, String> joins = outterJoins == null ? null : outterJoins.get(j);
-							Map<String, Map<String,String>> criterias = outterCriterials == null ? null : outterCriterials.get(j);
+							
+							List<String> sorts = outterSorts != null && outterSorts.size() > j ? outterSorts.get(j) : null ;
+							List<String> limits= outterLimits != null && outterLimits.size() > j ? outterLimits.get(j) : null ;
+							List<String> fields = outterFields != null && outterFields.size() > j ?  outterFields.get(j) : null ;
+							Map<String, Map<String,String>> criterias = outterCriterials != null && outterCriterials.size() > j ? outterCriterials.get(j) : null ;
+							
+							Map<String, String> joins = outterJoins != null && outterJoins.size() > j ? outterJoins.get(j) : null;
+							
 							
 							joinModels.add(model);
 							joinModelKeys.add(keys);
@@ -139,13 +142,15 @@ public class CommandRead implements Command {
 		for (int i = 0; i < models.size(); i++) {
 			Object model = models.get(i);
 			Set<String> keys = modelsKeys.get(i);
-			List<String> sorts = outterSorts == null ? null : outterSorts.get(i);
-			List<String> limits= outterLimits == null ? null : outterLimits.get(i);
-			List<String> fields = outterFields == null ? null : outterFields.get(i);
-			Map<String, Map<String,String>> criterias = outterCriterials == null ? null : outterCriterials.get(i);
+			List<String> sorts = outterSorts != null && outterSorts.size() > i ? outterSorts.get(i) : null ;
+			List<String> limits= outterLimits != null && outterLimits.size() > i ? outterLimits.get(i) : null ;
+			List<String> fields = outterFields != null && outterFields.size() > i ?  outterFields.get(i) : null ;
+			Map<String, Map<String,String>> criterias = outterCriterials != null && outterCriterials.size() > i ? outterCriterials.get(i) : null ;
+
 			
-			Map<String, String> precondition = outterPreconditions == null ? null : outterPreconditions.get(i);
+			Map<String, String> precondition = outterPreconditions != null && outterPreconditions.size() > i ? outterPreconditions.get(i) : null ;
 			if (precondition != null) QueryCriteriasHelper.readAssemblePreconditions(results, model, keys, precondition);
+			
 			
 			// get the read result
 			List<Object> readResults = dao.read(model, keys, fields, criterias, sorts, limits);
