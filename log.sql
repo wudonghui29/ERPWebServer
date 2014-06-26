@@ -288,6 +288,18 @@
         
 -- 2014-6-20
 
-    alter table WHPickingOrder drop column pickingDate;    
+    alter table WHPickingOrder drop column pickingDate;
+    
+-- 2014-6-25
+
+	alter table WHInventory drop column productDescPDF;
+	alter table WHInventory drop column supplierDesc;
+    alter table WHInventoryCHOrder drop column productLocation_O;
+    alter table WHInventoryCHOrder drop column productDesc_O;
+    alter table WHInventoryCHOrder drop column productDescPDF_O;
+    alter table WHInventoryCHOrder drop column productLocation_N;
+    alter table WHInventoryCHOrder drop column productDesc_N;
+    alter table WHInventoryCHOrder drop column productDescPDF_N;
+    
     
     
