@@ -22,13 +22,16 @@ public class EmployeeLeaveOrder extends OrderApp4 {
 	private String name ;
 	private String department;
 	private String jobTitle;
+	
 	private String agentEmployeeNO ; 	// the agent of this leaving employee
 	
 	private Date startDate ; 			// start leaving date
 	private Date endDate ;   			// end of leaving date
 	
-	private String reason ; 			// reason
+	private float day;
+	private float hour;
 	
+	private String reason ; 			// reason
 	private String leaveType;			// the type ["Personal_Leave","Sick_Leave", "Annual_Leave","OTHERS"]
 
 	
@@ -88,7 +91,23 @@ public class EmployeeLeaveOrder extends OrderApp4 {
 		this.endDate = endDate;
 	}
 
-	public String getReason() {
+    public float getDay() {
+        return day;
+    }
+
+    public void setDay(float day) {
+        this.day = day;
+    }
+
+    public float getHour() {
+        return hour;
+    }
+
+    public void setHour(float hour) {
+        this.hour = hour;
+    }
+
+    public String getReason() {
 		return reason;
 	}
 
