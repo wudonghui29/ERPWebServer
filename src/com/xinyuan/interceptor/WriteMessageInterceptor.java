@@ -11,6 +11,7 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.action.ActionBase;
 import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.message.MessagesKeys;
 import com.xinyuan.message.ResponseMessage;
 
 public class WriteMessageInterceptor extends AbstractInterceptor {
@@ -36,7 +37,7 @@ public class WriteMessageInterceptor extends AbstractInterceptor {
 			if (responseMessage.descriptions == null || responseMessage.descriptions.isEmpty()) {
 				String descriptions = getDescription(exception) ;
 				if (descriptions.isEmpty()) {
-					descriptions = ConfigConstants.REQUEST_ERROR;
+					descriptions = MessagesKeys.REQUEST_ERROR;
 				}
 				responseMessage.descriptions = descriptions;
 			}

@@ -22,6 +22,11 @@ public class EmployeeQuitOrder extends OrderApp4 {
 
 	private String employeeNO; 		 	// the employee want to quit his job
 	
+	private String name ;              // 姓名
+    private String department;          // 部门,工作岗位
+    private String jobTitle;            // 职称
+    private String idCard ;             // 身份证号码
+	
 	private Date planQuitDate ;  		// 拟定离职日期 the date plan to quit  
 	private Date approvedQuitDate ; 	// 核定离职日期 the date approve to quit  
 	
@@ -30,8 +35,7 @@ public class EmployeeQuitOrder extends OrderApp4 {
 	private String quitReason; 			// 离职原因
 	
 	
-//	private EmployeeQuitPassOrder employeeQuitPassOrder;
-
+	
 	
 	
 	public String getEmployeeNO() {
@@ -42,7 +46,39 @@ public class EmployeeQuitOrder extends OrderApp4 {
 		this.employeeNO = employeeNO;
 	}
 
-	public Date getPlanQuitDate() {
+	public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
+    public Date getPlanQuitDate() {
 		return planQuitDate;
 	}
 

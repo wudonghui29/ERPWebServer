@@ -8,6 +8,9 @@ import com.xinyuan.model.Approval.Approvals;
 public class ApporvalsHelper {
 	
 	public static boolean isUserHavePendingApprovals(Approvals approvals) {
+	    if (approvals == null) {
+	        return false;
+	    }
 		return isHavePendingApprovals(GsonHelper.translateJsonStringToMap(approvals.getPendingApprovals()));
 	}
 

@@ -30,8 +30,6 @@ public class EmployeeQuitPassOrder extends OrderApp4 {
 	private int employeeQuitOrderId;
 	
 	
-//	private EmployeeQuitOrder employeeQuitOrder;
-	
 	
 	public Date getPassDate() {
 		return passDate;

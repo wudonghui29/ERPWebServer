@@ -7,7 +7,7 @@ import javax.persistence.Version;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.xinyuan.model.BaseEntity;
+import com.xinyuan.model.OrderApp2;
 
 /**
  * 
@@ -17,7 +17,7 @@ import com.xinyuan.model.BaseEntity;
 
 @Table
 @Entity
-public class FinanceSalary extends BaseEntity {
+public class FinanceSalary extends OrderApp2 {
 
 	private static final long serialVersionUID = 1L;
 	

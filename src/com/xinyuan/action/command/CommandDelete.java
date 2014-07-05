@@ -3,9 +3,7 @@ package com.xinyuan.action.command;
 import java.util.Set;
 
 import com.modules.Introspector.IntrospectHelper;
-import com.opensymphony.xwork2.ActionContext;
 import com.xinyuan.Util.ApprovalsDAOHelper;
-import com.xinyuan.action.ActionBase;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.message.MessagesKeys;
 import com.xinyuan.model.BaseOrder;
@@ -17,10 +15,12 @@ public class CommandDelete extends CommandAlter {
 	protected void handlePersistence(SuperDAO dao, Object model, Set<String> modelkeys, Object persistence) throws Exception {
 		dao.delete(persistence);
 		
-		((ActionBase)ActionContext.getContext().getActionInvocation().getAction()).getResponseMessage().descriptions = MessagesKeys.DES;
+		MessagesKeys.getCurrentResponseMessage().descriptions = MessagesKeys.DEFAULT;
 		
 		// check if delete successfully
-		if (dao.readUnique(persistence, IntrospectHelper.getAllProperties(persistence)) != null) throw new Exception();
+		if (dao.readUnique(persistence, IntrospectHelper.getAllProperties(persistence)) != null) {
+		    throw new Exception();
+		}
 	}
 
 	@Override

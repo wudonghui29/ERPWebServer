@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.Global.SessionManager;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.Util.AppCryptoHelper;
 import com.xinyuan.Util.GsonHelper;
@@ -16,6 +14,7 @@ import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigJSON;
+import com.xinyuan.message.MessagesKeys;
 import com.xinyuan.model.Setting.APPSettings;
 import com.xinyuan.model.User.User;
 
@@ -43,7 +42,7 @@ public class UserAction extends ActionBase {
 		
 		User user = userDAO.getUser(username);
 		if (user == null) {
-			responseMessage.descriptions = ConfigConstants.USER.UserNotExist;
+			responseMessage.descriptions = MessagesKeys.USER.UserNotExist;
 		} else if (AppCryptoHelper.isUserImpacted(model, user)) {
 			
 			// update the apnsToken in db
@@ -67,7 +66,7 @@ public class UserAction extends ActionBase {
 			
 			
 		} else {
-			responseMessage.descriptions = ConfigConstants.USER.UserPasswordError;
+			responseMessage.descriptions = MessagesKeys.USER.UserPasswordError;
 		}
 			
 		return Action.NONE;

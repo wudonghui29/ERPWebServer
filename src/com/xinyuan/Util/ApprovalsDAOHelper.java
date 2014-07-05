@@ -12,6 +12,7 @@ import com.modules.Introspector.ObjectIntrospector;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.message.MessagesKeys;
 import com.xinyuan.model.BaseOrder;
 import com.xinyuan.model.IApp;
 import com.xinyuan.model.Approval.Approvals;
@@ -37,13 +38,34 @@ public class ApprovalsDAOHelper {
 		
 		
 		// modify persistence, set the sign in user to the app-level attribute 
-		if (persistence instanceof IApp) {
-			((IApp) persistence).setForwardUser(forwardUsername);
-			String appUser = (String)ObjectIntrospector.getProperty(persistence, appKey);
-			if (appKey != null && appKey.startsWith(ConfigConstants.APPKEY_PREFIX) && (appUser == null || appUser.isEmpty())) {
-				ObjectIntrospector.setProperty(persistence, appKey, signinedUser);
-			}
-			dao.modify(persistence);
+        if (persistence instanceof IApp) {
+            ((IApp) persistence).setForwardUser(forwardUsername);
+            
+            if (appKey != null) {
+                if (appKey.startsWith(ConfigConstants.APPROVAL_PREFIX)) {
+                    
+                    // forbid cross approve
+                    String preAppKey = AppModelsHelper.getPreviousApprovalKey(appKey);
+                    String preAppUser = (String) ObjectIntrospector.getProperty(persistence, preAppKey);
+                    
+                    if (! (preAppUser == null || preAppUser.isEmpty()) ) {
+                        
+                        String appUser = (String) ObjectIntrospector.getProperty(persistence, appKey);
+                        
+                        if (appUser == null || appUser.isEmpty()) {
+                            ObjectIntrospector.setProperty(persistence, appKey, signinedUser);
+                        }
+                        
+                    } else {
+                        
+                        throw new Exception(MessagesKeys.KEYS_PRE + "cannot." + appKey + MessagesKeys.CONNECTOR + MessagesKeys.KEYS_PRE + "because.without." + preAppKey );
+                        
+                    }
+                    
+                }
+
+            }
+            dao.modify(persistence);
 		}
 		
 	}

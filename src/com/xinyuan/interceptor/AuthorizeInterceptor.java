@@ -7,6 +7,7 @@ import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.xinyuan.action.ActionBase;
 import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.message.MessagesKeys;
 import com.xinyuan.message.ResponseMessage;
 import com.xinyuan.model.User.User;
 
@@ -34,7 +35,7 @@ public class AuthorizeInterceptor extends AbstractInterceptor {
 			
 			ActionBase action = (ActionBase)invocation.getAction();
 			ResponseMessage message = action.getResponseMessage();
-			message.descriptions = ConfigConstants.USER.UserNotSignIn;
+			message.descriptions = MessagesKeys.USER.UserNotSignIn;
 			
 			return Action.NONE;
 		}

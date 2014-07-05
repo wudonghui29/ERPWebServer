@@ -49,16 +49,43 @@ public class AppModelsHelper {
 	
 	public static String getFinalApprovalKey(Object object) {
 		if (object instanceof IApp4) {
-			return "app4";
+			return ConfigConstants.APPROVAL_4;
 		} else if (object instanceof IApp3) {
-			return "app3";
+			return ConfigConstants.APPROVAL_3;
 		} else if (object instanceof IApp2) {
-			return "app2";
+			return ConfigConstants.APPROVAL_2;
 		} else if (object instanceof IApp1) {
-			return "app1";
+			return ConfigConstants.APPROVAL_1;
 		}
 		return null;
 	}
+	
+	public static String getPreviousApprovalKey(String appKey) {
+        if (appKey.equals(ConfigConstants.APPROVAL_4)) {
+            return ConfigConstants.APPROVAL_3;
+        } else if (appKey.equals(ConfigConstants.APPROVAL_3)) {
+            return ConfigConstants.APPROVAL_2;
+        } else if (appKey.equals(ConfigConstants.APPROVAL_2)) {
+            return ConfigConstants.APPROVAL_1;
+        } else if (appKey.equals(ConfigConstants.APPROVAL_1)) {
+            return ConfigConstants.APPROVAL_CreateUser;
+        }
+        return null;
+    }
+	
+	public static String getNextApprovalKey(String appKey) {
+        if (appKey.equals(ConfigConstants.APPROVAL_3)) {
+            return ConfigConstants.APPROVAL_4;
+        } else if (appKey.equals(ConfigConstants.APPROVAL_2)) {
+            return ConfigConstants.APPROVAL_3;
+        } else if (appKey.equals(ConfigConstants.APPROVAL_1)) {
+            return ConfigConstants.APPROVAL_2;
+        } else if (appKey.equals(ConfigConstants.APPROVAL_CreateUser)) {
+            return ConfigConstants.APPROVAL_1;
+        }
+        return null;
+    }
+	
 	
 	public static boolean isFinalApproval(String appKey, BaseOrder persistence) {
 		String finalAppKey = AppModelsHelper.getFinalApprovalKey(persistence);

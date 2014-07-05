@@ -2,9 +2,7 @@ package com.xinyuan.action.command.HumanResource;
 
 import java.util.Set;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.xinyuan.Util.ApporvalsHelper;
-import com.xinyuan.action.ActionBase;
 import com.xinyuan.action.command.category.HumanResourceCommandDelete;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.ApprovalDAOIMP;
@@ -31,8 +29,7 @@ public class EmployeeCommandDelete extends HumanResourceCommandDelete {
 		Approvals approvals = approvalDAOIMP.getApprovals(employeeNO);
 		
 		if (ApporvalsHelper.isUserHavePendingApprovals(approvals)) {
-			((ActionBase)ActionContext.getContext().getActionInvocation().getAction()).getResponseMessage().descriptions = MessagesKeys.DES + MessagesKeys.Connector + MessagesKeys.HR.EMPLOYEE_HAVING_APPROVALS;
-			throw new Exception();
+			throw new Exception(MessagesKeys.DEFAULT + MessagesKeys.CONNECTOR + MessagesKeys.HR.EMPLOYEE_HAVING_APPROVALS);
 		} else {
 			if(user != null) userDAOIMP.deleteObject(user);
 			if(approvals != null) approvalDAOIMP.deleteObject(approvals);

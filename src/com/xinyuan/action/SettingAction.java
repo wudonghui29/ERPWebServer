@@ -27,6 +27,7 @@ import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.interceptor.AdministratorInterceptor;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigJSON;
+import com.xinyuan.message.MessagesKeys;
 import com.xinyuan.model.Setting.APPSettings;
 
 /**
@@ -60,7 +61,7 @@ public class SettingAction extends ActionBase {
 		if (!isInitilized) {
 			Boolean isUserTableEmpty = SettingHelper.isUserTableEmpty();
 			if (isUserTableEmpty) {
-				responseMessage.descriptions = ConfigConstants.SystemNeedInitialed;
+				responseMessage.descriptions = MessagesKeys.SystemNeedInitialed;
 			} else {
 				isInitilized = true;
 			}
