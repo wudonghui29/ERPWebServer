@@ -24,6 +24,7 @@ public class WHPickingOrder extends OrderApp2 {
 	private String productCode;         //产品代码
 	private String productName;         //品   名
 	private String application;         //用   途
+	private String applicationDesc;     //用途描述
 	
 	private float pickingAmount;        //领出数量
 	private String unit;                //单   位
@@ -109,6 +110,12 @@ public class WHPickingOrder extends OrderApp2 {
 	}
 	public void setApplication(String application) {
 		this.application = application;
+	}
+	public String getApplicationDesc() {
+		return applicationDesc;
+	}
+	public void setApplicationDesc(String applicationDesc) {
+		this.applicationDesc = applicationDesc;
 	}
 
 	
