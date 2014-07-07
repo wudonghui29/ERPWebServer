@@ -105,7 +105,11 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		
 		for (int i = 0; i < modelsSize; i++) {
 			String model = models.get(i).substring(1);	// ".Employee" remove the '.'
-			if (check(permissions, action, model, method)) throughCount++; 
+			if (model.endsWith("Bill")) {
+				throughCount++;
+			} else if (check(permissions, action, model, method)) {
+				throughCount++; 
+			}
 		}
 		
 		return throughCount == modelsSize ;
