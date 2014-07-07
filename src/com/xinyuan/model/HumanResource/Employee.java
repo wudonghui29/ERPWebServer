@@ -47,8 +47,8 @@ public class Employee extends OrderApp2 {
 	private String homeAddress;		// 家地址
 	private String livingAddress;	// 现住址
 
-	private String education_experience /*education*/;		// 教育经历   e.g.  "广州美术学院.本科.2013-06.毕业"
-	private String work_experience 		/*experience*/;		// 工作经历   e.g.  "2013-06.2013-08.腾讯公司.CEO"
+	private String education_experience ;		// 教育经历   e.g.  "广州美术学院.本科.2013-06.毕业"
+	private String work_experience 		;		// 工作经历   e.g.  "2013-06.2013-08.腾讯公司.CEO"
 	
 	
 	// 紧急联系人 name.relationship.phoneNO.

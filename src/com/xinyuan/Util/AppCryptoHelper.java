@@ -31,7 +31,7 @@ public class AppCryptoHelper {
 		return MD5Encryptor.encode2hex(string);
 	}
 	
-	public static boolean isUserImpacted(User model, User persistence) {
+	public static boolean isUserPasswordCorrect(User model, User persistence) {
 		
 		String modelPassword = model.getPassword();
 		try {

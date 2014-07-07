@@ -10,11 +10,13 @@ import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.Util.ParametersHelper;
 import com.xinyuan.Util.SettingHelper;
 import com.xinyuan.dao.SuperDAO;
+import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.dao.impl.UserDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.message.ConfigJSON;
 import com.xinyuan.message.MessagesKeys;
+import com.xinyuan.model.HumanResource.Employee;
 import com.xinyuan.model.Setting.APPSettings;
 import com.xinyuan.model.User.User;
 
@@ -32,7 +34,9 @@ public class UserAction extends ActionBase {
 		if (models.size() != 1) return Action.NONE;		// Forbid modified multi-
 		
 		String userVerifyCode = ParametersHelper.getParameter(requestMessage, ConfigJSON.VERIFYCODE);
-		if (this.isVerifyCodeError(userVerifyCode)) return Action.NONE;
+		if (this.isVerifyCodeError(userVerifyCode)){
+		    return Action.NONE;
+		}
 		
 			
 		User model = (User)models.get(0);
@@ -43,31 +47,49 @@ public class UserAction extends ActionBase {
 		User user = userDAO.getUser(username);
 		if (user == null) {
 			responseMessage.descriptions = MessagesKeys.USER.UserNotExist;
-		} else if (AppCryptoHelper.isUserImpacted(model, user)) {
-			
-			// update the apnsToken in db
-			String apnsToken = userDAO.getUserApnsToken(user.getUsername());
-			if (newApnsToken != null && !newApnsToken.trim().equalsIgnoreCase("")){
-				if (!newApnsToken.equals(apnsToken)) userDAO.setUserApnsToken(username, newApnsToken);
-			}
-			
-			// put result in response
-			Map<String, Object> map = new HashMap<String, Object>();
-			responseMessage.status = ConfigConstants.STATUS_POSITIVE;
-			
-			map.put(ConfigConstants.USER_IDENTIFIER, user.getId());
-			map.put(ConfigConstants.ALL_USERS_PERMISSIONS, userDAO.getAllUsersPermissions());
-			responseMessage.results = map;
-			
-			// put the permission in session
-			Map<String, Object> permissions = GsonHelper.translateJsonStringToMap(user.getPermissions());
-			SessionManager.put(ConfigConstants.SIGNIN_USER, user);
-			SessionManager.put(ConfigConstants.SIGNIN_USER_PERMISSIONS, permissions);
-			
-			
 		} else {
-			responseMessage.descriptions = MessagesKeys.USER.UserPasswordError;
+		    if (!AppCryptoHelper.isUserPasswordCorrect(model, user)) {
+		        responseMessage.descriptions = MessagesKeys.USER.UserPasswordError;
+		    } else {
+		        HumanResourceDAOIMP humanResourceDAO = new HumanResourceDAOIMP();
+		        Employee employee = (Employee) humanResourceDAO.getObject(Employee.class, "employeeNO", user.getUsername());
+		        
+		        if (employee.isResign()) {
+		            responseMessage.descriptions = MessagesKeys.KEYS_PRE + "signin.failed" + MessagesKeys.CONNECTOR + MessagesKeys.KEYS_PRE + "this.EMPLOYEE.(Employee.resign)";
+		            
+                } else {
+                    
+                    if (employee.isException()) {
+                        responseMessage.descriptions = MessagesKeys.KEYS_PRE + "limit.signin" + MessagesKeys.CONNECTOR + MessagesKeys.KEYS_PRE + "this.EMPLOYEE.'s.Employee.have.exception"; 
+                    } else {
+                        
+                        // update the apnsToken in db
+                        String apnsToken = userDAO.getUserApnsToken(user.getUsername());
+                        if (newApnsToken != null && !newApnsToken.trim().equalsIgnoreCase("")){
+                            if (!newApnsToken.equals(apnsToken)) userDAO.setUserApnsToken(username, newApnsToken);
+                        }
+                        
+                        // put result in response
+                        Map<String, Object> map = new HashMap<String, Object>();
+                        responseMessage.status = ConfigConstants.STATUS_POSITIVE;
+                        
+                        map.put(ConfigConstants.USER_IDENTIFIER, user.getId());
+                        map.put(ConfigConstants.ALL_USERS_PERMISSIONS, userDAO.getAllUsersPermissions());
+                        responseMessage.results = map;
+                        
+                        // put the permission in session
+                        Map<String, Object> permissions = GsonHelper.translateJsonStringToMap(user.getPermissions());
+                        SessionManager.put(ConfigConstants.SIGNIN_USER, user);
+                        SessionManager.put(ConfigConstants.SIGNIN_USER_PERMISSIONS, permissions);
+                        
+                    }
+                    
+                }
+		        
+		        
+		    }
 		}
+			
 			
 		return Action.NONE;
 	}

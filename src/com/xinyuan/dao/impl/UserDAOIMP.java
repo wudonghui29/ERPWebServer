@@ -40,8 +40,8 @@ public class UserDAOIMP extends HibernateAbstractDAO implements UserDAO {
 	}
 	
 	
-	public void setUserApnsToken(String username, String apnsToke) {
-		String queryString = "UPDATE User as user SET user.apnsToken = '" + apnsToke + "'" + " WHERE user.username = '" + username + "'";
+	public void setUserApnsToken(String username, String apnsToken) {
+		String queryString = "UPDATE User as user SET user.apnsToken = '" + apnsToken + "'" + " WHERE user.username = '" + username + "'";
 		super.createQuery(queryString).executeUpdate();
 	}
 
