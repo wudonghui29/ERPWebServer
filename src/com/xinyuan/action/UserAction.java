@@ -54,12 +54,12 @@ public class UserAction extends ActionBase {
 		        HumanResourceDAOIMP humanResourceDAO = new HumanResourceDAOIMP();
 		        Employee employee = (Employee) humanResourceDAO.getObject(Employee.class, "employeeNO", user.getUsername());
 		        
-		        if (employee.isResign()) {
+		        if (employee != null && employee.isResign()) {
 		            responseMessage.descriptions = MessagesKeys.KEYS_PRE + "signin.failed" + MessagesKeys.CONNECTOR + MessagesKeys.KEYS_PRE + "this.EMPLOYEE.(Employee.resign)";
 		            
                 } else {
                     
-                    if (employee.isException()) {
+                    if (employee != null && employee.isException()) {
                         responseMessage.descriptions = MessagesKeys.KEYS_PRE + "limit.signin" + MessagesKeys.CONNECTOR + MessagesKeys.KEYS_PRE + "this.EMPLOYEE.'s.Employee.have.exception"; 
                     } else {
                         
