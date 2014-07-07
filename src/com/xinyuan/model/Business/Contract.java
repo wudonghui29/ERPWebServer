@@ -1,7 +1,13 @@
 package com.xinyuan.model.Business;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.xinyuan.model.OrderApp4;
@@ -35,6 +41,7 @@ public class Contract extends OrderApp4 {
 	private String businessSprAdvise;  // 业务主管
 	private String salesManAdvise;     // 业务员
 	
+	private Set<ContractPayBill> ContractPayBills;    //分期付款的Bill
 	
 	
 	public String getNumber() {
@@ -133,6 +140,17 @@ public class Contract extends OrderApp4 {
 	public void setSalesManAdvise(String salesManAdvise) {
 		this.salesManAdvise = salesManAdvise;
 	}
+	
+	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@JoinColumn(name="Contract_id")	
+	public Set<ContractPayBill> getContractPayBills() {
+		return ContractPayBills;
+	}
+	public void setContractPayBills(Set<ContractPayBill> contractPayBills) {
+		ContractPayBills = contractPayBills;
+	}
+	
+						
 	
 	
 	
