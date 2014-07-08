@@ -9,6 +9,7 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 
 import com.Global.HibernateAbstractDAO;
+import com.modules.Helper.DLog;
 import com.modules.Introspector.IntrospectHelper;
 import com.xinyuan.Query.QueryCriteriasHelper;
 import com.xinyuan.Query.QueryFieldsHelper;
@@ -91,6 +92,7 @@ public class SuperDAOIMP extends HibernateAbstractDAO implements SuperDAO {
 		 * 2. criteria clause need 'criterias'
 		 */
 		String hqlString = createHQLString(object, keys, fields, criterias, sorts);
+//		DLog.log(hqlString);
 		Query query = createHQLQuery(hqlString, object, keys, criterias, limits);
 		return query.list();	// if no result , will be empty list
 	}
@@ -190,6 +192,7 @@ public class SuperDAOIMP extends HibernateAbstractDAO implements SuperDAO {
 		sqlString += orderByClause;
 		sqlString += limitsClause;
 		
+//		DLog.log(sqlString);
 		// Create SQL Query From Query String
 		SQLQuery query = super.createSQLQuery(sqlString);
 		
