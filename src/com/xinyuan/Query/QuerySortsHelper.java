@@ -16,11 +16,11 @@ public class QuerySortsHelper {
 		
 		int size = sorts.size();
 		for(int i = 0; i < size ; i++) {
-			String columnSorteString = sorts.get(i);
-			String[] elements = columnSorteString.split("\\."); // ["employeeNO", "DESC"]
+			String columnSorteString = sorts.get(i);            // employeeNO.DESC , Employee.resign.DESC
+			int ascOrDescIndex = columnSorteString.lastIndexOf("."); // ["employeeNO", "DESC"]
 			
-			String column = elements[0];
-			String ascOrDesc = elements[1];
+			String column = columnSorteString.substring(0, ascOrDescIndex);
+			String ascOrDesc = columnSorteString.substring(ascOrDescIndex + 1) ;
 			
 			orderByString += column.contains(".") ? column : alias + "." + column;
 			orderByString += " " + ascOrDesc;			// "Employee.employeeNO DESC"
