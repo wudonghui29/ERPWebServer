@@ -12,8 +12,10 @@ public class CommandModify extends CommandAlter {
 	
 	@Override
 	protected void handlePersistence(SuperDAO dao, Object model, Set<String> modelkeys, Object persistence) throws Exception {
-		ObjectIntrospector.copyVoToPo(model, persistence, modelkeys);
-		dao.modify(persistence);
+	    if (modelkeys.size() != 0) {
+	        ObjectIntrospector.copyVoToPo(model, persistence, modelkeys);
+	        dao.modify(persistence);
+        }
 	}
 
 	
