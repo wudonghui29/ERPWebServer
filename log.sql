@@ -301,5 +301,12 @@
     alter table WHInventoryCHOrder drop column productDesc_N;
     alter table WHInventoryCHOrder drop column productDescPDF_N;
     
+ -- 2014-7-11
+
+	alter table Contract change number clientNumber varchar(255);
+	alter table Contract change name clientName varchar(255);
+	alter table Contract drop column contact;
+	alter table Contract drop column phoneNO;
+	alter table Contract drop column faxNO;
     
     

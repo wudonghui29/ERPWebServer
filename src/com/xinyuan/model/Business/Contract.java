@@ -1,5 +1,6 @@
 package com.xinyuan.model.Business;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -21,11 +22,12 @@ public class Contract extends OrderApp4 {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String number;		       // 客户编号
-	private String name;		       // 客户名称
-	private String contact;	           // 联络人
-	private String phoneNO;		       // 电话
-	private String faxNO;		       // 传真
+	private String contractNO;         // 合同编号
+	private String contractName;       // 合同名称
+	private Date   signedDate;         // 签定日期
+	
+	private String clientNumber;	   // 客户编号
+	private String clientName;		   // 客户名称
 	private String salesMan;           // 业务员
 
 	private float totalAmount;         // 总金额
@@ -44,35 +46,18 @@ public class Contract extends OrderApp4 {
 	private Set<ContractPayBill> ContractPayBills;    //分期付款的Bill
 	
 	
-	public String getNumber() {
-		return number;
+	
+	public String getClientNumber() {
+		return clientNumber;
 	}
-	public void setNumber(String number) {
-		this.number = number;
+	public void setClientNumber(String clientNumber) {
+		this.clientNumber = clientNumber;
 	}
-	public String getName() {
-		return name;
+	public String getClientName() {
+		return clientName;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getContact() {
-		return contact;
-	}
-	public void setContact(String contact) {
-		this.contact = contact;
-	}
-	public String getPhoneNO() {
-		return phoneNO;
-	}
-	public void setPhoneNO(String phoneNO) {
-		this.phoneNO = phoneNO;
-	}
-	public String getFaxNO() {
-		return faxNO;
-	}
-	public void setFaxNO(String faxNO) {
-		this.faxNO = faxNO;
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
 	}
 	public String getSalesMan() {
 		return salesMan;
@@ -148,6 +133,24 @@ public class Contract extends OrderApp4 {
 	}
 	public void setContractPayBills(Set<ContractPayBill> contractPayBills) {
 		ContractPayBills = contractPayBills;
+	}
+	public String getContractNO() {
+		return contractNO;
+	}
+	public void setContractNO(String contractNO) {
+		this.contractNO = contractNO;
+	}
+	public String getContractName() {
+		return contractName;
+	}
+	public void setContractName(String contractName) {
+		this.contractName = contractName;
+	}
+	public Date getSignedDate() {
+		return signedDate;
+	}
+	public void setSignedDate(Date signedDate) {
+		this.signedDate = signedDate;
 	}
 	
 						
