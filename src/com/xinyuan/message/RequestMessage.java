@@ -1,9 +1,10 @@
 package com.xinyuan.message;
 
+import j2se.modules.Introspector.IntrospectHelper;
+
 import java.util.List;
 import java.util.Map;
 
-import com.modules.Introspector.IntrospectHelper;
 
 public class RequestMessage {
 

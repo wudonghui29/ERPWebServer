@@ -60,7 +60,7 @@ public class Employee extends OrderApp2 {
 
 	@NotNull
 	@NotEmpty
-	@Column(unique=true, updatable=false)
+	@Column(unique=true)
 	public String getEmployeeNO() {
 		return employeeNO;
 	}

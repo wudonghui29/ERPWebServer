@@ -1,5 +1,7 @@
 package com.xinyuan.Query;
 
+import j2se.modules.Introspector.IntrospectHelper;
+
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.util.Iterator;
@@ -7,7 +9,6 @@ import java.util.Set;
 
 import org.hibernate.Query;
 
-import com.modules.Introspector.IntrospectHelper;
 
 public class QueryObjectsHelper {
 	

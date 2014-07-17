@@ -1,5 +1,7 @@
 package com.xinyuan.Query;
 
+import j2se.modules.Introspector.ObjectIntrospector;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,7 +9,6 @@ import java.util.Set;
 
 import org.hibernate.Query;
 
-import com.modules.Introspector.ObjectIntrospector;
 
 public class QueryCriteriasHelper {
 	

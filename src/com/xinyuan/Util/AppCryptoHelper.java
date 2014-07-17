@@ -1,7 +1,8 @@
 package com.xinyuan.Util;
 
-import com.modules.Encryptor.MD5Encryptor;
-import com.modules.Encryptor.RSAEncryptor;
+import j2se.modules.Encryptor.MD5Encryptor;
+import j2se.modules.Encryptor.RSAEncryptor;
+
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.model.User.User;
 

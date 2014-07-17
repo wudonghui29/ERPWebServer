@@ -1,5 +1,7 @@
 package com.xinyuan.message;
 
+import j2se.modules.Helper.FileHelper;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,7 +9,6 @@ import java.util.Properties;
 
 import javax.servlet.ServletContext;
 
-import com.modules.Helper.FileHelper;
 
 
 public class ConfigConstants {
