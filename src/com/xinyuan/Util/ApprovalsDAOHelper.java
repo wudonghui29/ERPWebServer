@@ -13,6 +13,7 @@ import com.Global.SessionManager;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.message.MessagesException;
 import com.xinyuan.message.MessagesKeys;
 import com.xinyuan.model.BaseOrder;
 import com.xinyuan.model.IApp;
@@ -59,7 +60,7 @@ public class ApprovalsDAOHelper {
                         
                     } else {
                         
-                        throw new Exception(MessagesKeys.KEYS_PRE + "cannot." + appKey + MessagesKeys.CONNECTOR + MessagesKeys.KEYS_PRE + "because.without." + preAppKey );
+                        throw new MessagesException(MessagesKeys.KEYS_PRE + "cannot." + appKey + MessagesKeys.CONNECTOR + MessagesKeys.KEYS_PRE + "because.without." + preAppKey );
                         
                     }
                     
