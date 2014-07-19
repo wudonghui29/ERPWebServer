@@ -105,9 +105,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 		
 		for (int i = 0; i < modelsSize; i++) {
 			String model = models.get(i).substring(1);	// ".Employee" remove the '.'
-			if (model.endsWith("Bill")) {
-				throughCount++;
-			} else if (check(permissions, action, model, method)) {
+			if (check(permissions, action, model, method)) {
 				throughCount++; 
 			}
 		}
@@ -153,6 +151,10 @@ public class PermissionInterceptor extends AbstractInterceptor {
 	 */
 	private static boolean check(Map<String, Object> permissions, String action, String model, String method) {
 		if(action.equals(ConfigConstants.CATEGORIE_APPROVAL) && method.equals(ConfigConstants.METHOD_READ)) return true;	// Let "read" the Approval package permission go through
+		
+		if(model.endsWith("Bill")){
+			return true;
+		}
 		
 		try {
 			
