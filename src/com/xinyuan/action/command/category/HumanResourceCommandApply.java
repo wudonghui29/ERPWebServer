@@ -1,6 +1,7 @@
 package com.xinyuan.action.command.category;
 
-import com.modules.Helper.FileHelper;
+import j2se.modules.Helper.FileHelper;
+
 import com.xinyuan.Util.AppCryptoHelper;
 import com.xinyuan.Util.AppModelsHelper;
 import com.xinyuan.action.command.CommandApply;

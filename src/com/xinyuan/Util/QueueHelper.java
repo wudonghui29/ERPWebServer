@@ -1,5 +1,7 @@
 package com.xinyuan.Util;
 
+import j2se.modules.Introspector.IntrospectHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +9,6 @@ import javax.servlet.ServletOutputStream;
 
 import org.apache.struts2.ServletActionContext;
 
-import com.modules.Introspector.IntrospectHelper;
 import com.xinyuan.dao.BusinessDAO;
 import com.xinyuan.dao.HumanResourceDAO;
 import com.xinyuan.dao.impl.BusinessDAOIMP;

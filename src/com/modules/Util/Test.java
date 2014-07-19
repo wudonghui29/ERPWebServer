@@ -1,5 +1,8 @@
 package com.modules.Util;
 
+import j2se.modules.Encryptor.MD5Encryptor;
+import j2se.modules.Encryptor.RSAEncryptor;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,8 +15,6 @@ import sun.misc.BASE64Encoder;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.modules.Encryptor.MD5Encryptor;
-import com.modules.Encryptor.RSAEncryptor;
 import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.interceptor.PermissionInterceptor;
 

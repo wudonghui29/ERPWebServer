@@ -1,9 +1,10 @@
 package com.xinyuan.interceptor;
 
 
+import j2se.modules.Helper.DLog;
+
 import java.io.IOException;
 
-import com.modules.Helper.DLog;
 import com.modules.HttpWriter.ResponseWriter;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
@@ -11,6 +12,7 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.action.ActionBase;
 import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.message.MessagesException;
 import com.xinyuan.message.MessagesKeys;
 import com.xinyuan.message.ResponseMessage;
 
@@ -34,13 +36,15 @@ public class WriteMessageInterceptor extends AbstractInterceptor {
 		
 		if (exception != null) {
 			responseMessage.status = ConfigConstants.STATUS_NEGATIVE;
+			
+			if (exception instanceof MessagesException) {
+			    responseMessage.descriptions = getDescription(exception) ;
+            }
+			
 			if (responseMessage.descriptions == null || responseMessage.descriptions.isEmpty()) {
-				String descriptions = getDescription(exception) ;
-				if (descriptions.isEmpty()) {
-					descriptions = MessagesKeys.REQUEST_ERROR;
-				}
-				responseMessage.descriptions = descriptions;
+				responseMessage.descriptions = MessagesKeys.DEFAULT;
 			}
+			
 			responseMessage.results = null;
 			responseMessage.exception = exception.getClass().getName();
 		}

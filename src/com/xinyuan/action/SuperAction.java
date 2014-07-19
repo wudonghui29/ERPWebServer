@@ -1,6 +1,7 @@
 package com.xinyuan.action;
 
-import com.modules.Introspector.IntrospectHelper;
+import j2se.modules.Introspector.IntrospectHelper;
+
 import com.opensymphony.xwork2.Action;
 import com.xinyuan.Util.ActionHelper;
 import com.xinyuan.dao.SuperDAO;

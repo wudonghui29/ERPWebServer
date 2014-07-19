@@ -1,17 +1,19 @@
 package com.xinyuan.Util;
 
+import j2se.modules.Helper.CollectionHelper;
+import j2se.modules.Introspector.IntrospectHelper;
+import j2se.modules.Introspector.ObjectIntrospector;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.Global.SessionManager;
-import com.modules.Helper.CollectionHelper;
-import com.modules.Introspector.IntrospectHelper;
-import com.modules.Introspector.ObjectIntrospector;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.message.ConfigConstants;
+import com.xinyuan.message.MessagesException;
 import com.xinyuan.message.MessagesKeys;
 import com.xinyuan.model.BaseOrder;
 import com.xinyuan.model.IApp;
@@ -58,7 +60,7 @@ public class ApprovalsDAOHelper {
                         
                     } else {
                         
-                        throw new Exception(MessagesKeys.KEYS_PRE + "cannot." + appKey + MessagesKeys.CONNECTOR + MessagesKeys.KEYS_PRE + "because.without." + preAppKey );
+                        throw new MessagesException(MessagesKeys.KEYS_PRE + "cannot." + appKey + MessagesKeys.CONNECTOR + MessagesKeys.KEYS_PRE + "because.without." + preAppKey );
                         
                     }
                     
