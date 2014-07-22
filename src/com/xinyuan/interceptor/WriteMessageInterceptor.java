@@ -37,9 +37,7 @@ public class WriteMessageInterceptor extends AbstractInterceptor {
 		if (exception != null) {
 			responseMessage.status = ConfigConstants.STATUS_NEGATIVE;
 			
-			if (exception instanceof MessagesException) {
-			    responseMessage.descriptions = getDescription(exception) ;
-            }
+			responseMessage.descriptions = getDescription(exception) ;
 			
 			if (responseMessage.descriptions == null || responseMessage.descriptions.isEmpty()) {
 				responseMessage.descriptions = MessagesKeys.DEFAULT;

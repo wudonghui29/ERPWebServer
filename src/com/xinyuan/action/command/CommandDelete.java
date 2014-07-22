@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.xinyuan.Util.ApprovalsDAOHelper;
 import com.xinyuan.dao.SuperDAO;
+import com.xinyuan.message.MessagesException;
 import com.xinyuan.message.MessagesKeys;
 import com.xinyuan.model.BaseOrder;
 import com.xinyuan.model.IApp;
@@ -15,12 +16,11 @@ public class CommandDelete extends CommandAlter {
 	@Override
 	protected void handlePersistence(SuperDAO dao, Object model, Set<String> modelkeys, Object persistence) throws Exception {
 		dao.delete(persistence);
-		
 		MessagesKeys.getCurrentResponseMessage().descriptions = MessagesKeys.DEFAULT;
 		
 		// check if delete successfully
 		if (dao.readUnique(persistence, IntrospectHelper.getAllProperties(persistence)) != null) {
-		    throw new Exception();
+		    throw new MessagesException(MessagesKeys.DEFAULT);
 		}
 	}
 
