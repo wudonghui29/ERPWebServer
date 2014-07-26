@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
+import sun.misc.BASE64Decoder;
+
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.xinyuan.Util.GsonHelper;
@@ -25,7 +27,8 @@ public class JsonInterpretInterceptor extends AbstractInterceptor {
 		ActionBase baseAction = (ActionBase)invocation.getAction();
 		HttpServletRequest request = ServletActionContext.getRequest();
 		
-		String json = request.getParameter(ConfigJSON.JSON);
+		String jsonBase64 = request.getParameter(ConfigJSON.JSON);
+		String json = new String(new BASE64Decoder().decodeBuffer(jsonBase64));
 		DLog.log("Json String : " + json);
 		
 		RequestMessage requestMessage = GsonHelper.getGson().fromJson(json, RequestMessage.class);
