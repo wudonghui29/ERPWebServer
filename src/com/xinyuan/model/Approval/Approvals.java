@@ -1,11 +1,17 @@
 package com.xinyuan.model.Approval;
 
+import j2se.modules.Helper.MapHelper;
+
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.xinyuan.Util.GsonHelper;
 
 /**
  * User Pending approvals
@@ -38,8 +44,18 @@ public class Approvals implements Serializable {
 	public String getPendingApprovals() {
 		return pendingApprovals;
 	}
+	@SuppressWarnings("unchecked")
 	public void setPendingApprovals(String pendingApprovals) {
 		this.pendingApprovals = pendingApprovals;
+		
+		int count = 0 ;
+        Map<String, Map<String, Object>> pendingApprovalsMap = GsonHelper.getGson().fromJson(pendingApprovals, Map.class);
+		Map<String, Object> approvals = MapHelper.extractToOneDimensionMap(pendingApprovalsMap);
+		for(Map.Entry<String, Object> entry : approvals.entrySet()) {
+		    List<String> list = (List<String>)entry.getValue();
+		    count += list.size();
+		}
+		this.setPendingApprovalsCount(count);
 	}
 	
 	public int getPendingApprovalsCount() {

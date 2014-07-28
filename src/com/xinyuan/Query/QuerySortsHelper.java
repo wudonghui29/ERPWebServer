@@ -20,10 +20,25 @@ public class QuerySortsHelper {
 			int ascOrDescIndex = columnSorteString.lastIndexOf("."); // ["employeeNO", "DESC"]
 			
 			String column = columnSorteString.substring(0, ascOrDescIndex);
-			String ascOrDesc = columnSorteString.substring(ascOrDescIndex + 1) ;
+			String ascAndDescAndChar = columnSorteString.substring(ascOrDescIndex + 1) ;
+			String ascAndDesc = ascAndDescAndChar;
 			
-			orderByString += column.contains(".") ? column : alias + "." + column;
-			orderByString += " " + ascOrDesc;			// "Employee.employeeNO DESC"
+			int characterIndex = ascAndDescAndChar.lastIndexOf(":");
+			String character = null;
+			if (characterIndex != -1) {
+			    ascAndDesc = ascAndDescAndChar.substring(0 , characterIndex);
+			    character = ascAndDescAndChar.substring(characterIndex + 1);
+            }
+			
+			
+			String columnElement = column.contains(".") ? column : alias + "." + column;
+			columnElement = columnElement + " ";
+			
+			if (character != null) {
+			    columnElement = "convert(" + columnElement + "using " + character + ") ";
+			}
+			orderByString += columnElement;
+			orderByString += ascAndDesc;			// "Employee.employeeNO DESC"
 			
 			if (i != size-1) orderByString += ", "; 
 		}
