@@ -12,7 +12,6 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.action.ActionBase;
 import com.xinyuan.message.ConfigConstants;
-import com.xinyuan.message.MessagesException;
 import com.xinyuan.message.MessagesKeys;
 import com.xinyuan.message.ResponseMessage;
 

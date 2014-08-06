@@ -15,12 +15,14 @@ import org.hibernate.jdbc.Work;
 
 import com.Global.HibernateInitializer;
 import com.opensymphony.xwork2.Action;
+import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.Util.ParametersHelper;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.HumanResourceDAOIMP;
 import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.model.Approval.Approvals;
+import com.xinyuan.model.Setting.APPSettings;
 
 public class HumanResourceAction extends SuperAction {
 	private static final long serialVersionUID = 1L;
@@ -49,8 +51,24 @@ public class HumanResourceAction extends SuperAction {
 						while (tableResult.next()) {
 							String tableName = tableResult.getString("ATableName");
 							
+							int dayCount = 2 ; //default
+							HumanResourceDAOIMP daoimp = (HumanResourceDAOIMP)getDao();
+							APPSettings appSettings = (APPSettings)daoimp.getObject(APPSettings.class, "type", "ADMIN_APNS_TraceFilesDate");
+							String jsonString = appSettings.getSettings();
+							Map<String, Object> map = GsonHelper.translateJsonStringToMap(jsonString);
+							if (map != null) {
+							    Map<String, String> paraMap = (Map<String, String>)map.get("PARAMETERS");
+                                if (paraMap != null) {
+                                    String dayCountString = paraMap.get("KEYS.save.Day.count");
+                                    if (dayCountString != null) {
+                                        dayCount = Integer.valueOf(dayCountString);
+                                    }
+                                }
+                            }
+							
+							
 							Calendar cal = Calendar.getInstance();
-							cal.add(Calendar.DAY_OF_MONTH, -100);
+							cal.add(Calendar.DAY_OF_MONTH, -dayCount);
 							Date date = cal.getTime();
 							
 							SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
