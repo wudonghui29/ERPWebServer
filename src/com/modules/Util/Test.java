@@ -10,13 +10,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import javax.print.DocFlavor.STRING;
+
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.xinyuan.Util.AppModelsHelper;
 import com.xinyuan.Util.GsonHelper;
 import com.xinyuan.interceptor.PermissionInterceptor;
+import com.xinyuan.model.HumanResource.Employee;
+import com.xinyuan.model.HumanResource.EmployeeLeaveOrder;
 
 public class Test extends HashSet {
 
@@ -104,7 +109,7 @@ public class Test extends HashSet {
 	 }
 	 
 	 
-	 public static void main(String[] args) throws Exception {
+	 public static void mainAAAAA(String[] args) throws Exception {
 
 		 String base46String =  
 		 "GCqbwShexn94UVkgdQznFh6fTMaWtjv2PQiRlEeGZDVOh2+OrpPEYK8YMOgtGmYt" + "\r" +
@@ -123,5 +128,12 @@ public class Test extends HashSet {
 		 
 		 System.out.println();
 	}
+	 
+	 public static void main(String[] args) {
+        List<String> list = AppModelsHelper.getApprovalLevels(EmployeeLeaveOrder.class);
+        
+        
+        System.err.println();
+    }
 	 
 }

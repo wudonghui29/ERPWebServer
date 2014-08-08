@@ -6,6 +6,7 @@ import j2se.modules.Introspector.ObjectIntrospector;
 
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +47,40 @@ public class AppModelsHelper {
 		Map<String, Map<String, List<String>>> categoriesModelsMap = IntrospectHelper.translateToPropertiesMap(classesNamesList);
 		return categoriesModelsMap;
 	}
+	
+	public static List<String> getApprovalKeys(Object object) {
+        List<String> results = new ArrayList<String>();
+        if (object instanceof IApp1) {
+            results.add(ConfigConstants.APPROVAL_1);
+        } 
+        if (object instanceof IApp2) {
+            results.add(ConfigConstants.APPROVAL_2);
+        } 
+        if (object instanceof IApp3) {
+            results.add(ConfigConstants.APPROVAL_3);
+        }  
+        if (object instanceof IApp4) {
+            results.add(ConfigConstants.APPROVAL_4);
+        }
+        return results;
+    }
+	
+	public static List<String> getApprovalLevels(Class<?> clazz) {
+        List<String> results = new ArrayList<String>();
+        if (IApp1.class.isAssignableFrom(clazz)) {
+            results.add(ConfigConstants.APPROVAL_1);
+        } 
+        if (IApp2.class.isAssignableFrom(clazz)) {
+            results.add(ConfigConstants.APPROVAL_2);
+        } 
+        if (IApp3.class.isAssignableFrom(clazz)) {
+            results.add(ConfigConstants.APPROVAL_3);
+        } 
+        if (IApp4.class.isAssignableFrom(clazz)) {
+            results.add(ConfigConstants.APPROVAL_4);
+        }
+        return results;
+    }
 	
 	
 	public static String getFinalApprovalKey(Object object) {

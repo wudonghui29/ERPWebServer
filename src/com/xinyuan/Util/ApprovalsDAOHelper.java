@@ -28,7 +28,7 @@ interface Callable {
 public class ApprovalsDAOHelper {
 	
 	// add and delete pending approvals
-	public static void handlePendingApprovals(SuperDAO dao, String appKey, String forwardUsername, BaseOrder persistence ) throws Exception {
+	public static void handlePendingApprovals(SuperDAO dao, String appKey, String forwardUsername, BaseOrder persistence) throws Exception {
 		if (forwardUsername == null) return;
 		String signinedUser = ((User)SessionManager.get(ConfigConstants.SIGNIN_USER)).getUsername();
 		
