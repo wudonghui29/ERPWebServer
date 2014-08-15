@@ -1,5 +1,8 @@
 package com.xinyuan.model;
 
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public class BillApp1 extends BaseBill implements IApp1 {
 
 	private static final long serialVersionUID = 1L;
