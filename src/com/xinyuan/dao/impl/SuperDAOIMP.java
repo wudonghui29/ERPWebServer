@@ -30,7 +30,7 @@ public class SuperDAOIMP extends HibernateAbstractDAO implements SuperDAO {
 	private static final String k_LEFTJOIN = " LEFT JOIN ";
 	
 	private static final String K_SELECT_COUNT_ALL = "SELECT COUNT(*) ";
-	private static final String k_SELECT_FOUND_ROWS = "SELECT FOUND_ROWS()";
+	private static final String k_SELECT_FOUND_ROWS = "SELECT FOUND_ROWS()";           // Cause 'SQL_CALC_FOUND_ROWS' , this will ignore 'LIMIT' clause.
 	private static final String k_SELECT_SQL_CALC_FOUND_ROWS = "SELECT SQL_CALC_FOUND_ROWS ";
 	
 	

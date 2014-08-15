@@ -1,14 +1,11 @@
 package com.xinyuan.action.command.category;
 
-import j2se.modules.Helper.FileHelper;
-
 import com.xinyuan.Util.AppCryptoHelper;
 import com.xinyuan.Util.AppModelsHelper;
 import com.xinyuan.action.command.CommandApply;
 import com.xinyuan.dao.SuperDAO;
 import com.xinyuan.dao.impl.SuperDAOIMP;
 import com.xinyuan.dao.impl.UserDAOIMP;
-import com.xinyuan.message.ConfigConstants;
 import com.xinyuan.model.Approval.Approvals;
 import com.xinyuan.model.HumanResource.Employee;
 import com.xinyuan.model.HumanResource.EmployeeCHOrder;
@@ -35,7 +32,7 @@ public class HumanResourceCommandApply extends CommandApply {
 			user.setUsername(employeeNO);
 
 			// For test now
-			FileHelper.saveKeyValueToPropertiesFile( ConfigConstants.userInfomations_PropertiesPath, user.getId() + "", decryptPassword);
+//			FileHelper.saveKeyValueToPropertiesFile( ConfigConstants.userInfomations_PropertiesPath, user.getId() + "", decryptPassword);
 
 			// create approval
 			Approvals approval = new Approvals();
@@ -74,7 +71,7 @@ public class HumanResourceCommandApply extends CommandApply {
 				dao.modify(employeeCHOrder);
 				
 				// For test now
-				FileHelper.saveKeyValueToPropertiesFile(ConfigConstants.userInfomations_PropertiesPath, user.getId() + "", decryptPassword);
+//				FileHelper.saveKeyValueToPropertiesFile(ConfigConstants.userInfomations_PropertiesPath, user.getId() + "", decryptPassword);
 			}
 		}
 		

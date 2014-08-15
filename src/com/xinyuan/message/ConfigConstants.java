@@ -21,7 +21,7 @@ public class ConfigConstants {
 	public static String Apns_Certificate_Path = ".." + FS + "apnsDevelop.p12";
 	public static String RSA_PRIVATE_KEY_Path = ".." + FS + "pkcs8_private_key.pem";
 	public static String RSA_PUBLIC_KEY_Path = ".." + FS + "rsa_public_key.pem";
-	public static String userInfomations_PropertiesPath = ".." + FS + "userDevelop.properties";
+//	public static String userInfomations_PropertiesPath = ".." + FS + "userDevelop.properties";
 	
 	
 	public static String serialsNumber_PropertiesPath = "resources" + FS + "serials.properties";
@@ -42,7 +42,7 @@ public class ConfigConstants {
 		RSA_PRIVATE_KEY_Path = Context_Real_Path + RSA_PRIVATE_KEY_Path;
 		RSA_PUBLIC_KEY_Path = Context_Real_Path + RSA_PUBLIC_KEY_Path;
 		
-		userInfomations_PropertiesPath = Context_Real_Path + userInfomations_PropertiesPath;
+//		userInfomations_PropertiesPath = Context_Real_Path + userInfomations_PropertiesPath;
 		
 		serialsNumber_PropertiesPath = Context_Real_Path + serialsNumber_PropertiesPath;
 	}
