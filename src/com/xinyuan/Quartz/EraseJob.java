@@ -31,7 +31,7 @@ public class EraseJob implements Job {
 		
 		try {
 			
-			Map<String, Map<String, List<String>>> categoriesModelsMap = AppModelsHelper.getCategoriesModelsConstructs();
+		    Map<String, Map<String, Map<String, String>>> categoriesModelsMap = AppModelsHelper.getCategoriesModelsConstructs();
 			SuperDAO superDao = new SuperDAOIMP();
 			APPSettings settingPO = superDao.readUnique(APPSettings.class, APPSettings.COLUMN_TYPE, ConfigConstants.APPSettings_TYPE_ADMIN_ORDERSEXPIRATIONS);
 			

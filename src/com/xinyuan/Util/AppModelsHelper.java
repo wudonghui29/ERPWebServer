@@ -39,12 +39,12 @@ public class AppModelsHelper {
 	}
 	
 	
-	public static Map<String, Map<String, List<String>>> getCategoriesModelsConstructs() {
+	public static Map<String, Map<String, Map<String, String>>> getCategoriesModelsConstructs() {
 		// get the java class name list in specified package
 		List<String> classesNamesList = FileHelper.getClassesNames(ConfigConstants.Context_Classes_Path, ConfigConstants.MODELPACKAGE);
 		
 		// translate classes properties name to map
-		Map<String, Map<String, List<String>>> categoriesModelsMap = IntrospectHelper.translateToPropertiesMap(classesNamesList);
+		Map<String, Map<String, Map<String, String>>> categoriesModelsMap = IntrospectHelper.translateToPropertiesMap(classesNamesList);
 		return categoriesModelsMap;
 	}
 	

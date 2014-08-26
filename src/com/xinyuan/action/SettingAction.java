@@ -69,7 +69,7 @@ public class SettingAction extends ActionBase {
 		} 
 		
 		this.sendVerifyCode();
-		Map<String, Map<String, List<String>>> map = this.sendModelsStructures();
+		Map<String, Map<String, Map<String, String>>> map = this.sendModelsStructures();
 		responseMessage.results = map;
 		
 		responseMessage.status = ConfigConstants.STATUS_POSITIVE;
@@ -102,12 +102,12 @@ public class SettingAction extends ActionBase {
 		DLog.log(ConfigJSON.VERIFYCODE + " : " + verifyCode + " . " + imageBytes.length );
 	}
 	
-	private Map<String, Map<String, List<String>>> sendModelsStructures() {
+	private Map<String, Map<String, Map<String, String>>> sendModelsStructures() {
 		// For the first time connect , send the structures
 		String cookie = ServletActionContext.getRequest().getHeader("cookie");
 		if (cookie != null) return null;				// make sure it is the first connecteion
 		
-		Map<String, Map<String, List<String>>> categoriesModelsMap = AppModelsHelper.getCategoriesModelsConstructs();
+		Map<String, Map<String, Map<String, String>>> categoriesModelsMap = AppModelsHelper.getCategoriesModelsConstructs();
 		
 		// clear the CATEGORIE_APPROVAL contents 
 		categoriesModelsMap.get(ConfigConstants.CATEGORIE_APPROVAL).clear();
