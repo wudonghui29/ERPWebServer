@@ -137,18 +137,22 @@ public class WarehouseCommandApply extends CommandApply {
 				if (codeValue == null) continue;
 				else {
 					
-					float storageAmount = aBill.getStorageNum();
+					float storageAmount = aBill.getStorageNum();//进货数量
 					
 					WHInventory inventoryPO= (WHInventory)daoImp.getObject(WHInventory.class, "productCode", codeValue);
 					
-					float IVTotalAmount =  inventoryPO.getTotalAmount();
-					inventoryPO.setTotalAmount(IVTotalAmount + storageAmount);
+					float totalAmount =  inventoryPO.getTotalAmount();
+					float lendAmount = inventoryPO.getLendAmount();
+					float remainAmount = totalAmount - lendAmount;
 					
 					
-					float IVTotal = inventoryPO.getPriceBasicUnit() * IVTotalAmount;
-					float PHTotal = aBill.getStorageNum() * aBill.getStorageUnitPrice();
-					float UnitPrice = (IVTotal+PHTotal)/(IVTotalAmount + storageAmount);
-					inventoryPO.setPriceBasicUnit(UnitPrice);
+					float inventoryTotalPrice = inventoryPO.getPriceBasicUnit() * remainAmount;
+					float purchaseTotalPrice = storageAmount * aBill.getStorageUnitPrice();
+					float unitPrice = (inventoryTotalPrice+purchaseTotalPrice)/(totalAmount + storageAmount);
+					
+					
+					inventoryPO.setTotalAmount(totalAmount + storageAmount);
+					inventoryPO.setPriceBasicUnit(unitPrice);
 
 					dao.modify(inventoryPO);
 					
