@@ -19,6 +19,9 @@ public class ConfigConstants {
 	
 	
 	public static String Apns_Certificate_Path = ".." + FS + "apnsDevelop.p12";
+	public static final String APNS_CERTIFICATE_PASSWORD = "xinyuan123";
+	
+	
 	public static String RSA_PRIVATE_KEY_Path = ".." + FS + "pkcs8_private_key.pem";
 	public static String RSA_PUBLIC_KEY_Path = ".." + FS + "rsa_public_key.pem";
 //	public static String userInfomations_PropertiesPath = ".." + FS + "userDevelop.properties";
@@ -60,9 +63,8 @@ public class ConfigConstants {
 	
 	
 	
-	public static final boolean APNS_IN_PRODUCTION = false;			// TODO: in production , replace it with true
-	public static final String APNS_CERTIFICATE_PASSWORD = "12345";
 	
+	public static final boolean APNS_IN_PRODUCTION = false;			// TODO: in production , replace it with true
 	
 	
 	

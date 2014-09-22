@@ -34,6 +34,10 @@ apply pull request use hub (maintainer) :
 Add:
 
     svn add * --force
+    
+Add '.a' file for Mac os x:
+
+	svn add ./libs/ZBarLib/ZBarSDK/libzbar.a
 
 Update:
     
