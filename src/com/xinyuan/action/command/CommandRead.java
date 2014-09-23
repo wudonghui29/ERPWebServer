@@ -89,11 +89,11 @@ public class CommandRead implements Command {
 						for (int j = endJoinIndex; j >= i ; j--) {
 							models.remove(j);
 							modelsKeys.remove(j);
-							if (outterSorts != null) outterSorts.remove(j);
-							if (outterLimits != null) outterLimits.remove(j);
-							if (outterFields != null) outterFields.remove(j);
-							if (outterJoins != null) outterJoins.remove(j);
-							if (outterCriterials != null) outterCriterials.remove(j);
+							if (outterSorts != null && outterSorts.size() > j) outterSorts.remove(j);
+							if (outterLimits != null && outterLimits.size() > j) outterLimits.remove(j);
+							if (outterFields != null && outterFields.size() > j) outterFields.remove(j);
+							if (outterJoins != null && outterJoins.size() > j) outterJoins.remove(j);
+							if (outterCriterials != null && outterCriterials.size() > j) outterCriterials.remove(j);
 						}
 						
 						// add them to list for query
