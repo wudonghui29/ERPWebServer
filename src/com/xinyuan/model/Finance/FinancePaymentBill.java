@@ -17,6 +17,7 @@ public class FinancePaymentBill extends BaseBill {
 	private String referenceOrderNO;		// 单号
 	private String productName;				// 品名
 	
+	private float shouldPay;				// 应付金额 
 	private float realPaid;					// 实付金额
 
 	
@@ -50,6 +51,15 @@ public class FinancePaymentBill extends BaseBill {
 
 	public void setProductName(String productName) {
 		this.productName = productName;
+	}
+
+	
+	public float getShouldPay() {
+		return shouldPay;
+	}
+
+	public void setShouldPay(float shouldPay) {
+		this.shouldPay = shouldPay;
 	}
 
 	public float getRealPaid() {
